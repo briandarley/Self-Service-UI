@@ -1,0 +1,37 @@
+- Structuring App
+https://itnext.io/how-to-structure-a-vue-js-project-29e4ddc1aeeb
+
+- Vue Cli 
+https://cli.vuejs.org/
+
+- Flex cheat sheet
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+- Material Icons
+https://material.io/tools/icons/?style=baseline
+
+- FontAwesome Icons 
+https://fontawesome.com/icons?d=gallery
+
+- Menu Structure Ideas
+https://tympanus.net/codrops/2015/11/17/multi-level-menu/
+
+- Dashboard guide
+https://demos.creative-tim.com/material-dashboard/examples/dashboard.html?_ga=2.135897400.866644605.1550928917-747550277.1550928917
+
+- Animated Form Input
+https://codepen.io/leogono/pen/EPeVgz
+
+
+- Using templates to initialize app
+- Issue: I needed to initialize toaster in main, this is only possible when using a template
+- Fix: alter vue.config.js, add runtimeCompiler: true
+
+
+
+
+- git commands
+git remote add origin "https://github.com/briandarley/selfservice2.0"
+git push --set-upstream orgin master
+git pull
+

@@ -1,0 +1,61 @@
+
+
+
+.tabbed-control {
+  margin-top: 20px;
+  border-radius: 10px;
+  clear:both;
+  .nav {
+
+    background-color: $gray-100;
+
+  }
+
+  .nav-item {
+    background: lighten($carolina-blue, 20%);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding:8px;
+    cursor: pointer;
+    a {
+      color: #fff !important;
+
+      &:hover{
+        color: #fff;
+      }
+    }
+    &:hover{
+      background: $carolina-blue;
+    }
+    &.disabled{
+      background: $gray-500;
+      &:hover{
+        background: $gray-500;
+      } 
+      &.active{
+        background: $carolina-blue;  
+      }
+    }
+    &.active{
+      background: $carolina-blue;
+
+
+    }
+  }
+
+  .tab-content {
+    border: 1px solid $gray-200;
+  }
+
+  .alt {
+    background-color: #fff;
+  }
+}
+.fad-in{
+  animation: fadein 1.5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

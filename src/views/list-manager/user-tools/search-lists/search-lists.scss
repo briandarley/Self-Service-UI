@@ -1,0 +1,33 @@
+.search-results{
+    > div{
+        display:flex;
+        justify-content: space-between;
+        
+        line-height:38px;
+        &:nth-of-type(even){
+            background: $gray-100;
+        }
+        
+        span{
+            width:33%;
+        }
+        span:first-of-type{
+            width:20%;
+            
+        }
+        span:first-of-type{
+            font-weight: bold;
+            
+            
+        }
+        div{
+            margin-right:20px;
+            
+            
+        }
+        a:first-of-type{
+            margin:0 10px 0 10px;
+        }
+    }
+    
+}

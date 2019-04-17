@@ -1,0 +1,274 @@
+[
+
+    {
+        "id": 1,
+        "title": "Home",
+        "route": "home",
+        "name": "home",
+        "iconType": "material",
+        "iconConent": "home",
+        "component": "home/home.vue",
+        "parentRouteId": null,
+        "roles": []
+    },
+    {
+        "id": 2,
+        "title": "Dashboard",
+        "route": "dashboard",
+        "name": "dashboard",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "dashboard/dash-board.vue",
+        "parentRouteId": 1,
+        "roles": []
+    },
+    {
+        "id": 3,
+        "title": "List Manager",
+        "route": "list-manager",
+        "name": "listmanager",
+        "iconType": "material",
+        "iconConent": "list_alt",
+        "component": "list-manager/list-manager.vue",
+        "parentRouteId": 1,
+        "roles": []
+    },
+    {
+        "id": 4,
+        "title": "Mass Mail",
+        "route": "mass-mail",
+        "name": "massmail",
+        "iconType": "material",
+        "iconConent": "contact_mail",
+        "component": "mass-mail/mass-mail.vue",
+        "parentRouteId": 1,
+        "roles": []
+    },
+    {
+        "id": 5,
+        "title": "Win Tools",
+        "route": "win-tools",
+        "name": "wintools",
+        "iconType": "fontawesome",
+        "iconConent": "fa-windows",
+        "component": "win-tools/win-tools.vue",
+        "parentRouteId": 1,
+        "roles": []
+    },
+    {
+        "id": 6,
+        "title": "Office365 Groups",
+        "route": "office365-groups",
+        "name": "office365groups",
+        "iconType": "material",
+        "iconConent": "group",
+        "component": "office365-groups/office365-groups.vue",
+        "parentRouteId": 1,
+        "roles": []
+    },
+
+
+
+
+    {
+        "id": 7,
+        "title": "Email Sign-Up",
+        "route": "dashboard/email-signup",
+        "name": "emailsignup",
+        "iconType": "material",
+        "iconConent": "email",
+        "component": "dashboard/email-signup/email-signup.vue",
+        "parentRouteId": 2,
+        "roles": []
+    },
+    {
+        "id": 8,
+        "title": "Listserv Subscriptions",
+        "route": "dashboard/listserv-subscriptions",
+        "name": "listserv-subscriptions",
+        "iconType": "material",
+        "iconConent": "subscriptions",
+        "component": "dashboard/listserv-subscriptions/listserv-subscriptions.vue",
+        "parentRouteId": 2,
+        "roles": []
+    },
+    {
+        "id": 9,
+        "title": "My Aliases",
+        "route": "dashboard/my-aliases",
+        "name": "my-aliases",
+        "iconType": "fontawesome",
+        "iconConent": "fa-user-circle-o",
+        "component": "dashboard/my-aliases/my-aliases.vue",
+        "parentRouteId": 2,
+        "roles": []
+    },
+    {
+        "id": 10,
+        "title": "My AD Groups",
+        "route": "dashboard/my-ad-groups",
+        "name": "my-ad-groups",
+        "iconType": "material",
+        "iconConent": "group_work",
+        "component": "dashboard/my-ad-groups/my-ad-groups.vue",
+        "parentRouteId": 2,
+        "roles": []
+    },
+    {
+        "id": 11,
+        "title": "My Resources",
+        "route": "dashboard/my-resources",
+        "name": "my-resources",
+        "iconType": "fontawesome",
+        "iconConent": "fa-book",
+        "component": "home/home.vue",
+        "parentRouteId": 2,
+        "roles": []
+    },
+
+
+
+
+
+    {
+        "id": 12,
+        "title": "Log In",
+        "route": "list-manager/lyris-log-in",
+        "name": "lyris-log-in",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 3,
+        "roles": []
+    },
+    {
+        "id": 13,
+        "title": "Information",
+        "route": "list-manager/lyris-info",
+        "name": "lyris-info",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 3,
+        "roles": []
+    },
+    {
+        "id": 14,
+        "title": "User Tools",
+        "route": "list-manager/listserv-user-tools",
+        "name": "listserv-user-tools",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "list-manager/user-tools/user-tools.vue",
+        "parentRouteId": 3,
+        "roles": []
+    },
+    {
+        "id": 15,
+        "title": "Admin Tools",
+        "route": "list-manager/listserv-admin-tools",
+        "name": "listserv-admin-tools",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 3,
+        "roles": []
+    },
+    {
+        "id": 16,
+        "title": "Postmaster Tools",
+        "route": "list-manager/listserv-postmaster-tools",
+        "name": "listserv-postmaster-tools",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 3,
+        "roles": []
+    },
+    {
+        "id": 17,
+        "title": "Listserv Deletions",
+        "route": "list-manager/listserv-deletions",
+        "name": "listserv-deletions",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 3,
+        "roles": []
+    },
+    {
+        "id": 18,
+        "title": "Subscriber Dump",
+        "route": "list-manager/listserv-subscriber-dump",
+        "name": "listserv-subscriber-dump",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 3,
+        "roles": []
+    },
+
+
+    {
+        "id": 19,
+        "title": "Browse Lists",
+        "route": "list-manager/browse-lists",
+        "name": "browse-lists",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 14,
+        "roles": []
+    },
+    {
+        "id": 20,
+        "title": "Check Subscriptions",
+        "route": "list-manager/check-subscriptions",
+        "name": "check-subscriptions",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 14,
+        "roles": []
+    },
+    {
+        "id": 21,
+        "title": "Reset Passwords",
+        "route": "list-manager/reset-passwords",
+        "name": "reset-passwords",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 14,
+        "roles": []
+    },
+    {
+        "id": 22,
+        "title": "Search for Lists",
+        "route": "list-manager/search-for-lists",
+        "name": "search-for-lists",
+        "iconType": "material",
+        "iconConent": "dashboard",
+        "component": "Home",
+        "parentRouteId": 14,
+        "roles": []
+    },
+
+
+
+
+
+
+
+
+    {
+        "id": 99,
+        "route": "*",
+        "name": "404",
+        "component": "home/home.vue"
+
+
+    }
+
+
+]

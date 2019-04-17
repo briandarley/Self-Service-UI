@@ -1,0 +1,125 @@
+//@import "_chartist-settings.scss";
+//Carolina Colors
+//$carolina-blue: #4B9CD3 !default;
+//$link-blue: #007FAE !default;
+//$athletics-navy: #13294B !default;
+//$light-gray: #E1E1E1 !default;
+//$dark-gray: #767676 !default;
+
+$col1-lg-width: 260px;
+//
+// Color system
+//
+
+// stylelint-disable
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$light-gray: #E1E1E1 !default;
+$dark-gray: #767676 !default;
+
+
+
+/*$black: #000 !default;*/
+$black: #151515 !default;
+
+$grays: () !default;
+$grays: map-merge(( "100": $gray-100, "200": $gray-200, "300": $gray-300, "400": $gray-400, "500": $gray-500, "600": $gray-600, "700": $gray-700, "800": $gray-800, "900": $gray-900 ), $grays);
+
+$blue: #007bff !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green: #28a745 !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
+$carolina-blue: #4B9CD3 !default;
+$link-blue: #007FAE !default;
+$athletics-navy: #13294B !default;
+
+
+
+$colors: () !default;
+$colors: map-merge(( "blue": $blue, "indigo": $indigo, "purple": $purple, "pink": $pink, "red": $red, "orange": $orange, "yellow": $yellow, "green": $green, "teal": $teal, "cyan": $cyan, "white": $white, "carolina-blue": $carolina-blue, "athletics-navy": $athletics-navy, "link-blue": $link-blue, "gray": $gray-600, "gray-dark": $gray-800 ), $colors);
+
+$primary: $carolina-blue !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $link-blue !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+/*$dark: $gray-800 !default;*/
+$dark: $athletics-navy !default;
+
+
+$theme-colors: () !default;
+$theme-colors: map-merge(( "primary": $primary, "secondary": $secondary, "success": $success, "info": $info, "warning": $warning, "danger": $danger, "light": $light, "dark": $dark ), $theme-colors);
+// stylelint-enable
+
+// Set a specific jump point for requesting color jumps
+$theme-color-interval: 8% !default;
+
+// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
+$yiq-contrasted-threshold: 150 !default;
+
+// Customize the light and dark text colors for use in our YIQ color contrast function.
+$yiq-text-dark: $gray-900 !default;
+$yiq-text-light: $white !default;
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-caret: true !default;
+$enable-rounded: true !default;
+$enable-shadows: false !default;
+$enable-gradients: false !default;
+$enable-transitions: true !default;
+$enable-hover-media-query: false !default; // Deprecated, no longer affects any compiled CSS
+$enable-grid-classes: true !default;
+$enable-print-styles: true !default;
+
+
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the $spacers map, should you need more variation.
+
+// stylelint-disable
+$spacer: 1rem !default;
+$spacers: () !default;
+$spacers: map-merge(( 0: 0, 1: ($spacer * .25), 2: ($spacer * .5), 3: $spacer, 4: ($spacer * 1.5), 5: ($spacer * 3) ), $spacers);
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: () !default;
+$sizes: map-merge(( 25: 25%, 50: 50%, 75: 75%, 100: 100% ), $sizes);
+// stylelint-enable
+
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg: $gray-100 !default;
+$body-color: $gray-900 !default;
+
+// Links
+//
+// Style anchor elements.
+
+$link-color: $carolina-blue !default;
+$link-decoration: none !default;
+$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-decoration: underline !default;
+

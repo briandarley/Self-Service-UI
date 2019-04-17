@@ -1,0 +1,51 @@
+.card {
+  margin: 50px 0;
+  min-height: calc(100vh - 275px);
+}
+.simplebar-scrollbar {
+  width: 2px !important;
+}
+.card-body {
+  // display: flex;
+  // align-items: stretch;
+
+  .subscription-info {
+    
+
+    
+    span {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .list-container {
+      //height: 300px;
+      flex: 1;
+
+      margin: 0 0 20px;
+      
+    }
+    ul{
+      border: 1px solid $athletics-navy;
+    }
+    ul,
+    li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      
+      line-height: 34px;
+      padding: 0 0 0 20px;
+      &:nth-child(even) {
+        background: $gray-100;
+      }
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+}

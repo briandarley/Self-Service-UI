@@ -1,0 +1,14 @@
+<template>
+  <div class="top-header">
+    <div class="logo"></div>
+    <div class="site-title">
+      <div class="title-content">
+        <h2>ITS Workgroup Services</h2>
+        <h1>Self Service</h1>
+        <h3>Active Directory, Office365, HeelMail, Listserv, MassMail</h3>
+      </div>
+    </div>
+  </div>
+</template>
+<script src="./top-header.js"></script>
+<style lang="scss" src="./top-header.scss" scoped></style>

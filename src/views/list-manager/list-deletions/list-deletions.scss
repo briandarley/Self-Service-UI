@@ -1,0 +1,76 @@
+.row-header {
+  line-height: 40px;
+}
+
+.result-grid {
+  line-height: 40px;
+
+  &:nth-of-type(even) {
+    background: $gray-100;
+  }
+}
+
+.list-deletions-header,
+.list-deletions-rows {
+  display: grid;
+  grid-template-columns: 5fr repeat(3, 2fr) 1fr;
+}
+
+.col-number {
+  text-align: right;
+}
+
+.col-name {
+  min-width: 215px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  hyphens: auto;
+}
+
+.col-last {
+  display: flex;
+  justify-content: space-between;
+}
+
+.more-info {
+  margin-left: 10px;
+  border: 1px solid $gray-500;
+  border-radius: 5px;
+  padding: 2px 3px;
+}
+.more-info.expanded {
+  transform: rotate(-180deg);
+  transition: transform 150ms ease;
+}
+.more-info.collapsed {
+  transform: rotate(-360deg);
+  transition: transform 150ms ease;
+}
+
+.subscriber-dump {
+  grid-column: 1/6;
+  overflow: hidden;
+}
+
+.sdd-grid {
+  height: 200px;
+}
+.expand-enter-active {
+  transition: all 0.5s ease;
+  height: 242px;
+  overflow: hidden;
+  .sdd-grid {
+    overflow: hidden !important;
+  }
+}
+
+.expand-leave-active {
+  transition: all 0.5s ease;
+  height: 242px;
+}
+.expand-enter,
+.expand-leave-to {
+  height: 0;
+  opacity: 0;
+}

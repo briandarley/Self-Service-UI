@@ -1,0 +1,38 @@
+.row-header {
+    line-height: 40px;
+    margin-top: 20px;
+    display: flex;
+
+    div{
+        flex:1;
+        text-align: center;
+    }
+    :nth-child(1){
+        flex:2;
+    }
+    
+}
+.result-grid{
+    &:nth-child(even) {
+        background: $gray-100;
+      }
+      .e-mail{
+          margin-left: 20px;
+      }
+}
+.result-cols{
+    display:flex;
+    flex-flow: nowrap;
+    
+    
+    
+    div{
+        flex:1;
+        text-align: center;
+        line-height: 40px;
+    }
+    :nth-child(1){
+        flex:2;
+    }
+    
+}

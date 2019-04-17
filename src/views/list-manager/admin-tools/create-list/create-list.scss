@@ -1,0 +1,28 @@
+.radio-buttons{
+    padding:0;
+    margin-top:20px;
+    ul, li{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    ul{
+        display:flex;
+        flex-direction: row;
+        
+    }
+    li{
+        
+        display:inline-block;
+        :first-of-type{
+            margin-right:20px;
+        }
+    }
+
+}
+
+.tab-content {
+    // min-height: 500px;
+  }
+  
+  

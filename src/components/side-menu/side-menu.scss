@@ -1,0 +1,128 @@
+.reduce-text{
+  font-size: .8em;
+}
+.side-menu {
+  //full screen minus top header minus footer
+  //height: calc(100vh - 175px - 75px);
+  box-sizing: border-box;
+  z-index: 100;
+  box-shadow: 10px 5px 10px #888;
+  //border-left: 1px solid red;
+
+  //scrolling is done automatically by simplebar
+  //https://github.com/Grsmto/simplebar
+
+  user-select: none;
+  //prevent anoying accidental text selection
+
+  .side-menu-pager {
+    border-top: 1px solid lighten($color: $athletics-navy, $amount: 70%);
+    margin: 0 15px;
+
+    width: 230px;
+    height: 52px;
+    overflow: hidden;
+
+    ul {
+      padding-left: 0;
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+    }
+
+    ul li {
+      list-style: none;
+      padding-top: 10px;
+      display: flex;
+      color: $carolina-blue;
+
+      a {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+
+      i {
+        font-size: 0.7em;
+        line-height: 20px;
+        height: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      &:last-of-type {
+        i {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+
+    .nav-item {
+      display: list-item;
+      padding: 0;
+      margin-bottom: 10px;
+      border-radius: 3px;
+      cursor: pointer;
+
+      a {
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        color: $link-blue;
+        text-decoration: none;
+
+        i {
+          height: 30px;
+          width: 30px;
+          margin: 0;
+          margin-right: 10px;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          flex-direction: column;
+
+          &:last-of-type {
+            margin-right: 0px;
+          }
+
+          
+        }
+
+        p {
+          text-align: left;
+          margin: 0;
+          width: 130px;
+        }
+      }
+
+      &.has-children {
+      }
+
+      &:hover {
+        background: $gray-300;
+      }
+
+      &.active {
+        background: $carolina-blue;
+        box-shadow: 0 2px 5px #333;
+
+        a {
+          color: $white;
+        }
+      }
+
+      &:last-of-type {
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
+
