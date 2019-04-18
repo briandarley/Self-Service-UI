@@ -5,7 +5,7 @@ import "./app_root_dependencies";
 import router from "./router";
 import {VueRouter} from "./components/index.js";
 
-require("vue-toastr/src/vue-toastr.scss");
+//require("vue-toastr/src/vue-toastr.scss");
 const console = window.console;
 
 Vue.config.productionTip = false;
