@@ -186,6 +186,9 @@ function ExchangeToolsService(httpHandlerService) {
             try {
                 const handler = await httpHandlerService.get();
                 let list = await handler.get(`WinTools/exchange-tools/mfa/mfa-account-status/${uid}`);
+                if(list.data){
+                    list.data.disabled = !list.data.mfaEnabled;
+                }
                 return list.data;
 
             } catch (e) {
@@ -196,7 +199,39 @@ function ExchangeToolsService(httpHandlerService) {
                 }
                 throw e;
             }
+        },
+        async updateMfaAccountStatus(model){
+            try {
+                const handler = await httpHandlerService.get();
+                if(model.selectedMfaDate){
+                    let dates = model.selectedMfaDate.toString().split(" - ");
+                    
+                    if( dates.length > 1){
+                        model.mfaExemptBeginDate = dates[0];
+                        model.mfaExemptEndDate = dates[1];
+                    }
+                    else{
+                        model.mfaExemptBeginDate  = model.selectedMfaDate;
+                    }
+                    
+                }
+                model.uid = model.onyen;
+                
+                //reason and incidentNumber are already members of the model;
+
+                await handler.put(`WinTools/exchange-tools/mfa/mfa-account-status/${uid}`,model);
+                
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
         }
+
     }
 }
 

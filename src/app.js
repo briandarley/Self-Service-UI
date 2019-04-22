@@ -23,7 +23,7 @@ export default class App extends Vue {
     let $ = this.$;
     setTimeout(() => {
       new SimpleBar($(".app-section")[0],{ autoHide: false, height: "auto" });
-    }, 1000);
+    }, 2000);
   }
   
 }

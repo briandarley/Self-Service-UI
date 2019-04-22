@@ -1,0 +1,114 @@
+.date-picker{
+    display: flex;
+    flex-flow: row wrap ;
+    input {
+
+      width: calc(100% - 40px);
+    }
+    span{
+      //this is the calendar icon element
+      width: 40px;
+    }
+    span:nth-of-type(2){
+      //this is the validation error span
+      width: 100%;
+    }
+}
+.calendar-icon{
+    cursor: pointer;
+}
+.datepicker{
+    font-family: arial !important;
+    td{
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: normal;
+    }
+    th{
+        font-weight: 700;
+        color: rgb(33, 37, 41);
+        font-size: 12px;
+        padding: 4px;
+    }
+}
+
+ .datepicker table tr td{
+    &.active, &.active:hover, &.active:disabled, &.active:hover{
+     background-color: $carolina-blue !important;
+     background-image:none;
+     //background-image: linear-gradient(to bottom, $link-blue, $carolina-blue) !important;
+     border-color: $link-blue $link-blue $carolina-blue !important;
+ 
+ 
+    }
+  }
+ 
+  .datepicker table tr td.active
+  {
+   &:hover,&:hover:hover, &.disabled:hover,&.disabled:hover:hover,&:active,&:hover:active, &.disabled:active,&.disabled:hover:active,&.active, &:hover.active,&.disabled.active,&.disabled:hover.active, &.disabled,&:hover.disabled,&.disabled.disabled,  &.disabled:hover.disabled,&[disabled],&:hover[disabled],&.disabled[disabled],&.disabled:hover[disabled]{
+     background-color: $carolina-blue !important;
+   }
+ 
+ 
+  }
+  .datepicker table tr td.active{
+    &:active, &:hover:active, &.disabled:active, &.disabled:hover:active, &.active,&.active.active,&:hover.active,&.disabled.active,&.disabled:hover.active{
+     background-color: $carolina-blue \9 !important;
+    }
+  }
+  .datepicker table tr td span{
+    &.active,&.active:hover,&.active.disabled,&.active.disabled:hover{
+     background-color: $carolina-blue !important;
+     background-image:none;
+     //background-image: linear-gradient(to bottom, $carolina-blue, $link-blue) !important;
+     border-color: $link-blue $link-blue $carolina-blue !important;   
+    }
+  }
+  .datepicker table tr td span.active{
+   &:hover,
+   &:hover:hover,
+   &.disabled:hover,
+   &.disabled:hover:hover,
+   &:active,
+   &:hover:active,
+   &.disabled:active,
+   &.disabled:hover:active,
+   &.active,
+   &:hover.active,
+   &.disabled.active,
+   &.disabled:hover.active,
+   &.disabled,
+   &:hover.disabled,
+   &.disabled.disabled,
+   &.disabled:hover.disabled,
+   &[disabled],
+   &:hover[disabled],
+   &.disabled[disabled],
+   &.disabled:hover[disabled]{
+     background-color: $carolina-blue !important;
+   }
+  }
+ 
+ .datepicker table tr td span.active:active,
+ .datepicker table tr td span.active:hover:active,
+ .datepicker table tr td span.active.disabled:active,
+ .datepicker table tr td span.active.disabled:hover:active,
+ .datepicker table tr td span.active.active,
+ .datepicker table tr td span.active:hover.active,
+ .datepicker table tr td span.active.disabled.active,
+ .datepicker table tr td span.active.disabled:hover.active {
+   background-color: $carolina-blue \9 !important;
+ }
+ .datepicker{
+     color: $link-blue;
+ }
+ 
+ .daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: $carolina-blue;
+    border-color: transparent;
+    color: $white;
+  }
+  .daterangepicker .ranges li.active {
+    background-color:$link-blue;
+    color: $white;
+  }

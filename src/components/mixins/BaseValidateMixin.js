@@ -27,51 +27,248 @@ export default class BaseValidateMixin extends Vue {
     return this._getEmptyMissingRequiredFields(this.requiredFields);
   }
   clearValidation() {
+
     let $ = this.$;
 
     let refs = Object.keys(this.$refs);
 
     for (let i = 0; i < refs.length; i++) {
-      let $element = $(this.$refs[refs[i]]);
 
-      let data = $element.attr("data-validation");
-      let $form = null;
+      let refName = Object.keys(this.$refs)[i];
+      let ref = this.$refs[refName];
+      let isComponent = ref instanceof Vue;
+
+      let $element = isComponent ? ref : $(ref);
+
+      let validation = this._getDataValidation($element);
+
+      if (!validation) continue;
+
+
       let formErrorCleared = false;
-      if (data) {
 
-        data = data.replace(/'/g, '"');
-        let validation = JSON.parse(data);
-
-        if (!validation) continue;
-
-        if (!formErrorCleared) {
-          $form = $($($element).parents("form.validation-form")[0]);
-          $form.removeClass("form-error");
-          formErrorCleared = true;
-        }
-
-        let $validationError = $form.find(".validation-error");
-        $validationError.remove();
-        let currentRef = null;
-        let refs = Object.keys(this.$refs);
-        for (let i = 0; i < refs.length; i++) {
-          currentRef = this.$refs[refs[i]];
-          let $element = $(currentRef);
-          if (
-            $element[0].type === "checkbox" ||
-            ($element[0].tagName !== "INPUT" && $element[0].tagName !== "SELECT")
-          ) {
-            $($element[0])
-              .parent()
-              .removeClass("input-error");
-          } else {
-            $($element[0]).removeClass("input-error");
-          }
-
-        }
+      if (!formErrorCleared) {
+        this._clearFormError($element);
+        formErrorCleared = true;
       }
+
+      this._removeInputError($element);
+      
+
     }
   }
+
+  _getDataValidation(element) {
+    const $ = this.$;
+    let isComponent = element instanceof Vue;
+
+    let data = isComponent ? element.$attrs : $(element[0]).attr("data-validation");
+
+    if (!data) {
+      return null;
+    }
+    // if(!Object(data).keys){
+    //   return null;
+    // }
+
+    let validation = null;
+    if (isComponent && data instanceof Object && data["data-validation"]) {
+      validation = JSON.parse(data["data-validation"].toString().replace(/'/g, "\""));
+    } else if(!isComponent){
+      data = data.replace(/'/g, '"');
+      validation = JSON.parse(data);
+    }
+    return validation;
+
+  }
+
+  _getValue(element) {
+    let isComponent = element instanceof Vue;
+    let value = isComponent ? element.value : element.val();
+
+    if (isComponent) {
+      return value ? value.trim() : value;
+    }
+    const stdInputs = ["TEXTAREA","INPUT","SELECT"]
+    if(stdInputs.indexOf(element[0].tagName) === -1){
+      value = element.attr("model");
+    }
+    
+
+    return value;
+  }
+
+  _removeInputError(element) {
+    let $ = this.$;
+
+    let isComponent = element instanceof Vue;
+
+    let el = null;
+    if (isComponent) {
+      el = $(element.$el);
+    } else {
+      el = $(element)[0];
+    }
+
+
+
+    let $formGroup = null;
+    if (!isComponent) {
+      $formGroup = $(el.closest(".form-group"));
+      const stdInputs = ["TEXTAREA","INPUT","SELECT"]
+      let isStandInputs = stdInputs.indexOf(el.tagName) > -1;
+
+      if (el.type === "checkbox" || !isStandInputs) {
+        $(el)
+          .parent()
+          .removeClass("input-error");
+      } else {
+        $(el).removeClass("input-error");
+      }
+    } else {
+      $formGroup = $(el.find("input").closest(".form-group"))
+      el.find(".input-error").removeClass("input-error");
+    }
+    let $validationError = $formGroup.find(".validation-error");
+    $validationError.remove();
+  }
+  _setMaxLengthValidationError(validation, errors, value) {
+    let message = "";
+
+    if (validation.maxLength) {
+      if (value.length > validation.maxLength) {
+        message = "value too long";
+        if (validation.message) message = validation.message;
+        errors.push(validation.name + " " + message);
+      }
+    }
+
+    return message;
+
+  }
+  _setMinLengthValidationError(validation, errors, value) {
+    let message = "";
+
+    if (validation.minLength) {
+      if (value.length < validation.minLength) {
+        message = "value too short";
+        if (validation.message) message = validation.message;
+        errors.push(validation.name + " " + message);
+      }
+    }
+
+    return message;
+  }
+  _setMissingValueValidationError(validation, errors, value) {
+    let message = "";
+
+    if (!validation.minLength && !validation.maxLength) {
+      if (!value || !value.length || value === "false") {
+        message = "value required";
+        if (validation.message) message = validation.message;
+        errors.push(validation.name + " " + message);
+      }
+    }
+
+    return message;
+  }
+  _setRegExValidationError(validation, errors, value) {
+    let message = "";
+    if (validation.regex) {
+      let regex = new RegExp(validation.regex);
+      if (!regex.test(value)) {
+        message = "invalid characters";
+        if (validation.message) message = validation.message;
+        errors.push(validation.name + " " + message);
+      }
+    }
+    return message;
+  }
+  _setEmailValidationError(validation, errors, value) {
+    let message = "";
+
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    switch (validation.type) {
+      case "email":
+        if (!re.test(String(value).toLowerCase())) {
+          message = "invalid";
+          if (validation.message) message = validation.message;
+          errors.push(validation.name + " " + message);
+        }
+        break;
+    }
+
+    return message;
+  }
+  _clearFormError(element) {
+    const $ = this.$;
+
+    let isComponent = element instanceof Vue;
+
+    let el = null;
+    if (isComponent) {
+      el = $(element.$el);
+    } else {
+      el = $(element)[0];
+    }
+
+
+    let $form = $(el.closest("form.validation-form"));
+
+    $form.removeClass("form-error");
+
+    let $formGroup = $(el.closest(".form-group"));
+
+    let $validationError = $formGroup.find(".validation-error");
+    $validationError.remove();
+
+  }
+
+  _appendErrorIndicator(element, message) {
+    const $ = this.$;
+    let isComponent = element instanceof Vue;
+
+    let el = null;
+
+    if (isComponent) {
+      el = $(element.$el);
+    } else {
+      el = $(element)[0];
+    }
+
+
+
+    let $formGroup = null;
+    if (!isComponent) {
+      $formGroup = $(el.closest(".form-group"));
+      const stdInputs = ["TEXTAREA","INPUT","SELECT"]
+      let isStandInputs = stdInputs.indexOf(el.tagName) > -1;
+
+      if (el.type === "checkbox" || !isStandInputs) {
+        $(el)
+          .parent()
+          .addClass("input-error");
+      } else {
+        $(el).addClass("input-error");
+      }
+    } else {
+      $formGroup = $(el.find("input").closest(".form-group"))
+      el.find("input").addClass("input-error");
+    }
+    $formGroup.append(
+      `<span class="validation-error text-danger">${message}</span>`
+    );
+
+  }
+  _hasFormGroup(element) {
+    const $ = this.$;
+
+    let el = $(element instanceof Vue ? element.$el : element);
+    let $formGroup = $(el.closest(".form-group"));
+
+    return $formGroup.length > 0;
+  }
+
   validate() {
     try {
       let errors = [];
@@ -79,125 +276,53 @@ export default class BaseValidateMixin extends Vue {
 
       let refs = Object.keys(this.$refs);
       let formErrorCleared = false;
-      let $form = null;
+
       let currentRef = null;
       for (let i = 0; i < refs.length; i++) {
         currentRef = this.$refs[refs[i]];
-        let $element = $(currentRef);
+        let $element = currentRef instanceof Vue ? currentRef : $(currentRef);
 
         if (!formErrorCleared) {
-          $form = $($($element).parents("form.validation-form")[0]);
-          $form.removeClass("form-error");
+          this._clearFormError($element);
           formErrorCleared = true;
         }
 
-        let $formGroup = $($element.parents(".form-group")[0]);
+        let hasFormGroup = this._hasFormGroup(currentRef);
 
-        if (!$formGroup) {
+        if (!hasFormGroup) {
           continue;
         }
 
-        if (
-          $element[0].type === "checkbox" || ($element[0].tagName !== "INPUT" && $element[0].tagName !== "SELECT")
-        ) {
-          $($element[0])
-            .parent()
-            .removeClass("input-error");
-        } else {
-          $($element[0]).removeClass("input-error");
-        }
+        this._removeInputError($element);
 
-        let $validationError = $formGroup.find(".validation-error");
-        $validationError.remove();
-        //let test = $element.attr("data-test");
+        let validation = this._getDataValidation($element);
 
-        //let data = $element.attr("data-validation");
-        let data = $element.attr("data-validation");
-        if (data) {
-          //validation = JSON.parse(data);
-          data = data.replace(/'/g, '"');
-          let validation = JSON.parse(data);
+        if (!validation) continue;
 
-          if (!validation) continue;
-          let message = "";
-          let value = $element.val();
+        let value = this._getValue($element);
 
-          if (value) {
-            value = value.trim()
-          }
+        let messages = [];
 
-          if ($element[0].tagName !== "INPUT" && $element[0].tagName !== "SELECT") {
-            value = $element.attr("model");
-          }
 
-          if (validation.maxLength) {
-            if (value.length > validation.maxLength) {
-              message = "value too long";
-              if (validation.message) message = validation.message;
-              errors.push(validation.name + " " + message);
-            }
-          }
-          if (validation.minLength) {
-            if (value.length < validation.minLength) {
-              message = "value too short";
-              if (validation.message) message = validation.message;
-              errors.push(validation.name + " " + message);
-            }
-          }
-          if (!validation.minLength && !validation.maxLength) {
-            if (!value || !value.length || value === "false") {
-              message = "value required";
-              if (validation.message) message = validation.message;
-              errors.push(validation.name + " " + message);
-            }
-          }
-          
-          if (validation.regex) {
-            let regex = new RegExp(validation.regex);
-            if (!regex.test(value)) {
-              message = "invalid characters";
-              if (validation.message) message = validation.message;
-              errors.push(validation.name + " " + message);
-            }
-          }
+        messages.push(this._setMaxLengthValidationError(validation, errors, value));
+        messages.push(this._setMinLengthValidationError(validation, errors, value));
+        messages.push(this._setMissingValueValidationError(validation, errors, value));
+        messages.push(this._setRegExValidationError(validation, errors, value));
+        messages.push(this._setEmailValidationError(validation, errors, value));
 
-          const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          switch (validation.type) {
-            case "email":
-              if (!re.test(String(value).toLowerCase())) {
-                message = "invalid";
-                if (validation.message) message = validation.message;
-                errors.push(validation.name + " " + message);
-              }
-              break;
-          }
+        let hasError = messages.some(c => c.length);
+        if (!hasError) continue;
 
-          if (!message.length) continue;
+        let message = messages.filter(c => c.length).join()
+        this._appendErrorIndicator($element, message);
 
-          message = validation.name + " " + message;
+        let el = $($element instanceof Vue ? $element.el : $element);
+        const that = this;
+        el.focus(function () {
+          that._clearFormError(this);
+          that._removeInputError(this)
+        });
 
-          if (
-            $element[0].type === "checkbox" ||
-            ($element[0].tagName !== "INPUT" && $element[0].tagName !== "SELECT")
-          ) {
-            $($element[0])
-              .parent()
-              .addClass("input-error");
-          } else {
-            $($element[0]).addClass("input-error");
-          }
-          $formGroup.append(
-            `<span class="validation-error text-danger">${message}</span>`
-          );
-
-          $element.focus(function () {
-            let $form = $($(this).parents("form.validation-form")[0]);
-            $form.removeClass("form-error");
-
-            let $validationError = $formGroup.find(".validation-error");
-            $validationError.remove();
-          });
-        }
       }
 
       return errors;
