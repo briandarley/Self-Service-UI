@@ -26,7 +26,9 @@ export default class ToggleSwitch extends Vue {
   @Watch("checked", {immediate: false})
   onCheckChanged(newValue){
     if(newValue !== undefined){
-      this.$emit('checkChange',this.checked);
+         //Required because the desired syntax is ':selected-date.sync' 
+         //this syntax makes consuming the component simpler where the consumer doesn't have to trap the event explicitly.
+          this.$emit('update:value', this.checked);
     }
   }
   

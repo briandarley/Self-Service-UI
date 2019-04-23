@@ -20,24 +20,26 @@
       <button class="btn btn-secondary" @click="clear()">Clear</button>
     </div>
 
-    <div class="mfa-user-status-results" v-if="mfaAccountStatus">
+    <div class="mfa-user-status-results" v-if="mfaAccountStatus" :class="{'mb-5': mfaAccountStatus.mfaEnabled}">
       <div class="bg-primary text-white row-header">
         <div class="col">PID</div>
         <div class="col">Display Name</div>
-        <div class="col">MFA Enabled</div>
-        <div class="col">MFA Exempt Status</div>
+        <div class="col text-center">Enabled</div>
+        <div class="col" v-if="mfaExemptBeginDate">Exempt Begin</div>
+        <div class="col" v-if="mfaExemptEndDate">Exempt Expiry</div>
+        <div class="col">Status</div>
       </div>
       <div class="result-grid">
         <div class="col">{{mfaAccountStatus.pid}}</div>
         <div class="col">{{mfaAccountStatus.displayName}}</div>
-        <div class="col">{{mfaAccountStatus.mfaEnabled}}</div>
+        <div class="col text-center fa-2x">
+          <i class="fa fa-check text-primary" v-if="mfaAccountStatus.mfaEnabled"></i>
+          <i class="fa fa-times-circle-o text-warning" v-else></i>
+        </div>
+        <div class="col text-center" v-if="mfaExemptBeginDate">{{mfaExemptBeginDate}}</div>
+        <div class="col text-center" v-if="mfaExemptEndDate">{{mfaExemptEndDate}}</div>
         <div class="col">
-          <toggle-switch
-            class
-            @checkChange="mfaStatusChanged"
-            :value="!mfaAccountStatus.disabled"
-            :label="label"
-          ></toggle-switch>
+          <toggle-switch :value.sync="mfaAccountStatus.enabled" :label="label"></toggle-switch>
         </div>
       </div>
 
@@ -70,10 +72,11 @@
               <i class="fa fa-calendar-alt"></i>
             </div>
           </div>
-          <div 
-          class="mfa-end-date-pick-date" 
-          title="Select expiration date"
-          @click="showConfirmIndefiniteDlg()">
+          <div
+            class="mfa-end-date-pick-date"
+            title="Select expiration date"
+            @click="showConfirmIndefiniteDlg()"
+          >
             <span>Pick Date</span>
             <div>
               <i class="fa fa-calendar-check"></i>
@@ -144,7 +147,7 @@
         <button class="btn btn-secondary" @click="cancelMfaChange()">cancel</button>
       </div>
     </confirm-dialog>
-    <confirm-dialog id="confirmDateRange" ref="confirmDateRange" width="800" >
+    <confirm-dialog id="confirmDateRange" ref="confirmDateRange" width="800">
       <div slot="modal-title">Enable MFA Date (Date Range)</div>
       <div slot="modal-body" v-if="showConfirmDateRange">
         <div class="container">
@@ -213,7 +216,7 @@
         <button class="btn btn-secondary" @click="cancelMfaChange()">cancel</button>
       </div>
     </confirm-dialog>
-    <confirm-dialog id="confirmIndefinite" ref="confirmIndefinite" width="800" >
+    <confirm-dialog id="confirmIndefinite" ref="confirmIndefinite" width="800">
       <div slot="modal-title">Enable MFA Date</div>
       <div slot="modal-body" v-if="showConfirmIndefinite">
         <div class="container">
@@ -229,10 +232,7 @@
           <form @submit.prevent.prevent class="container validation-form" autocomplete="off">
             <div class="form-group">
               <label>Exempt End Date</label>
-              <date-picker
-                :selected-date.sync="model.selectedMfaDate"
-                minDate="today"
-              ></date-picker>
+              <date-picker :selected-date.sync="model.selectedMfaDate" minDate="today"></date-picker>
             </div>
             <div class="form-group">
               <label for="txtIncidentNumber">Incident Number</label>
@@ -268,6 +268,27 @@
       </div>
       <div slot="modal-footer">
         <button class="btn btn-primary" @click="submitMfaChange()">yes</button>
+        <button class="btn btn-secondary" @click="cancelMfaChange()">cancel</button>
+      </div>
+    </confirm-dialog>
+    <confirm-dialog id="confirmEnableMfa" ref="confirmEnableMfa">
+      <div slot="modal-title">Enable MFA</div>
+      <div slot="modal-body">
+        <div class="container" v-if="showConfirmEnableMfa">
+          <div class="alert alert-info p-10">
+            <div class="info">
+              <i class="fa fa-exclamation-triangle"></i>
+            </div>
+            <p
+              class="mt-3 mb-4"
+            >Would you like to Enable MFA for {{this.mfaAccountStatus.displayName}} at this time?</p>
+          </div>
+
+          <br>
+        </div>
+      </div>
+      <div slot="modal-footer">
+        <button class="btn btn-primary" @click="enableMfa()">yes</button>
         <button class="btn btn-secondary" @click="cancelMfaChange()">cancel</button>
       </div>
     </confirm-dialog>

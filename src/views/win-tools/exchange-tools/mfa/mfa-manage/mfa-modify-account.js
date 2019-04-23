@@ -1,7 +1,8 @@
 // eslint-disable-next-line
 import Vue from "vue"
 import {
-  Component
+  Component,
+  Watch
 } from "vue-property-decorator";
 import {
   BaseValidateMixin
@@ -17,6 +18,7 @@ export default class MfaModifyAccount extends BaseValidateMixin {
   showConfirm7day = false;
   showConfirmDateRange = false;
   showConfirmIndefinite = false;
+  showConfirmEnableMfa = false;
   mfaRequireExemptionPeriod = false;
   model = {
     selectedMfaDate: null,
@@ -25,6 +27,33 @@ export default class MfaModifyAccount extends BaseValidateMixin {
     incidentNumber: null
   };
   test = null;
+  @Watch("mfaAccountStatus", {
+    immediate: false,
+    deep: true
+  })
+  onMfaAccountStatusChanged(newValue, oldValue) {
+    if (!oldValue || !newValue) return;
+    this.mfaStatusChanged(newValue.enabled);
+    if(newValue.enabled){
+      this.showConfirmEnableMfa = true;
+      this.$refs.confirmEnableMfa.show();
+    }
+  }
+get mfaExemptBeginDate(){
+  let model = this.mfaAccountStatus;
+  if(!model) return null;
+  if(!model.mfaExemptBeginDate) return null;
+  return this.$options.filters.formatDate(model.mfaExemptBeginDate)
+
+}
+get mfaExemptEndDate(){
+  let model = this.mfaAccountStatus;
+  if(!model) return null;
+  if(!model.mfaExemptEndDate) return null;
+  return this.$options.filters.formatDate(model.mfaExemptEndDate)
+
+}
+
   showConfirm7Day() {
     this.showConfirm7day = true;
     this.$refs.confirm7day.show();
@@ -39,14 +68,16 @@ export default class MfaModifyAccount extends BaseValidateMixin {
     this.model.selectedMfaDate = null
     this.$refs.confirmIndefinite.show();
   }
+  //Sets the default date 7 days from today
   get default7Days() {
     let d = new Date();
     d.setDate(d.getDate() + 7);
     return d.toLocaleDateString('en-US');
   }
+  //Sets label for the switch to either 'Enable' or 'Disabled'
   get label() {
     if (!this.mfaAccountStatus) return "";
-    if (this.mfaAccountStatus.disabled) return "Disabled";
+    if (!this.mfaAccountStatus.enabled) return "Disabled";
     return "Enabled";
   }
   async mounted() {
@@ -57,8 +88,7 @@ export default class MfaModifyAccount extends BaseValidateMixin {
   }
   mfaStatusChanged(newValue) {
     if (!this.mfaAccountStatus) return;
-
-    this.mfaAccountStatus.disabled = !newValue;
+    
     this.mfaRequireExemptionPeriod = !newValue;
 
   }
@@ -66,8 +96,12 @@ export default class MfaModifyAccount extends BaseValidateMixin {
     this.mfaAccountStatus = null;
     this.spinnerService.show();
     try {
-      this.mfaAccountStatus = await this.ExchangeToolsService.getMfaAccountStatus(this.filter);
-
+      let response = await this.ExchangeToolsService.getMfaAccountStatus(this.filter);
+      if(response.mfaExemptBeginDate || response.mfaExemptEndDate)
+      {
+        response.enabled = false;
+      }
+      this.mfaAccountStatus  = response;
 
     } catch (e) {
       window.console.log(e);
@@ -78,6 +112,10 @@ export default class MfaModifyAccount extends BaseValidateMixin {
 
   }
   reCreateModel() {
+    //Issue we can simply define our model like...
+    /*
+      model = {};
+    */
     //https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
     //we have to define our model before create, we can't add properties after binding because Vue can't handle it. 
     //There are workarounds such as using Vue.set but it's not very clean IMO 
@@ -105,7 +143,7 @@ export default class MfaModifyAccount extends BaseValidateMixin {
     this.showConfirm7day = false;
     this.showConfirmDateRange = false;
     this.showConfirmIndefinite = false;
-
+    this.showConfirmEnableMfa = false;
     let d = new Date();
     d.setDate(d.getDate() + 7);
     this.model.selectedMfaDate = moment(d, "MM/DD/YYYY").format("MM/DD/YYYY");
@@ -116,6 +154,7 @@ export default class MfaModifyAccount extends BaseValidateMixin {
     this.spinnerService.show();
     try {
       await this.ExchangeToolsService.updateMfaAccountStatus(this.model);
+      await this.search();
       return true;
     } catch (e) {
       window.console.log(e);
@@ -136,17 +175,17 @@ export default class MfaModifyAccount extends BaseValidateMixin {
     } else {
       this.model.onyen = this.filter;
       let success = await this.saveChanges();
-      
+
       if (success) {
         this.toastService.success("success");
-        this.cancelMfaChange();  
+        this.cancelMfaChange();
       }
-      
-      
-      
+
+
+
     }
 
-    
+
 
   }
   cancelMfaChange() {
@@ -163,6 +202,19 @@ export default class MfaModifyAccount extends BaseValidateMixin {
     this.showConfirm7day = false;
     this.showConfirmDateRange = false;
     this.showConfirmIndefinite = false;
+    this.showConfirmEnableMfa = false;
     this.clearValidation();
+  }
+  async enableMfa(){
+    this.model.selectedMfaDate = null;
+    this.model.reason = null;
+    this.model.enabled = true;
+    this.model.onyen = this.filter;
+    
+    this.showConfirmEnableMfa = false;
+    await this.submitMfaChange();
+    //at the moment we won't refresh the view with another search
+    //as the process is added to the queue and is likely not yet updated 
+    //await this.search();
   }
 }

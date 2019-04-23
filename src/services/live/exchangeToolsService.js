@@ -187,7 +187,7 @@ function ExchangeToolsService(httpHandlerService) {
                 const handler = await httpHandlerService.get();
                 let list = await handler.get(`WinTools/exchange-tools/mfa/mfa-account-status/${uid}`);
                 if(list.data){
-                    list.data.disabled = !list.data.mfaEnabled;
+                    list.data.enabled = list.data.mfaEnabled;
                 }
                 return list.data;
 
@@ -203,6 +203,7 @@ function ExchangeToolsService(httpHandlerService) {
         async updateMfaAccountStatus(model){
             try {
                 const handler = await httpHandlerService.get();
+                model.mfaEnabled = model.enabled;
                 if(model.selectedMfaDate){
                     let dates = model.selectedMfaDate.toString().split(" - ");
                     
@@ -211,15 +212,15 @@ function ExchangeToolsService(httpHandlerService) {
                         model.mfaExemptEndDate = dates[1];
                     }
                     else{
-                        model.mfaExemptBeginDate  = model.selectedMfaDate;
+                        model.mfaExemptEndDate  = model.selectedMfaDate;
                     }
                     
                 }
+                
                 model.uid = model.onyen;
                 
                 //reason and incidentNumber are already members of the model;
-
-                await handler.put(`WinTools/exchange-tools/mfa/mfa-account-status/${uid}`,model);
+                await handler.put(`WinTools/exchange-tools/mfa/mfa-account-status/${model.uid}`,model);
                 
 
             } catch (e) {
