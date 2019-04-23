@@ -15,7 +15,7 @@
               <!-- <mfa-modify-account></mfa-modify-account> -->
             </tabbed-item>
             <tabbed-item slot="tab_1">
-              <h1>Disabled Accounts</h1>
+              <mfa-disabled-accounts></mfa-disabled-accounts>
             </tabbed-item>
           </tabbed-control>
         </div>

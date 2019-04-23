@@ -298,10 +298,7 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
     background: $gray-100;
   }
 }
-.row-header {
-  line-height: 40px;
-  margin-top: 10px;
-}
+
 
 ul.search-links,
 ul.search-links li {

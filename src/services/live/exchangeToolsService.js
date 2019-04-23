@@ -1,6 +1,6 @@
 import injector from 'vue-inject';
 
-function ExchangeToolsService(httpHandlerService) {
+function ExchangeToolsService(httpHandlerService,commonExtensions) {
     return {
         async getProvisionHistory(uid) {
             try {
@@ -231,9 +231,27 @@ function ExchangeToolsService(httpHandlerService) {
                 }
                 throw e;
             }
+        },
+        async getMfaDisabledRecords(criteria){
+            try {
+                let queryParams = commonExtensions.convertToQueryParams(criteria);
+
+                const handler = await httpHandlerService.get();
+                let list = await handler.get(`WinTools/exchange-tools/mfa/mfa-account-status?${queryParams}`);
+                
+                return list.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
         }
 
     }
 }
 
-injector.service('ExchangeToolsService', ["httpHandlerService"], ExchangeToolsService);
+injector.service('ExchangeToolsService', ["httpHandlerService","CommonExtensions"], ExchangeToolsService);

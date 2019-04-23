@@ -74,13 +74,13 @@ export default class Pager extends Vue {
     let startIndex = 1;
 
     if (index >= btnCount) {
-      lowerIndex = Math.floor(index / btnCount);
+      lowerIndex = Math.ceil(index / btnCount);
       startIndex = ((lowerIndex * btnCount) + 1);
     }
 
     for (let i = startIndex; i < (startIndex + btnCount); i++) {
 
-      if (i < Math.floor(this.totalRecords / btnCount)) {
+      if (i < Math.ceil(this.totalRecords / btnCount)) {
         this.buttons.push(i);
       }
 

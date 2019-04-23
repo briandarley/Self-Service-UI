@@ -15,11 +15,11 @@
       <label for>Search</label>
       <input type="text" class="form-control" v-select-all placeholder="onyen" v-model="filter">
     </div>
-    <div class="submit text-right">
+    <div class="submit text-right" :class="{'mb-5': !mfaAccountStatus}">
       <button class="btn btn-primary mr-1" @click="search()">Search</button>
       <button class="btn btn-secondary" @click="clear()">Clear</button>
     </div>
-
+    <transition name="fade">
     <div class="mfa-user-status-results" v-if="mfaAccountStatus" :class="{'mb-5': mfaAccountStatus.mfaEnabled}">
       <div class="bg-primary text-white row-header">
         <div class="col">PID</div>
@@ -85,7 +85,7 @@
         </div>
       </div>
     </div>
-
+    </transition>
     <confirm-dialog id="confirm7day" ref="confirm7day" width="800">
       <div slot="modal-title">Enable MFA Date</div>
       <div slot="modal-body" v-if="showConfirm7day">
@@ -289,7 +289,7 @@
       </div>
       <div slot="modal-footer">
         <button class="btn btn-primary" @click="enableMfa()">yes</button>
-        <button class="btn btn-secondary" @click="cancelMfaChange()">cancel</button>
+        <button class="btn btn-secondary" @click="cancelEnableMfa()">cancel</button>
       </div>
     </confirm-dialog>
   </div>

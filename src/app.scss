@@ -144,7 +144,7 @@ input::placeholder{
   input {
     border-radius: 0;
     top: 0;
-    width:50px;
+    //width:50px;
   }
 
 }
@@ -212,7 +212,23 @@ input::placeholder{
   color: $carolina-blue;
 }
 
+.row-header {
+  line-height: 40px;
 
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+}
+
+.result-grid {
+  line-height: 40px;
+
+  &:nth-of-type(even) {
+    background: $gray-100;
+  }
+}
 
 
 .info {

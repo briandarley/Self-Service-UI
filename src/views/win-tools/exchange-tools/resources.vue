@@ -98,11 +98,8 @@ export default class Resources extends Vue {
 </script>
 <style lang="scss" scoped>
 .row-header {
-  line-height: 40px;
+ 
   margin-top: 20px;
 }
-.result-grid:nth-of-type(even) {
-  background: $gray-100;
-  line-height: 40px;
-}
+
 </style>

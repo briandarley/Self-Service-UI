@@ -1,0 +1,58 @@
+.row-header{
+    div{
+        flex:1;
+        &:nth-of-type(2){
+            flex:2;
+        }
+        &:nth-of-type(5){
+            flex:0;
+       }
+    }
+}
+.result-grid {
+    display: block;
+
+    div label {
+        margin-right: 10px;
+    }
+
+    >div:first-child {
+        display: flex;
+
+        div{
+            flex:1;
+            
+            &:nth-of-type(2){
+                flex:2;
+            }
+            &:nth-of-type(5){
+                flex:0;
+           }
+        }
+    }
+
+
+}
+.reason{
+    line-height: 20px;
+    margin:10px 0 10px;
+    padding-bottom: 20px;
+    
+    span,label{
+        line-height: 20px;
+    }
+    label{
+        line-height: 10px;
+    }
+}
+.incident-change-user {
+    display: flex;
+    justify-content: space-between;
+    
+    div {
+    
+        flex: 1;
+    }
+    
+
+}

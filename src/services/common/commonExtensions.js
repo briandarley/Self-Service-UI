@@ -3,7 +3,9 @@ import injector from 'vue-inject';
 function CommonExtensions() {
     return {
         convertToQueryParams(criteria) {
-            let params = Object.keys(criteria).map(c => {
+            let params = Object.keys(criteria)
+            .filter(c=> criteria[c] != null)
+            .map(c => {
                 return `${c}=${criteria[c]}`
             })
 

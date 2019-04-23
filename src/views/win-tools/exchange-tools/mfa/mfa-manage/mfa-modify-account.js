@@ -154,7 +154,7 @@ get mfaExemptEndDate(){
     this.spinnerService.show();
     try {
       await this.ExchangeToolsService.updateMfaAccountStatus(this.model);
-      await this.search();
+      //await this.search();
       return true;
     } catch (e) {
       window.console.log(e);
@@ -170,7 +170,7 @@ get mfaExemptEndDate(){
 
     if (errors.length) {
       this.toastService.error(errors.join("<br/>"));
-      //this.$refs.validationModal.show();
+      
       return;
     } else {
       this.model.onyen = this.filter;
@@ -194,7 +194,7 @@ get mfaExemptEndDate(){
     d.setDate(d.getDate() + 7);
     this.reCreateModel();
     this.model.selectedMfaDate = moment(d, "MM/DD/YYYY").format("MM/DD/YYYY");
-    //Vue.set(this.model, 'selectedMfaDate', moment(d, "MM/DD/YYYY").format("MM/DD/YYYY"));
+    
     this.$refs.confirm7day.hide();
     this.$refs.confirmDateRange.hide();
     this.$refs.confirmIndefinite.hide();
@@ -205,6 +205,11 @@ get mfaExemptEndDate(){
     this.showConfirmEnableMfa = false;
     this.clearValidation();
   }
+  cancelEnableMfa(){
+    
+    this.mfaAccountStatus.enabled = false;
+    this.cancelMfaChange();
+  }
   async enableMfa(){
     this.model.selectedMfaDate = null;
     this.model.reason = null;
@@ -213,8 +218,6 @@ get mfaExemptEndDate(){
     
     this.showConfirmEnableMfa = false;
     await this.submitMfaChange();
-    //at the moment we won't refresh the view with another search
-    //as the process is added to the queue and is likely not yet updated 
-    //await this.search();
+    
   }
 }
