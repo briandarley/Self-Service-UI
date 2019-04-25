@@ -6,3 +6,4 @@ import './userService';
 import '../common/validationService';
 import '../live/index';
 import './commonExtensions';
+import './eventBus';

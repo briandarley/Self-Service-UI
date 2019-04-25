@@ -52,6 +52,7 @@ export default class TabbedControl extends Vue {
     });
     const item = this.items.find(c => c.index === index);
     item.active = true;
+    this.$emit("tabChange", item);
   }
 
   mounted() {

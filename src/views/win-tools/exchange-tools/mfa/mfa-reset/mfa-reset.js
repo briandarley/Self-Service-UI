@@ -9,11 +9,15 @@ import { Component } from "vue-property-decorator";
   })
 
 export default class MfaReset extends Vue {
+  filter = "";
   async mounted() { 
     this.toastService.set(this);
   }
-  async created(){
-     //called before child views are mounted
+  search(){
+
+  }
+  clear(){
+    
   }
 }
 

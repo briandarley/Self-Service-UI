@@ -20,6 +20,7 @@ export default class MfaModifyAccount extends BaseValidateMixin {
   showConfirmIndefinite = false;
   showConfirmEnableMfa = false;
   mfaRequireExemptionPeriod = false;
+  mfaMethodType = null;
   model = {
     selectedMfaDate: null,
     onyen: null,
@@ -80,6 +81,12 @@ get mfaExemptEndDate(){
     if (!this.mfaAccountStatus.enabled) return "Disabled";
     return "Enabled";
   }
+  get hasMfaMethod(){
+    if(!this.mfaMethodType) return false;
+    return this.mfaMethodType.methodType ||
+    this.mfaMethodType.phoneNumber ||
+    this.mfaMethodType.deviceName;
+  }
   async mounted() {
     this.toastService.set(this);
 
@@ -96,7 +103,14 @@ get mfaExemptEndDate(){
     this.mfaAccountStatus = null;
     this.spinnerService.show();
     try {
+      
       let response = await this.ExchangeToolsService.getMfaAccountStatus(this.filter);
+      this.mfaMethodType = await this.ExchangeToolsService.getMfaMethodType(this.filter);
+      
+      if(response.status == false){
+        throw "Failed to retrieve MFA account status";
+      }
+
       if(response.mfaExemptBeginDate || response.mfaExemptEndDate)
       {
         response.enabled = false;
@@ -136,6 +150,7 @@ get mfaExemptEndDate(){
   }
   clear() {
     const moment = this.moment;
+    this.mfaMethodType = null;
     this.reCreateModel();
     this.filter = "";
     this.mfaAccountStatus = null;
@@ -154,7 +169,7 @@ get mfaExemptEndDate(){
     this.spinnerService.show();
     try {
       await this.ExchangeToolsService.updateMfaAccountStatus(this.model);
-      //await this.search();
+      
       return true;
     } catch (e) {
       window.console.log(e);

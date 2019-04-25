@@ -9,13 +9,13 @@
       </div>
       <div class="card-body">
         <div class="container">
-          <tabbed-control tabs="Modify Account,Disabled Accounts">
+          <tabbed-control tabs="Modify Account,Disabled Accounts" @tabChange="tabChanged">
             <tabbed-item slot="tab_0">
-              <mfa-modify-account></mfa-modify-account>
+              <mfa-modify-account ref="mfaModifyAccount"></mfa-modify-account>
               <!-- <mfa-modify-account></mfa-modify-account> -->
             </tabbed-item>
             <tabbed-item slot="tab_1">
-              <mfa-disabled-accounts></mfa-disabled-accounts>
+              <mfa-disabled-accounts ref="mfaDisabledAccounts"></mfa-disabled-accounts>
             </tabbed-item>
           </tabbed-control>
         </div>

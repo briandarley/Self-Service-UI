@@ -20,71 +20,92 @@
       <button class="btn btn-secondary" @click="clear()">Clear</button>
     </div>
     <transition name="fade">
-    <div class="mfa-user-status-results" v-if="mfaAccountStatus" :class="{'mb-5': mfaAccountStatus.mfaEnabled}">
-      <div class="bg-primary text-white row-header">
-        <div class="col">PID</div>
-        <div class="col">Display Name</div>
-        <div class="col text-center">Enabled</div>
-        <div class="col" v-if="mfaExemptBeginDate">Exempt Begin</div>
-        <div class="col" v-if="mfaExemptEndDate">Exempt Expiry</div>
-        <div class="col">Status</div>
-      </div>
-      <div class="result-grid">
-        <div class="col">{{mfaAccountStatus.pid}}</div>
-        <div class="col">{{mfaAccountStatus.displayName}}</div>
-        <div class="col text-center fa-2x">
-          <i class="fa fa-check text-primary" v-if="mfaAccountStatus.mfaEnabled"></i>
-          <i class="fa fa-times-circle-o text-warning" v-else></i>
-        </div>
-        <div class="col text-center" v-if="mfaExemptBeginDate">{{mfaExemptBeginDate}}</div>
-        <div class="col text-center" v-if="mfaExemptEndDate">{{mfaExemptEndDate}}</div>
-        <div class="col">
-          <toggle-switch :value.sync="mfaAccountStatus.enabled" :label="label"></toggle-switch>
-        </div>
-      </div>
-
       <div
-        class="mfa-end-date text-primary my-5 border border-primary"
-        v-if="mfaRequireExemptionPeriod"
+        class="mfa-user-status-results"
+        v-if="mfaAccountStatus"
+        :class="{'mb-5': mfaAccountStatus.mfaEnabled}"
       >
-        <div class="alert alert-info">
-          <h4 class="text-center">Select MFA exemption period</h4>
+        <div class="bg-primary text-white row-header">
+          <div class="col">PID</div>
+          <div class="col">Display Name</div>
+          <div class="col text-center">Enabled</div>
+          <div class="col" v-if="mfaExemptBeginDate">Exempt Begin</div>
+          <div class="col" v-if="mfaExemptEndDate">Exempt Expiry</div>
+          <div class="col">Status</div>
+        </div>
+        <div class="result-grid">
+          <div class="row">
+            <div class="col">{{mfaAccountStatus.pid}}</div>
+            <div class="col">{{mfaAccountStatus.displayName}}</div>
+            <div class="col text-center fa-2x">
+              <i class="fa fa-check text-primary" v-if="mfaAccountStatus.mfaEnabled"></i>
+              <i class="fa fa-times-circle-o text-warning" v-else></i>
+            </div>
+            <div class="col text-center" v-if="mfaExemptBeginDate">{{mfaExemptBeginDate}}</div>
+            <div class="col text-center" v-if="mfaExemptEndDate">{{mfaExemptEndDate}}</div>
+            <div class="col">
+              <toggle-switch :value.sync="mfaAccountStatus.enabled" :label="label"></toggle-switch>
+            </div>
+          </div>
+          <div class="mfa-method" v-if="hasMfaMethod">
+            <p><span class="text-primary">* Last Updated {{mfaMethodType.createDate | formatDate}}</span></p>
+            <div>
+              <label>Phone Number</label>
+              <span>{{mfaMethodType.phoneNumber}}</span>
+            </div>
+            <div>
+              <label>Device Name</label>
+              <span>{{mfaMethodType.deviceName}}</span>
+            </div>
+            <div>
+              <label for="">MFA Method</label>
+              <span>{{mfaMethodType.methodType}}</span>
+            </div>
+          </div>
         </div>
 
-        <div class="mfa-end-date-select">
-          <div
-            class="mfa-end-date-7-day"
-            title="Set default 7 day extension"
-            @click="showConfirm7Day()"
-          >
-            <span>7 Day Ext</span>
-            <div>
-              <i class="fa fa-calendar-week"></i>
-            </div>
+        <div
+          class="mfa-end-date text-primary my-5 border border-primary"
+          v-if="mfaRequireExemptionPeriod"
+        >
+          <div class="alert alert-info">
+            <h4 class="text-center">Select MFA exemption period</h4>
           </div>
-          <div
-            class="mfa-end-date-range"
-            title="Specify date range"
-            @click="showConfirmDateRangeDlg()"
-          >
-            <span>Date Range</span>
-            <div>
-              <i class="fa fa-calendar-alt"></i>
+
+          <div class="mfa-end-date-select">
+            <div
+              class="mfa-end-date-7-day"
+              title="Set default 7 day extension"
+              @click="showConfirm7Day()"
+            >
+              <span>7 Day Ext</span>
+              <div>
+                <i class="fa fa-calendar-week"></i>
+              </div>
             </div>
-          </div>
-          <div
-            class="mfa-end-date-pick-date"
-            title="Select expiration date"
-            @click="showConfirmIndefiniteDlg()"
-          >
-            <span>Pick Date</span>
-            <div>
-              <i class="fa fa-calendar-check"></i>
+            <div
+              class="mfa-end-date-range"
+              title="Specify date range"
+              @click="showConfirmDateRangeDlg()"
+            >
+              <span>Date Range</span>
+              <div>
+                <i class="fa fa-calendar-alt"></i>
+              </div>
+            </div>
+            <div
+              class="mfa-end-date-pick-date"
+              title="Select expiration date"
+              @click="showConfirmIndefiniteDlg()"
+            >
+              <span>Pick Date</span>
+              <div>
+                <i class="fa fa-calendar-check"></i>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </transition>
     <confirm-dialog id="confirm7day" ref="confirm7day" width="800">
       <div slot="modal-title">Enable MFA Date</div>

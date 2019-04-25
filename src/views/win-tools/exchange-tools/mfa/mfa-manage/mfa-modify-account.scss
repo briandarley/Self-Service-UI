@@ -1,71 +1,104 @@
-.p-10{
+.p-10 {
     padding: 10px;
 }
 
-.mfa-user-status-results{
+.mfa-user-status-results {
     margin-top: 20px;
 }
 
 .row-header {
     display: flex;
 
-    div{
-        flex:1;
+    div {
+        flex: 1;
 
     }
-    :nth-child(2){
-        flex:2;
+
+    :nth-child(2) {
+        flex: 2;
     }
-    div.col:nth-child(3){
-        flex:0;
+
+    div.col:nth-child(3) {
+        flex: 0;
     }
-    div.col:nth-child(4){
-        flex:2;
+
+    div.col:nth-child(4) {
+        flex: 2;
         text-align: center;
     }
 }
-.result-grid{
-    display:flex;
-    flex-flow: nowrap;
-    div.col{
-        flex:1;
-        line-height: 40px;
+
+.result-grid {
+    >div {
+        display: flex;
+        flex-flow: nowrap;
+
+        div.col {
+            flex: 1;
+            line-height: 40px;
+        }
+
+        div.col:nth-child(2) {
+            flex: 2;
+        }
+
+        div.col:nth-child(3) {
+            flex: 0;
+        }
+
+        div.col:nth-child(4) {
+            flex: 2;
+        }
     }
-    div.col:nth-child(2){
-        flex:2;
+
+    div.mfa-method {
+        border: 1px solid $gray-300;
+        display:flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        p{
+            flex-basis: 100%;
+            padding-left:20px;
+        }
+        div {
+            flex:1;
+            label, span {
+                display: block;
+                text-align: center;
+            }
+        }
     }
-    div.col:nth-child(3){
-        flex:0;
-    }
-    div.col:nth-child(4){
-        flex:2;
-    }
+
 }
-.mfa-end-date-select{
-    margin:20px 0;
+
+.mfa-end-date-select {
+    margin: 20px 0;
     cursor: pointer;
-    display:flex;
+    display: flex;
     justify-content: space-around;
-    >div{
+
+    >div {
         border: 1px solid $carolina-blue;
         border-radius: 10px;
         box-shadow: 4px 4px 4px $gray-500;
-        padding:10px 20px 20px 20px;
+        padding: 10px 20px 20px 20px;
         text-align: center;
         width: 130px;
-            div{
-                
-                margin:10px auto 0 auto;
-                color:$white;
-                font-size: 30px;
-                background:$carolina-blue;
-                border-radius: 45px;
-                width:50px;
-                height:50px;
-            }
-        &:hover{
+
+        div {
+
+            margin: 10px auto 0 auto;
+            color: $white;
+            font-size: 30px;
+            background: $carolina-blue;
+            border-radius: 45px;
+            width: 50px;
+            height: 50px;
+        }
+
+        &:hover {
             box-shadow: 4px 4px 4px $gray-700;
         }
     }
-    
+
 }

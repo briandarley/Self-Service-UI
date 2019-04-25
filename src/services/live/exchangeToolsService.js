@@ -186,6 +186,7 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
                 let list = await handler.get(`WinTools/exchange-tools/mfa/mfa-account-status/${uid}`);
+                
                 if(list.data){
                     list.data.enabled = list.data.mfaEnabled;
                 }
@@ -240,6 +241,22 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 let list = await handler.get(`WinTools/exchange-tools/mfa/mfa-account-status?${queryParams}`);
                 
                 return list.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        }, 
+        async getMfaMethodType(uid){
+            try {
+                const handler = await httpHandlerService.get();
+                let response = await handler.get(`WinTools/exchange-tools/mfa/mfa-method-type/${uid}`);
+                
+                return response.data;
 
             } catch (e) {
                 if (e.message.includes("404")) {

@@ -10,7 +10,12 @@ import MfaDisabledAccounts from "./mfa-disabled-accounts.vue";
 
 export default class MfaManage extends Vue {
 
-
+  tabChanged(tab){
+    
+    if(tab.index == 1){
+      this.$refs.mfaDisabledAccounts.loadGrid();
+    }
+  }
   async mounted() { 
     this.toastService.set(this);
   }

@@ -1,9 +1,9 @@
 import Vue from "vue"
 import {
-  Component,
-  Watch
+  Component
+  
 } from "vue-property-decorator";
-import { timingSafeEqual } from "crypto";
+//import { timingSafeEqual } from "crypto";
 
 @Component({
   name: 'mfa-disabled-accounts',
@@ -23,7 +23,10 @@ export default class MfaDisabledAccounts extends Vue {
     incidentNumber: null,
     mfaEnabled: false
   };
-
+  async loadGrid(){
+    this.clear();
+    await this.search();
+  }
   async search() {
     this.spinnerService.show();
     try {
@@ -66,7 +69,6 @@ export default class MfaDisabledAccounts extends Vue {
       sort: "",
       listSortDirection: "",
       uid: "",
-      mfaEnabled: null,
       incidentNumber: null,
       mfaEnabled: false
     };
@@ -118,7 +120,7 @@ export default class MfaDisabledAccounts extends Vue {
 
   async mounted() {
     this.toastService.set(this);
-    await this.search();
+    //await this.search();
   }
 
 }
