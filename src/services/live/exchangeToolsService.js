@@ -266,6 +266,26 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 }
                 throw e;
             }
+        },
+        async toggleMfa(uid){
+            try {
+                
+                const handler = await httpHandlerService.get();
+                
+                await handler.put(`WinTools/exchange-tools/mfa/mfa-account-status/${uid}/toggle-mfa-status`);
+                
+                
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+            //
+
         }
 
     }
