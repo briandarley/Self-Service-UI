@@ -16,10 +16,18 @@ export default class MfaReset extends Vue {
     if (!this.mfaMethodType) {
       return "";
     }
+    
     if (this.mfaMethodType.newStatus) {
       return this.mfaMethodType.newStatus;
     }
-    this.mfaMethodType.status;
+    return this.mfaMethodType.status;
+  }
+  get showContactMethod(){
+    if(!this.mfaMethodType ) return false;
+    if(!this.mfaMethodType.phoneNumber && !this.mfaMethodType.deviceName && !this.mfaMethodType.methodType ){
+      return false;
+    }
+    return true;
   }
   async mounted() {
     this.toastService.set(this);
@@ -54,6 +62,7 @@ export default class MfaReset extends Vue {
       this.spinnerService.hide();
     }
   }
+
   clear() {
     this.filter = "";
     this.mfaMethodType = null;

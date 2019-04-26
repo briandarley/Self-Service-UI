@@ -1,0 +1,29 @@
+.user-actions {
+    width: 300px;
+    margin: auto;
+}
+
+.action {
+    a:hover {
+        text-decoration: none;
+    }
+
+    .btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 10px;
+        align-items: center;
+    
+        i {
+            margin-right: 10px;
+        }
+    
+        span {
+            padding: 10px 0;
+        }
+    
+    
+    }
+}
+

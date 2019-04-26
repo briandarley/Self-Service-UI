@@ -40,13 +40,13 @@
                 <div class="col">E-Mail</div>
                 <div class="col">Status</div>
               </div>
-              <div class="result-grid">
+              <div class="result-grid" >
                 <div class="row">
                   <div class="col">{{mfaMethodType.displayName}}</div>
                   <div class="col">{{mfaMethodType.userPrincipalName}}</div>
                   <div class="col">{{currentStatus}}</div>
                 </div>
-                <div class="mfa-method">
+                <div class="mfa-method" v-if="showContactMethod">
                   <p>
                     <span
                       class="text-primary"
@@ -57,6 +57,10 @@
                     <span>{{mfaMethodType.phoneNumber}}</span>
                   </div>
                   <div>
+                    <label>Alt Number</label>
+                    <span>{{mfaMethodType.alternativePhoneNumber}}</span>
+                  </div>
+                  <div>
                     <label>Device Name</label>
                     <span>{{mfaMethodType.deviceName}}</span>
                   </div>
@@ -65,14 +69,45 @@
                     <span>{{mfaMethodType.methodType}}</span>
                   </div>
                 </div>
+                <div class="mfa-method" v-else>
+                  <p>
+                    <span
+                      class="text-primary"
+                    >* Last Updated {{mfaMethodType.createDate | formatDate}}</span>
+                  </p>
+                  <div>
+                    <label>Phone Number</label>
+                    <span>Not Available</span>
+                  </div>
+                  <div>
+                    <label>Alt Number</label>
+                    <span>Not Available</span>
+                  </div>
+                  <div>
+                    <label>Device Name</label>
+                    <span>Not Available</span>
+                  </div>
+                  <div>
+                    <label for>MFA Method</label>
+                    <span>Not Available</span>
+                  </div>
+                </div>
               </div>
-
+              <div class="result-grid">
+                
+              </div>
               <div class="submit text-center mt-4">
-                <button type="button" class="btn btn-danger icon-button" aria-label="Left Align" @click="resetMfa()">
-                  <span><i data-v-1da7b41f="" class="material-icons">undo</i></span>
+                <button
+                  type="button"
+                  class="btn btn-danger icon-button"
+                  aria-label="Left Align"
+                  @click="resetMfa()"
+                >
+                  <span>
+                    <i data-v-1da7b41f class="material-icons">undo</i>
+                  </span>
                   <span>Reset</span>
                 </button>
-                
               </div>
             </div>
           </transition>

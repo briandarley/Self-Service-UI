@@ -47,19 +47,47 @@
               <toggle-switch :value.sync="mfaAccountStatus.enabled" :label="label"></toggle-switch>
             </div>
           </div>
-          <div class="mfa-method" v-if="hasMfaMethod">
-            <p><span class="text-primary">* Last Updated {{mfaMethodType.createDate | formatDate}}</span></p>
+        
+          <div class="mfa-method" v-if="showContactMethod">
+            <p>
+              <span class="text-primary">* Last Updated {{mfaMethodType.createDate | formatDate}}</span>
+            </p>
             <div>
               <label>Phone Number</label>
               <span>{{mfaMethodType.phoneNumber}}</span>
+            </div>
+            <div>
+              <label>Alt Number</label>
+              <span>{{mfaMethodType.alternativePhoneNumber}}</span>
             </div>
             <div>
               <label>Device Name</label>
               <span>{{mfaMethodType.deviceName}}</span>
             </div>
             <div>
-              <label for="">MFA Method</label>
+              <label for>MFA Method</label>
               <span>{{mfaMethodType.methodType}}</span>
+            </div>
+          </div>
+          <div class="mfa-method" v-else>
+            <p>
+              <span class="text-primary">* Last Updated {{mfaMethodType.createDate | formatDate}}</span>
+            </p>
+            <div>
+              <label>Phone Number</label>
+              <span>Not Available</span>
+            </div>
+            <div>
+              <label>Alt Number</label>
+              <span>Not Available</span>
+            </div>
+            <div>
+              <label>Device Name</label>
+              <span>Not Available</span>
+            </div>
+            <div>
+              <label for>MFA Method</label>
+              <span>Not Available</span>
             </div>
           </div>
         </div>

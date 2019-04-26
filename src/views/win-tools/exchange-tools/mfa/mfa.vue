@@ -8,7 +8,34 @@
         <h3>MFA</h3>
       </div>
       <div class="card-body">
-        <h4 class="text-primary">Remedy 3701866, show prefered contact info for MFA </h4>
+        <div class="alert alert-info">
+          <div class="info">
+            <i class="fa fa-info-circle"></i>
+          </div>
+          <div class="py-3">
+            <p>Select MFA Reset to cycle MFA for a single account.</p>
+            <p>Select MFA Management to apply an MFA exemption for selected account.</p>
+          </div>
+        </div>
+
+        <div class="user-actions my-5">
+          <div class="action">
+            <router-link :to="{name: 'mfa-reset'}">
+              <a href="#" class="btn btn-outline-primary">
+                <i class="material-icons">undo</i>
+                <span>MFA Reset</span>
+              </a>
+            </router-link>
+          </div>
+          <div class="action">
+            <router-link :to="{name: 'mfa-manage'}">
+              <a href="#" class="btn btn-outline-primary">
+                <i class="material-icons">supervised_user_circle</i>
+                <span>MFA Management</span>
+              </a>
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>

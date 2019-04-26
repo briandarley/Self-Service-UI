@@ -256,7 +256,7 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 const handler = await httpHandlerService.get();
                 let response = await handler.get(`WinTools/exchange-tools/mfa/mfa-method-type/${uid}`);
                 
-                return response.data;
+                return response.data; 
 
             } catch (e) {
                 if (e.message.includes("404")) {

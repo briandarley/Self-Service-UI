@@ -55,6 +55,14 @@ get mfaExemptEndDate(){
 
 }
 
+get showContactMethod(){
+  if(!this.mfaMethodType ) return false;
+  if(!this.mfaMethodType.phoneNumber && !this.mfaMethodType.deviceName && !this.mfaMethodType.methodType ){
+    return false;
+  }
+  return true;
+}
+
   showConfirm7Day() {
     this.showConfirm7day = true;
     this.$refs.confirm7day.show();
@@ -81,12 +89,7 @@ get mfaExemptEndDate(){
     if (!this.mfaAccountStatus.enabled) return "Disabled";
     return "Enabled";
   }
-  get hasMfaMethod(){
-    if(!this.mfaMethodType) return false;
-    return this.mfaMethodType.methodType ||
-    this.mfaMethodType.phoneNumber ||
-    this.mfaMethodType.deviceName;
-  }
+  
   async mounted() {
     this.toastService.set(this);
 

@@ -6,17 +6,24 @@
           <i class="material-icons">home</i>
         </div>
         <h3>Self Service Home</h3>
-        
-        
-        </div>
+      </div>
       <div class="card-body">
-        <p>
-          Welcome to the ITS Email Self Service Site. Use the buttons on this site to perform
+        
+        <div class="alert alert-info">
+          <div class="info">
+            <i class="fa fa-info-circle"></i>
+          </div>
+          <p>
+            Welcome to the ITS Email Self Service Site. Use the buttons on this site to perform
           actions such as creating an email account, requesting an alias or automating calendar events.
-          Some users will get an Exchange account and some will get a Heelmail account.
-        </p>
-
-        <button class="btn btn-primary" v-on:click="click()">test</button>
+          
+          </p>
+          <p>
+            If you've requested an e-mail account and would like to access your account, navigate to 
+            <a href="http://heelmail.unc.edu" target="_blank">heelmail.unc.edu</a> enter your Onyen user name and password when prompted. 
+          </p>
+          
+        </div>
 
         <div class="user-actions">
           <div class="action">
@@ -62,8 +69,6 @@
         </div>
       </div>
     </div>
-
-  
   </div>
 </template>
 <script src="./home.js"></script>
