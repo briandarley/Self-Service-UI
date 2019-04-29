@@ -74,9 +74,9 @@
                       placeholder="Onyen/PID/Email"
                       v-model="memberSearch"
                       v-select-all
-                      @keydown="$event.keyCode === 13 ? findMemberClick() : false"
+                      v-on:keyup.13="search()"
                     >
-                    <button class="btn btn-primary" @click="findMemberClick()">Find</button>
+                    <button class="btn btn-primary" @click="search()">Find</button>
                     <button class="btn btn-secondary" @click="cancelAddMemberClick()">Cancel</button>
                   </div>
                 </div>

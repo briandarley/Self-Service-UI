@@ -16,6 +16,7 @@
         v-select-all
         placeholder="onyen, pid, name, or incident number"
         v-model="criteria.filterText"
+        v-on:keyup.13="search()"
       >
     </div>
     <div class="submit text-right" :class="{'mb-4': !pagedRecords.totalRecords}">

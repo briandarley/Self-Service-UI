@@ -17,6 +17,7 @@
             placeholder="List Name"
             v-select-all
             v-model="listName"
+            v-on:keyup.13="search()"
           >
           <button class="btn btn-primary" @click="search()">Search</button>
           <button class="btn btn-secondary" @click="reset()">Reset</button>

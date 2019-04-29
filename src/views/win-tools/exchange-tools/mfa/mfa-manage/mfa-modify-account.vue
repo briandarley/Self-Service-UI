@@ -13,7 +13,14 @@
 
     <div class="form-group">
       <label for>Search</label>
-      <input type="text" class="form-control" v-select-all placeholder="onyen" v-model="filter">
+      <input
+        type="text"
+        class="form-control"
+        v-select-all
+        placeholder="onyen"
+        v-model="filter"
+        v-on:keyup.13="search()"
+      >
     </div>
     <div class="submit text-right" :class="{'mb-5': !mfaAccountStatus}">
       <button class="btn btn-primary mr-1" @click="search()">Search</button>
@@ -47,7 +54,7 @@
               <toggle-switch :value.sync="mfaAccountStatus.enabled" :label="label"></toggle-switch>
             </div>
           </div>
-        
+
           <div class="mfa-method" v-if="showContactMethod">
             <p>
               <span class="text-primary">* Last Updated {{mfaMethodType.createDate | formatDate}}</span>

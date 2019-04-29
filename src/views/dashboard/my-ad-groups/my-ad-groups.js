@@ -91,7 +91,7 @@ export default class MyAdGroups extends Vue {
   removeEntityCancelClick() {
     this.$refs.confirmDeleteMember.hide();
   }
-  async findMemberClick() {
+  async search() {
     this.spinnerService.show();
     this.foundEntity = null;
     try {

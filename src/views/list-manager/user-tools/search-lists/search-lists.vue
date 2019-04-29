@@ -10,7 +10,12 @@
       <div class="card-body">
         <div class="container">
           <div class="form-group form-inline">
-            <input type="text" class="form-control" v-model="nameLike" v-select-all placeholder="name like">
+            <input type="text" 
+            class="form-control" 
+            v-model="nameLike" 
+            v-select-all 
+            placeholder="name like" 
+            v-on:keyup.13="search()">
             <button class="btn btn-primary" @click="search()">Search</button>
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>

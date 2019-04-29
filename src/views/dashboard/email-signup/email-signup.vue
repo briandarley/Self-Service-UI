@@ -22,6 +22,7 @@
               v-model="model.mail"
               v-select-all
               v-focus
+              v-on:keyup.13="click()"
             >
             
             <label for="user" class="animated-label">Notification E-Mail Address</label>

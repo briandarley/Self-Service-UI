@@ -71,7 +71,7 @@
                     <div class="form-group" :class="{'not-empty': model.email.length}">
                       <div class="form-inline">
                         <div class="input-group">
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" v-on:keyup.13="click()">
                           <label class="animated-label"></label>
                           <div class="input-group-append">
                             <span class="input-group-text">@</span>

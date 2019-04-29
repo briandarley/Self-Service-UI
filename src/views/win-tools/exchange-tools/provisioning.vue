@@ -18,6 +18,7 @@
               id="searchField"
               v-select-all
               v-model="filter"
+              v-on:keyup.13="search()"
             >
           </div>
           <div class="text-right my-3">

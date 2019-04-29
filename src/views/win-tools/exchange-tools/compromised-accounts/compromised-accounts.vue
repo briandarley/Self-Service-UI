@@ -17,6 +17,7 @@
               v-select-all
               v-model="filter"
               placeholder="onyen"
+              v-on:keyup.13="search()"
             >
           </div>
           <div class="submit text-right">

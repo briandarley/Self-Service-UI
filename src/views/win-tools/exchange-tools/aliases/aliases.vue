@@ -10,7 +10,13 @@
       <div class="card-body">
         <div class="form-group">
           <label for>User Id</label>
-          <input type="text" class="form-control" v-select-all v-model="filter" placeholder="onyen">
+          <input 
+          type="text" 
+          class="form-control" 
+          v-select-all 
+          v-model="filter" 
+          placeholder="onyen"
+          v-on:keyup.13="search()">
           
         </div>
         <div class="submit text-right">

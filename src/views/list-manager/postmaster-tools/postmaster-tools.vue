@@ -25,10 +25,11 @@
                     v-select-all
                     autocomplete="off"
                     v-model="listName"
+                    v-on:keyup.13="search()"
                   >
                 </div>
                 <div class="controls text-right">
-                  <button class="btn btn-primary" @click="searchByListName()">Search</button>
+                  <button class="btn btn-primary" @click="search()">Search</button>
                   <button class="btn btn-secondary" @click="clear()">Clear</button>
                 </div>
 
@@ -214,7 +215,7 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
     }
   }
 
-  async searchByListName() {
+  async search() {
     this.listNameSearchData = [];
     this.emailSearchData = [];
     this.noListNameSearchResult = false;
@@ -245,7 +246,7 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
       this.toastService.success("record deleted");
 
       if (this.listName) {
-        await this.searchByListName();
+        await this.search();
       } else if (this.emailAddress) {
         await this.searchByEmail();
       }

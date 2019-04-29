@@ -19,7 +19,13 @@
 
         <div class="form-group">
           <label for>User Id</label>
-          <input type="text" class="form-control" v-select-all v-model="filter" placeholder="onyen">
+          <input 
+          type="text" 
+          class="form-control" 
+          v-select-all 
+          v-model="filter" 
+          placeholder="onyen"
+          v-on:keyup.13="search()">
         </div>
         <div class="submit text-right">
           <button class="btn btn-primary mr-1" @click="search()">Search</button>

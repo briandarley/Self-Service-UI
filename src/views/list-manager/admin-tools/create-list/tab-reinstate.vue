@@ -14,7 +14,7 @@
       <input type="password" class="form-control" id="admin_password">
 
       <label for="description">Description</label>
-      <input type="text" class="form-control" id="description">
+      <input type="text" class="form-control" id="description" >
 
       <label class="d-inline-block mr-3">Type of List</label>
       <ul class="d-inline-block radio-buttons">
