@@ -33,7 +33,7 @@
                   <button class="btn btn-secondary" @click="clear()">Clear</button>
                 </div>
 
-                <div class="search-result">
+                <div class="search-result mt-5">
                   <transition name="fade">
                     <div class="row m-5 no-result" v-if="noListNameSearchResult">
                       <div class="col">
@@ -124,8 +124,14 @@
                     v-select-all
                     autocomplete="off"
                     v-model="emailAddress"
+                    v-on:keyup.13="searchByEmail()"
                   >
                 </div>
+                <div class="controls text-right">
+                  <button class="btn btn-primary" @click="searchByEmail()">Search</button>
+                  <button class="btn btn-secondary" @click="clear()">Clear</button>
+                </div>
+
 
                 <div v-if="emailSearchData.length" class="my-3 mt-5">
                   <span
@@ -139,7 +145,7 @@
                   </div>
 
                   <div
-                    class="result-grid row"
+                    class="result-grid row subscribers-by-email"
                     v-for="item in emailSearchData"
                     v-bind:key="item.listName"
                   >
@@ -159,10 +165,7 @@
                   </div>
                 </div>
 
-                <div class="controls text-right">
-                  <button class="btn btn-primary" @click="searchByEmail()">Search</button>
-                  <button class="btn btn-secondary" @click="clear()">Clear</button>
-                </div>
+
               </div>
             </tabbed-item>
           </tabbed-control>
@@ -299,7 +302,9 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
     background: $gray-100;
   }
 }
-
+.subscribers-by-email:nth-of-type(odd){
+background: $white;
+}
 
 ul.search-links,
 ul.search-links li {
