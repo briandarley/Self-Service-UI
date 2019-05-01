@@ -1,5 +1,5 @@
 import injector from 'vue-inject';
-
+ 
 function ExchangeToolsService(httpHandlerService,commonExtensions) {
     return {
         async getProvisionHistory(uid) {
@@ -286,6 +286,23 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
             }
             //
 
+        },
+        async getOrganizationalUnitsAdmins(){
+            try{
+                const handler = await httpHandlerService.get();
+                let response = await handler.get(`WinTools/exchange-tools/ad-tools/organizational-units-admins`);
+                
+                return response.data; 
+
+            } catch(e){
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+          
         }
 
     }
