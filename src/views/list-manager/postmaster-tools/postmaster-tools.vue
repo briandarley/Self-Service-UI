@@ -127,7 +127,7 @@
                     v-on:keyup.13="searchByEmail()"
                   >
                 </div>
-                <div class="controls text-right">
+                <div class="controls text-right mb-5">
                   <button class="btn btn-primary" @click="searchByEmail()">Search</button>
                   <button class="btn btn-secondary" @click="clear()">Clear</button>
                 </div>
