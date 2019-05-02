@@ -15,7 +15,7 @@
               type="text"
               class="form-control"
               v-select-all
-              placeholder="ou name"
+              placeholder="name, domain, onyen, etc.. "
               v-model="filter"
               v-on:keyup.13="search()"
             >
