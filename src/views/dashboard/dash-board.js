@@ -9,7 +9,7 @@ import {
 
 @Component({
   name: 'dash-board',
-  dependencies: ['$', 'moment', 'UserService', 'DashboardService'],
+  dependencies: ['$', 'moment', 'UserService', 'DashboardService','toastService'],
   components: {}
   //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
 })
@@ -190,15 +190,32 @@ export default class DashBoard extends Vue {
 
 
   async mounted() {
+    this.toastService.set(this);
     //console.log(this.UserService);
 
-    //child views are 'mounted' before parent is 'mounted' 
+    
     this.calculateGalSync();
     this.getProvisionsToday();
     this.getLockoutsToday();
     
   }
+  
   async created() {
     //called before child views are mounted
   }
+
+
+  async copyToken(){
+    let token = (await this.UserService.get()).access_token;
+    let $ = this.$;
+    
+    let $element = $('<input id="copy-element">').val("Bearer " + token).appendTo('body').select()
+    
+    window.document.execCommand("copy");
+
+    $($element).remove();
+    
+    this.toastService.success("Successfully copied Bearer token to clipboard");
+  }
+
 }

@@ -16,15 +16,13 @@
             <p class="text-primary">{{nextGalSync}}</p>
           </div>
         </div>
-
-        <div class="card widget" >
+        <div class="card widget">
           <div class="card-header bg-primary text-white ct-chart provisions-today"></div>
           <div class="card-body">
             <span>Email Provisions for Week of 3/20/2019</span>
           </div>
         </div>
-
-        <div class="card widget" >
+        <div class="card widget">
           <div class="card-header bg-danger text-white ct-chart ad-lockouts-today"></div>
           <div class="card-body">
             <span>AD Lock Outs</span>
@@ -32,6 +30,14 @@
         </div>
 
 
+        <div class="card widget">
+          <div class="card-header bg-primary text-white ct-chart provisions-today">
+             <p>Bearer Token</p>
+          </div>
+          <div class="card-body text-center">
+            <button class="btn btn-primary" @click="copyToken()">Copy Bearer Token</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
