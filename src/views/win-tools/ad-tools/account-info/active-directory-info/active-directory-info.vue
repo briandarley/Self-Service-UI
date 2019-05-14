@@ -117,7 +117,15 @@
         <span v-if="!isEmpty(data.userDetail.pwdExpires)">{{data.userDetail.pwdExpires | formatDateTime}}</span>
         <span v-else></span>
       </div>
-      {{data}}
+      <div v-if="!isEmpty(data.userDetail.badPasswordTime)">
+        <span class="label">Bad Password Time</span>
+        <span>{{data.userDetail.badPasswordTime | formatDateTime}}</span>
+      </div>
+      <div>
+        <span class="label">UAC Flag</span>
+        <span>{{data.userAccountControl}}</span>
+      </div>
+      
     </div>
   </div>
 </template>
