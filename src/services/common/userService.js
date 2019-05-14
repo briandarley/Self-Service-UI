@@ -61,9 +61,10 @@ function UserService(configReaderService, localStorageService, routerService) {
 
 
         },
-        logout() {
-            this._initializeManager();
-            this._mgr.signoutRedirect();
+        async logout() {
+            await this._initializeManager();
+            await this._mgr.signoutRedirect()
+            this._mgr.clearStaleState();
         },
         async get() {
             try {

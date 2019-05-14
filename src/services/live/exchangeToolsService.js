@@ -303,6 +303,42 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
           
+        },
+        async getAdToolsAccountInfoLdapAuditInfo(id){
+            try {
+                
+
+                const handler = await httpHandlerService.get();
+                let entity = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/ldap-info/${id}`);
+                
+                return entity.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async getAdToolsAccountInfoActiveDirectoryAuditInfo(id){
+            try {
+                
+
+                const handler = await httpHandlerService.get();
+                let entity = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/ad-info/${id}`);
+                
+                return entity.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
         }
 
     }

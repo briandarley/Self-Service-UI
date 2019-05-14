@@ -3,11 +3,23 @@
     <div class="logo"></div>
     <div class="site-title">
       <div class="title-content">
+        
+          
+          <a href="#" @click.prevent="signOut()">
+            <div class="user-info">
+            {{name}}
+
+            <i class="fa fa-sign-out-alt"></i>
+            </div>
+          </a>
+        
+
         <h2>ITS Workgroup Services</h2>
         <h1>Self Service</h1>
         <h3>Active Directory, Office365, HeelMail, Listserv, MassMail</h3>
       </div>
     </div>
+    
   </div>
 </template>
 <script src="./top-header.js"></script>

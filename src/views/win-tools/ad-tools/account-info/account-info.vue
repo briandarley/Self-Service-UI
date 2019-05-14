@@ -8,16 +8,36 @@
         <h3>Account Info</h3>
       </div>
       <div class="card-body">
+        <div class="form-group">
+          <label for>User Id</label>
+          <input 
+          type="text" 
+          class="form-control" 
+          v-select-all 
+          v-model="filter" 
+          placeholder="filter"
+          v-on:keyup.13="search()">
+          
+        </div>
+        <div class="submit text-right">
+          <button class="btn btn-primary mr-1" @click="search()">Search</button>
+          <button class="btn btn-secondary" @click="clear()">Clear</button>
+        </div>
+
+
+
+
           <div class="container">
               <tabbed-control tabs="Audit,Active Directory,Campus Directory,Office 365">
           <tabbed-item slot="tab_0">
             <div class="container">
-              <h1>Audit here</h1>
+              <audit-info :data="ldapData"></audit-info>
             </div>
           </tabbed-item>
           <tabbed-item slot="tab_1">
             <div class="container">
-              <h1>Active Directory Here</h1>
+              
+              <active-directory-info :data="adData"></active-directory-info>
             </div>
           </tabbed-item>
           <tabbed-item slot="tab_2">
