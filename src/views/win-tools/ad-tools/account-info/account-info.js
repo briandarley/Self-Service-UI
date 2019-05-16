@@ -70,6 +70,7 @@ export default class AccountInfo extends Vue {
     this.filter = "";
     this.ldapData = null;
     this.adData = null;
+    this.campusDirectoryData = null;
 
   }
 
