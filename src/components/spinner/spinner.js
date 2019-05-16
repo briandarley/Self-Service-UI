@@ -6,13 +6,14 @@ import {
 @Component({
   name: 'spinner',
   dependencies: ['$', 'spinnerService'],
-  components: {},
-  
+  props: ['allowServiceUpdate']
+
+
 })
 
 export default class Spinner extends Vue {
   processing = false;
-  
+
   showSpinner() {
     this.processing = true;
   }
@@ -22,11 +23,23 @@ export default class Spinner extends Vue {
   toggleSpinner() {
     this.processing = !this.processing;
   }
+  mounted(){
+    //moved logic to created as we want to allow properties
+    //also, in the main app view, we don't want the service to control behavior because the spinner will show twice locking
+    //the control of the page, so let's disable the service for the main app and for all other instances allow the spinner to be turned on and off via service
+    if (this.allowServiceUpdate !== false) {
+      this.spinnerService.onToggleSpinner = this.toggleSpinner;
+      this.spinnerService.onHideSpinner = this.hideSpinner;
+      this.spinnerService.onShowSpinner = this.showSpinner;
+    }
 
+  }
   created() {
-    this.spinnerService.onToggleSpinner = this.toggleSpinner;
-    this.spinnerService.onHideSpinner = this.hideSpinner;
-    this.spinnerService.onShowSpinner = this.showSpinner;
+    
+      // this.spinnerService.onToggleSpinner = this.toggleSpinner;
+      // this.spinnerService.onHideSpinner = this.hideSpinner;
+      // this.spinnerService.onShowSpinner = this.showSpinner;
+    
 
   }
 

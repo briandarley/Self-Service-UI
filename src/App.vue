@@ -11,7 +11,7 @@
       </div>
     </div>
     <site-footer></site-footer>
-    <spinner ref="mainSpinner"></spinner>
+    <spinner ref="mainSpinner" :allow-service-update="false"></spinner>
   </div>
 </template>
 
