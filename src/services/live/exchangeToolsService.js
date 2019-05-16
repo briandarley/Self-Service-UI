@@ -339,7 +339,25 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 }
                 throw e;
             }
-        }
+        },
+        async getCampusDirectoryAuditInfo(id){
+            try {
+                
+
+                const handler = await httpHandlerService.get();
+                let entity = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/campus-directory/${id}`);
+                
+                return entity.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
 
     }
 }

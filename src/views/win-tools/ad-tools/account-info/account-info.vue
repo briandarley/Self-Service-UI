@@ -10,55 +10,47 @@
       <div class="card-body">
         <div class="form-group">
           <label for>User Id</label>
-          <input 
-          type="text" 
-          class="form-control" 
-          v-select-all 
-          v-model="filter" 
-          placeholder="filter"
-          v-on:keyup.13="search()">
-          
+          <input
+            type="text"
+            class="form-control"
+            v-select-all
+            v-model="filter"
+            placeholder="filter"
+            v-on:keyup.13="search()"
+          >
         </div>
         <div class="submit text-right">
           <button class="btn btn-primary mr-1" @click="search()">Search</button>
           <button class="btn btn-secondary" @click="clear()">Clear</button>
         </div>
 
-
-
-
-          <div class="container">
-              <tabbed-control tabs="Audit,Active Directory,Campus Directory,Office 365">
-          <tabbed-item slot="tab_0">
-            <div class="container">
-              <audit-info :data="ldapData"></audit-info>
-            </div>
-          </tabbed-item>
-          <tabbed-item slot="tab_1">
-            <div class="container">
-              
-              <active-directory-info :data="adData"></active-directory-info>
-            </div>
-          </tabbed-item>
-          <tabbed-item slot="tab_2">
-            <div class="container">
-              <h1>Campus directory here...</h1>
-            </div>
-
-          </tabbed-item>
-          <tabbed-item slot="tab_3">
-            <div class="container">
-              <h1>Office 365 here ... </h1>
-            </div>
-
-          </tabbed-item>
-        </tabbed-control>
-
-          </div>
-
+        <div class="container">
+          <tabbed-control tabs="Audit,Active Directory,Campus Directory,Office 365">
+            <tabbed-item slot="tab_0">
+              <div class="container">
+                <audit-info :data="ldapData"></audit-info>
+              </div>
+            </tabbed-item>
+            <tabbed-item slot="tab_1">
+              <div class="container">
+                <active-directory-info :data="adData"></active-directory-info>
+              </div>
+            </tabbed-item>
+            <tabbed-item slot="tab_2">
+              <div class="container">
+                <campus-directory-info :data="campusDirectoryData"></campus-directory-info>
+              </div>
+            </tabbed-item>
+            <tabbed-item slot="tab_3">
+              <div class="container">
+                <h1>Office 365 here ...</h1>
+              </div>
+            </tabbed-item>
+          </tabbed-control>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script src="./account-info.js"></script>
-<style lang="scss" src="./account-info.scss" scoped></style>
+<style lang="scss" src="./account-info.scss"></style>

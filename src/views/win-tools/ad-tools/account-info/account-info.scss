@@ -1,0 +1,83 @@
+h4 {
+    margin-top: 20px;
+    width: 100%;
+    font-size: 1.2em;
+    border-bottom: 1px solid $gray-500;
+}
+.pb-100{
+    padding-bottom: 100px;
+}
+.account-details {
+
+    &>div {
+
+        display: flex;
+
+
+        span.label {
+            margin-right: 10px;
+            width: 300px;
+            text-align: right
+        }
+
+        /* We tell all items to be 100% width, via flex-basis */
+        &>* {
+            // flex: 1 50%;
+        }
+    }
+
+    .splunk-log {
+        max-height: 300px;
+        overflow-y: scroll;
+
+        >div:nth-of-type(even) {
+            background: $gray-200;
+        }
+
+        div {
+            display: flex;
+
+            &:first-child {
+                margin-right: 10px;
+            }
+
+        }
+
+
+    }
+}
+
+.audit-view {
+    
+    .account-details {
+       div {
+            flex-flow: row;
+        }
+    }
+    
+}
+
+.yes-no-fields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    h3 {
+        margin-top: 20px;
+        width: 100%;
+        border-bottom: 1px solid $gray-500;
+    }
+
+    div {
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+
+        span.label {
+            justify-self: self-start;
+            margin-right: 10px;
+            width: 300px;
+            text-align: right
+        }
+    }
+}

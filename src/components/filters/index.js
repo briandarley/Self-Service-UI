@@ -5,3 +5,4 @@ require("./toYesNo");
 require("./toEnabledDisabled");
 require("./toPrimaryDesignation");
 require("./toEmail");
+require("./splitString");

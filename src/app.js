@@ -18,12 +18,19 @@ export default class App extends Vue {
   onRouteChanged() {
     //newValue, oldValue
     this.spinnerService.hide();
+    this.$refs.mainSpinner.hideSpinner();
   }
   mounted() {
     let $ = this.$;
+    this.$refs.mainSpinner.showSpinner();
     setTimeout(() => {
       new SimpleBar($(".app-section")[0],{ autoHide: false, height: "auto" });
     }, 2000);
+  }
+  created(){
+    
+    
+   
   }
   
 }
