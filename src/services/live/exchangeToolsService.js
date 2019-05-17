@@ -358,6 +358,23 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
         },
+        async getOffice365AuditInfo(id){
+           try {
+               
+                const handler = await httpHandlerService.get();
+                let entity = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/office-365/${id}`);
+                return entity.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+
+        }
 
     }
 }

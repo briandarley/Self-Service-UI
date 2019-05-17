@@ -43,7 +43,8 @@
             </tabbed-item>
             <tabbed-item slot="tab_3">
               <div class="container">
-                <h1>Office 365 here ...</h1>
+                <office-365-info :data="office365Data"></office-365-info>
+                
               </div>
             </tabbed-item>
           </tabbed-control>
