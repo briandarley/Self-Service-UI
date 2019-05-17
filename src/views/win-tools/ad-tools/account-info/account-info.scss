@@ -23,6 +23,7 @@ h4 {
         /* We tell all items to be 100% width, via flex-basis */
         &>* {
             // flex: 1 50%;
+            flex: 1
         }
     }
 

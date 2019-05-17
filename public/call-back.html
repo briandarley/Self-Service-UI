@@ -12,7 +12,7 @@
 
   <script type="text/javascript">
    var userManager = new Oidc.UserManager();
-   userManager.clearStaleState(null).then(() => {
+   userManager.clearStaleState(null).then(function() {
 
      userManager.signinRedirectCallback().then(function () {
        var callBack = "call-back.html";
