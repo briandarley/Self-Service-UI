@@ -20,13 +20,11 @@
         :key="item.id"  
         :class="{'active': isMenuActive(item), 'has-children': hasChildren(item)}"
       >
-        <router-link :to="{path: '/'+ item.route}" v-if="!item.redirect">
-          <a href="#" class="nav-link">
-            <i class="material-icons" v-if="item.iconType === 'material'">{{item.iconContent}}</i>
+        <router-link :to="{path: '/'+ item.route}" v-if="!item.redirect" class="nav-link">
+        <i class="material-icons" v-if="item.iconType === 'material'">{{item.iconContent}}</i>
             <i class="fa fas" :class="item.iconContent" v-if="item.iconType === 'fontawesome'"></i>
             <p>{{item.title}}</p>
             <i class="fa" :class="{'fa-ellipsis-h': hasChildren(item)}"></i>
-          </a>
         </router-link>
         <a :href="item.redirect" class="nav-link" target="_blank"  v-else>
             <i class="material-icons" v-if="item.iconType === 'material'">{{item.iconContent}}</i>

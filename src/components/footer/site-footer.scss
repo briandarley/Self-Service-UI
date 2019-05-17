@@ -1,4 +1,7 @@
-
+div{
+    /* god damn ie */
+    -ms-grid-row:3;
+}
 div.site-footer{
     display: grid;
     grid-template-columns: $col1-lg-width 1fr;

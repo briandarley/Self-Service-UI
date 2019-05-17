@@ -24,8 +24,8 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 body {
   font-family: 'Roboto', sans-serif;
   /*hack to get dialog behavior correct*/
-  position: relative;
-  z-index: -1;
+  // position: relative;
+  // z-index: -1;
 }
 
 label,
@@ -37,8 +37,8 @@ input::placeholder{
 }
 .app {
   /*hack to get dialog behavior correct*/
-  position: relative;
-  z-index: -1;
+  // position: relative;
+  // z-index: -1;
 }
 
 .strong {
@@ -67,27 +67,34 @@ input::placeholder{
 }
 
 .app-container {
+  display: -ms-grid;
   display: grid;
+  
   height: 100vh;
 
+  -ms-grid-rows:  100px 1fr 75px;
   grid-template-rows: 100px 1fr 75px;
-
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  
   .main-app-section {
+    /* god damn ie */
+    -ms-grid-row:2;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns:  $col1-lg-width 1fr;
     grid-template-columns: $col1-lg-width 1fr;
+    -ms-grid-rows: 1fr;
     box-shadow: 0px 5px 5px #888;
     //@@ bd
     height: calc(100vh - 100px - 75px);
 
     .app-section {
+      /* god damn ie */
+      -ms-grid-column:2;
       background: $gray-500;
-
-
       height: calc(100vh - 100px - 75px);
-      //height: 100%;
-
-      //border-left: 1px solid red;
-      //box-shadow: -10px 0px 5px -2px #888;
+      
     }
   }
 
@@ -160,9 +167,11 @@ input::placeholder{
 
 
   >.card-header {
+    
     display: grid;
+    
     grid-template-columns: 100px 1fr;
-
+    
     h1 {
       text-align: center;
       margin-right: 100px;
@@ -173,6 +182,7 @@ input::placeholder{
   .icon {
     border-radius: 5px;
     display: grid;
+    
     width: 75px;
     height: 75px;
     margin-top: -30px;
@@ -428,7 +438,7 @@ input::placeholder{
     display: grid;
     height: 100vh;
     grid-template-rows: 100px 1fr;
-
+    grid-template-columns: 1fr;
 
     .site-footer {
       display: none;

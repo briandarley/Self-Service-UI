@@ -1,11 +1,13 @@
 
 
 .dashboard-widgets {
+    
     display: grid;
+    display:-ms-grid;
+
+    
     grid-template-columns: repeat(3, 1fr);
-
-
-    //width:1500px;
+    -ms-grid-columns: 1fr[3];
 
 }
 

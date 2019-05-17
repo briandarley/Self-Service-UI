@@ -1,6 +1,7 @@
 .top-header {
     display: flex;
-
+    /* god damn ie */
+    -ms-grid-row: 1;
     .logo {
 
         flex-basis: $col1-lg-width;

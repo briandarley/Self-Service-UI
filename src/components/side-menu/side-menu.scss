@@ -2,6 +2,8 @@
   font-size: .8em;
 }
 .side-menu {
+  /* god damn ie */
+  -ms-grid-column:1;
   //full screen minus top header minus footer
   //height: calc(100vh - 175px - 75px);
   box-sizing: border-box;
