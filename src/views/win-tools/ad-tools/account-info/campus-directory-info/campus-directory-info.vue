@@ -39,21 +39,21 @@
       </div>
       <div>
         <span class="label">Email</span>
-        <div class="list-items" v-if="data.email.length">
+        <div class="list-items" v-if="data.email && data.email.length">
           <div v-for="(item, index) in data.email" :key="index">{{item}}</div>
         </div>
         <span v-else>Not Available</span>
       </div>
       <div>
         <span class="label">Groups</span>
-        <div class="list-items" v-if="data.groups.length">
+        <div class="list-items" v-if="data.groups && data.groups.length">
           <div v-for="(item, index) in data.groups" :key="index">{{item}}</div>
         </div>
         <span v-else>Not Available</span>
       </div>
       <div>
         <span class="label">Department Numbers</span>
-        <div class="list-items" v-if="data.departmentNumbers.length">
+        <div class="list-items" v-if="data.departmentNumbers && data.departmentNumbers.length">
           <div v-for="(item, index) in data.departmentNumbers" :key="index">{{item}}</div>
         </div>
         <span v-else>Not Available</span>
@@ -78,7 +78,7 @@
   <h4 class="text-secondary">Faculty/Staff Information</h4>
 <div>
         <span class="label">Employee Type</span>
-        <div class="list-items" v-if="data.employeeType.length">
+        <div class="list-items" v-if="data.employeeType && data.employeeType.length">
           <div v-for="(item, index) in data.employeeType" :key="index">{{item}}</div>
         </div>
         <span v-else>Not Available</span>
