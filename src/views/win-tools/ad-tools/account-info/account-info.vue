@@ -23,32 +23,32 @@
           <button class="btn btn-primary mr-1" @click="search()">Search</button>
           <button class="btn btn-secondary" @click="clear()">Clear</button>
         </div>
-
-        <div class="container">
-          <tabbed-control tabs="Audit,Active Directory,Campus Directory,Office 365">
-            <tabbed-item slot="tab_0">
-              <div class="container">
-                <audit-info :data="ldapData"></audit-info>
-              </div>
-            </tabbed-item>
-            <tabbed-item slot="tab_1">
-              <div class="container">
-                <active-directory-info :data="adData"></active-directory-info>
-              </div>
-            </tabbed-item>
-            <tabbed-item slot="tab_2">
-              <div class="container">
-                <campus-directory-info :data="campusDirectoryData"></campus-directory-info>
-              </div>
-            </tabbed-item>
-            <tabbed-item slot="tab_3">
-              <div class="container">
-                <office-365-info :data="office365Data"></office-365-info>
-                
-              </div>
-            </tabbed-item>
-          </tabbed-control>
-        </div>
+        <transition name="fade">
+          <div class="container" v-if="dataRetrievalSuccess">
+            <tabbed-control tabs="Audit,Active Directory,Campus Directory,Office 365">
+              <tabbed-item slot="tab_0">
+                <div class="container">
+                  <audit-info :data="ldapData"></audit-info>
+                </div>
+              </tabbed-item>
+              <tabbed-item slot="tab_1">
+                <div class="container">
+                  <active-directory-info :data="adData"></active-directory-info>
+                </div>
+              </tabbed-item>
+              <tabbed-item slot="tab_2">
+                <div class="container">
+                  <campus-directory-info :data="campusDirectoryData"></campus-directory-info>
+                </div>
+              </tabbed-item>
+              <tabbed-item slot="tab_3">
+                <div class="container">
+                  <office-365-info :data="office365Data"></office-365-info>
+                </div>
+              </tabbed-item>
+            </tabbed-control>
+          </div>
+        </transition>
       </div>
     </div>
   </div>

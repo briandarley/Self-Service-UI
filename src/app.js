@@ -9,7 +9,7 @@ import "simplebar/dist/simplebar.css";
 
 @Component({
   name: "App",
-  dependencies: ['$','toastService','spinnerService'],
+  dependencies: ['$','toastService','spinnerService','EventBus'],
   components: { SideMenu,TopHeader,SiteFooter,Spinner }
 })
 export default class App extends Vue {
@@ -26,11 +26,17 @@ export default class App extends Vue {
     setTimeout(() => {
       new SimpleBar($(".app-section")[0],{ autoHide: false, height: "auto" });
     }, 2000);
+
+    this.EventBus.attachEvent("attach-scroll",this.attachScrollBar);
   }
-  created(){
+  attachScrollBar(){
+    let $ = this.$;
     
-    
-   
+    setTimeout(() => {
+      new SimpleBar($(".app-section")[0],{ autoHide: false, height: "auto" });
+    }, 1000);
   }
+
+  created(){}
   
 }

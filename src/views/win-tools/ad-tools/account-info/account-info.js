@@ -9,7 +9,7 @@ import CampusDirectoryInfo from './campus-directory-info/campus-directory-info.v
 import Office365Info from './office-365-info/office-365-info.vue';
 @Component({
   name: 'account-info',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','EventBus'],
   components: {
     ActiveDirectoryInfo,
     AuditInfo,
@@ -74,6 +74,7 @@ export default class AccountInfo extends Vue {
       this.toastService.error("Failed to retrieve user");
     } finally {
       this.spinnerService.hide();
+      this.EventBus.emit("attach-scroll")
     }
 
 
@@ -87,6 +88,7 @@ clearArrays(){
 }
   clear() {
     this.filter = "";
+    this.dataRetrievalSuccess = false;
     this.clearArrays();
 
   }
