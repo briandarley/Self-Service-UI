@@ -1,0 +1,31 @@
+.row-header{
+    div{
+        flex:1;
+        &:nth-of-type(2){
+            flex:2;
+        }
+
+    }
+}
+.result-grid {
+    display: block;
+
+    div label {
+        margin-right: 10px;
+    }
+
+    >div:first-child {
+        display: flex;
+
+        div{
+            flex:1;
+            
+            &:nth-of-type(2){
+                flex:2;
+            }
+
+        }
+    }
+
+
+}

@@ -9,14 +9,12 @@
     z-index: 101;
     
     display: grid;
-    display:-ms-grid;
-    
+        
     
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
 
-    -ms-grid-columns: 1fr[3];
-    -ms-grid-rows: 1fr[3];
+    
 }
 
 .spinner-container {

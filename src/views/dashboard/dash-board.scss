@@ -3,11 +3,9 @@
 .dashboard-widgets {
     
     display: grid;
-    display:-ms-grid;
-
-    
+        
     grid-template-columns: repeat(3, 1fr);
-    -ms-grid-columns: 1fr[3];
+    
 
 }
 

@@ -1,6 +1,6 @@
 import injector from 'vue-inject';
- 
-function ExchangeToolsService(httpHandlerService,commonExtensions) {
+
+function ExchangeToolsService(httpHandlerService, commonExtensions) {
     return {
         async getProvisionHistory(uid) {
             try {
@@ -186,8 +186,8 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
                 let list = await handler.get(`WinTools/exchange-tools/mfa/mfa-account-status/${uid}`);
-                
-                if(list.data){
+
+                if (list.data) {
                     list.data.enabled = list.data.mfaEnabled;
                 }
                 return list.data;
@@ -201,28 +201,27 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
         },
-        async updateMfaAccountStatus(model){
+        async updateMfaAccountStatus(model) {
             try {
                 const handler = await httpHandlerService.get();
                 model.mfaEnabled = model.enabled;
-                if(model.selectedMfaDate){
+                if (model.selectedMfaDate) {
                     let dates = model.selectedMfaDate.toString().split(" - ");
-                    
-                    if( dates.length > 1){
+
+                    if (dates.length > 1) {
                         model.mfaExemptBeginDate = dates[0];
                         model.mfaExemptEndDate = dates[1];
+                    } else {
+                        model.mfaExemptEndDate = model.selectedMfaDate;
                     }
-                    else{
-                        model.mfaExemptEndDate  = model.selectedMfaDate;
-                    }
-                    
+
                 }
-                
+
                 model.uid = model.onyen;
-                
+
                 //reason and incidentNumber are already members of the model;
-                await handler.put(`WinTools/exchange-tools/mfa/mfa-account-status/${model.uid}`,model);
-                
+                await handler.put(`WinTools/exchange-tools/mfa/mfa-account-status/${model.uid}`, model);
+
 
             } catch (e) {
                 if (e.message.includes("404")) {
@@ -233,13 +232,13 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
         },
-        async getMfaDisabledRecords(criteria){
+        async getMfaDisabledRecords(criteria) {
             try {
                 let queryParams = commonExtensions.convertToQueryParams(criteria);
 
                 const handler = await httpHandlerService.get();
                 let list = await handler.get(`WinTools/exchange-tools/mfa/mfa-account-status?${queryParams}`);
-                
+
                 return list.data;
 
             } catch (e) {
@@ -250,13 +249,13 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 }
                 throw e;
             }
-        }, 
-        async getMfaMethodType(uid){
+        },
+        async getMfaMethodType(uid) {
             try {
                 const handler = await httpHandlerService.get();
                 let response = await handler.get(`WinTools/exchange-tools/mfa/mfa-method-type/${uid}`);
-                
-                return response.data; 
+
+                return response.data;
 
             } catch (e) {
                 if (e.message.includes("404")) {
@@ -267,14 +266,14 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
         },
-        async toggleMfa(uid){
+        async toggleMfa(uid) {
             try {
-                
+
                 const handler = await httpHandlerService.get();
-                
+
                 await handler.put(`WinTools/exchange-tools/mfa/mfa-account-status/${uid}/toggle-mfa-status`);
-                
-                
+
+
 
             } catch (e) {
                 if (e.message.includes("404")) {
@@ -287,14 +286,14 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
             //
 
         },
-        async getOrganizationalUnitsAdmins(){
-            try{
+        async getOrganizationalUnitsAdmins() {
+            try {
                 const handler = await httpHandlerService.get();
                 let response = await handler.get(`WinTools/exchange-tools/ad-tools/organizational-units-admins`);
-                
-                return response.data; 
 
-            } catch(e){
+                return response.data;
+
+            } catch (e) {
                 if (e.message.includes("404")) {
                     return {
                         status: false
@@ -302,15 +301,15 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 }
                 throw e;
             }
-          
+
         },
-        async getAdToolsAccountInfoLdapAuditInfo(id){
+        async getAdToolsAccountInfoLdapAuditInfo(id) {
             try {
-                
+
 
                 const handler = await httpHandlerService.get();
                 let entity = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/ldap-info/${id}`);
-                
+
                 return entity.data;
 
             } catch (e) {
@@ -322,13 +321,13 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
         },
-        async getAdToolsAccountInfoActiveDirectoryAuditInfo(id){
+        async getAdToolsAccountInfoActiveDirectoryAuditInfo(id) {
             try {
-                
+
 
                 const handler = await httpHandlerService.get();
                 let entity = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/ad-info/${id}`);
-                
+
                 return entity.data;
 
             } catch (e) {
@@ -340,13 +339,13 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
         },
-        async getCampusDirectoryAuditInfo(id){
+        async getCampusDirectoryAuditInfo(id) {
             try {
-                
+
 
                 const handler = await httpHandlerService.get();
                 let entity = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/campus-directory/${id}`);
-                
+
                 return entity.data;
 
             } catch (e) {
@@ -358,9 +357,9 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
         },
-        async getOffice365AuditInfo(id){
-           try {
-               
+        async getOffice365AuditInfo(id) {
+            try {
+
                 const handler = await httpHandlerService.get();
                 let entity = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/office-365/${id}`);
                 return entity.data;
@@ -374,9 +373,26 @@ function ExchangeToolsService(httpHandlerService,commonExtensions) {
                 throw e;
             }
 
-        }
+        },
+        async getSplunk(criteria) {
+            try {
+                let queryParams = commonExtensions.convertToQueryParams(criteria);
 
+                const handler = await httpHandlerService.get();
+                let list = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/lockouts?${queryParams}`);
+
+                return list.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        }
     }
 }
 
-injector.service('ExchangeToolsService', ["httpHandlerService","CommonExtensions"], ExchangeToolsService);
+injector.service('ExchangeToolsService', ["httpHandlerService", "CommonExtensions"], ExchangeToolsService);
