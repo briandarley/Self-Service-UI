@@ -15,7 +15,7 @@
             class="form-control"
             v-select-all
             v-model="filter"
-            placeholder="filter"
+            placeholder="onyen, pid, or email"
             v-on:keyup.13="search()"
           >
         </div>

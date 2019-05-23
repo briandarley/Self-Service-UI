@@ -1,5 +1,8 @@
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import {
+  Component,
+  Watch
+} from "vue-property-decorator";
 import SideMenu from "@/components/side-menu/side-menu.vue";
 import TopHeader from "@/components/top-header/top-header.vue";
 import SiteFooter from "@/components/footer/site-footer.vue";
@@ -9,12 +12,19 @@ import "simplebar/dist/simplebar.css";
 
 @Component({
   name: "App",
-  dependencies: ['$','toastService','spinnerService','EventBus'],
-  components: { SideMenu,TopHeader,SiteFooter,Spinner }
+  dependencies: ['$', 'toastService', 'spinnerService', 'EventBus'],
+  components: {
+    SideMenu,
+    TopHeader,
+    SiteFooter,
+    Spinner
+  }
 })
 export default class App extends Vue {
   currentRoute;
-  @Watch("$route", { immediate: false })
+  @Watch("$route", {
+    immediate: false
+  })
   onRouteChanged() {
     //newValue, oldValue
     this.spinnerService.hide();
@@ -23,20 +33,44 @@ export default class App extends Vue {
   mounted() {
     let $ = this.$;
     this.$refs.mainSpinner.showSpinner();
-    setTimeout(() => {
-      new SimpleBar($(".app-section")[0],{ autoHide: false, height: "auto" });
-    }, 2000);
+    let simple = new SimpleBar($(".app-section")[0], {
+      autoHide: false,
+      height: "auto"
+    });
+    // let height = simple.contentEl.scrollHeight;
+    // setTimeout(() => {
+    //   simple.recalculate();
+    //   height = simple.contentEl.scrollHeight;
+    //   $('.spinner').height(height);
+    // }, 2000);
 
-    this.EventBus.attachEvent("attach-scroll",this.attachScrollBar);
+    this.EventBus.attachEvent("attach-scroll", this.attachScrollBar);
   }
-  attachScrollBar(){
+  attachScrollBar() {
     let $ = this.$;
-    
+    let simple = new SimpleBar($(".app-section")[0], {
+      autoHide: false,
+      height: "auto"
+    });
+    let height = simple.contentEl.scrollHeight;
+    $('.spinner').height(height);
+
+    //execute every 100ms, then stop after 1sec
+    let handle = setInterval(() => {
+      simple.recalculate();
+      height = simple.contentEl.scrollHeight;
+      $('.spinner').height(height);
+    }, 100)
+
     setTimeout(() => {
-      new SimpleBar($(".app-section")[0],{ autoHide: false, height: "auto" });
+      clearInterval(handle)
     }, 1000);
+
+
+
+
   }
 
-  created(){}
-  
+  created() {}
+
 }

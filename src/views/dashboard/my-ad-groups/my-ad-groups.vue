@@ -71,7 +71,7 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Onyen/PID/Email"
+                      placeholder="onyen, pid, or email"
                       v-model="memberSearch"
                       v-select-all
                       v-on:keyup.13="search()"

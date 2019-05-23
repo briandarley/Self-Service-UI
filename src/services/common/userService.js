@@ -63,7 +63,11 @@ function UserService(configReaderService, localStorageService, routerService) {
         },
         async logout() {
             await this._initializeManager();
-            await this._mgr.signoutRedirect()
+
+            let user = await this._mgr.getUser();
+                        
+            await this._mgr.signoutRedirect({'id_token_hint': user.id_token})
+            this._mgr.removeUser();
             this._mgr.clearStaleState();
         },
         async get() {

@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: 'spinner',
-  dependencies: ['$', 'spinnerService'],
+  dependencies: ['$', 'spinnerService','EventBus'],
   props: ['allowServiceUpdate']
 
 
@@ -16,8 +16,10 @@ export default class Spinner extends Vue {
 
   showSpinner() {
     this.processing = true;
+    this.EventBus.emit("attach-scroll")
   }
   hideSpinner() {
+    
     this.processing = false;
   }
   toggleSpinner() {

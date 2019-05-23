@@ -5,12 +5,14 @@
       "lyris_list_base_path": "https://listtstapp1.ad.unc.edu/"
     },
     "security": {
-        "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
+        "authorityold": "https://its-idmtst-web.adtest.unc.edu/identityserver",
+        "authority": "http://localhost:5000",
         "client_id": "self-service-client",
         "redirect_uri": "http://localhost:8080/call-back.html",
         "response_type": "id_token token",
         "scope": "openid profile self-service-business",
-        "post_logout_redirect_uri": "http://localhost:8080",
+        "post_logout_redirect_uri": "https://its-idmtst-web.adtest.unc.edu/Shibboleth.sso/Logout?return=https://sso.unc.edu/idp/logout.jsp",
+
         "silent_redirect_uri": "http://localhost:8080/silent-refresh.html",
         "automaticSilentRenew": true
       }

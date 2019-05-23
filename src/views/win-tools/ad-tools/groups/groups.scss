@@ -1,0 +1,163 @@
+.result-grid,
+.result-grid .record {
+    display: block;
+
+}
+
+.row-header,
+.result-grid .record .record-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+
+}
+
+.record-info {
+    justify-content: space-between !important;
+    align-content: space-between !important;
+}
+
+.row-header .col,
+.result-grid .col {
+    flex: 1;
+
+    &:nth-of-type(1),
+    &:nth-of-type(3) {
+        flex: 2;
+    }
+
+    &:nth-of-type(3) {
+        text-align: right;
+
+        a:first-child {
+            margin-right: 10px;
+        }
+    }
+}
+
+.group-members .records {
+    >div:nth-of-type(even) {
+        background: $gray-100;
+    }
+}
+
+.group-members .row-header,
+.group-members .records div {
+    display: flex;
+    flex-flow: row;
+
+    div {
+        flex: 1;
+
+        &:nth-of-type(2) {
+            flex: 2;
+        }
+
+        &:last-child {
+            display: block;
+            text-align: right;
+
+        }
+    }
+}
+
+.add-member {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .form-group {
+
+        input[type="text"] {
+            width: 300px;
+        }
+    }
+
+    .lookup-result {
+        flex: 100%;
+        border: 1px solid $gray-500;
+        padding:10px;
+        .form-controls {
+            margin: 20px 0;
+            display: flex;
+            // align-items: flex-end;
+            // justify-content: space-around;
+        }
+
+        .check-buttons {
+            flex:1;
+            justify-content: flex-end;
+            align-items: center;            
+        }
+
+        .submit {
+            flex: 1;
+            padding-left: 20px;
+            text-align: right;      
+        }
+    }
+
+    ul,
+    ul li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+    }
+
+    ul li {
+        line-height: 25px;
+        display: flex;
+
+        label {
+            flex: 30%;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        span {
+            flex: 70%;
+        }
+    }
+
+}
+
+.more-info {
+    margin-left: 10px;
+    border: 1px solid $gray-500;
+    border-radius: 5px;
+    padding: 2px 3px;
+}
+
+.more-info.expanded {
+    transform: rotate(-180deg);
+    transition: transform 150ms ease;
+}
+
+.more-info.collapsed {
+    transform: rotate(-360deg);
+    transition: transform 150ms ease;
+}
+
+.expand-enter-active {
+    transition: all 0.5s ease;
+    height: 242px;
+    overflow: hidden;
+
+    .sdd-grid {
+        overflow: hidden !important;
+    }
+}
+
+.expand-leave-active {
+    transition: all 0.5s ease;
+    height: 242px;
+}
+
+.expand-enter,
+.expand-leave-to {
+    height: 0;
+    opacity: 0;
+}
