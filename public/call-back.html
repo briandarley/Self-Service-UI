@@ -11,16 +11,23 @@
 <body>
 
   <script type="text/javascript">
+  
    var userManager = new Oidc.UserManager();
    userManager.clearStaleState(null).then(function() {
 
-     userManager.signinRedirectCallback().then(function () {
+     userManager.signinRedirectCallback()
+     .then(function () {
        var callBack = "call-back.html";
        
        var index = window.location.href.toLowerCase().indexOf(callBack)
         window.location = window.location.href.substring(0, index);
        })
        .catch(function (e) {
+         if(e.message === "No state in response"){
+          var callBack = "call-back.html";
+          var index = window.location.href.toLowerCase().indexOf(callBack)
+          window.location = window.location.href.substring(0, index);
+         }
          console.error(e);
        });
    });

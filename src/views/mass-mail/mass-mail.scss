@@ -1,0 +1,37 @@
+.ico{
+    padding:0;
+    padding-right:10px;
+    line-height: 0;
+    span{
+        
+        padding:10px;
+        display:inline-block;
+        background: darken($carolina-blue, 10%);
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        
+    }
+
+    &:hover{
+        span{
+            background: darken($carolina-blue, 15%);
+        }
+        
+    }
+
+}
+
+.select-list{
+    display:flex;
+    margin-bottom:20px;
+    select{
+        flex:1;
+    }
+    .group-btns{
+        flex:1;
+        button:first-child{
+            margin:0 3px;
+            
+        }
+    }
+}
