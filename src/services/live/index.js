@@ -4,3 +4,4 @@ import './dashboardService';
 import './listManagerService';
 import './exchangeToolsService';
 import './adminProfileService';
+import './massMailService';

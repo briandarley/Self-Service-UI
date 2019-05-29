@@ -22,16 +22,39 @@
 }
 
 .select-list{
-    display:flex;
     margin-bottom:20px;
-    select{
-        flex:1;
+    >span{
+        display:block;
+        text-align: center;
     }
-    .group-btns{
-        flex:1;
-        button:first-child{
-            margin:0 3px;
-            
+    >div{
+        display:grid;
+        grid-template-columns: repeat(1fr, 4);
+        grid-template-rows: 1;
+        //justify-items: flex-end;
+        // align-items: flex-end;
+        select{
+            grid-column-start: 2;
         }
+        .group-btns{
+            grid-column-start: 3;
+            button:first-child{
+                margin:0 3px;
+                
+            }
+        }
+    }
+    
+}
+
+#confirmDelete .alert-info{
+    display: flex;
+    min-height:130px;
+    justify-content: stretch;
+
+    >div, >p{
+        
+        justify-self: center;
+        align-self: center;
     }
 }

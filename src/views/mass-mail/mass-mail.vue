@@ -47,16 +47,26 @@
               <router-link :to="{name: 'create-request'}">Create Request</router-link>from the menu on the left.
             </p>
           </div>
-          <div>
-
+          <div v-if="activeCampaigns && activeCampaigns.length">
             <div class="select-list">
-                          <span
-              class="strong"
-            >Select from the drop-down to edit an existing MassMail previously entered.</span>
-              <select class="form-control"></select>
-              <div class="group-btns">
-                <button class="btn btn-primary">Go</button>
-                <button class="btn btn-danger">Delete</button>
+              <span
+                class="strong"
+              >Select from the drop-down to edit an existing MassMail previously entered.</span>
+              <div>
+                <select class="form-control" v-model="seletedMassMail" >
+                  <option disabled value>Select an Existing MassMail to edit</option>
+                  <option
+                    v-for="item in activeCampaigns"
+                    :key="item.id" 
+                    :value="item.id"
+                  >{{item.id}} - {{item.subject}}</option>
+                </select>
+                <div class="group-btns">
+                  <button class="btn btn-primary" @click="editMassMail" :disabled="!seletedMassMail">Go</button>
+                  <button class="btn btn-danger" @click="deleteMassMail" :disabled="!seletedMassMail">Delete</button>
+
+          
+                </div>
               </div>
             </div>
           </div>
@@ -71,6 +81,21 @@
         </div>
       </div>
     </div>
+    <confirm-dialog id="confirmDelete" ref="confirmDelete">
+      <div slot="modal-title">Confirm: Delete Campaign?</div>
+      <div slot="modal-body">
+        <div class="alert alert-info">
+          <div class="info">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          </div>
+          <p>Confirm Delete?</p>
+        </div>
+      </div>
+       <div slot="modal-footer">
+        <button class="btn btn-danger" @click="removeEntityClick">yes</button>
+        <button class="btn btn-secondary" @click="removeEntityCancelClick">cancel</button>
+      </div>
+    </confirm-dialog>
   </div>
 </template>
 <script src="./mass-mail.js"></script>
