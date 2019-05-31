@@ -53,7 +53,7 @@ export default class BaseValidateMixin extends Vue {
       }
 
       this._removeInputError($element);
-      
+
 
     }
   }
@@ -74,7 +74,7 @@ export default class BaseValidateMixin extends Vue {
     let validation = null;
     if (isComponent && data instanceof Object && data["data-validation"]) {
       validation = JSON.parse(data["data-validation"].toString().replace(/'/g, "\""));
-    } else if(!isComponent){
+    } else if (!isComponent) {
       data = data.replace(/'/g, '"');
       validation = JSON.parse(data);
     }
@@ -89,11 +89,11 @@ export default class BaseValidateMixin extends Vue {
     if (isComponent) {
       return value ? value.trim() : value;
     }
-    const stdInputs = ["TEXTAREA","INPUT","SELECT"]
-    if(stdInputs.indexOf(element[0].tagName) === -1){
+    const stdInputs = ["TEXTAREA", "INPUT", "SELECT"]
+    if (stdInputs.indexOf(element[0].tagName) === -1) {
       value = element.attr("model");
     }
-    
+
 
     return value;
   }
@@ -115,7 +115,7 @@ export default class BaseValidateMixin extends Vue {
     let $formGroup = null;
     if (!isComponent) {
       $formGroup = $(el.closest(".form-group"));
-      const stdInputs = ["TEXTAREA","INPUT","SELECT"]
+      const stdInputs = ["TEXTAREA", "INPUT", "SELECT"]
       let isStandInputs = stdInputs.indexOf(el.tagName) > -1;
 
       if (el.type === "checkbox" || !isStandInputs) {
@@ -138,6 +138,11 @@ export default class BaseValidateMixin extends Vue {
     if (validation.maxLength) {
       if (value.length > validation.maxLength) {
         message = "value too long";
+
+        if (validation.name) {
+          message = validation.name + ' ' + message
+        }
+
         if (validation.message) message = validation.message;
         errors.push(validation.name + " " + message);
       }
@@ -151,7 +156,12 @@ export default class BaseValidateMixin extends Vue {
 
     if (validation.minLength) {
       if (value.length < validation.minLength) {
-        message = "value too short";
+        message = `value too short`;
+
+        if (validation.name) {
+          message = validation.name + ' ' + message
+        }
+
         if (validation.message) message = validation.message;
         errors.push(validation.name + " " + message);
       }
@@ -162,13 +172,18 @@ export default class BaseValidateMixin extends Vue {
   _setMissingValueValidationError(validation, errors, value) {
     let message = "";
 
-    if (!validation.minLength && !validation.maxLength) {
-      if (!value || !value.length || value === "false") {
-        message = "value required";
-        if (validation.message) message = validation.message;
-        errors.push(validation.name + " " + message);
+    //if (!validation.minLength && !validation.maxLength) {
+    if (!value || !value.length || value === "false") {
+      message = "value required";
+
+      if (validation.name) {
+        message = validation.name + ' ' + message
       }
+
+      if (validation.message) message = validation.message;
+      errors.push(validation.name + " " + message);
     }
+    //}
 
     return message;
   }
@@ -178,6 +193,11 @@ export default class BaseValidateMixin extends Vue {
       let regex = new RegExp(validation.regex);
       if (!regex.test(value)) {
         message = "invalid characters";
+
+        if (validation.name) {
+          message = validation.name + ' ' + message
+        }
+
         if (validation.message) message = validation.message;
         errors.push(validation.name + " " + message);
       }
@@ -192,6 +212,11 @@ export default class BaseValidateMixin extends Vue {
       case "email":
         if (!re.test(String(value).toLowerCase())) {
           message = "invalid";
+
+          if (validation.name) {
+            message = validation.name + ' ' + message
+          }
+
           if (validation.message) message = validation.message;
           errors.push(validation.name + " " + message);
         }
@@ -241,7 +266,7 @@ export default class BaseValidateMixin extends Vue {
     let $formGroup = null;
     if (!isComponent) {
       $formGroup = $(el.closest(".form-group"));
-      const stdInputs = ["TEXTAREA","INPUT","SELECT"]
+      const stdInputs = ["TEXTAREA", "INPUT", "SELECT"]
       let isStandInputs = stdInputs.indexOf(el.tagName) > -1;
 
       if (el.type === "checkbox" || !isStandInputs) {
@@ -303,12 +328,13 @@ export default class BaseValidateMixin extends Vue {
 
         let messages = [];
 
-
-        messages.push(this._setMaxLengthValidationError(validation, errors, value));
-        messages.push(this._setMinLengthValidationError(validation, errors, value));
         messages.push(this._setMissingValueValidationError(validation, errors, value));
-        messages.push(this._setRegExValidationError(validation, errors, value));
-        messages.push(this._setEmailValidationError(validation, errors, value));
+        if (!errors.length) {
+          messages.push(this._setMaxLengthValidationError(validation, errors, value));
+          messages.push(this._setMinLengthValidationError(validation, errors, value));
+          messages.push(this._setRegExValidationError(validation, errors, value));
+          messages.push(this._setEmailValidationError(validation, errors, value));
+        }
 
         let hasError = messages.some(c => c.length);
         if (!hasError) continue;

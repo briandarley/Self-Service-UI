@@ -3,6 +3,7 @@
     <div class="container">
       <div class="form-group">
         <h4 class="text-primary">Todo, Remedy 3924152, allow member to manually enter email address</h4>
+        <h4 class="text-primary">Todo, Remedy 3993792, description is a required field</h4>
         <label for="admin_email">Admin Email</label>
         <select
           name="admin_email"

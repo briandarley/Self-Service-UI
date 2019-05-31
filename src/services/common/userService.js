@@ -28,13 +28,21 @@ function UserService(configReaderService, localStorageService, routerService) {
                 return true;
             }
             //BD temporarily removed
-            // const systemRoles = roles.filter(c => c.mapedName.toUpperCase() === role.toUpperCase());
-            // const rolesIsAMemberOf = systemRoles[0].roles.filter((c) => userRoles.some(d => c.toUpperCase() === d));
+             //const systemRoles = userRoles.filter(c => c.mapedName.toUpperCase() === role.toUpperCase());
+             //const rolesIsAMemberOf = systemRoles[0].roles.filter((c) => userRoles.some(d => c.toUpperCase() === d));
 
-            // if (rolesIsAMemberOf.length > 0) {
-            //     return true;
-            // }
-            // return false;
+             //if (rolesIsAMemberOf.length > 0) {
+                // return true;
+             //}
+
+             switch(role.toUpperCase()){
+                 case "ADMIN":
+                     return userRoles.some(c=> c === "ITS_IdM Users")
+                     
+             }
+
+
+             return false;
 
         },
         async _initializeManager() {

@@ -5,3 +5,5 @@ import './listManagerService';
 import './exchangeToolsService';
 import './adminProfileService';
 import './massMailService';
+import './userProfileService';
+import './provisionsService';
