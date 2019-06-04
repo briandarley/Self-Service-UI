@@ -53,13 +53,13 @@ export default class App extends Vue {
       height: "auto"
     });
     let height = simple.contentEl.scrollHeight;
-    $('.spinner').height(height);
+    $('#appSpinner').height(height);
 
     //execute every 100ms, then stop after 1sec
     let handle = setInterval(() => {
       simple.recalculate();
       height = simple.contentEl.scrollHeight;
-      $('.spinner').height(height);
+      $('#appSpinner').height(height);
     }, 100)
 
     setTimeout(() => {

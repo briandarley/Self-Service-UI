@@ -1,0 +1,25 @@
+
+.provisions-today{
+    padding:0;
+}
+
+.navigate{
+    
+    display:flex;
+    justify-content: space-around;
+
+    i{
+        font-size: 25px;
+    }
+
+    .max-date{
+        color:$gray-500;
+        
+    }
+}
+
+
+.spinner {
+    position: absolute;
+    top:-20px !important;
+}

@@ -33,6 +33,28 @@ function httpHandlerService(axios, configReaderService, userService) {
 
 
             return this._httpHandler;
+        },
+        async getFullyQualifiedHttpHandler(serviceEndpoint) {
+            
+
+            const user = await userService.get();
+
+            const instance = axios.create({
+
+                baseURL: serviceEndpoint,
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Authorization": `Bearer ${user.access_token}`,
+                    "Content-Type": "application/json"
+                },
+
+            });
+
+            this._httpHandler = instance;
+
+
+
+            return this._httpHandler;
         }
 
     }

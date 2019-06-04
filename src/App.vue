@@ -7,11 +7,11 @@
         <transition name="fade">
           <router-view/>
         </transition>
-        <spinner></spinner>
+        <spinner id="appSpinner"></spinner>
       </div>
     </div>
     <site-footer></site-footer>
-    <spinner ref="mainSpinner" :allow-service-update="false"></spinner>
+    <spinner id="mainSpinner" ref="mainSpinner" :allow-service-update="false"></spinner>
   </div>
 </template>
 

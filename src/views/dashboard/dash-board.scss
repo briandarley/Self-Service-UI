@@ -1,9 +1,7 @@
 
 
 .dashboard-widgets {
-    
     display: grid;
-        
     grid-template-columns: repeat(3, 1fr);
     
 
@@ -18,7 +16,3 @@
 }
 
 
-
-.provisions-today{
-    padding:0;
-}

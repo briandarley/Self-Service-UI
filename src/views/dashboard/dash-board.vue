@@ -8,39 +8,13 @@
         <h3>Dashboard</h3>
       </div>
       <div class="card-body dashboard-widgets">
-        <div class="card widget">
-          <div class="card-header bg-primary text-white">
-            <p>Next GAL Sync</p>
-          </div>
-          <div class="card-body display-gal-sync">
-            <p class="text-primary">{{nextGalSync}}</p>
-          </div>
-        </div>
-        <div class="card widget">
-          <div class="card-header bg-primary text-white ct-chart provisions-today"></div>
-          <div class="card-body">
-            <span>Email Provisions for Week of 3/20/2019</span>
-          </div>
-        </div>
-        <div class="card widget">
-          <div class="card-header bg-danger text-white ct-chart ad-lockouts-today"></div>
-          <div class="card-body">
-            <span>AD Lock Outs</span>
-          </div>
-        </div>
-
-
-        <div class="card widget">
-          <div class="card-header bg-primary text-white ct-chart provisions-today">
-             <p>Bearer Token</p>
-          </div>
-          <div class="card-body text-center">
-            <button class="btn btn-primary" @click="copyToken()">Copy Bearer Token</button>
-          </div>
-        </div>
+        <gal-sync-widget></gal-sync-widget>
+        <provisions-widget></provisions-widget>
+        <ad-lock-widget></ad-lock-widget>
+        <bearer-token-widget></bearer-token-widget>
       </div>
     </div>
   </div>
 </template>
 <script src="./dash-board.js"></script>
-<style lang="scss" src="./dash-board.scss" scoped></style>
+<style lang="scss" src="./dash-board.scss" ></style>

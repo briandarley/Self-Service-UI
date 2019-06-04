@@ -7,3 +7,4 @@ import './adminProfileService';
 import './massMailService';
 import './userProfileService';
 import './provisionsService';
+import './dataAnalyticsService';
