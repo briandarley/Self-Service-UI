@@ -16,7 +16,8 @@
                     <div class="info">
                       <i class="fa fa-info-circle"></i>
                     </div>
-                    <p>
+                    <div>
+                      <p>
                       The aliases listed are associated to mail account, {{model.email}}.
                       Mail may be addressed using any of the addresses listed and will be delivered to your inbox.
                       Your primary alias is used by UNC systems when sending e-mail.
@@ -24,7 +25,11 @@
                     <p>Note: Accounts are limited to 5 aliases</p>
                     <p
                       class="strong"
-                    >To change your primary alias, select an alias from the list and click save.</p>
+                    >The (Primary) alias cannot be removed. If you wish to remove the current primary alias you must first designate another alias as the primary. 
+                    To change the primary, select the link 'set primary'.
+                    
+                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
