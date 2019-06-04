@@ -99,7 +99,7 @@ export default class EmailSignup extends BaseValidateMixin {
     }
     this.spinnerService.show();
     try {
-      await this.ProvisionsService.submitNewProvisionRequest(this.userId, this.model);
+      await this.UserProfileService.submitNewProvisionRequest(this.userId, this.model);
       this.toastService.success("Successfully submitted provision request.");
       
       await this.loadProvisionProfile();
@@ -114,7 +114,7 @@ export default class EmailSignup extends BaseValidateMixin {
   async updateDualRoleStatus(){
     this.spinnerService.show();
     try {
-      await this.ProvisionsService.updateMimsPrimaryDesignation(this.userId, this.selectedPrimaryDesignation);
+      await this.UserProfileService.updateMimsPrimaryDesignation(this.userId, this.selectedPrimaryDesignation);
       this.toastService.success("Successfully updated primary designation.");
       
       await this.loadProvisionProfile();
