@@ -18,7 +18,7 @@
           <i class="fa fa-caret-square-right"></i>
         </a>
       </div>
-      <span></span>
+      
     </div>
     
   </div>

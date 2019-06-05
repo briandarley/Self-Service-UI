@@ -47,7 +47,7 @@ export default class ListservSubscriptions extends Vue {
   async loadMySubscriptions(){
     this.spinnerService.show();
     try {
-      //child views are 'mounted' before parent is 'mounted' 
+      
       let userSubscriptions = await this.ListManagerService.getMySubscriptions();
       userSubscriptions.map(c => {
         c.name = c.listName;
