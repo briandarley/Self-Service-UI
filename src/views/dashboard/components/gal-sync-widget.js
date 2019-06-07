@@ -23,7 +23,11 @@ export default class GalSyncWidget extends Vue {
   }
 
   async calculateGalSync() {
-    this.$refs.spinner.showSpinner();
+    if(that.$refs.spinner)
+    {
+      this.$refs.spinner.showSpinner();
+    }
+    
     this.nextGalSync = "...";
     let val = await this.DashboardService.getNextGalSync();
 
@@ -40,7 +44,7 @@ export default class GalSyncWidget extends Vue {
 
       that.nextGalSync = `${minutes}:${this.pad(seconds,2)}`;
       
-      if(that.$refs.spinner)
+      if(that.$refs && that.$refs.spinner)
       {
         that.$refs.spinner.hideSpinner();
       }
@@ -49,12 +53,12 @@ export default class GalSyncWidget extends Vue {
       if (distance < 0) {
         clearInterval(x);
         that.nextGalSync = "";
-        if(that.$refs.spinner)
+        if(that.$refs && that.$refs.spinner)
         that.$refs.spinner.showSpinner();
 
         await that.calculateGalSync();
         
-        if(that.$refs.spinner)
+        if(that.$refs && that.$refs.spinner)
         that.$refs.spinner.hideSpinner();
       }
     }, 1000);

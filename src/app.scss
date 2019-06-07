@@ -24,8 +24,8 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 body {
   font-family: 'Roboto', sans-serif;
   /*hack to get dialog behavior correct*/
-  // position: relative;
-  // z-index: -1;
+   position: relative;
+   z-index: -1;
 }
 
 label,
@@ -37,8 +37,8 @@ input::placeholder{
 }
 .app {
   /*hack to get dialog behavior correct*/
-  // position: relative;
-  // z-index: -1;
+   position: relative;
+   z-index: -1;
 }
 
 .strong {

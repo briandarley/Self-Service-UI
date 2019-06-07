@@ -18,7 +18,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="List Name"
+                    placeholder="List Name like"
                     name="list_name"
                     id="list_name"
                     v-focus
@@ -28,8 +28,8 @@
                     v-on:keyup.13="search()"
                   >
                 </div>
-                <div class="controls text-right">
-                  <button class="btn btn-primary" @click="search()">Search</button>
+                <div class="submit text-right">
+                  <button class="btn btn-primary mr-1" @click="search()">Search</button>
                   <button class="btn btn-secondary" @click="clear()">Clear</button>
                 </div>
 
@@ -276,6 +276,7 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
     this.listNameSearchData = [];
     this.emailSearchData = [];
     this.noListNameSearchResult = false;
+    this.listName = "";
   }
   async mounted() {
     this.currentAction = "by-list-name";

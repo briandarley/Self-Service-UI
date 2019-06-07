@@ -46,6 +46,7 @@ export default class AdLockWidget extends Vue {
     await this.getLockoutsToday();
   }
   async getLockoutsToday() {
+    if(!this.$refs.spinner) return;
     this.$refs.spinner.showSpinner();
 
     let data = await this.DataAnalyticsService.getLockoutAnalytics(this.currentDate);
@@ -158,6 +159,7 @@ export default class AdLockWidget extends Vue {
 
 
     setTimeout(() => {
+      if(!this.$refs.spinner) return;
       this.$refs.spinner.hideSpinner();
       let chart = new Chartist.Bar(".ad-lockouts-today", dataProvisionsChart, optionsProvisionsChart, responsiveOptions);
       this.startAnimationForBarChart(chart);

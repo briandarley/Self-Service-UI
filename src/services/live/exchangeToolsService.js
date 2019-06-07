@@ -7,7 +7,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 const handler = await httpHandlerService.get();
 
                 let response = await handler.get(
-                    `WinTools/exchange-tools/provision/${uid}`
+                    `WinTools/exchange-tools/provisions/${uid}`
                 );
 
                 return response.data;
@@ -43,7 +43,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 const handler = await httpHandlerService.get();
 
                 let response = await handler.post(
-                    `WinTools/exchange-tools/provision/${uid}`, emailAddresses
+                    `WinTools/exchange-tools/provisions/${uid}`, emailAddresses
                 );
 
                 return response.data;

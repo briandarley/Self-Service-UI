@@ -8,6 +8,7 @@
         <h3>MFA</h3>
       </div>
       <div class="card-body">
+        <div class="border border-primary">
         <div class="alert alert-info">
           <div class="info">
             <i class="fa fa-info-circle"></i>
@@ -35,6 +36,7 @@
               </a>
             </router-link>
           </div>
+        </div>
         </div>
       </div>
     </div>

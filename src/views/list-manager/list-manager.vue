@@ -8,23 +8,25 @@
         <h3>List Manager</h3>
       </div>
       <div class="card-body">
-        <div class="alert border border-info">
+        <div class="alert alert-info">
           <div class="info text-info">
             <i class="fa fa-info-circle"></i>
           </div>
+          
           <h5 class="strong">Welcome to the University of North Carolina at Chapel Hill List Server</h5>
           <p>If you know the name of a list you would like to jump directly to, enter it below. Otherwise, if you are a member or administrator of multiple lists, you can view all your lists by selecting one of the links after clicking "Log In".</p>
         </div>
 
         <div class="card widget">
-          <div class="card-header text-primary border border-primary bg-white">
-            <p>Visit or Manage a Single List</p>
+          <div >
+            <p class="text-primary ml-3 mt-3 mb-0 pb-0">Visit or Manage a Single List</p>
           </div>
           <div class="card-body form-group">
-            <input type="text" class="form-control" placeholder="Enter List Name" v-focus>
+            <input type="text" class="form-control" placeholder="Enter List Name" v-focus v-select-all v-model="listName">
             <div class="text-right mt-2">
-              <button class="btn btn-primary mr-1">Visit</button>
-              <button class="btn btn-secondary">Manage</button>
+              <a class="btn btn-primary mr-1" :href="basePath + 'read/?forum=' + listName" target="_blank" >Visit</a>
+              <a class="btn btn-secondary mr-" :href="basePath + '?current_list=' + listName" target="_blank" >Manage</a>
+             
             </div>
           </div>
         </div>

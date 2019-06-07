@@ -44,6 +44,7 @@ export default class ProvisionsWidget extends Vue {
   }
 
   async getProvisionsToday() {
+    if(!this.$refs.spinner) return;
     this.$refs.spinner.showSpinner();
 
 
@@ -97,6 +98,7 @@ export default class ProvisionsWidget extends Vue {
       let chart = new Chartist.Line(".provisions-today", dataProvisionsChart, optionsProvisionsChart);
       //document.querySelector('.provisions-today').__chartist__.update();
       this.startAnimationForLineChart(chart);
+      if(!this.$refs.spinner) return;
       this.$refs.spinner.hideSpinner();
     }, 1000);
 

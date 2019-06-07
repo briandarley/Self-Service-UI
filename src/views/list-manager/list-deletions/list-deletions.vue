@@ -8,19 +8,21 @@
         <h3>List Deletions</h3>
       </div>
       <div class="card-body">
-        <div class="form-group form-inline">
+        <div class="form-group">
           <label for="listName">List Name</label>
           <input
             type="text"
             class="form-control"
             id="listName"
-            placeholder="List Name"
+            placeholder="List Name like"
             v-select-all
             v-model="listName"
             v-on:keyup.13="search()"
           >
-          <button class="btn btn-primary" @click="search()">Search</button>
-          <button class="btn btn-secondary" @click="reset()">Reset</button>
+        </div>
+        <div class="submit text-right mb-3">
+          <button class="btn btn-primary mr-1" @click="search()">Search</button>
+          <button class="btn btn-secondary" @click="reset()">Clear</button>
         </div>
         <div
           v-if="deletionList && deletionList.entities && deletionList.entities.length"
@@ -79,7 +81,7 @@
             <div class="subscriber-dump">
               <transition name="expand">
                 <div class="subscriber-dump-data" v-if="item.expanded">
-                  <div class="" v-if="item.subscriberLoading">
+                  <div class v-if="item.subscriberLoading">
                     <p>Subsciber data loading...</p>
                   </div>
                   <div v-else>

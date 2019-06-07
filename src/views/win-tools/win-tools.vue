@@ -8,9 +8,48 @@
         <h3>Win Tools</h3>
       </div>
       <div class="card-body">
+        <div class="border border-primary">
+        <div class="alert alert-info">
+          <div class="info">
+            <i class="fa fa-info-circle"></i>
+          </div>
+          <p class="mt-3 mb-4">
+            Wintools offers tools for adminitrator and help desk users. Tools that help manage user mailboxes, provisioning email, managing email aliases, and monitor account information.
+          </p>
+        </div>
+
+        <div class="user-actions">
+          <div class="action">
+            <router-link :to="{name: 'exchange-tools'}">
+              <a href="#" class="btn btn-outline-primary">
+                <i class="fa fas fas fa-mail-bulk"></i>
+                <span>Exhchange Tools</span>
+              </a>
+            </router-link>
+          </div>
+          <div class="action">
+            <router-link :to="{name: 'ad-tools'}">
+              <a href="#" class="btn btn-outline-primary">
+                <i class="fa fas fas fa-project-diagram"></i>
+                <span>AD Tools</span>
+              </a>
+            </router-link>
+          </div>
+          <div class="action">
+            <router-link :to="{name: 'systems'}">
+              <a href="#" class="btn btn-outline-primary">
+                <i class="fa fas fas fa-network-wired"></i>
+                <span>Systems</span>
+              </a>
+            </router-link>
+          </div>
+          
+        </div>
+        </div>
+      </div>
 
         
-      </div>
+
     </div>
   </div>
 </template>
