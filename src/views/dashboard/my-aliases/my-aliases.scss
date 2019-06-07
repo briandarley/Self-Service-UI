@@ -1,3 +1,4 @@
+
 .card {
   margin: 50px 0;
 }
@@ -33,10 +34,24 @@ li {
   z-index: -1;
   opacity: 0;
 }
+.header{
+  background: $carolina-blue;
+  color: $white;
+  display: flex;
+  padding:10px;
+  
+  div:first-child{
+    text-align: center;
+  }
+  div:last-child{
+    text-align: right;
+  }
+}
+
 .email-alias-list{
-  border: 1px solid $gray-100;
+  border: 1px solid $carolina-blue;
   padding:0;
-  margin: 0 20px;
+  margin: 0 20px 100px;
 }
 .email-alias {
   display: flex;

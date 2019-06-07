@@ -30,7 +30,11 @@
               </div>
             </div>
           </div>
-          <div class="email-alias-list">
+          <div class="email-alias-list" v-if="emailAddresses && emailAddresses.length">
+            <div class="header">
+              <div class="col">Email</div>
+              <div class="col">Action</div>
+            </div>
             <div class="email-alias" v-for="(item, index) in emailAddresses" :key="index">
               <div>{{item.email}}</div>
 
