@@ -14,15 +14,16 @@
             <div class="m-2">
               <div class="form-group">
                 <label for>Onyen</label>
-                <input type="text" class="form-control" placeholder="Onyen">
+                <input type="text" class="form-control" placeholder="Onyen" v-model="criteria.onyen">
               </div>
               <div class="form-group">
                 <label for>Date From</label>
-                <input type="text" class="form-control" placeholder="Date From">
+                <date-picker :selected-date.sync="criteria.submittedFromDate"></date-picker>
               </div>
               <div class="form-group">
                 <label for>Date To</label>
-                <input type="text" class="form-control" placeholder="Date To">
+                <date-picker :selected-date.sync="criteria.submittedThruDate"></date-picker>
+                
               </div>
               <div class="form-group">
                 <label for>Limit Result</label>
@@ -35,7 +36,7 @@
                       value="0"
                       name="provision-selection"
                       v-model="provisionSelection"
-                      disabled="disabled"
+                      
                     >
                     <label for="provision-selection-all">All</label>
                   </li>
@@ -54,33 +55,57 @@
                 </ul>
               </div>
               <div class="sumbit text-right">
-                <button class="btn btn-primary mr-1">Search</button>
-                <button class="btn btn-secondary">Clear</button>
+                <button class="btn btn-primary mr-1" @click="search()">Search</button>
+                <button class="btn btn-secondary" @click="clearCriteria()">Clear</button>
               </div>
             </div>
           </div>
 
-          <div class="container border border-primary mt-3">
+
+          <div class="d-flex mt-3" style="justify-content:space-between">
+            <h3 class="text-primary">Total Records {{provisionRecords.totalRecords | formatNumber}}</h3>
+            <pager
+              :criteria="criteria"
+              btn-count="5"
+              :total-records="provisionRecords.totalRecords"
+              v-on:indexChanged="indexChanged"
+            ></pager>
+          </div>
+
+
+          <div class="container border border-primary mt-1">
             <div class="row bg-primary text-white row-header">
               <div class="col">Onyen</div>
               <div class="col">Status</div>
               <div class="col">Submit Dt</div>
               <div class="col">Create Dt</div>
               <div class="col">Requestor</div>
-              <div></div>
+              <div class="col"></div>
             </div>
             <div
               class="result-grid row"
-              v-for="item in listNameSearchData"
+              v-for="item in provisionRecords.entities"
               v-bind:key="item.listName"
             >
               <div class="col">{{item.onyen}}</div>
               <div class="col">{{item.status}}</div>
-              <div class="col">{{item.submitDate}}</div>
-              <div class="col">{{item.createDate}}</div>
-              <div class="col">{{item.requestor}}</div>
+              <div class="col">{{item.submittedDate | formatDate}}</div>
+              <div class="col">{{item.createdDate | formatDate}}</div>
+              <div class="col">{{item.submittedBy}}</div>
               <div class="col"></div>
             </div>
+          </div>
+
+
+
+          <div class="mt-3">
+            
+            <pager
+              :criteria="criteria"
+              btn-count="5"
+              :total-records="provisionRecords.totalRecords"
+              v-on:indexChanged="indexChanged"
+            ></pager>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ export default class GalSyncWidget extends Vue {
   }
 
   async calculateGalSync() {
-    if(that.$refs.spinner)
+    if(that.$refs && that.$refs.spinner)
     {
       this.$refs.spinner.showSpinner();
     }

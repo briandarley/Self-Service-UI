@@ -20,6 +20,26 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
+        async getProvisionHistories(criteria) {
+            try {
+                const handler = await httpHandlerService.get();
+               
+                let queryParams = commonExtensions.convertToQueryParams(criteria);
+
+                let response = await handler.get(
+                    `WinTools/exchange-tools/provisions?${queryParams}`
+                );
+
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
         async getUserLdap(uid) {
             try {
                 const handler = await httpHandlerService.get();

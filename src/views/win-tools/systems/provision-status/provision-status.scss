@@ -1,0 +1,26 @@
+.radio-buttons{
+    list-style: none;
+    padding: 0;
+    margin:0;
+    display:flex;
+    li{
+        padding: 0;
+        margin:0;
+        &:first-of-type{
+            margin-right:20px;
+        }
+    }
+}
+.row-header,.result-grid{
+    display:flex;
+    
+    .col{
+        text-align: left;
+        flex:1;
+        
+
+    }
+    .col:nth-of-type(2){
+        flex:1;
+    }
+}

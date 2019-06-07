@@ -5,7 +5,7 @@ import {Component} from "vue-property-decorator";
 
 @Component({
   name: 'provisions-widget',
-  dependencies: ['$', 'moment', 'spinnerService', 'DataAnalyticsService'],
+  dependencies: ['$', 'moment', 'CommonExtensions', 'spinnerService', 'DataAnalyticsService'],
   components: {Spinner}
 
 })
@@ -13,11 +13,7 @@ import {Component} from "vue-property-decorator";
 export default class ProvisionsWidget extends Vue {
   currentProvisionDate = new Date();
 
-  addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-  }
+  
 
   get provisionsDate() {
     return this.getBeginningDate(this.currentProvisionDate);
@@ -38,7 +34,7 @@ export default class ProvisionsWidget extends Vue {
 
     let diff = (7 + (dt.getDay())) % 7;
 
-    let beginDate = this.addDays(dt, (-1 * diff));
+    let beginDate = this.CommonExtensions.addDays(dt, (-1 * diff));
     //.toISOString()
     return beginDate;
   }
@@ -144,12 +140,12 @@ export default class ProvisionsWidget extends Vue {
   }
 
   async previous() {
-    this.currentProvisionDate = this.addDays(this.currentProvisionDate, (-7));
+    this.currentProvisionDate = this.CommonExtensions.addDays(this.currentProvisionDate, (-7));
     await this.getProvisionsToday();
   }
   async next() {
     if (this.isMaxDate) return;
-    this.currentProvisionDate = this.addDays(this.currentProvisionDate, 7);
+    this.currentProvisionDate = this.CommonExtensions.addDays(this.currentProvisionDate, 7);
     await this.getProvisionsToday();
   }
 

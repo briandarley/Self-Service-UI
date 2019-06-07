@@ -66,6 +66,7 @@ export default class Pager extends Vue {
 
     let btnCount = parseInt(this.btnCount);
     let index = this.pageInfo.index;
+    
     if (index === undefined) {
       return;
     }
@@ -74,7 +75,7 @@ export default class Pager extends Vue {
     let startIndex = 1;
 
     if (index >= btnCount) {
-      lowerIndex = Math.ceil(index / btnCount);
+      lowerIndex = Math.floor(index / btnCount);
       startIndex = ((lowerIndex * btnCount) + 1);
     }
 

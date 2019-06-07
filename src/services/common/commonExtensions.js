@@ -4,8 +4,32 @@ function CommonExtensions() {
     return {
         convertToQueryParams(criteria) {
             let params = Object.keys(criteria)
-                .filter(c => criteria[c] != null)
+                .filter(c => {
+
+                    if(criteria[c] != null)
+                    {
+                        if(Array.isArray(criteria[c]) &&  criteria[c].length > 0){
+                            return true;
+                        }
+                        else if(!Array.isArray(criteria[c]))
+                        {
+                            return true;
+                        }
+                        return false;
+                    }
+
+
+                })
                 .map(c => {
+                    if(Array.isArray(criteria[c]))
+                    {
+                        let query = '';
+                        for(let i = 0; i < criteria[c].length; i++){
+                            query += `${c}=${criteria[c][i]}&`
+                        }
+                        query = query.replace(/&$/, '');
+                        return query;
+                    }
                     return `${c}=${criteria[c]}`
                 })
 
@@ -104,8 +128,13 @@ function CommonExtensions() {
                         return false;
             }
         },
-        toDateFromLdapTime(value){
-            return new Date(value/1e4 - 1.16444736e13);
+        toDateFromLdapTime(value) {
+            return new Date(value / 1e4 - 1.16444736e13);
+        },
+        addDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
         }
 
     }

@@ -8,7 +8,7 @@ import { isUndefined } from "util";
 
 @Component({
   name: 'ad-lock-widget',
-  dependencies: ['$', 'moment', '_', 'UserService', 'DashboardService', 'toastService', 'DataAnalyticsService'],
+  dependencies: ['$', 'moment', 'CommonExtensions', 'UserService', 'DashboardService', 'toastService', 'DataAnalyticsService'],
   components: {
     Spinner
   }
@@ -27,20 +27,16 @@ export default class AdLockWidget extends Vue {
 
   }
   async previous() {
-    this.currentDate = this.addDays(this.currentDate, -1);
+    this.currentDate = this.CommonExtensions.addDays(this.currentDate, -1);
     await this.getLockoutsToday();
   }
   async next() {
     if (this.isMaxDate) return;
-    this.currentDate = this.addDays(this.currentDate, 1);
+    this.currentDate = this.CommonExtensions.addDays(this.currentDate, 1);
     await this.getLockoutsToday();
   }
 
-  addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-  }
+  
 
   async mounted() {
     await this.getLockoutsToday();

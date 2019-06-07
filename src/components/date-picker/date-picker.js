@@ -31,6 +31,7 @@ export default class DatePicker extends Vue {
   }
   async updated() {
     //need to check initialization because if we modify the bound values, updated will be called causing an infinite loop
+    
     if(this.initialized) return;
     this.initialized = true;
 
@@ -47,6 +48,9 @@ export default class DatePicker extends Vue {
       {
         minDate = moment(this.minDate, "MM/DD/YYYY").format("MM/DD/YYYY");
       }
+    }
+    else{
+      minDate = null;
     }
 
     if (this.selectedDate) {
@@ -76,6 +80,7 @@ export default class DatePicker extends Vue {
       {
         this.$emit('update:selectedDate', e.target.value);
         this.value = e.target.value;
+        
       }
       );
     } else {
@@ -94,9 +99,11 @@ export default class DatePicker extends Vue {
         {
           return;
         }
-          
+        
+
         let isValid = moment(e.target.value, 'MM/DD/YYYY', true).isValid();
         
+               
         if(isValid && minDate){
           isValid = moment(e.target.value, 'MM/DD/YYYY').isSameOrAfter(moment(minDate, 'MM/DD/YYYY'))
           
@@ -107,7 +114,7 @@ export default class DatePicker extends Vue {
           e.target.value = "";
         }
         else{
-
+          
           //Required because the desired syntax is ':selected-date.sync' 
           //this syntax makes consuming the component simpler where the consumer doesn't have to trap the event explicitly.
           this.$emit('update:selectedDate', e.target.value);
