@@ -8,8 +8,6 @@
         <h3>My Lyris Subscriptions</h3>
       </div>
 
- 
-
       <div class="card-body">
         <div class="row">
           <div class="col">
@@ -26,10 +24,6 @@
           </div>
         </div>
 
-
-
-
-
         <div class="subscription-info">
           <div class="row">
             <div class="col">
@@ -39,21 +33,20 @@
               </select>
             </div>
           </div>
-          <div class="row mt-3">
-            <div class="col">
-              <span class="text-primary">Lists associated with e-mail <span class="strong">{{selectedEmail}}</span></span>
+          <div class="mt-3">
+            <div class="list-container">
+              <div class="header">
+                <span>Lists associated with e-mail</span>
+                <span>{{selectedEmail}}</span>
+              </div>
 
-              <div class="list-container mt-3">
+              <div class="records mt-3">
                 <ul>
                   <li v-for="item in selectedList" :key="item.name">{{item.name}}</li>
                 </ul>
               </div>
             </div>
           </div>
-
-          
-         
-
         </div>
       </div>
     </div>

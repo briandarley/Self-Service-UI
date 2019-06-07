@@ -11,21 +11,6 @@
 
   .subscription-info {
     
-
-    
-    span {
-      font-size: 1.1em;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .list-container {
-      //height: 300px;
-      flex: 1;
-
-      margin: 0 0 20px;
-      
-    }
     ul{
       border: 1px solid $gray-100;
     }
@@ -48,4 +33,20 @@
       }
     }
   }
+}
+.list-container{
+  border: 1px solid $carolina-blue;
+}
+.header {
+  background: $carolina-blue;
+  color: $white;
+  padding: 12px 0 12px 12px;
+  span:first-of-type{
+    margin-right:30px;
+  }
+
+}
+.records{
+  flex: 1;
+  margin: 0 0 20px;
 }
