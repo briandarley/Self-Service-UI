@@ -87,6 +87,11 @@
               :disabled="showAddMembers"
               :class="{'disabled': showAddMembers}"
             >Clear</button>
+
+            <a href="#" class="btn btn-primary ml-1" title="refresh" @click.prevent="create" v-if="showAddMembers">
+              <i class="fa fa-refresh"></i>
+            </a>
+            
           </div>
         </div>
         <!-- Group Definition Fields/Lookup -->
