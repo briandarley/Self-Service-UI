@@ -1,0 +1,41 @@
+.add-entity {
+ >.container{
+    border: 1px solid $carolina-blue;
+ }
+    .row-header,
+    .result-grid {
+        display: flex;
+
+        div {
+            flex: 1;
+        }
+
+        div:nth-of-type(2) {
+            flex: 2;
+        }
+
+        div:nth-of-type(3) {
+            text-align: right;
+
+            a i {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .add-member {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top:20px;
+        .form-group {
+    
+            input[type="text"] {
+                width: 300px;
+            }
+        }
+    }
+}
+
+.result-grid {}

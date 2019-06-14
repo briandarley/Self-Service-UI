@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="container" v-if="isNewRequest">
-          <div @submit.prevent.prevent="validation-form" autocomplete="off">
+          <div autocomplete="off">
             <p
               class="text-info"
             >Please provide an existing email address for account {{userId}} to receive a notification when your UNC email request is complete.</p>

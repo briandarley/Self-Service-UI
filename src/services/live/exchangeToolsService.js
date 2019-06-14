@@ -23,7 +23,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         async getProvisionHistories(criteria) {
             try {
                 const handler = await httpHandlerService.get();
-               
+
                 let queryParams = commonExtensions.convertToQueryParams(criteria);
 
                 let response = await handler.get(
@@ -411,8 +411,8 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 }
                 throw e;
             }
-        }, 
-        async getDistributionGroups(criteria){
+        },
+        async getDistributionGroups(criteria) {
             try {
                 let queryParams = commonExtensions.convertToQueryParams(criteria);
 
@@ -430,9 +430,9 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getDistributionGroup(id){
+        async getDistributionGroup(id) {
             try {
-            
+
                 const handler = await httpHandlerService.get();
                 let list = await handler.get(`WinTools/exchange-tools/ad-tools/groups/${id}`);
 
@@ -447,7 +447,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getDistributionGroupMembers(id){
+        async getDistributionGroupMembers(id) {
             try {
                 const handler = await httpHandlerService.get();
                 let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/members`);
@@ -463,10 +463,27 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getExchangeUser(id){
+        async getSharedMailbox(samAccountName) {
             try {
                 const handler = await httpHandlerService.get();
-                
+
+                let response = await handler.get(`/WinTools/systems/shared-mailbox/${samAccountName}`);
+
+                return response.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async getExchangeUser(id) {
+            try {
+                const handler = await httpHandlerService.get();
+
                 let response = await handler.get(`/WinTools/exchange-tools/ad-tools/exchange-users/${id}`);
 
                 return response.data;
@@ -480,13 +497,13 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async removeMember(groupId, memberId){
-            try{
+        async removeMember(groupId, memberId) {
+            try {
                 const handler = await httpHandlerService.get();
 
                 await handler.delete(`/WinTools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
 
-            } catch(e){
+            } catch (e) {
                 if (e.message.includes("404")) {
                     return {
                         status: false
@@ -495,8 +512,103 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
 
+        },
+        async getOrganizationalUnits() {
+            try {
+                const handler = await httpHandlerService.get();
+                let list = await handler.get(`WinTools/systems/organizational-units`);
+
+                return list.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async createSharedMailbox(model) {
+            try {
+                const handler = await httpHandlerService.get();
+                let response = await handler.post(`WinTools/systems/shared-mailbox`, model);
+
+                return response.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+            //
+        },
+        async addGroupMember(groupId, memberId) {
+
+            try {
+                const handler = await httpHandlerService.get();
+                let response = await handler.put(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async removeGroupMember(groupId, memberId) {
+
+            try {
+                const handler = await httpHandlerService.get();
+                
+                let response = await handler.delete(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async addGroupManager(groupId, memberId) {
+
+            try {
+                const handler = await httpHandlerService.get();
+                let response = await handler.put(`/wintools/exchange-tools/ad-tools/groups/${groupId}/managers/${memberId}`);
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async removeGroupManager(groupId, memberId) {
+
+            try {
+                const handler = await httpHandlerService.get();
+                
+                let response = await handler.delete(`/wintools/exchange-tools/ad-tools/groups/${groupId}/managers/${memberId}`);
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
         }
-        
+
     }
 }
 

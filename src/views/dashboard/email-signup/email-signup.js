@@ -96,6 +96,7 @@ export default class EmailSignup extends BaseValidateMixin {
     let errors = this.validate();
     if (errors.length) {
       this.toastService.error(errors.join("<br/>"));
+      return;
     }
     this.spinnerService.show();
     try {
