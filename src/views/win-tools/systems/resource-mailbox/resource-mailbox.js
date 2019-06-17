@@ -13,14 +13,14 @@ import {
   dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService']
 
 })
-export default class SharedMailbox extends BaseValidateMixin {
+export default class ResourceMailbox extends BaseValidateMixin {
   organizationalUnits = [];
 
   model = {
     department: "",
     name: "",
     displayName: "",
-    replyToAddress: ""
+    
   }
   persistedModel = {};
   responseModel = {};
@@ -32,11 +32,10 @@ export default class SharedMailbox extends BaseValidateMixin {
   onDisplayNameChanged(newvalue) {
     if (!newvalue) {
       this.model.name = "";
-      this.model.replyToAddress = "";
       return;
     }
     this.model.name = newvalue.replace(/[^a-z0-9_-]/g, '');
-    this.model.replyToAddress = this.model.name + '@email.unc.edu';
+    
   }
 
   getDepartmentLabel(entity) {
@@ -67,20 +66,7 @@ export default class SharedMailbox extends BaseValidateMixin {
     this.toastService.set(this);
     await this.loadOrganizationalUnits();
   }
-  async getUserByEmail() {
-
-    try {
-      //check to make sure email is unique model.replyToAddress
-      let adUser = await this.ExchangeToolsService.getAdUserByEmail(this.model.replyToAddress);
-
-      return adUser;
-
-    } catch (e) {
-      window.console.log(e);
-      this.toastService.error("Failed to retrieve user by email");
-      return null;
-    }
-  }
+  
   async getDistributionGroup() {
 
     try {
@@ -114,7 +100,7 @@ export default class SharedMailbox extends BaseValidateMixin {
   async getSharedMailbox() {
 
     try {
-      let samAccountName = `${this.model.department}_${this.model.name}.smb`
+      let samAccountName = `${this.model.department}_${this.model.name}.rmb`
       let entity = await this.ExchangeToolsService.getSharedMailbox(samAccountName);
 
       return entity;
@@ -134,10 +120,10 @@ export default class SharedMailbox extends BaseValidateMixin {
       let values = await Promise.all([
         this.getSharedMailbox(), 
         this.getDistributionGroup(), 
-        this.getUserByEmail(), 
+        
         this.getDistributionGroupMembers()])
 
-      if (!values[0] || !values[1] || !values[2] || !values[3]) {
+      if (!values[0] || !values[1] || !values[2]) {
         //One of the responses returned null
         //this.toastService.error("Failed integrity check");
         return "FAILED";
@@ -152,8 +138,8 @@ export default class SharedMailbox extends BaseValidateMixin {
       } else if (values[0].status !== false && values[1].status !== false) {
         this.persistedModel.mailbox = values[0];
         this.persistedModel.group = values[1];
-        this.persistedModel.members = values[3].members;
-        this.persistedModel.managers = values[3].managers;
+        this.persistedModel.members = values[2].members;
+        this.persistedModel.managers = values[2].managers;
         
         //Both mailbox and distribution group exist
         return "SHARED_MAILBOX_EXISTS";
@@ -178,14 +164,14 @@ export default class SharedMailbox extends BaseValidateMixin {
         shortName: this.model.name,
         organization: this.model.department,
         displayName: this.model.displayName,
-        replyToAddress: this.model.replyToAddress,
-        //SharedMailbox
-        mailboxType: 1
+        //ResourceMailbox
+        mailboxType: 2
       }
 
       this.responseModel = await this.ExchangeToolsService.createSharedMailbox(model);
 
       
+
       this.toastService.success("Successfully created shared mailbox");
 
 
