@@ -68,9 +68,10 @@ export default class EmailSignup extends BaseValidateMixin {
     return true;
   }
   get isMailboxCreated() {
+
     if (!this.provisionInfo) return false;
-    return this.provisionInfo.status == 'Notified' || this.provisionInfo.status == 'Created';
-  }
+    return ["Notfied", "Created", "Completed"].indexOf(this.provisionInfo.status) > -1;
+ }
 
   get hasValidLdapRecord() {
     return this.userLdapProfile.status !== false;
@@ -160,11 +161,14 @@ export default class EmailSignup extends BaseValidateMixin {
 
   }
   async loadProvisionProfile(){
-    this.viewLoaded = false;
-    await this.setUserId();
-    this.toastService.set(this);
+    this.spinnerService.show();
+
+    
     try {
-      this.spinnerService.show();
+      this.viewLoaded = false;
+      await this.setUserId();
+      this.toastService.set(this);
+        
       let values = await Promise.all([
         this.ProvisionsService.getProvisionRecord(this.userId),
         this.UserProfileService.getLdapUserProfile(this.userId),
