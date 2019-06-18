@@ -6,7 +6,7 @@ function CommonExtensions() {
             let params = Object.keys(criteria)
                 .filter(c => {
 
-                    if(criteria[c] != null)
+                    if(criteria[c] != null && criteria[c] !== "")
                     {
                         if(Array.isArray(criteria[c]) &&  criteria[c].length > 0){
                             return true;

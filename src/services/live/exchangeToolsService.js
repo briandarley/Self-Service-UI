@@ -607,6 +607,72 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 }
                 throw e;
             }
+        },
+        async getAdminAliases(criteria) {
+
+            try {
+                const handler = await httpHandlerService.get();
+                let queryParams = commonExtensions.convertToQueryParams(criteria);
+
+                let response = await handler.get(`/WinTools/systems/alias-authority?${queryParams}`);
+
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async getAvailableDomains(){
+            try {
+                const handler = await httpHandlerService.get();
+                
+                let response = await handler.get(`/WinTools/systems/available-domains`);
+
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async addAuthorizedDomain(userID, domain){
+            try {
+                const handler = await httpHandlerService.get();
+                
+                let response = await handler.post(`/WinTools/systems/alias-authority/${userID}/domains/${domain}`);
+
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async removeAuthorizedDomain(userID, domain){
+            try {
+                const handler = await httpHandlerService.get();
+                
+                let response = await handler.delete(`/WinTools/systems/alias-authority/${userID}/domains/${domain}`);
+
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
         }
 
     }
