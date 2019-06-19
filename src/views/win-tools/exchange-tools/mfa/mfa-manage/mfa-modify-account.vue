@@ -214,7 +214,7 @@
             <div>
               <p class="mt-3 mb-4">
                 Specify Date Range in which MFA should be disabled for the account.
-                The begining date will be the date in which MFA will be disabled, while the last date will be the end of the exemption period.
+                The beginning date will be the date in which MFA will be disabled, while the last date will be the end of the exemption period.
               </p>
               <p>
                 To pick a date range select the first day of the exemption period, the last day of the exemption period, finally select

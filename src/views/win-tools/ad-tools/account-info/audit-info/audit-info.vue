@@ -99,7 +99,7 @@
         <span v-else>None</span>
       </div>
       <div>
-        <span class="label">UNC Student Record Dept Number</span>
+        <span class="label">UNC Student Record Department Number</span>
         <span v-if="data.uncStudentRecordDepartmentNumber">{{data.uncStudentRecordDepartmentNumber}}</span>
         <span v-else>None</span>
       </div>

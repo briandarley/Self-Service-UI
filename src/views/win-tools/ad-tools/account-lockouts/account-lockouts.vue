@@ -14,7 +14,7 @@
               <i class="fa fa-info-circle"></i>
             </div>
             <p>
-              The accounts listed have been identified by AD as beeing locked. A Window's Event was triggered and this event was submitted to Splunk. 
+              The accounts listed have been identified by AD as being locked. A Window's Event was triggered and this event was submitted to Splunk. 
               We attempt to retrieve the machine name whenever possible but there are times when this value is not available. 
             </p>
             <p>Use the search field below to locate a desired record using Onyen</p>

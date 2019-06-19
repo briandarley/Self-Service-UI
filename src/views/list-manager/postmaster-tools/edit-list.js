@@ -30,7 +30,7 @@ export default class EditList extends Vue {
   retrievingMetrics = false;
   refreshMetrics = false;
   modelAddMember = {};
-  modelUpdateMeber = {};
+  modelUpdateMember = {};
   modelUpdateList = {};
 
   clickAddNewMember() {
@@ -38,7 +38,7 @@ export default class EditList extends Vue {
     this.$refs.modalAddMember.show();
   }
   clickUpdateMember(member) {
-    this.modelUpdateMeber = JSON.parse(JSON.stringify(member));
+    this.modelUpdateMember = JSON.parse(JSON.stringify(member));
     this.$refs.modalUpdateMember.show();
   }
   async saveNewMember() {
@@ -75,16 +75,16 @@ export default class EditList extends Vue {
     try {
 
       this.$refs.modalUpdateMember.hide();
-      let originalUser = this.members.find(c => c.memberId === this.modelUpdateMeber.memberId);
+      let originalUser = this.members.find(c => c.memberId === this.modelUpdateMember.memberId);
       let emailAddress = originalUser.emailAddress;
-      let newEmailAddress = this.modelUpdateMeber.emailAddress;
+      let newEmailAddress = this.modelUpdateMember.emailAddress;
 
       if (emailAddress !== newEmailAddress) {
-        this.modelUpdateMeber.emailAddress = emailAddress;
-        this.modelUpdateMeber.newEmailAddress = newEmailAddress;
+        this.modelUpdateMember.emailAddress = emailAddress;
+        this.modelUpdateMember.newEmailAddress = newEmailAddress;
       }
 
-      await this.ListManagerService.updateSubscriber(this.modelUpdateMeber);
+      await this.ListManagerService.updateSubscriber(this.modelUpdateMember);
       this.toastService.success("Updated Member");
 
       //clear filter so that user can verify themselves of success
@@ -131,11 +131,11 @@ export default class EditList extends Vue {
 
   }
 
-  @Watch("modelUpdateMeber", {
+  @Watch("modelUpdateMember", {
     immediate: false,
     deep: true
   })
-  onmodelUpdateMeberChanged(newValue) {
+  onModelUpdateMemberChanged(newValue) {
 
     if (newValue.emailAddress === undefined || newValue.fullName === undefined) return;
 

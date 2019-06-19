@@ -52,7 +52,7 @@
                 <span v-if="provisionData.createdDate">{{provisionData.createdDate | formatDate}}</span>
               </div>
               <div>
-                <span class="strong">Notfied</span>
+                <span class="strong">Notified</span>
                 <span v-if="provisionData.notifiedDate">{{provisionData.notifiedDate | formatDate}}</span>
               </div>
               <div>

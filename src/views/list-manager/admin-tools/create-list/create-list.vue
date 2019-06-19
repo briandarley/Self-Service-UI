@@ -14,7 +14,7 @@
               <i class="fas fa-exclamation-circle"></i>
             </div>
             <p class="my-4 p-2">
-              Note: Open and Closed mailing lists have a subscriber cap of 250 members. For details on theis policy visit the
+              Note: Open and Closed mailing lists have a subscriber cap of 250 members. For details on this policy visit the
               <a
                 href="https://help.unc.edu/help/listserv-administrators-faq-collection/#maxnumbsubs"
               >FAQ</a>

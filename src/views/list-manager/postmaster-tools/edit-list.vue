@@ -269,7 +269,7 @@
     <!-- Update Member confirm-dialog -->
     <confirm-dialog id="modalUpdateMember" ref="modalUpdateMember">
       <div slot="modal-title">
-        <span class="text-primary">Update Member {{modelUpdateMeber.fullName}}</span>
+        <span class="text-primary">Update Member {{modelUpdateMember.fullName}}</span>
       </div>
       <div slot="modal-body">
         <div class="containter form-group">
@@ -277,14 +277,14 @@
             type="text"
             class="form-control"
             placeholder="Member E-Mail"
-            v-model="modelUpdateMeber.emailAddress"
+            v-model="modelUpdateMember.emailAddress"
             v-select-all
           >
           <input
             type="text"
             class="form-control"
             placeholder="Full Name"
-            v-model="modelUpdateMeber.fullName"
+            v-model="modelUpdateMember.fullName"
             v-select-all
           >
           <div class="check-buttons">
@@ -292,8 +292,8 @@
               type="checkbox"
               name="isListAdmin"
               id="chkIsListAdmin"
-              v-model="modelUpdateMeber.isListAdmin"
-              :value="modelUpdateMeber.isListAdmin"
+              v-model="modelUpdateMember.isListAdmin"
+              :value="modelUpdateMember.isListAdmin"
             >
             <label for="chkIsListAdmin">Is Admin?</label>
           </div>
@@ -303,8 +303,8 @@
             class="form-control"
             placeholder="Password"
             v-select-all
-            v-model="modelUpdateMeber.password"
-            v-if="modelUpdateMeber.isListAdmin"
+            v-model="modelUpdateMember.password"
+            v-if="modelUpdateMember.isListAdmin"
           >
         </div>
       </div>
@@ -313,7 +313,7 @@
         <button
           class="btn btn-primary"
           @click="updateMember()"
-          :disabled="!modelUpdateMeber.valid"
+          :disabled="!modelUpdateMember.valid"
         >update member</button>
         <button class="btn btn-secondary" @click="closeDialog()">cancel</button>
       </div>

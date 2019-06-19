@@ -12,10 +12,10 @@
           <div class="info">
             <i class="fa fa-info-circle"></i>
           </div>
-          <p>This tool may be used to manage aliases for users who are authorized to administor aliases.</p>
+          <p>This tool may be used to manage aliases for users who are authorized to administer aliases.</p>
           <p>The listed users have all been assigned at least one domain to manage</p>
           <p>
-            Admistrators may navigate to
+            Administrators may navigate to
             <router-link tag="a" :to="{name: 'aliases'}">(win-tools/exchange-tools/aliases)</router-link>in order to modify individual users aliases. The list of available aliases are dependent on what is assigned to the individual administrator.
           </p>
         </div>

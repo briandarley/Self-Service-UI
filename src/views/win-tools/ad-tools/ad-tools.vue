@@ -16,7 +16,7 @@
             <i class="fa fa-info-circle"></i>
           </div>
           <p>
-            AD Tools provides functionality for help desk and administrator personel to manage and monitor various Active Directory systems including 
+            AD Tools provides functionality for help desk and administrator personnel to manage and monitor various Active Directory systems including 
             retrieving AD organizational units, detail account information, recent account lockouts, and managing groups.
 
           

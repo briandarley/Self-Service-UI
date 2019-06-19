@@ -4,7 +4,7 @@
       <div class="info">
         <i class="fa fa-info-circle"></i>
       </div>
-      <p>The accounts listed in this section have been either marked for MFA expemption or have been scheduled for MFA exemption.</p>
+      <p>The accounts listed in this section have been either marked for MFA exemption or have been scheduled for MFA exemption.</p>
       <p>Use the search field below to locate a desired record using Onyen, PID, Name, or Incident Number</p>
     </div>
 

@@ -14,7 +14,7 @@
             <i class="fa fa-info-circle"></i>
           </div>
           <p class="mt-3 mb-4">
-            Wintools offers tools for adminitrator and help desk users. Tools that help manage user mailboxes, provisioning email, managing email aliases, and monitor account information.
+            WinTools offers tools for administrator and help desk users. Tools that help manage user mailboxes, provisioning email, managing email aliases, and monitor account information.
           </p>
         </div>
 
@@ -23,7 +23,7 @@
             <router-link :to="{name: 'exchange-tools'}">
               <a href="#" class="btn btn-outline-primary">
                 <i class="fa fas fas fa-mail-bulk"></i>
-                <span>Exhchange Tools</span>
+                <span>Exchange Tools</span>
               </a>
             </router-link>
           </div>

@@ -82,7 +82,7 @@
               <transition name="expand">
                 <div class="subscriber-dump-data" v-if="item.expanded">
                   <div class v-if="item.subscriberLoading">
-                    <p>Subsciber data loading...</p>
+                    <p>Subscriber data loading...</p>
                   </div>
                   <div v-else>
                     <div v-if="item.subscriberDump">

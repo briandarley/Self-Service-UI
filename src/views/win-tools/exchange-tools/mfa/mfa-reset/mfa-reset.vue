@@ -15,7 +15,7 @@
             </div>
             <p
               class="mt-4"
-            >MFA Reset allows administators to cycle the status of a user's Office365 MFA. The process momentarily disables MFA and immediately re-enables MFA for the selected account. Cycling Office365 MFA will require the user to re-verify their secondary verification for access to Office365.</p>
+            >MFA Reset allows administrators to cycle the status of a user's Office365 MFA. The process momentarily disables MFA and immediately re-enables MFA for the selected account. Cycling Office365 MFA will require the user to re-verify their secondary verification for access to Office365.</p>
           </div>
 
           <div class="form-group">

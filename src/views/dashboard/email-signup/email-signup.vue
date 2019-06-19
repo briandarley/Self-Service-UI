@@ -145,7 +145,7 @@
                     name="priary-designation"
                     v-model="selectedPrimaryDesignation"
                   >
-                  <label for="priary-designation-unc-health">Unc Health Care</label>
+                  <label for="priary-designation-unc-health">UNC Health Care</label>
                 </li>
               </ul>
             </div>

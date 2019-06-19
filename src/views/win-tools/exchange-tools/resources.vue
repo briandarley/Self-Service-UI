@@ -90,7 +90,7 @@ export default class Resources extends Vue {
     } catch (e) {
       window.console.log(e);
       this.toastService.error(
-        "Failed to retrieve resources asscociated with user"
+        "Failed to retrieve resources associated with user"
       );
     } finally {
       this.spinnerService.hide();
