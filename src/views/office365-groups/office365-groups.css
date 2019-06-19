@@ -1,1 +1,19 @@
-/* No CSS *//*# sourceMappingURL=office365-groups.css.map */
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin-left: 50px;
+}
+
+li {
+  margin: 30px 0;
+}
+
+a {
+  font-size: 1.5em;
+  text-decoration: underline;
+}
+/*# sourceMappingURL=office365-groups.css.map */

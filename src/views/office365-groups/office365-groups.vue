@@ -1,7 +1,34 @@
 <template>
-  <div>
+  <div class="container">
+    <div class="card card-icon">
+      <div class="card-header text-primary">
+        <div class="icon bg-primary text-white">
+          <i class="material-icons">group</i>
+        </div>
+        <h3>Office365 Groups</h3>
+      </div>
+      <div class="card-body">
+           <div class="alert alert-info">
+              <div class="info">
+                  <i class="fa fa-info-circle"></i>
+              </div>
+              <p class="my-4 pb-3">
+                  Welcome to the Office 365 Groups Site. Below you will find some links to pertinent information for Office 365 Groups. 
+              </p>
+          </div>
 
-office365-groups
+
+ <transition-group tag="ul" name="fly_in" >
+        
+          <li v-for="item in links" :key="item.title">
+            <a :href="item.href" target="_blank">{{item.title}}</a>
+          </li>
+          
+        </transition-group>
+
+
+      </div>
+    </div>
   </div>
 </template>
 <script src="./office365-groups.js"></script>
