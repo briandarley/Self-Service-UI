@@ -8,25 +8,20 @@
         <h3>Office365 Groups</h3>
       </div>
       <div class="card-body">
-           <div class="alert alert-info">
-              <div class="info">
-                  <i class="fa fa-info-circle"></i>
-              </div>
-              <p class="my-4 pb-3">
-                  Welcome to the Office 365 Groups Site. Below you will find some links to pertinent information for Office 365 Groups. 
-              </p>
+        <div class="alert alert-info">
+          <div class="info">
+            <i class="fa fa-info-circle"></i>
           </div>
+          <p
+            class="my-4 pb-3"
+          >Welcome to the Office 365 Groups Site. Below you will find some links to pertinent information for Office 365 Groups.</p>
+        </div>
 
-
- <transition-group tag="ul" name="fly_in" >
-        
+        <transition-group tag="ul" name="fly_in">
           <li v-for="item in links" :key="item.title">
             <a :href="item.href" target="_blank">{{item.title}}</a>
           </li>
-          
         </transition-group>
-
-
       </div>
     </div>
   </div>
