@@ -22,7 +22,7 @@
             <p class="text-primary ml-3 mt-3 mb-0 pb-0">Visit or Manage a Single List</p>
           </div>
           <div class="card-body form-group">
-            <input type="text" class="form-control" placeholder="Enter List Name" v-focus v-select-all v-model="listName">
+            <input type="text" class="form-control" placeholder="Enter List Name" v-focus v-model="listName">
             <div class="text-right mt-2">
               <a class="btn btn-primary mr-1" :href="basePath + 'read/?forum=' + listName" target="_blank" >Visit</a>
               <a class="btn btn-secondary mr-" :href="basePath + '?current_list=' + listName" target="_blank" >Manage</a>

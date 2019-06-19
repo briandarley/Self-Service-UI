@@ -9,6 +9,25 @@
       </div>
       <div class="card-body">
         <div class="container">
+
+ <div class="alert alert-info">
+    <div class="info">
+        <i class="fa fa-info-circle"></i>
+    </div>
+    <p>
+      Use the search field to search for lists by name or use a known subscriber's email to search lists where the user is a member of.
+    </p>
+    <p>
+      Lyris lists will be returned based on the search string entered. Use the edit link <i class="fa fa-pencil-square-o"></i> to edit the selected list.
+    </p>
+    
+</div>
+
+
+
+
+
+
           <tabbed-control tabs="Search by List Name,Subscribers by E-mail">
             <tabbed-item slot="tab_0">
               <!-- <pm-tools-search></pm-tools-search> -->
@@ -288,7 +307,7 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
   //min-height: 700px;
 }
 .search-result {
-  min-height: 500px;
+  // min-height: 500px;
 }
 .search-control {
   border-top: 1px solid $carolina-blue;

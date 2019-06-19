@@ -7,7 +7,7 @@ import {
 
 @Component({
   name: 'listserv-subscriptions',
-  dependencies: ['$', '_', 'spinnerService','toastService','ListManagerService'],
+  dependencies: ['$', '_', 'spinnerService', 'toastService', 'ListManagerService'],
   components: {}
 
 })
@@ -44,10 +44,11 @@ export default class ListservSubscriptions extends Vue {
     });
   }
 
-  async loadMySubscriptions(){
-    this.spinnerService.show();
+  async loadMySubscriptions() {
+
     try {
-      
+      this.spinnerService.show();
+
       let userSubscriptions = await this.ListManagerService.getMySubscriptions();
       userSubscriptions.map(c => {
         c.name = c.listName;
@@ -61,15 +62,16 @@ export default class ListservSubscriptions extends Vue {
     } catch (e) {
       this.toastService.error("An error occurred retrieving lyris lists");
       window.console.log(e);
+    } finally {
+      this.spinnerService.hide();
     }
-    this.spinnerService.hide();
-    
+
   }
 
   async mounted() {
     this.toastService.set(this);
-    await this.loadMySubscriptions();
- 
+    this.loadMySubscriptions();
+
   }
 
 }
