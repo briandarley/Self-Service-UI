@@ -1,0 +1,13 @@
+.dashboard-widgets {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+}
+
+.widget .display-gal-sync {
+  font-family: "Orbitron, sans-serif";
+  text-align: center;
+  font-size: 3em;
+}
+/*# sourceMappingURL=dash-board.css.map */

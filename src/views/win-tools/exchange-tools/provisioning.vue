@@ -362,7 +362,7 @@ export default class Provisioning extends Vue {
   }
 }
 .card-body{
-  min-height: 600px;
+  
 }
 
 .fade-enter-active,

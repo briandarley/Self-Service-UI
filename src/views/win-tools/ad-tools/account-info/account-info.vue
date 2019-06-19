@@ -8,6 +8,17 @@
         <h3>Account Info</h3>
       </div>
       <div class="card-body">
+         <div class="alert alert-info">
+            <div class="info">
+                <i class="fa fa-info-circle"></i>
+            </div>
+            <p class="py-4">
+                Use the search function to retrieve summary of user's LDAP, AD, Campus Directory, and Office 365 profiles.
+            </p>
+
+        </div>
+
+
         <div class="form-group">
           <label for>User Id</label>
           <input

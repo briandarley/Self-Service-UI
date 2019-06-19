@@ -73,6 +73,7 @@ export default class AliasAuthority extends Vue {
   async mounted() { 
     this.toastService.set(this);
     await this.getAvailableDomains();
+    await this.search();
   }
   async search(){
     this.criteria.index = 0;

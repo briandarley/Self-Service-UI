@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,aADS,CACT,MAAM,CAAC;EACH,YAAY,EAAE,GAAG;CACpB;;AAHL,AAKI,aALS,CAKT,MAAM,AAAA,aAAa,CAAC;EAChB,YAAY,EAAE,CAAC;CAClB;;AAIL,AAAA,YAAY,CAAC;EACT,KAAK,EAAE,IAAI;CACd",
+    "sources": [
+        "confirm-dialog.scss"
+    ],
+    "names": [],
+    "file": "confirm-dialog.css"
+}

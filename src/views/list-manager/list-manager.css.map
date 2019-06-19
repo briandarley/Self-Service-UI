@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,CAAC;EACL,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,QAAQ;CAOtB;;AATD,AAKI,QALI,CAKJ,GAAG,CAAA;EACC,OAAO,EAAC,IAAI;EACZ,IAAI,EAAE,GAAG;CACZ",
+    "sources": [
+        "list-manager.scss"
+    ],
+    "names": [],
+    "file": "list-manager.css"
+}

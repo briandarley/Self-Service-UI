@@ -9,6 +9,15 @@
       </div>
       <div class="card-body">
         <div class="container">
+           <div class="alert alert-info">
+              <div class="info">
+                  <i class="fa fa-info-circle"></i>
+              </div>
+              <p class="py-3">
+                This tool may be used to identify the latest provisioning status for users. Use the search criteria to filter by name, date range, and or provisioning status.                  
+              </p>
+              
+          </div>
           <div class="border border-primary">
             <div class="bg bg-primary text-white p-2">Search Criteria</div>
             <div class="m-2">

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "bearer-token-widget.scss"
+    ],
+    "names": [],
+    "file": "bearer-token-widget.css"
+}
