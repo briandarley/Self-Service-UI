@@ -253,6 +253,8 @@ export default class SharedMailbox extends BaseValidateMixin {
 
 
   }
+
+  //Notfication when control is loaded
   async onMemberListLoaded() {
 
     if (this.showAddMembers && this.persistedModel.members.length) {
@@ -260,7 +262,12 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
 
   }
-  
+  //Notfication when control is loaded
+  async onManagerListLoaded(){
+    if (this.showAddMembers && this.persistedModel.managers.length) {
+      await this.$refs.groupManagers.populateEntities(this.persistedModel);
+    }
+  }
 
   clear() {
     this.persistedModel = {};
@@ -277,26 +284,14 @@ export default class SharedMailbox extends BaseValidateMixin {
     this.toastService.error(`Failed to retrieve group with id ${groupId}`)
   }
 
-  onGroupEntityRemoved(entity) {
 
-  }
-  onGroupEntitiedAdded() {
+  
 
-  }
-
-  async onManagerListLoaded(){
-    if (this.showAddMembers && this.persistedModel.managers.length) {
-      await this.$refs.groupManagers.populateEntities(this.persistedModel);
-    }
-  }
+  
   onGroupManagerRetrieveFailed(groupId){
     this.toastService.error(`Failed to retrieve group managers with id ${groupId}`)
   }
-  async onGroupManagerEntityRemoved(entity){
-
-  }
-  async onGroupManagerEntitiedAdded(){
-
-  }
+  
+  
             
 }
