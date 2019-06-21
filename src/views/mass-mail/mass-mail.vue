@@ -82,7 +82,7 @@
       </div>
     </div>
     <confirm-dialog id="confirmDelete" ref="confirmDelete">
-      <div slot="modal-title">Confirm: Delete Campaign?</div>
+      <div slot="modal-title"  class="text-white">Confirm: Delete Campaign?</div>
       <div slot="modal-body">
         <div class="alert alert-info">
           <div class="info">

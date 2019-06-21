@@ -94,7 +94,7 @@
     </div>
 
     <confirm-dialog id="confirmDelete" ref="confirmDelete">
-      <div slot="modal-title">Confirm: Delete Alias?</div>
+      <div slot="modal-title"  class="text-white">Confirm: Delete Alias?</div>
       <div slot="modal-body">
         <div class="info text-warning">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -110,7 +110,7 @@
       </div>
     </confirm-dialog>
     <confirm-dialog id="confirmSetPrimaryDialog" ref="confirmSetPrimaryDialog">
-      <div slot="modal-title">Confirm: Set Primary Alias?</div>
+      <div slot="modal-title"  class="text-white">Confirm: Set Primary Alias?</div>
       <div slot="modal-body">
         <div class="info text-warning">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>

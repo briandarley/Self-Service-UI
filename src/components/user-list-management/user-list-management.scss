@@ -1,0 +1,94 @@
+.add-entity {
+    >.container {
+        border: 1px solid $carolina-blue;
+    }
+
+    .row-header,
+    .result-grid {
+        display: flex;
+
+        div {
+            flex: 1;
+        }
+
+        div:nth-of-type(2) {
+            flex: 2;
+        }
+
+        div:nth-of-type(3) {
+            text-align: right;
+
+            a i {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .add-member {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        justify-content: center;
+        
+
+        .form-group {
+            
+            input[type="text"] {
+                width: 300px;
+            }
+        }
+    }
+}
+
+.lookup-result {
+
+    ul,
+    ul li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        display: flex;
+
+        span {
+            flex: 1;
+        }
+
+        label {
+            text-align: right;
+            width: 180px;
+            margin-right: 20px;
+
+        }
+    }
+
+}
+.select-group{
+    display:flex;
+
+    label{
+        width:140px;
+    }
+    select{
+        margin-right: 10px;
+    }
+}
+.recursive-check .check-buttons {
+    display: flex;
+    justify-content: center;
+}
+.add-entity{
+    position: relative;
+}
+.control-spinner {
+    width:100%;
+    top:auto;
+    left:auto;
+    right:auto;
+    bottom: auto;
+    
+    height:100%;
+    
+}

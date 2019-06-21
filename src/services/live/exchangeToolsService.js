@@ -447,12 +447,18 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getDistributionGroupMembers(id) {
+        async getDistributionGroupMembers(id, recursively) {
             try {
                 const handler = await httpHandlerService.get();
-                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/members`);
+                if (recursively) {
+                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/members?recursively=true`);
 
-                return response.data;
+                    return response.data;
+                } else {
+                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/members`);
+
+                    return response.data;
+                }
 
             } catch (e) {
                 if (e.message.includes("404")) {
@@ -546,12 +552,17 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             }
             //
         },
-        async addGroupMember(groupId, memberId) {
+        async addGroupMember(groupId, memberId, recursively) {
 
             try {
                 const handler = await httpHandlerService.get();
-                let response = await handler.put(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
-                return response.data;
+                if (!recursively) {
+                    let response = await handler.put(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
+                    return response.data;
+                } else {
+                    let response = await handler.put(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}?recursively=true`);
+                    return response.data;
+                }
             } catch (e) {
                 if (e.message.includes("404")) {
                     return {
@@ -565,7 +576,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
 
             try {
                 const handler = await httpHandlerService.get();
-                
+
                 let response = await handler.delete(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
                 return response.data;
             } catch (e) {
@@ -596,7 +607,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
 
             try {
                 const handler = await httpHandlerService.get();
-                
+
                 let response = await handler.delete(`/wintools/exchange-tools/ad-tools/groups/${groupId}/managers/${memberId}`);
                 return response.data;
             } catch (e) {
@@ -626,10 +637,10 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getAvailableDomains(){
+        async getAvailableDomains() {
             try {
                 const handler = await httpHandlerService.get();
-                
+
                 let response = await handler.get(`/WinTools/systems/available-domains`);
 
                 return response.data;
@@ -642,10 +653,10 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async addAuthorizedDomain(userID, domain){
+        async addAuthorizedDomain(userID, domain) {
             try {
                 const handler = await httpHandlerService.get();
-                
+
                 let response = await handler.post(`/WinTools/systems/alias-authority/${userID}/domains/${domain}`);
 
                 return response.data;
@@ -658,10 +669,10 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async removeAuthorizedDomain(userID, domain){
+        async removeAuthorizedDomain(userID, domain) {
             try {
                 const handler = await httpHandlerService.get();
-                
+
                 let response = await handler.delete(`/WinTools/systems/alias-authority/${userID}/domains/${domain}`);
 
                 return response.data;

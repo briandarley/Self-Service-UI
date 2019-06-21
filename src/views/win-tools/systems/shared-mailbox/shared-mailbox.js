@@ -25,9 +25,11 @@ export default class SharedMailbox extends BaseValidateMixin {
   persistedModel = {};
   responseModel = {};
   showAddMembers = false;
-  groupMemberId = "";
+  groupId = "";
   groupManagerId = "";
-  
+  entities = [];
+
+
   @Watch('model.displayName')
   onDisplayNameChanged(newvalue) {
     if (!newvalue) {
@@ -49,6 +51,7 @@ export default class SharedMailbox extends BaseValidateMixin {
     this.spinnerService.show();
     try {
       let list = await this.ExchangeToolsService.getOrganizationalUnits();
+
       list.sort((a, b) => {
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
@@ -84,8 +87,8 @@ export default class SharedMailbox extends BaseValidateMixin {
   async getDistributionGroup() {
 
     try {
-      let samAccountName = `${this.model.department}_${this.model.name}.dg`
-      let entity = await this.ExchangeToolsService.getDistributionGroup(samAccountName);
+
+      let entity = await this.ExchangeToolsService.getDistributionGroup(this.groupId);
 
       return entity;
 
@@ -99,8 +102,8 @@ export default class SharedMailbox extends BaseValidateMixin {
   async getDistributionGroupMembers() {
 
     try {
-      let samAccountName = `${this.model.department}_${this.model.name}.dg`
-      let entities = await this.ExchangeToolsService.getDistributionGroupMembers(samAccountName);
+
+      let entities = await this.ExchangeToolsService.getDistributionGroupMembers(this.groupId);
 
       return entities;
 
@@ -132,10 +135,11 @@ export default class SharedMailbox extends BaseValidateMixin {
       this.persistedModel = {};
 
       let values = await Promise.all([
-        this.getSharedMailbox(), 
-        this.getDistributionGroup(), 
-        this.getUserByEmail(), 
-        this.getDistributionGroupMembers()])
+        this.getSharedMailbox(),
+        this.getDistributionGroup(),
+        this.getUserByEmail(),
+        this.getDistributionGroupMembers()
+      ])
 
       if (!values[0] || !values[1] || !values[2] || !values[3]) {
         //One of the responses returned null
@@ -154,7 +158,8 @@ export default class SharedMailbox extends BaseValidateMixin {
         this.persistedModel.group = values[1];
         this.persistedModel.members = values[3].members;
         this.persistedModel.managers = values[3].managers;
-        
+
+
         //Both mailbox and distribution group exist
         return "SHARED_MAILBOX_EXISTS";
       } else {
@@ -185,7 +190,7 @@ export default class SharedMailbox extends BaseValidateMixin {
 
       this.responseModel = await this.ExchangeToolsService.createSharedMailbox(model);
 
-      
+
       this.toastService.success("Successfully created shared mailbox");
 
 
@@ -197,119 +202,65 @@ export default class SharedMailbox extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
-  async removeMember(samAccountName){
-    this.spinnerService.show();
-    try{
-  
-      await this.ExchangeToolsService.removeGroupMember(this.persistedModel.group.samAccountName, samAccountName)
-      let index = this.persistedModel.managers.indexOf(this.persistedModel.members.find(c=> c.samAccountName === samAccountName));
-      this.persistedModel.members.splice(index, 1);
-      this.persistedModel =JSON.parse(JSON.stringify(this.persistedModel));
-      this.toastService.success("Successfully removed member")
-    } catch(e){
-      window.console.log(e);
-      this.toastService.error("Failed to remove group member");
-    }
-    finally{
-      this.spinnerService.hide();
-    }
-    
-  }
-async removeManager(samAccountName){
-  this.spinnerService.show();
-  try{
 
-    await this.ExchangeToolsService.removeGroupManager(this.persistedModel.group.samAccountName, samAccountName)
-    let index = this.persistedModel.managers.indexOf(this.persistedModel.managers.find(c=> c.samAccountName === samAccountName));
-    this.persistedModel.managers.splice(index, 1);
-    this.persistedModel =JSON.parse(JSON.stringify(this.persistedModel));
-    this.toastService.success("Successfully removed manager")
-  } catch(e){
-    window.console.log(e);
-    this.toastService.error("Failed to remove group manager");
-  }
-  finally{
-    this.spinnerService.hide();
-  }
   
-}
   async create() {
     this.showAddMembers = false;
     let errors = this.validate();
+    this.groupId = `${this.model.department}_${this.model.name}.dg`
+
     if (errors.length) {
       this.toastService.error(errors.join("<br/>"));
       return;
     }
 
     let status = await this.performIntegrityCheck();
-    
+
     switch (status) {
       case "REPLY_TO_IN_USE":
         this.toastService.error("Reply email must be unique");
         return;
 
       case "DOES_NOT_EXIST":
+
         await this.createSharedMailbox();
+
         status = await this.performIntegrityCheck();
+
         if (status !== "SHARED_MAILBOX_EXISTS") {
           //Failed to retrieve newly created shared mailbox
           this.toastService.error("Failed to created shared mailbox");
           return;
         }
+
         this.showAddMembers = true;
         break;
 
       case "SHARED_MAILBOX_EXISTS":
         this.toastService.success("Located shared mailbox, you may edit members");
         this.showAddMembers = true;
+
+
         break;
       case "ORPHANED_OBJECT":
         this.toastService.error("Either the mailbox or distribution group failed to create");
 
         break;
       default:
-          this.toastService.error("Failed integrity check");
+        this.toastService.error("Failed integrity check");
         break;
     }
 
 
   }
-  async addGroupMember(){
-    this.spinnerService.show();
-    try{
-      if(this.persistedModel.members.some(c=> c.samAccountName.toUpperCase() === this.groupMemberId.toUpperCase())){
-        this.toastService.error("Member already in group");
-        return;
-      }
-      let response = await this.ExchangeToolsService.addGroupMember(this.persistedModel.group.samAccountName,this.groupMemberId);
-      this.persistedModel.members.push({id:this.groupMemberId, samAccountName: this.groupMemberId })
-      this.persistedModel =JSON.parse(JSON.stringify(this.persistedModel));
-      this.toastService.success("Successfully added member")
-    }catch(e){
-      window.console.log(e);
-      this.toastService.error("Failed to add group member to list");
-    }finally{
-      this.spinnerService.hide();
+  async onMemberListLoaded() {
+
+    if (this.showAddMembers && this.persistedModel.members.length) {
+      await this.$refs.groupMembers.populateEntities(this.persistedModel);
     }
+
   }
-  async addGroupManager(){
-    this.spinnerService.show();
-    try{
-      if(this.persistedModel.managers.some(c=> c.samAccountName.toUpperCase() === this.groupManagerId.toUpperCase())){
-        this.toastService.error("Manager already in group");
-        return;
-      }
-      let response = await this.ExchangeToolsService.addGroupManager(this.persistedModel.group.samAccountName,this.groupManagerId);
-      this.persistedModel.managers.push({id:this.groupManagerId, samAccountName: this.groupManagerId })
-      this.persistedModel =JSON.parse(JSON.stringify(this.persistedModel));
-      this.toastService.success("Successfully added manager")
-    }catch(e){
-      window.console.log(e);
-      this.toastService.error("Failed to add group manager to list");
-    }finally{
-      this.spinnerService.hide();
-    }
-  }
+  
 
   clear() {
     this.persistedModel = {};
@@ -322,4 +273,30 @@ async removeManager(samAccountName){
     }
   }
 
+  onGroupRetrieveFailed(groupId) {
+    this.toastService.error(`Failed to retrieve group with id ${groupId}`)
+  }
+
+  onGroupEntityRemoved(entity) {
+
+  }
+  onGroupEntitiedAdded() {
+
+  }
+
+  async onManagerListLoaded(){
+    if (this.showAddMembers && this.persistedModel.managers.length) {
+      await this.$refs.groupManagers.populateEntities(this.persistedModel);
+    }
+  }
+  onGroupManagerRetrieveFailed(groupId){
+    this.toastService.error(`Failed to retrieve group managers with id ${groupId}`)
+  }
+  async onGroupManagerEntityRemoved(entity){
+
+  }
+  async onGroupManagerEntitiedAdded(){
+
+  }
+            
 }

@@ -145,7 +145,7 @@
       </div>
     </div>
     <confirm-dialog id="confirmDeleteMember" ref="confirmDeleteMember">
-      <div slot="modal-title">Confirm: Delete Member?</div>
+      <div slot="modal-title"  class="text-white">Confirm: Delete Member?</div>
       <div slot="modal-body">
         <div class="info text-warning">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>

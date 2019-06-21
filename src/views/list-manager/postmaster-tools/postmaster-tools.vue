@@ -107,7 +107,7 @@
                   </div>
 
                   <confirm-dialog id="modalConfirmDelete" ref="modalConfirmDelete">
-                    <div slot="modal-title">
+                    <div slot="modal-title"  class="text-white">
                       <span class="text-primary">Confirm Delete List?</span>
                     </div>
                     <div slot="modal-body">

@@ -143,7 +143,7 @@
       </div>
     </transition>
     <confirm-dialog id="confirm7day" ref="confirm7day" width="800">
-      <div slot="modal-title">Enable MFA Date</div>
+      <div slot="modal-title"  class="text-white">Enable MFA Date</div>
       <div slot="modal-body" v-if="showConfirm7day">
         <div class="container">
           <div class="alert alert-info p-10">
@@ -204,7 +204,7 @@
       </div>
     </confirm-dialog>
     <confirm-dialog id="confirmDateRange" ref="confirmDateRange" width="800">
-      <div slot="modal-title">Enable MFA Date (Date Range)</div>
+      <div slot="modal-title"  class="text-white">Enable MFA Date (Date Range)</div>
       <div slot="modal-body" v-if="showConfirmDateRange">
         <div class="container">
           <div class="alert alert-info p-10">
@@ -273,7 +273,7 @@
       </div>
     </confirm-dialog>
     <confirm-dialog id="confirmIndefinite" ref="confirmIndefinite" width="800">
-      <div slot="modal-title">Enable MFA Date</div>
+      <div slot="modal-title"  class="text-white">Enable MFA Date</div>
       <div slot="modal-body" v-if="showConfirmIndefinite">
         <div class="container">
           <div class="alert alert-info p-10">
@@ -328,7 +328,7 @@
       </div>
     </confirm-dialog>
     <confirm-dialog id="confirmEnableMfa" ref="confirmEnableMfa">
-      <div slot="modal-title">Enable MFA</div>
+      <div slot="modal-title" class="text-white">Enable MFA</div>
       <div slot="modal-body">
         <div class="container" v-if="showConfirmEnableMfa">
           <div class="alert alert-info p-10">

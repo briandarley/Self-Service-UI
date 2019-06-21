@@ -59,7 +59,7 @@
 
 
   <confirm-dialog id="confirmMigration" ref="confirmMigration" width="850">
-      <div slot="modal-title">Coming Soon</div>
+      <div slot="modal-title"  class="text-white">Coming Soon</div>
       <div slot="modal-body">
         <div class="info text-warning">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>

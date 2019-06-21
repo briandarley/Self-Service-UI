@@ -215,7 +215,7 @@
     </div>
     <!-- Add Member confirm-dialog -->
     <confirm-dialog id="modalAddMember" ref="modalAddMember">
-      <div slot="modal-title">
+      <div slot="modal-title"  class="text-white">
         <span class="text-primary">Add Member</span>
       </div>
       <div slot="modal-body">
@@ -268,7 +268,7 @@
     <!-- Add Member confirm-dialog -->
     <!-- Update Member confirm-dialog -->
     <confirm-dialog id="modalUpdateMember" ref="modalUpdateMember">
-      <div slot="modal-title">
+      <div slot="modal-title"  class="text-white">
         <span class="text-primary">Update Member {{modelUpdateMember.fullName}}</span>
       </div>
       <div slot="modal-body">
@@ -321,7 +321,7 @@
     <!-- Update Member confirm-dialog -->
     <!-- Update List Change confirm-dialog -->
     <confirm-dialog id="modalUpdateList" ref="modalUpdateList">
-      <div slot="modal-title">
+      <div slot="modal-title"  class="text-white">
         <span class="text-primary">{{modelUpdateList.title}}</span>
       </div>
       <div slot="modal-body">

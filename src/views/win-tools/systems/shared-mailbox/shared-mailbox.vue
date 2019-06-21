@@ -100,85 +100,40 @@
           <!-- Add Group Members -->
           <div class="section add-entity">
             <h3 class="text-primary">Members</h3>
-            <div class="container">
-              <div class="row bg-primary text-white row-header">
-                <div class="col">User</div>
-                <div class="col">Cononical Name</div>
-                <div class="col"></div>
-              </div>
 
-              <div
-                class="result-grid row"
-                v-for="(item, index) in persistedModel.members"
-                :key="index"
-              >
-                <div class="col">{{item.samAccountName}}</div>
-                <div class="col">{{item.id}}</div>
-                <div class="col">
-                  <a href="#" @click.prevent="removeMember(item.samAccountName)">
-                    <i class="fa fa-trash-o"></i>
-                    <span>remove</span>
-                  </a>
-                </div>
-              </div>
-              <div class="container add-member">
-                <div class="form-group form-inline">
-                  <label for>Entity Id</label>
-                  <input
-                    type="text"
-                    class="form-control input-xl"
-                    placeholder="onyen, pid, email"
-                    v-model="groupMemberId"
-                    v-select-all
-                    v-on:keyup.13="addGroupMember(groupMemberId)"
-                  >
-                  <button class="btn btn-primary" @click="addGroupMember()">Add</button>
-                  <button class="btn btn-secondary" @click="groupMemberId = ''">Clear</button>
-                </div>
-              </div>
-            </div>
+
+          <user-list-management 
+          ref="groupMembers"
+          :group="groupId"
+          @controlLoaded="onMemberListLoaded"
+          @groupRetrieveFailed="onGroupRetrieveFailed"
+          @entityRemoved="onGroupEntityRemoved"
+          @entitiesAdded="onGroupEntitiedAdded"
+          ></user-list-management>
+
+
+         
           </div>
           <!-- Add Group Members -->
 
           <!-- Add Group Managers -->
           <div class="section add-entity mt-3">
             <h3 class="text-primary">Managers</h3>
-            <div class="container">
-              <div class="row bg-primary text-white row-header">
-                <div class="col">User</div>
-                <div class="col">Cononical Name</div>
-                <div class="col"></div>
-              </div>
-              <div
-                class="result-grid row"
-                v-for="(item, index) in persistedModel.managers"
-                :key="index"
-              >
-                <div class="col">{{item.samAccountName}}</div>
-                <div class="col">{{item.id}}</div>
-                <div class="col">
-                  <a href="#" @click.prevent="removeManager(item.samAccountName)">
-                    <i class="fa fa-trash-o"></i>
-                    <span>remove</span>
-                  </a>
-                </div>
-              </div>
-              <div class="container add-member">
-                <div class="form-group form-inline">
-                  <label for>Entity Id</label>
-                  <input
-                    type="text"
-                    class="form-control input-xl"
-                    placeholder="onyen, pid, email"
-                    v-model="groupManagerId"
-                    v-select-all
-                    v-on:keyup.13="addGroupManager(groupManagerId)"
-                  >
-                  <button class="btn btn-primary" @click="addGroupManager()">Add</button>
-                  <button class="btn btn-secondary" @click="groupManagerId = ''">Clear</button>
-                </div>
-              </div>
-            </div>
+
+            <manager-list-management
+            ref="groupManagers"
+            :group="groupId"
+            @controlLoaded="onManagerListLoaded"
+            @groupRetrieveFailed="onGroupManagerRetrieveFailed"
+            @entityRemoved="onGroupManagerEntityRemoved"
+            @entitiesAdded="onGroupManagerEntitiedAdded"
+            >
+            </manager-list-management>
+
+
+
+
+            
           </div>
           <!-- Add Group Managers -->
         </div>

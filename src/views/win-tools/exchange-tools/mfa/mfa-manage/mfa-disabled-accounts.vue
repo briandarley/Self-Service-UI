@@ -111,7 +111,7 @@
     </div>
 
     <confirm-dialog id="confirmReEnableMfa" ref="confirmReEnableMfa">
-      <div slot="modal-title">Enable MFA</div>
+      <div slot="modal-title"  class="text-white">Enable MFA</div>
       <div slot="modal-body" v-if="this.selectedRecord">
         <div class="container">
           <div class="alert alert-info p-10">
