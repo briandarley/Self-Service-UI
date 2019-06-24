@@ -162,6 +162,10 @@
     opacity: 0;
 }
 
-.nav-item{
-    padding: 0px !important;
+.nav-item,.tab-pane{
+    padding: 0 !important;
 }
+.tab-content{
+    padding: 0 !important;
+}
+
