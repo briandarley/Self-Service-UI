@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container group-management">
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
