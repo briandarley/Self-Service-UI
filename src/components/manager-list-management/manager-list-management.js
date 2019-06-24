@@ -8,7 +8,8 @@ import Spinner from '@/components/spinner/spinner.vue';
     components: {
       Spinner
     },
-    props: ['group', 'headerLabels']
+    props: ['group', 'headerLabels','autoLoadEntities']
+    
   })
 export default class ManagerListManagement extends Vue {
   userId = "";
@@ -32,13 +33,15 @@ export default class ManagerListManagement extends Vue {
   }
 
 
-  async removeEntity(samAccountName) {
+  async removeEntity(samAccountName){
     try {
       this.showSpinner();
 
       await this.ExchangeToolsService.removeGroupManager(this.group, samAccountName);
       this.entities = this.entities.filter(c => c.samAccountName !== samAccountName);
+      this.toastService.success("Successfully removed entity");
       this.$emit('entityRemoved', samAccountName);
+
     } catch (e) {
       window.console.log(e);
       this.toastService.error('Failed to remove entity');
@@ -48,16 +51,16 @@ export default class ManagerListManagement extends Vue {
   }
 
 
-  showDialog() {
+  showDialog(){
     if (!this.$refs.confirmAddManager) return;
     this.$refs.confirmAddManager.show();
   }
-  hideDialog() {
+  hideDialog(){
     if (!this.$refs.confirmAddManager) return;
     this.$refs.confirmAddManager.hide();
   }
 
-  async onLookupMember() {
+  async onLookupMember(){
     
     let userId = this.userId;
     this.multipleRecords = false;
@@ -120,7 +123,7 @@ export default class ManagerListManagement extends Vue {
         return;
       }
       
-      this.ExchangeToolsService.addGroupManager(this.group, this.lookupEntityModel.samAccountName);
+      await this.ExchangeToolsService.addGroupManager(this.group, this.lookupEntityModel.samAccountName);
       this.entities.push(this.lookupEntityModel);
 
       this.toastService.success("Successfully added entity to group");
@@ -132,29 +135,60 @@ export default class ManagerListManagement extends Vue {
       this.hideSpinner();
     }
   }
-  onCancelConfirmClick() {
+  onCancelConfirmClick(){
     this.hideDialog();
   }
-  showSpinner() {
-    if (!this.$refs.spinner) return;
-    this.$refs.spinner.showSpinner();
+  showSpinner(){
+    if (!this.$refs.spinnerMngrList) return;
+    this.$refs.spinnerMngrList.showSpinner();
   }
-  hideSpinner() {
-    if (!this.$refs.spinner) return;
-    this.$refs.spinner.hideSpinner();
+  hideSpinner(){
+    if (!this.$refs.spinnerMngrList) return;
+    this.$refs.spinnerMngrList.hideSpinner();
   }
-  toggleSpinner() {
+  toggleSpinner(){
     if (!this.$refs.spinner) return;
     this.$refs.spinner.toggleSpinner();
   }
-  onClear() {
+  onClear(){
     this.userId = "";
   }
   
-  async mounted() {
+  async mounted(){
     
     this.toastService.set(this);
     this.$emit('controlLoaded');
+    
+    if(this.autoLoadEntities){
+      this.showSpinner();
+      try{
+        this.entities = await this.ExchangeToolsService.getDistributionGroupManagers(this.group);
+
+
+        this.entities.map(c=> {
+          if(!c.id)
+          {
+            c.id = c.distinguishedName
+          }
+          return c;
+      })
+      
+
+      } catch(e){
+        window.console.log(e);
+        this.toastService.error("Failed to retrieve manager entities");
+      }
+      finally{
+        this.hideSpinner();
+      }
+    }
+
+    
+
+  }
+  async onGroupManagerRetrieveFailed(){
+   
+    
     
   }
 }

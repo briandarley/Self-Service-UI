@@ -44,7 +44,7 @@
               class="form-control"
               v-select-all
               placeholder="group name like"
-              v-model="criteria.groupName"
+              v-model="criteria.filterText"
               v-on:keyup.13="search()"
             >
           </div>
@@ -86,101 +86,27 @@
                       </a>
                     </div>
                   </div>
+
                   <transition name="expand">
                     <div class="group-users" v-if="item.showUsers">
-                      <div class="container group-members" v-if="item.detail.members && item.detail.members.length">
-                        <h4>Members</h4>
-                        <div class="bg-secondary text-white row-header border border-secondary">
-                          <div class="col">Onyen</div>
-                          <div class="col">Name</div>
-                          <div class="col"></div>
-                        </div>
-                        <div class="records">
-                          <div v-for="(member, key) in item.detail.members" :key="key">
-                            <div class="col">{{member.samAccountName}}</div>
-                            <div class="col">{{member.displayName}}</div>
-                            <div class="col">
-                              <a href="#" @click.prevent="removeMember(item, member)">
-                                <i class="fa fa-trash-o"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="container group-members" v-else>
-                        <div class="alert alert-info">
-                          <div class="info">
-                            <i class="fa fa-info-circle"></i>
-                          </div>
-                          <p class="pt-4 pb-2">
-                            No members were found for group '
-                            <strong>{{item.name}}</strong>' Use the controls below to add members to the group
-                          </p>
-                        </div>
-                      </div>
-                      <div class="container add-member">
-                        <div class="form-group form-inline">
-                          <label for>Entity Id</label>
-                          <input
-                            type="text"
-                            class="form-control input-xl"
-                            placeholder="onyen, pid, email,group name"
-                            v-model="item.searchMember"
-                            v-select-all
-                             v-on:keyup.13="lookupMember(item)"
-                          >
-                          <button class="btn btn-primary" @click="lookupMember(item)">Lookup Entity</button>
-                          <button class="btn btn-secondary" @click="clearAddMember(item)">Clear</button>
-                        </div>
-
-                        <div class="lookup-result" v-if="lookupEntityModel">
-                          <h5 class="text-secondary">Lookup Result:</h5>
-                          <div>
-                            <ul>
-                              <li>
-                                <label for>Name</label>
-                                <span>{{lookupEntityModel.name}}</span>
-                              </li>
-                              <li>
-                                <label for>Type</label>
-                                <span>{{lookupEntityModel.type}}</span>
-                              </li>
-                              <li>
-                                <label for>Display Name</label>
-                                <span>{{lookupEntityModel.displayName}}</span>
-                              </li>
-                              <li>
-                                <label for>Email</label>
-                                <span>{{lookupEntityModel.email}}</span>
-                              </li>
-                              <li v-if="lookupEntityModel.distinguishedName">
-                                <label for>Distinguished Name</label>
-                                <span>{{lookupEntityModel.distinguishedName}}</span>
-                              </li>
-                              <li v-if="lookupEntityModel.type === 'group'">
-                                <label for>Total Members</label>
-                                <span>{{lookupEntityModel.totalMembers}}</span>
-                              </li>
-                            </ul>
-
-                            <div class="form-controls">
-                              <div class="check-buttons text-right" v-if="lookupEntityModel.type === 'group'">
-                                <input
-                                  type="checkbox"
-                                  name="recursive"
-                                  id="chkRecursive"
-                                  v-model="item.recursive"
-                                >
-                                <label for="chkRecursive">Include All Entities/Recursive?</label>
-                              </div>
-                              <div class="submit">
-                                <button class="btn btn-primary mr-1">Add Entity</button>
-                                <button class="btn btn-secondary" @click="clearAddMember(item)">Cancel</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <tabbed-control tabs="Members,Managers">
+                        <tabbed-item slot="tab_0">
+                          <user-list-management
+                            ref="groupUsers"
+                            :group="item.samAccountName"
+                            autoLoadEntities="true"
+                            @controlLoaded="onGroupUserListLoaded(item)"
+                          ></user-list-management>
+                        </tabbed-item>
+                        <tabbed-item slot="tab_1">
+                          <manager-list-management
+                            ref="groupManagers"
+                            :group="item.samAccountName"
+                            autoLoadEntities="true"
+                            @controlLoaded="onManagerListLoaded(item)"
+                          ></manager-list-management>
+                        </tabbed-item>
+                      </tabbed-control>
                     </div>
                   </transition>
                 </div>
@@ -203,4 +129,4 @@
   </div>
 </template>
 <script src="./groups.js"></script>
-<style lang="scss" src="./groups.scss" scoped></style>
+<style lang="scss" src="./groups.scss" ></style>

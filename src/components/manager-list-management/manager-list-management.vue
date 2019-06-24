@@ -2,7 +2,7 @@
  <div class="user-list-management">
     
     <div class="section add-entity mt-3">
-      <spinner allow-service-update="false" ref="spinner" class="control-spinner"></spinner>
+      <spinner allowServiceUpdate="false" ref="spinnerMngrList" class="control-spinner"></spinner>
       <div class="container">
         <div class="row bg-primary text-white row-header">
           <div class="col">User</div>

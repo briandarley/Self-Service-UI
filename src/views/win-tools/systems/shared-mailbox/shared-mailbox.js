@@ -99,11 +99,11 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
 
   }
-  async getDistributionGroupMembers() {
+  async getAllDistributionGroupEntities() {
 
     try {
 
-      let entities = await this.ExchangeToolsService.getDistributionGroupMembers(this.groupId);
+      let entities = await this.ExchangeToolsService.getAllDistributionGroupEntities(this.groupId);
 
       return entities;
 
@@ -138,7 +138,7 @@ export default class SharedMailbox extends BaseValidateMixin {
         this.getSharedMailbox(),
         this.getDistributionGroup(),
         this.getUserByEmail(),
-        this.getDistributionGroupMembers()
+        this.getAllDistributionGroupEntities()
       ])
 
       if (!values[0] || !values[1] || !values[2] || !values[3]) {
@@ -269,6 +269,16 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
   }
 
+  onGroupRetrieveFailed(groupId) {
+    this.toastService.error(`Failed to retrieve group with id ${groupId}`)
+  }
+  
+  onGroupManagerRetrieveFailed(groupId){
+    this.toastService.error(`Failed to retrieve group managers with id ${groupId}`)
+  }
+  
+
+
   clear() {
     this.persistedModel = {};
 
@@ -280,18 +290,7 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
   }
 
-  onGroupRetrieveFailed(groupId) {
-    this.toastService.error(`Failed to retrieve group with id ${groupId}`)
-  }
 
-
-  
-
-  
-  onGroupManagerRetrieveFailed(groupId){
-    this.toastService.error(`Failed to retrieve group managers with id ${groupId}`)
-  }
-  
   
             
 }

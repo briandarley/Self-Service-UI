@@ -8,7 +8,7 @@ import Spinner from '@/components/spinner/spinner.vue';
   components: {
     Spinner
   },
-  props: ['group', 'headerLabels']
+  props: ['group', 'headerLabels','autoLoadEntities']
 })
 
 export default class UserListManagement extends Vue {
@@ -18,9 +18,9 @@ export default class UserListManagement extends Vue {
   multipleRecords = false;
   groupListResult = [];
   selectedGroup = null;
-  
   isGroup = false;
 
+  //Called from parent controller
   async populateEntities(parentGroup){
     this.lookupEntityModel = {
       name: parentGroup.group.name,
@@ -35,14 +35,15 @@ export default class UserListManagement extends Vue {
     this.entities = parentGroup.members;
   }
 
-
   async removeEntity(samAccountName) {
     try {
       this.showSpinner();
 
       await this.ExchangeToolsService.removeMember(this.group, samAccountName);
       this.entities = this.entities.filter(c => c.samAccountName !== samAccountName);
+      this.toastService.success("Successfully removed entity");
       this.$emit('entityRemoved', samAccountName);
+      
     } catch (e) {
       window.console.log(e);
       this.toastService.error('Failed to remove entity');
@@ -61,13 +62,13 @@ export default class UserListManagement extends Vue {
     this.$refs.confirmAddEntity.hide();
   }
 
-  selectGroup() {
+  selectGroup(){
     this.isGroup = true;
     this.multipleRecords = false;
     this.lookupGroupDetails(this.selectedGroup)
   }
 
-  lookupGroupDetails(groupEntity) {
+  lookupGroupDetails(groupEntity){
 
 
     this.lookupEntityModel = {
@@ -81,7 +82,7 @@ export default class UserListManagement extends Vue {
 
 
     return this.ExchangeToolsService
-      .getDistributionGroupMembers(groupEntity.samAccountName)
+      .getAllDistributionGroupEntities(groupEntity.samAccountName)
       .then(c => {
         this.lookupEntityModel.totalMembers = c.members.length;
         return c.members;
@@ -91,7 +92,7 @@ export default class UserListManagement extends Vue {
   }
 
 
-  async onLookupMember() {
+  async onLookupMember(){
     let userId = this.userId;
     this.selectedGroup = null;
     this.multipleRecords = false;
@@ -188,7 +189,7 @@ export default class UserListManagement extends Vue {
       //then if recursive, iterate through entire groop
       if (this.lookupEntityModel.type === 'group' && this.lookupEntityModel.recursive) {
         
-        let distributionGroupMembers = await this.ExchangeToolsService.getDistributionGroupMembers(this.lookupEntityModel.samAccountName, this.lookupEntityModel.recursive)
+        let distributionGroupMembers = await this.ExchangeToolsService.getAllDistributionGroupEntities(this.lookupEntityModel.samAccountName, this.lookupEntityModel.recursive)
         let members = distributionGroupMembers.members;
         
         await this.addMemberToGroup(this.lookupEntityModel, this.lookupEntityModel.recursive);
@@ -225,12 +226,12 @@ export default class UserListManagement extends Vue {
     this.hideDialog();
   }
   showSpinner() {
-    if (!this.$refs.spinner) return;
-    this.$refs.spinner.showSpinner();
+    if (!this.$refs.spinnerMmbrList) return;
+    this.$refs.spinnerMmbrList.showSpinner();
   }
   hideSpinner() {
-    if (!this.$refs.spinner) return;
-    this.$refs.spinner.hideSpinner();
+    if (!this.$refs.spinnerMmbrList) return;
+    this.$refs.spinnerMmbrList.hideSpinner();
   }
   toggleSpinner() {
     if (!this.$refs.spinner) return;
@@ -244,6 +245,29 @@ export default class UserListManagement extends Vue {
     
     this.toastService.set(this);
     this.$emit('controlLoaded');
+
+    if(this.autoLoadEntities){
+      try{
+        this.showSpinner();
+        this.entities = await this.ExchangeToolsService.getDistributionGroupMembers(this.group);
+        this.entities.map(c=> {
+            if(!c.id)
+            {
+              c.id = c.distinguishedName
+            }
+            return c;
+        })
+        
+      } catch(e){
+        window.console.log(e);
+        this.toastService.error("Failed to retrieve members entities");
+      }
+      finally{
+        this.hideSpinner();
+      }
+    }
+
+    
     
   }
 }

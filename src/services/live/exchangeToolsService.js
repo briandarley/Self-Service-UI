@@ -447,16 +447,50 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getDistributionGroupMembers(id, recursively) {
+        async getAllDistributionGroupEntities(id, recursively) {
             try {
                 const handler = await httpHandlerService.get();
                 if (recursively) {
-                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/members?recursively=true`);
+                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/all-entities?recursively=true`);
 
                     return response.data;
                 } else {
-                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/members`);
+                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/all-entities`);
 
+                    return response.data;
+                }
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async getDistributionGroupMembers(id) {
+            try {
+                const handler = await httpHandlerService.get();
+                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/members`);
+                {
+                    return response.data;
+                }
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async getDistributionGroupManagers(id) {
+            try {
+                const handler = await httpHandlerService.get();
+                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/managers`);
+                {
                     return response.data;
                 }
 

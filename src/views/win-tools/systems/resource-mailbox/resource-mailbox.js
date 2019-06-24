@@ -82,11 +82,11 @@ export default class ResourceMailbox extends BaseValidateMixin {
     }
 
   }
-  async getDistributionGroupMembers() {
+  async getAllDistributionGroupEntities() {
 
     try {
       let samAccountName = `${this.model.department}_${this.model.name}.dg`
-      let entities = await this.ExchangeToolsService.getDistributionGroupMembers(samAccountName);
+      let entities = await this.ExchangeToolsService.getAllDistributionGroupEntities(samAccountName);
 
       return entities;
 
@@ -120,7 +120,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
       let values = await Promise.all([
         this.getSharedMailbox(), 
         this.getDistributionGroup(), 
-        this.getDistributionGroupMembers()])
+        this.getAllDistributionGroupEntities()])
 
       if (!values[0] || !values[1] || !values[2]) {
         //One of the responses returned null

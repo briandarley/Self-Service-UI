@@ -7,6 +7,7 @@ import {
 @Component({
   name: 'groups',
   dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService', 'EventBus']
+  
 
 })
 
@@ -15,16 +16,16 @@ export default class Groups extends Vue {
   performedSearch = false;
   lookupEntityModel = null;
   criteria = {
-    groupName: '',
-    managedBy: ''
+    managedBy: '',
+    filterText: ''
 
   };
   async search() {
-    if (!this.criteria.groupName && !this.criteria.managedBy) {
+    if (!this.criteria.filterText && !this.criteria.managedBy) {
       this.toastService.error("Criteria too vague, please specify a criteria to search by");
       return;
     }
-    if (!this.criteria.managedBy && this.criteria.groupName.length < 3) {
+    if (!this.criteria.managedBy && this.criteria.filterText.length < 3) {
       this.toastService.error("Criteria too vague, please specify a criteria to search by");
       return;
     }
@@ -52,7 +53,7 @@ export default class Groups extends Vue {
     this.performedSearch = false;
     records = [];
     this.criteria = {
-      groupName: '',
+      filterText: '',
       managedBy: ''
 
     }
@@ -60,15 +61,24 @@ export default class Groups extends Vue {
     await this.search();
   }
   async toggleUsers(entity) {
+    let samAccountName = entity.samAccountName;
     if (entity.showUsers) {
       entity.showUsers = false;
       return;
     }
+
+    for(let i = 0; i< this.records.length; i++){
+        if(this.records[i].samAccountName !== samAccountName){
+          this.records[i].showUsers = false;
+        }
+    }
+    
+
     this.spinnerService.show();
 
     try {
 
-      entity.detail = await this.ExchangeToolsService.getDistributionGroupMembers(entity.name);
+      entity.detail = await this.ExchangeToolsService.getAllDistributionGroupEntities(entity.name);
 
       entity.detail.members.sort((a, b) => {
         let item1 = a.samAccountName.toLowerCase();
@@ -132,7 +142,7 @@ export default class Groups extends Vue {
             totalMembers : 'processing...'
           };
 
-          this.ExchangeToolsService.getDistributionGroupMembers(groupEntity.samAccountName).then(c=> {
+          this.ExchangeToolsService.getAllDistributionGroupEntities(groupEntity.samAccountName).then(c=> {
             this.lookupEntityModel.totalMembers = c.members.length;
             
         }).catch(e=> {
@@ -180,5 +190,15 @@ export default class Groups extends Vue {
 
   }
 
+ async onManagerListLoaded(entity){
+    
+    //getDistributionGroupManagers
+    //getDistributionGroupMembers
+    //await this.$refs.groupManagers.populateEntities(entity);
+    
+  }
 
+  async onGroupUserListLoaded(entity){
+
+  }
 }
