@@ -3,7 +3,9 @@ import App from "./App.vue";
 import injector from "vue-inject";
 import "./app_root_dependencies";
 import router from "./router";
-import {VueRouter} from "./components/index.js";
+import {
+  VueRouter
+} from "./components/index.js";
 
 //require("vue-toastr/src/vue-toastr.scss");
 const console = window.console;
@@ -34,9 +36,10 @@ new Vue({
       if (!route.children) {
         return;
       }
-
+      
+    
       route.children.forEach(route => {
-        
+
         this.createAndAppendRoute(route, this.loadView(route));
         this.appendChildRoutes(route);
       });
@@ -48,22 +51,37 @@ new Vue({
           // hack to allow for forward slashes in path ids
           //not sure how the double slash get's added in the first place
           if (to.fullPath.includes('//')) {
-              next(to.fullPath.replace('//', '/'));
+            next(to.fullPath.replace('//', '/'));
           }
           next();
-      });
+        });
 
-
+        let duoRoute =   {
+          "id": 999,
+          "title": "Duo",
+          "route": "/duo",
+          "name": "duo",
+          "component": "duo/duo.vue",
+          "order": 0,
+          "alias": "/duo",
+          "enabled": true,
+          "parentMenuRouteId": 1,
+          "nestedRouting": true     
+   
+    
+        }
+        this.createAndAppendRoute( duoRoute, this.loadView(duoRoute) )
         let service = injector.get("RouteSourcesService");
-        let routeSources = await service.getRouteMenu();
         
+        let routeSources = await service.getRouteMenu();
+
         routeSources.forEach(route => {
-          evaluatedRoute =route;
+          evaluatedRoute = route;
           this.createAndAppendRoute(route, this.loadView(route));
           this.appendChildRoutes(route);
         });
 
-        
+
 
       } catch (err) {
         console.log(`Evaluated Route: ${evaluatedRoute}`)
@@ -74,7 +92,7 @@ new Vue({
       return () => import("./views/" + view.component);
     },
     createAndAppendRoute(route, view) {
-      
+
       let newRoute = {
         path: route.route === "/" ? "" : `/${route.route}`,
         component: view,
@@ -86,19 +104,34 @@ new Vue({
         props: {
           entity_type_id: route.id
         }
-      }; 
+      };
 
-      let link = router.resolve({ name: newRoute.name });
-      
-      if(! link.resolved.matched.length){
+      let link = router.resolve({
+        name: newRoute.name
+      });
+
+      if (!link.resolved.matched.length) {
         router.addRoutes([newRoute]);
       }
-      
-      
+
+
     }
   },
   watch: {
     $route(to) {
+      
+      if(to.name !== 'duo' && to.meta && to.meta.routeDefinition){
+        if(to.meta.routeDefinition.mfa){
+          let localStorageService = injector.get("localStorageService");
+          localStorageService.set("MFA_REQUEST", to.name);
+          let duoAuthService = injector.get("DuoAuthService");
+          if(duoAuthService.getDuoState() !== "STATE_AUTH_PASSED"){
+            //save to to variable
+            this.$router.push({name: 'duo'})
+            return;
+          }
+        }
+      }
       this.currentRoute = to.name;
     }
   },
@@ -110,13 +143,13 @@ new Vue({
     this.currentRoute = router.currentRoute.name;
   },
   mounted() {
-    
-     this.$refs.toastr.defaultPosition = 'toast-bottom-right';
-     this.$refs.toastr.defaultTimeout = 3000;
+
+    this.$refs.toastr.defaultPosition = 'toast-bottom-right';
+    this.$refs.toastr.defaultTimeout = 3000;
   },
 
-  
+
 
   //render: h => h(App)
-  
+
 }).$mount("#app");

@@ -1,0 +1,10 @@
+.duo-frame-container {
+    display: flex;
+    justify-content: center;
+}
+
+iframe {
+    min-height: 500px;
+    border: 1px solid $carolina-blue;
+
+}

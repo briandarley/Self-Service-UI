@@ -8,3 +8,4 @@ import './massMailService';
 import './userProfileService';
 import './provisionsService';
 import './dataAnalyticsService';
+import './duoAuthService';
