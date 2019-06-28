@@ -1,5 +1,4 @@
 {
-    "baseURL": "https://its-idmtst-web.adtest.unc.edu/client/self-service/index.html",
     "serviceEndpoint": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
     "listmanager": {
       "lyris_list_base_path": "https://listtstapp1.ad.unc.edu/"
@@ -14,7 +13,9 @@
       "post_logout_redirect_uri": "https://its-idmtst-web.adtest.unc.edu/Shibboleth.sso/Logout?return=https://sso.unc.edu/idp/logout.jsp",
       "silent_redirect_uri": "https://its-idmst-web.adtest.unc.edu/client/self-sevice/silent-refresh.html",
       "automaticSilentRenew": true
-    }
+    },
+    "duoEnabled":false
+  
     
   }
   

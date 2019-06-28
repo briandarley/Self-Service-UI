@@ -25,13 +25,15 @@ new Vue({
   template: `<div class="app"><App></App><vue-toastr ref="toastr"></vue-toastr></div>`,
   data() {
     return {
-      currentRoute: "home" //,
+      currentRoute: "home",
+      duoEnabled: null, //,
       //page_header: '',
       //page_header_small: ''
     };
   },
 
   methods: {
+    
     appendChildRoutes(route) {
       if (!route.children) {
         return;
@@ -118,9 +120,13 @@ new Vue({
     }
   },
   watch: {
-    $route(to) {
+    async $route(to) {
+      const configReaderService = injector.get("ConfigReaderService");
+       if(this.duoEnabled === null){
+         this.duoEnabled = await configReaderService.getConfigurationSetting("duoEnabled");
+       }
       
-      if(to.name !== 'duo' && to.meta && to.meta.routeDefinition){
+      if(this.duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition){
         if(to.meta.routeDefinition.mfa){
           let localStorageService = injector.get("localStorageService");
           localStorageService.set("MFA_REQUEST", to.name);
