@@ -9,60 +9,64 @@ function RouteSourcesService(httpHandlerService) {
     routeMenu: null,
     _routeData: null,
     async getAllMenuItems(criteria) {
-
-      if (!this._routeData) {
-        const handler = await httpHandlerService.get(10000);
-
-        let routeData = await handler.get('routes');
-
-        this._routeData = routeData.data.map(c => {
-          c.parentRouteId = c.parentMenuRouteId;
-          c.order = c.order;
-          if(c.alias){
-            c.alias = c.alias.split(",")
-          }
-          
-
-          if (!c.order) {
-            c.order = 0;
-          }
-
-          if (c.roles) {
-            c.roles = c.roles.split(",").map(c => c.trim());
-          }
-          delete c.parentMenuRouteId;
-          return c;
-
-        });
-
-        this._routeData.sort((a, b) => {
-          if (a.order === -1)
-            return 1;
-          if (a.order < b.order) {
-            return -1;
-          }
-          if (a.order > b.order) {
-            return 1;
-          }
-          return 0;
-        })
-
-      }
-
-
-
-      let data = this._routeData;
-
-      if (criteria) {
-        if (criteria.exlcudeWildCard) {
-          data = data.filter(c => c.route !== "*");
+      try{
+        if (!this._routeData) {
+          const handler = await httpHandlerService.get(10000);
+  
+          let routeData = await handler.get('routes');
+  
+          this._routeData = routeData.data.map(c => {
+            c.parentRouteId = c.parentMenuRouteId;
+            c.order = c.order;
+            if(c.alias){
+              c.alias = c.alias.split(",")
+            }
+            
+  
+            if (!c.order) {
+              c.order = 0;
+            }
+  
+            if (c.roles) {
+              c.roles = c.roles.split(",").map(c => c.trim());
+            }
+            delete c.parentMenuRouteId;
+            return c;
+  
+          });
+  
+          this._routeData.sort((a, b) => {
+            if (a.order === -1)
+              return 1;
+            if (a.order < b.order) {
+              return -1;
+            }
+            if (a.order > b.order) {
+              return 1;
+            }
+            return 0;
+          })
+  
         }
-        if(criteria.excludeUnOrdered){
-          data = data.filter(c => c.order &&  c.order >= 0);
+  
+        let data = this._routeData;
+  
+        if (criteria) {
+          if (criteria.exlcudeWildCard) {
+            data = data.filter(c => c.route !== "*");
+          }
+          if(criteria.excludeUnOrdered){
+            data = data.filter(c => c.order &&  c.order >= 0);
+          }
         }
+  
+        return data;
+      } catch(e){
+        
+        window.console.log(e);
+        throw e;
       }
-
-      return data;
+      
     },
     async getFlattenedMenu(criteria) {
 
