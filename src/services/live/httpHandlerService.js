@@ -7,15 +7,9 @@ function httpHandlerService(axios, configReaderService, userService) {
         _httpHandler: null,
         async get(cacheLength) {
             const serviceEndpoint = await configReaderService.getConfigurationSetting("serviceEndpoint")
-            window.console.log("*****************")
-            window.console.log("Service EndPoint")
-            window.console.log(serviceEndpoint)
-            window.console.log("*****************")
+            
             const user = await userService.get();
-            window.console.log("*****************")
-            window.console.log("User")
-            window.console.log(user)
-            window.console.log("*****************")
+            
             const instance = axios.create({
 
                 baseURL: serviceEndpoint,

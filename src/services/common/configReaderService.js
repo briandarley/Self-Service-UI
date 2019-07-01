@@ -23,6 +23,9 @@ function ConfigReaderService() {
                 case "test":
                     oidcSettings = await axios.get('oidc.config.test.json');
                     return oidcSettings.data;
+                case "uit":
+                    oidcSettings = await axios.get('oidc.config.uit.json');
+                    return oidcSettings.data;
                 case "production":
                     oidcSettings = await axios.get('oidc.config.production.json');
                     return oidcSettings.data;
