@@ -24,24 +24,18 @@ export default class ProvisionsWidget extends Vue {
   get isMaxDate() {
 
     let todaysBeginDate = this.moment(this.getBeginningDate(new Date()));
-    window.console.log(todaysBeginDate);
-
+    
     let currentBeginDate = this.moment(this.getBeginningDate(this.currentProvisionDate));
-    window.console.log(currentBeginDate.format("M/dd/YYY"));
-
-    window.console.log("IsMaxDate?")
-    window.console.log(todaysBeginDate.format("M/dd/YYY") <= currentBeginDate.format("M/dd/YYY"));
-
     return todaysBeginDate.format("M/dd/YYY") <= currentBeginDate.format("M/dd/YYY");
 
   }
 
   getBeginningDate(dt) {
 
-    let diff = (7 + (dt.getDay())) % 7;
+    let diff = (7 + dt.getDay()) % 7;
 
     let beginDate = this.CommonExtensions.addDays(dt, (-1 * diff));
-    //.toISOString()
+    
     return beginDate;
   }
 
@@ -51,13 +45,9 @@ export default class ProvisionsWidget extends Vue {
 
 
     let data = await this.DataAnalyticsService.getWeeklyProvisionAnalytics(this.provisionsDate);
-    window.console.log("Response Data...");
-    window.console.log(data);
-
-    let series = data.map(c => c.count)
     
-    window.console.log("Series Data...");
-    window.console.log(series);
+    let series = data.map(c => c.count)
+        
 
     let maxCount = data.sort((a,b)=> {
       if(a.count > b.count) return -1;
@@ -79,6 +69,9 @@ export default class ProvisionsWidget extends Vue {
       let diff = 1 + (7 + (dt.getDay())) % 7;
       series.length = diff;
     }
+    window.console.log("Series ...")
+    window.console.log(series.length);
+    window.console.log(series);
 
     const dataProvisionsChart = {
       labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -155,18 +148,11 @@ export default class ProvisionsWidget extends Vue {
 
   async previous() {
     this.currentProvisionDate = this.CommonExtensions.addDays(this.currentProvisionDate, -7);
-    window.console.log("Previous Date")
-    window.console.log(this.currentProvisionDate.format("MM/dd/yyyy"));
-
     await this.getProvisionsToday();
   }
   async next() {
     if (this.isMaxDate) return;
     this.currentProvisionDate = this.CommonExtensions.addDays(this.currentProvisionDate, 7);
-    window.console.log("Next Date")
-    window.console.log(this.currentProvisionDate.format("MM/dd/yyyy"));
-
-
     await this.getProvisionsToday();
   }
 
