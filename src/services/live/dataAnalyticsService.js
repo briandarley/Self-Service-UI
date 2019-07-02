@@ -23,44 +23,8 @@ function DataAnalyticsService(httpHandlerService, moment) {
         },
         async getWeeklyProvisionAnalytics(dateFrom) {
             try {
-                //todo remove when releasing
-                // return [
-                //     {
-                //       "createDate": "2019-01-06T00:00:00",
-                //       "count": 5
-                //     },
-                //     {
-                //       "createDate": "2019-01-07T00:00:00",
-                //       "count": 53
-                //     },
-                //     {
-                //       "createDate": "2019-01-08T00:00:00",
-                //       "count": 37
-                //     },
-                //     {
-                //       "createDate": "2019-01-09T00:00:00",
-                //       "count": 41
-                //     },
-                //     {
-                //       "createDate": "2019-01-10T00:00:00",
-                //       "count": 24
-                //     },
-                //     {
-                //       "createDate": "2019-01-11T00:00:00",
-                //       "count": 11
-                //     },
-                //     {
-                //       "createDate": "2019-01-12T00:00:00",
-                //       "count": 4
-                //     }
-                //   ];
-
-
-
 
                 const handler = await httpHandlerService.get();
-
-                //const handler = await httpHandlerService.getFullyQualifiedHttpHandler("http://localhost:13003/v1")
 
                 let response = await handler.get(`/DataAnalytics/provisionings/weekly-analytics/${moment(dateFrom).format("M-DD-YYYY")}`);
 
