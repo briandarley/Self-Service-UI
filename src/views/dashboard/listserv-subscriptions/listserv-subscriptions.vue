@@ -51,14 +51,16 @@
           </div>
         </div>
         <div class="container">
-           <div class="alert alert-warning">
-              <div class="info">
-                  <i class="far fa-stop-circle"></i>
-              </div>
-              <p class="pt-3 h4 text-secondary">
-                  The system could not locate any Lyris Lists in which you are a subscriber. 
-              </p>
-              
+          <div class="alert alert-warning">
+            <div class="info">
+              <i class="far fa-stop-circle"></i>
+            </div>
+            <div class="message">
+              <p
+                class="pt-3 h4 text-secondary"
+              >It appears you are not subscribed to any Lyris Lists.</p>
+              <p>The system could not locate any Lyris Lists in which you are a subscriber.</p>
+            </div>
           </div>
         </div>
       </div>
