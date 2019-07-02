@@ -62,7 +62,7 @@
             </div>
           </div>
 
-          <div class="mt-5" v-if="adminProfile.adminAliases.length">
+          <div class="mt-5" v-if="adminProfile.adminAliases && adminProfile.adminAliases.length">
             <div class="alert alert-info">
               <p>Use the controls below to append an alias to the selected account.</p>
               <p>

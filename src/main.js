@@ -7,9 +7,6 @@ import {
   VueRouter
 } from "./components/index.js";
 
-//require("vue-toastr/src/vue-toastr.scss");
-const console = window.console;
-
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(injector);
@@ -86,8 +83,8 @@ new Vue({
 
 
       } catch (err) {
-        console.log(`Evaluated Route: ${evaluatedRoute}`)
-        console.log(err);
+        window.console.log(`Evaluated Route: ${evaluatedRoute}`)
+        window.console.log(err);
       }
     },
     loadView(view) {

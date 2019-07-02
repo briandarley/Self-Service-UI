@@ -134,8 +134,8 @@ export default class Aliases extends Vue {
     this.emailAddresses = [];
     this.adUser = null;
     this.newAliasPrefix = "";
-
-    if (this.adminProfile.adminAliases.length) {
+    
+    if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
       this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
     }
   }
@@ -181,7 +181,8 @@ export default class Aliases extends Vue {
   async mounted() {
     this.toastService.set(this);
     this.adminProfile = await this.AdminProfileService.getAdminProfile();
-    if (this.adminProfile.adminAliases.length) {
+    
+    if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
       this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
     }
   }
