@@ -27,7 +27,7 @@ export default class ProvisionsWidget extends Vue {
     window.console.log(todaysBeginDate);
 
     let currentBeginDate = this.moment(this.getBeginningDate(this.currentProvisionDate));
-    window.console.log(currentBeginDate);
+    window.console.log(currentBeginDate.format("M/dd/YYY"));
 
     window.console.log("IsMaxDate?")
     window.console.log(todaysBeginDate.format("M/dd/YYY") <= currentBeginDate.format("M/dd/YYY"));
@@ -106,7 +106,7 @@ export default class ProvisionsWidget extends Vue {
     setTimeout(() => {
 
       let chart = new Chartist.Line(".provisions-today", dataProvisionsChart, optionsProvisionsChart);
-      //document.querySelector('.provisions-today').__chartist__.update();
+      
       this.startAnimationForLineChart(chart);
       if(!this.$refs.spinner) return;
       this.$refs.spinner.hideSpinner();
@@ -154,12 +154,19 @@ export default class ProvisionsWidget extends Vue {
   }
 
   async previous() {
-    this.currentProvisionDate = this.CommonExtensions.addDays(this.currentProvisionDate, (-7));
+    this.currentProvisionDate = this.CommonExtensions.addDays(this.currentProvisionDate, -7);
+    window.console.log("Previous Date")
+    window.console.log(this.currentProvisionDate.format("MM/dd/yyyy"));
+
     await this.getProvisionsToday();
   }
   async next() {
     if (this.isMaxDate) return;
     this.currentProvisionDate = this.CommonExtensions.addDays(this.currentProvisionDate, 7);
+    window.console.log("Next Date")
+    window.console.log(this.currentProvisionDate.format("MM/dd/yyyy"));
+
+
     await this.getProvisionsToday();
   }
 
