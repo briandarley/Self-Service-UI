@@ -30,9 +30,9 @@ export default class ProvisionsWidget extends Vue {
     window.console.log(currentBeginDate);
 
     window.console.log("IsMaxDate?")
-    window.console.log(todaysBeginDate.format("M/dd/YYY") >= currentBeginDate.format("M/dd/YYY"));
-    
-    return todaysBeginDate.format("M/dd/YYY") >= currentBeginDate.format("M/dd/YYY");
+    window.console.log(todaysBeginDate.format("M/dd/YYY") <= currentBeginDate.format("M/dd/YYY"));
+
+    return todaysBeginDate.format("M/dd/YYY") <= currentBeginDate.format("M/dd/YYY");
 
   }
 
@@ -51,9 +51,14 @@ export default class ProvisionsWidget extends Vue {
 
 
     let data = await this.DataAnalyticsService.getWeeklyProvisionAnalytics(this.provisionsDate);
-    
+    window.console.log("Response Data...");
+    window.console.log(data);
+
     let series = data.map(c => c.count)
     
+    window.console.log("Series Data...");
+    window.console.log(series);
+
     let maxCount = data.sort((a,b)=> {
       if(a.count > b.count) return -1;
       else if(a.count < b.count) return 1;
