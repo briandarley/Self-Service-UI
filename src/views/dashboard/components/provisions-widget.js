@@ -24,9 +24,14 @@ export default class ProvisionsWidget extends Vue {
   get isMaxDate() {
 
     let todaysBeginDate = this.moment(this.getBeginningDate(new Date()));
+    window.console.log(todaysBeginDate);
 
     let currentBeginDate = this.moment(this.getBeginningDate(this.currentProvisionDate));
+    window.console.log(currentBeginDate);
 
+    window.console.log("IsMaxDate?")
+    window.console.log(todaysBeginDate.format("M/dd/YYY") >= currentBeginDate.format("M/dd/YYY"));
+    
     return todaysBeginDate.format("M/dd/YYY") >= currentBeginDate.format("M/dd/YYY");
 
   }
