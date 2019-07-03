@@ -1,7 +1,7 @@
 import injector from 'vue-inject';
 
 
-function ConfigReaderService() {
+function ConfigReaderService($) {
     return {
         async getConfiguration() {
 
@@ -16,23 +16,29 @@ function ConfigReaderService() {
                 }
             }
             let oidcSettings = {};
+            let response = {};
+            response = $.extend(response, configuration.data);
             switch (environment) {
                 case "local":
                     oidcSettings = await axios.get('oidc.config.local.json');
-                    return oidcSettings.data;
+                    break;
                 case "test":
                     oidcSettings = await axios.get('oidc.config.test.json');
-                    return oidcSettings.data;
+                    break;
                 case "uat":
                     oidcSettings = await axios.get('oidc.config.uat.json');
-                    return oidcSettings.data;
+                    break;
                 case "production":
                     oidcSettings = await axios.get('oidc.config.production.json');
-                    return oidcSettings.data;
+                    break;
                 default:
                     throw "Environment not found or not supported";
+                    
             }
 
+
+            response = $.extend(response, oidcSettings.data);
+            return response;
         },
         async getConfigurationSetting(key) {
             const config = await this.getConfiguration();
@@ -42,4 +48,4 @@ function ConfigReaderService() {
     }
 }
 
-injector.service('ConfigReaderService', ConfigReaderService);
+injector.service('ConfigReaderService', ['$'], ConfigReaderService);

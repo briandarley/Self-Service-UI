@@ -5,11 +5,12 @@ import ProvisionsWidget from './components/provisions-widget.vue';
 import AdLockWidget from './components/ad-lock-widget.vue';
 import GalSyncWidget from './components/gal-sync-widget.vue';
 import BearerTokenWidget from './components/bearer-token-widget.vue';
+import EnvironmentWidget from './components/environment-widget.vue';
 
 @Component({
   name: 'dash-board',
   dependencies: ['$', 'moment', 'UserService', 'DashboardService', 'toastService', 'DataAnalyticsService'],
-  components: {ProvisionsWidget,AdLockWidget,GalSyncWidget,BearerTokenWidget}
+  components: {ProvisionsWidget,AdLockWidget,GalSyncWidget,BearerTokenWidget,EnvironmentWidget}
  
 })
 

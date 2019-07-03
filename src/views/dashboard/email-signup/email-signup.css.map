@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,EAAE,AAAA,cAAc,CAAC;EACb,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,aAAa;CAUjC;;AAdD,AAMI,EANF,AAAA,cAAc,CAMZ,EAAE,CAAC;EACC,UAAU,EAAE,MAAM;EAClB,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;EACT,IAAI,EAAE,CAAC;CACV",
-    "sources": [
-        "email-signup.scss"
-    ],
-    "names": [],
-    "file": "email-signup.css"
-}

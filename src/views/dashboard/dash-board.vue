@@ -12,6 +12,7 @@
         <provisions-widget></provisions-widget>
         <ad-lock-widget></ad-lock-widget>
         <bearer-token-widget></bearer-token-widget>
+        <environment-widget></environment-widget>
       </div>
     </div>
   </div>
