@@ -1,3 +1,4 @@
 {
-    "environment": "local"
+    "environment": "local",
+    "build": "not set"
 }
