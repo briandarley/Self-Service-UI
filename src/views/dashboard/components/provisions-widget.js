@@ -26,7 +26,7 @@ export default class ProvisionsWidget extends Vue {
     let todaysBeginDate = this.moment(this.getBeginningDate(new Date()));
     
     let currentBeginDate = this.moment(this.getBeginningDate(this.currentProvisionDate));
-    return todaysBeginDate.format("M/dd/YYY") <= currentBeginDate.format("M/dd/YYY");
+    return todaysBeginDate <= currentBeginDate;
 
   }
 
