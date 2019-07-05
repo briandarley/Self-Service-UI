@@ -12,6 +12,7 @@ import { Component, Watch } from "vue-property-decorator";
     "CommonExtensions",
     "AdminProfileService",
     "ValidationService"
+    
   ]
 })
 export default class Aliases extends Vue {
@@ -215,11 +216,20 @@ export default class Aliases extends Vue {
 
   async setForwardingAddress(){
     try{
-      this.spinnerService.show();
       
-      await this.ExchangeToolsService.setForwardingAddress(this.adUser.samAccountName, this.mailbox.forwardingSmtpAddress);
+      if(this.mailbox.forwardingSmtpAddress && !this.ValidationService.isValidEmail(this.mailbox.forwardingSmtpAddress))
+      {
+        this.toastService.error("Invalid forwarding address. Value must be a valid email");
+      }
+      else{
+        this.spinnerService.show();
+           
+        await this.ExchangeToolsService.setForwardingAddress(this.adUser.samAccountName, this.mailbox.forwardingSmtpAddress);
+        
+        this.toastService.success("Successfully set forwarding address for account");
+      }
+
       
-      this.toastService.success("Successfully set forwarding address for account");
 
     } catch (e){
       window.console.log(e);

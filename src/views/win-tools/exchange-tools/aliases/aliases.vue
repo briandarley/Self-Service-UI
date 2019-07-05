@@ -26,8 +26,11 @@
 
         <div class="container" v-if="adUser">
           <div class="alert alert-info mt-3">
-            <p>Use the radio buttons on the grid to designate the a primary alias.</p>
-            <p>Some aliases may not be selected or removed as they are required for proper account function.</p>
+            <p>
+                Use the radio buttons on the grid to designate the a primary alias.
+                Some aliases may not be selected or removed as they are required for proper account function.</p>
+            <p>Use the 'Add Email Alias' button to add new aliases for the selected account</p>
+            <p>Use the 'Forward Address' button to set or remove Forwarding Smtp Address for the selected account</p>
           </div>
           <div class="submit text-right">
             <button class="btn btn-primary mr-2" @click="showAddEmailAliasDialog()">
@@ -151,11 +154,9 @@
       <div slot="modal-body">
         <div class="container forwarding-address">
           <div class="alert alert-info">
-            <p>Use the controls below to append an alias to the selected account.</p>
+            <p>Use this control to set or remove the account's Forwarding SMTP Address.</p>
             <p>
-              The drop down list shown has been pre-populated by the Identity Management Team and is specific to your account profile.
-              If you wish to add more aliases please send a request to the Identity Management Team.
-            </p>
+              The value entered must be a valid email address. If you wish to clear the Forwarding SMTP Address, press the clear button and select 'Set Forwarding Address' button.            </p>
           </div>
 
           <div class="form-group add-alias-cmd">
