@@ -16,9 +16,7 @@ export default class MyAliases extends Vue {
   userAdProfile = null;
   emailAddresses = [];
   allowedDomains = [];
-  monitorEmailAddressChange =
-  
-  alse;
+  monitorEmailAddressChange = false;
   successfullyLoaded = true;
   
   model = {
