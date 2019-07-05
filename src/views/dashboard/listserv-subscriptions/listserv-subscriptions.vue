@@ -50,7 +50,7 @@
             </div>
           </div>
         </div>
-        <div class="container">
+        <div class="container" v-else>
           <div class="alert alert-warning">
             <div class="info">
               <i class="far fa-stop-circle"></i>
