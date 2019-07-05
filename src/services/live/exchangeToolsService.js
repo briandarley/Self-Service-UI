@@ -76,15 +76,16 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getAdUser(uid) {
+        async getAdUser(userId) {
             try {
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.get(`WinTools/ad/users?samAccountName=${uid}`);
+                let response = await handler.get(`WinTools/ad/users?samAccountName=${userId}`);
 
                 return response.data;
 
             } catch (e) {
+                
                 if (e.message.includes("404")) {
                     return {
                         status: false
@@ -110,11 +111,11 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async setPrimaryAlias(uid, emailAddress) {
+        async setPrimaryAlias(userId, emailAddress) {
             try {
                 const handler = await httpHandlerService.get();
 
-                await handler.put(`WinTools/ad/users/${uid}/primary-smtp/${emailAddress}`);
+                await handler.put(`WinTools/ad/users/${userId}/primary-smtp/${emailAddress}`);
 
                 return true;
 
@@ -128,11 +129,11 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             }
 
         },
-        async addAlias(uid, emailAddress) {
+        async addAlias(userId, emailAddress) {
             try {
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.post(`WinTools/ad/users/${uid}/smtp/${emailAddress}`);
+                let response = await handler.post(`WinTools/ad/users/${userId}/smtp/${emailAddress}`);
 
                 return response.data.entity;
 
@@ -703,11 +704,46 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async removeAuthorizedDomain(userID, domain) {
+        async removeAuthorizedDomain(userId, domain) {
             try {
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.delete(`/WinTools/systems/alias-authority/${userID}/domains/${domain}`);
+                let response = await handler.delete(`/WinTools/systems/alias-authority/${userId}/domains/${domain}`);
+
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async getOffice365Mailbox(userId) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                
+                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/office365-mailboxes/${userId}`);
+
+                return response.data;
+            } catch (e) {
+                
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        
+        async setForwardingAddress(userId, forwardingAddress){
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.put(`/WinTools/exchange-tools/ad-tools/office365-mailboxes/${userId}/forwarding-smtp-address`, "\"" + forwardingAddress + "\"");
 
                 return response.data;
             } catch (e) {

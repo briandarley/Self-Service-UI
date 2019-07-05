@@ -27,7 +27,8 @@ export default class Aliases extends Vue {
   deleteEntity = {};
   selectedPrimarySmtp = "";
   currentPrimary = "";
-
+  
+  mailbox = {};
   /*
   If the user has role 
   ITS_WSP-Tools-ExchangeTools-Aliases-kenan-flagler
@@ -46,12 +47,27 @@ export default class Aliases extends Vue {
     try {
       this.loadingAliases = true;
       this.adUser = null;
-      let adUser = await this.ExchangeToolsService.getAdUser(this.filter);
+      
+      let responses = await Promise.all([this.ExchangeToolsService.getAdUser(this.filter), this.ExchangeToolsService.getOffice365Mailbox(this.filter)]);
+
+      let adUser = responses[0];
+      let mailbox = responses[1];
+      
+
       if(adUser.status === false){
         this.toastService.error("User not found");
         return;
       }
+      if(mailbox.status === false){
+        this.toastService.error(`Mailbox for user ${this.filter} not found`);
+        return;
+      }
       this.adUser = adUser;
+      
+      if(mailbox.forwardingSmtpAddress && mailbox.forwardingSmtpAddress.startsWith("smtp:")){
+        mailbox.forwardingSmtpAddress = mailbox.forwardingSmtpAddress.substring(5);
+      }
+      this.mailbox = mailbox;
       this.emailAddresses = this.CommonExtensions.getValidEmailAddresses(
         this.adUser.proxyAddresses
       );
@@ -66,7 +82,76 @@ export default class Aliases extends Vue {
     }
   }
 
-  async setPrimaryEntityClick() {
+  
+  async confrimDeleteEntity(entity) {
+   if(!entity.valid)
+   {
+     return;
+   }
+   if(entity.primary){
+     this.toastService.warn("Can't remove primary");
+     return;
+   }
+    this.deleteEntity = entity;
+    this.$refs.confirmDelete.show();
+    
+  }
+  
+  async addEmailAlias() {
+    try {
+      this.spinnerService.show();
+      let newAlias = `${this.newAliasPrefix}@${this.newAliasDomain}`;
+
+      if (!this.ValidationService.isValidEmail(newAlias)) {
+        this.toastService.error("Invalid e-mail address");
+        return;
+      }
+      this.closeAddEmailAliasDialog();
+      let response = await this.ExchangeToolsService.addAlias(
+        this.adUser.samAccountName,
+        newAlias
+      );
+
+      if (response.success) {
+        this.toastService.success("Successfully added alias");
+      } else {
+        this.toastService.error(response.errorMessage);
+      }
+      this.newAliasPrefix = "";
+
+      if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
+        this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
+      }
+
+    } catch (e) {
+      window.console.log(e);
+      this.toastService.error("Failed to add alias");
+    } finally {
+      this.spinnerService.hide();
+      await this.search();
+    }
+  }
+  
+  clear() {
+    this.filter = "";
+    this.emailAddresses = [];
+    this.adUser = null;
+    this.newAliasPrefix = "";
+    this.mailbox = {};
+    if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
+      this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
+    }
+  }
+
+  confirmChangePrimaryAlias(event){
+    this.currentPrimary = this.emailAddresses.find(c=> c.primary).email;
+    
+    this.selectedPrimarySmtp = event.target.value;
+    
+    this.$refs.confirmChangePrimaryAliasDialog.show();
+  }
+  
+  async confirmChangePrimaryAliasClick() {
     try {
       let uid = this.adUser.samAccountName;
       
@@ -83,78 +168,19 @@ export default class Aliases extends Vue {
     }
     finally{
       this.selectedPrimarySmtp = "";
-      this.$refs.confirmSetPrimaryDialog.hide();
+      this.$refs.addEmailAliasDialog.hide();
       //
     }
   }
 
-  async confrimDeleteEntity(entity) {
-   if(!entity.valid)
-   {
-     return;
-   }
-   if(entity.primary){
-     this.toastService.warn("Can't remove primary");
-     return;
-   }
-    this.deleteEntity = entity;
-    this.$refs.confirmDelete.show();
-    
-  }
-  async addAlias() {
-    try {
-      this.spinnerService.show();
-      let newAlias = `${this.newAliasPrefix}@${this.newAliasDomain}`;
-
-      if (!this.ValidationService.isValidEmail(newAlias)) {
-        this.toastService.error("Invalid e-mail address");
-        return;
-      }
-
-      let response = await this.ExchangeToolsService.addAlias(
-        this.adUser.samAccountName,
-        newAlias
-      );
-
-      if (response.success) {
-        this.toastService.success("Successfully added alias");
-      } else {
-        this.toastService.error(response.errorMessage);
-      }
-    } catch (e) {
-      window.console.log(e);
-      this.toastService.error("Failed to add alias");
-    } finally {
-      this.spinnerService.hide();
-      await this.search();
-    }
-  }
-  clear() {
-    this.filter = "";
-    this.emailAddresses = [];
-    this.adUser = null;
-    this.newAliasPrefix = "";
-    
-    if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
-      this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
-    }
-  }
-
-  confirmSetPrimary(event){
-    this.currentPrimary = this.emailAddresses.find(c=> c.primary).email;
-    
-    this.selectedPrimarySmtp = event.target.value;
-    this.$refs.confirmSetPrimaryDialog.show();
-  }
-
-  async setPrimaryCancelClick(){
+  confirmChangePrimaryAliasCancelClick(){
     
     this.primary = this.currentPrimary;
-    this.$refs.confirmSetPrimaryDialog.hide();
+    this.$refs.confirmChangePrimaryAliasDialog.hide();
     
   }
 
-  
+
   async removeEntityClick() {
     try {
       //uid, emailAddress
@@ -185,5 +211,39 @@ export default class Aliases extends Vue {
     if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
       this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
     }
+  }
+
+  async setForwardingAddress(){
+    try{
+      this.spinnerService.show();
+      
+      await this.ExchangeToolsService.setForwardingAddress(this.adUser.samAccountName, this.mailbox.forwardingSmtpAddress);
+      
+      this.toastService.success("Successfully set forwarding address for account");
+
+    } catch (e){
+      window.console.log(e);
+      this.toastService.error("Failed to set forwarding address");
+
+    } finally{
+      this.spinnerService.hide();
+      this.closeAddFormwardingAddressDialog();
+    }
+  }
+  
+  showAddFormwardingAddressDialog(){
+    this.$refs.confirmAddForwardingAddressDialog.show();  
+  }
+
+  closeAddFormwardingAddressDialog(){
+    this.$refs.confirmAddForwardingAddressDialog.hide();  
+  }
+
+  showAddEmailAliasDialog(){
+    this.$refs.addEmailAliasDialog.show();
+  }
+
+  closeAddEmailAliasDialog(){
+    this.$refs.addEmailAliasDialog.hide();
   }
 }

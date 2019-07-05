@@ -10,14 +10,14 @@
       <div class="card-body">
         <div class="form-group">
           <label for>User Id</label>
-          <input 
-          type="text" 
-          class="form-control" 
-          v-select-all 
-          v-model="filter" 
-          placeholder="onyen"
-          v-on:keyup.13="search()">
-          
+          <input
+            type="text"
+            class="form-control"
+            v-select-all
+            v-model="filter"
+            placeholder="onyen"
+            v-on:keyup.13="search()"
+          >
         </div>
         <div class="submit text-right">
           <button class="btn btn-primary mr-1" @click="search()">Search</button>
@@ -29,7 +29,17 @@
             <p>Use the radio buttons on the grid to designate the a primary alias.</p>
             <p>Some aliases may not be selected or removed as they are required for proper account function.</p>
           </div>
-
+          <div class="submit text-right">
+            <button class="btn btn-primary mr-2" @click="showAddEmailAliasDialog()">
+              <i class="fa fa-plus-circle"></i>
+              <span class="ml-2">Add Email Alias</span>
+            </button>
+            <button class="btn btn-primary" @click="showAddFormwardingAddressDialog()">
+              <i class="fa fa-address-card"></i>
+              <span class="ml-2">Forward Address</span>
+            </button>
+          </div>
+          <!-- Alias List -->
           <div class="row bg-primary text-white row-header">
             <div class="col-1">Alias</div>
             <div class="col-2 text-center">Is Primary</div>
@@ -45,7 +55,7 @@
                 :value="item.email"
                 v-model="primary"
                 :disabled="!item.valid"
-                @change="confirmSetPrimary($event)"
+                @change="confirmChangePrimaryAlias($event)"
               >
             </div>
 
@@ -61,40 +71,28 @@
               </a>
             </div>
           </div>
-
-          <div class="mt-5" v-if="adminProfile.adminAliases && adminProfile.adminAliases.length">
-            <div class="alert alert-info">
-              <p>Use the controls below to append an alias to the selected account.</p>
-              <p>
-                The drop down list shown has been pre-populated by the Identity Management Team and is specific to your account profile.
-                If you wish to add more aliases please send a request to the Identity Management Team.
-              </p>
-            </div>
-
-            <div class="form-group add-alias-cmd">
-              <div class="form-inline">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="alias prefix"
-                  v-model="newAliasPrefix"
-                  v-select-all
-                >
-                <i class="fa fa-at"></i>
-                <select name id class="form-control" v-model="newAliasDomain">
-                  <option v-for="item in adminProfile.adminAliases" :key="item.id">{{item.domain}}</option>
-                </select>
-                <button class="btn btn-primary" @click="addAlias()">Add</button>
-                <button class="btn btn-secondary" @click="newAliasPrefix = ''">Clear</button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
 
+    <confirm-dialog id="confirmChangePrimaryAliasDialog" ref="confirmChangePrimaryAliasDialog">
+      <div slot="modal-title" class="text-white">Confirm: Change Primary Alias?</div>
+      <div slot="modal-body">
+        <div class="info text-warning">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        </div>
+        <p>
+          Confirm Set Primary Alias
+          <span class="strong">{{selectedPrimarySmtp}}</span>?
+        </p>
+      </div>
+      <div slot="modal-footer">
+        <button class="btn btn-primary" @click="confirmChangePrimaryAliasClick()">yes</button>
+        <button class="btn btn-secondary" @click="confirmChangePrimaryAliasCancelClick()">cancel</button>
+      </div>
+    </confirm-dialog>
     <confirm-dialog id="confirmDelete" ref="confirmDelete">
-      <div slot="modal-title"  class="text-white">Confirm: Delete Alias?</div>
+      <div slot="modal-title" class="text-white">Confirm: Delete Alias?</div>
       <div slot="modal-body">
         <div class="info text-warning">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -109,20 +107,80 @@
         <button class="btn btn-secondary" @click="removeEntityCancelClick()">cancel</button>
       </div>
     </confirm-dialog>
-    <confirm-dialog id="confirmSetPrimaryDialog" ref="confirmSetPrimaryDialog">
-      <div slot="modal-title"  class="text-white">Confirm: Set Primary Alias?</div>
+    <confirm-dialog id="addEmailAliasDialog" ref="addEmailAliasDialog" width="800">
+      <div slot="modal-title" class="text-white">Add Email Alias</div>
       <div slot="modal-body">
-        <div class="info text-warning">
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        <div class="container">
+          <div class="alert alert-info">
+            <p>Use the controls below to append an alias to the selected account.</p>
+            <p>
+              The drop down list shown has been pre-populated by the Identity Management Team and is specific to your account profile.
+              If you wish to add more aliases please send a request to the Identity Management Team.
+            </p>
+          </div>
+
+          <div class="form-group add-alias-cmd">
+            <div class="form-inline">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="alias prefix"
+                v-model="newAliasPrefix"
+                v-select-all
+              >
+              <i class="fa fa-at"></i>
+              <select name id class="form-control" v-model="newAliasDomain">
+                <option v-for="item in adminProfile.adminAliases" :key="item.id">{{item.domain}}</option>
+              </select>
+              <button class="btn btn-primary" @click="addEmailAlias()">Add</button>
+              <button class="btn btn-secondary" @click="newAliasPrefix = ''">Clear</button>
+            </div>
+          </div>
         </div>
-        <p>
-          Confirm Set Primary Alias
-          <span class="strong">{{selectedPrimarySmtp}}</span>?
-        </p>
       </div>
       <div slot="modal-footer">
-        <button class="btn btn-primary" @click="setPrimaryEntityClick()">yes</button>
-        <button class="btn btn-secondary" @click="setPrimaryCancelClick()">cancel</button>
+        <button class="btn btn-primary" @click="closeAddEmailAliasDialog()">close</button>
+      </div>
+    </confirm-dialog>
+    <confirm-dialog
+      id="confirmAddForwardingAddressDialog"
+      ref="confirmAddForwardingAddressDialog"
+      width="800"
+    >
+      <div slot="modal-title" class="text-white">Set Forwarding Address</div>
+      <div slot="modal-body">
+        <div class="container forwarding-address">
+          <div class="alert alert-info">
+            <p>Use the controls below to append an alias to the selected account.</p>
+            <p>
+              The drop down list shown has been pre-populated by the Identity Management Team and is specific to your account profile.
+              If you wish to add more aliases please send a request to the Identity Management Team.
+            </p>
+          </div>
+
+          <div class="form-group add-alias-cmd">
+            <div class="forwarding-address-controls">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="forwarding address"
+                v-model="mailbox.forwardingSmtpAddress"
+                v-select-all
+              >
+
+              <div class>
+                <button
+                  class="btn btn-primary"
+                  @click="setForwardingAddress()"
+                >Set Forwarding Address</button>
+                <button class="btn btn-secondary" @click="mailbox.forwardingSmtpAddress = ''">Clear</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div slot="modal-footer">
+        <button class="btn btn-primary" @click="closeAddFormwardingAddressDialog()">close</button>
       </div>
     </confirm-dialog>
   </div>
