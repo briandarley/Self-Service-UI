@@ -70,9 +70,7 @@ export default class ProvisionsWidget extends Vue {
       let diff = 1 + (7 + (dt.getDay())) % 7;
       series.length = diff;
     }
-    window.console.log("Series ...")
-    window.console.log(series.length);
-    window.console.log(series);
+    
 
     const dataProvisionsChart = {
       labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
