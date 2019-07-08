@@ -3,8 +3,8 @@ import { Component } from "vue-property-decorator";
 
 @Component({
     name: 'top-header',
-    dependencies: ['UserService'],
-    //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
+    dependencies: ['$','UserService','EventBus']
+    
   })
 
 export default class TopHeader extends Vue {
@@ -19,6 +19,13 @@ export default class TopHeader extends Vue {
   }
   async signOut(){
       await this.UserService.logout();
+  }
+
+  
+  showSideMenu(){
+    this.EventBus.emit("toggle-side-menu");
+    
+   
   }
 }
 

@@ -1,6 +1,9 @@
 <template>
 <!-- data-simplebar -->
-  <div class="side-menu" >
+<transition name="fade">
+
+
+  <div class="side-menu" :class="{'hide-side-menu': !showSideMenu}" >
     <div class="side-menu-pager">
       <ul :class="{'reduce-text': tree.length > 2}">
         <li v-for="item in tree" v-bind:key="item.id">
@@ -36,10 +39,12 @@
 
 
       </li>
+      
     </transition-group>  
     <!-- </ul> -->
-    
+
   </div>
+</transition>    
 </template>
 <script src="./side-menu.js"></script>
 <style lang="scss" src="./side-menu.scss" scoped></style>

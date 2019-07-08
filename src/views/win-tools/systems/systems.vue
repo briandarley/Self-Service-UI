@@ -85,9 +85,7 @@ export default class Systems extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.alert-info {
-  display: flex;
-}
+
 .user-actions {
   width: 300px;
   margin: auto;

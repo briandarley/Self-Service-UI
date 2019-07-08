@@ -86,26 +86,62 @@ export default class UserListManagement extends Vue {
       .then(c => {
         this.lookupEntityModel.totalMembers = c.members.length;
         return c.members;
-      }).catch(e => {
+      }).catch(() => {
         this.lookupEntityModel.totalMembers = "failed to retrieve";
       });
   }
+  _validateLookupMember(){
+    if (!this.userId) {
+      this.toastService.error("Search criteria empty, please specify a search criteria");
+      return false;
+    }
+    if (this.userId.toUpperCase() == this.group.toUpperCase()) {
+      this.toastService.error("You can't add reference to itself, silly");
+      return false;
+    }
+    return true;
+  }
+  async _addGroupsOfUsersToGroup(users){
+    this.spinnerService.show();
+   try{
+    
+    let list = [];
+    for(let i = 0; i <  users.length; i++)
+    {
+      await this.ExchangeToolsService.addGroupMember(this.group, users[i]);
+      list.push({samAccountName:users[i]});
+    }
+    for(let i = 0; i< list.length; i++){
+      this.entities.push(list[i]);
+    }
 
+   }catch(e){
+    window.console.log(e)
+    this.toastService.error("Failed to add one or more members to group");
+   }
+   finally{
+    this.spinnerService.hide();
+   }
+
+  }
 
   async onLookupMember(){
+    
+    if(!this._validateLookupMember())
+    {
+      return;
+    }
+    
+    if(this.userId.split(',').length > 1)
+    {
+      await this._addGroupsOfUsersToGroup(this.userId.split(','))
+      return;
+    }
+
     let userId = this.userId;
     this.selectedGroup = null;
     this.multipleRecords = false;
     this.isGroup = false;
-
-    if (!userId) {
-      this.toastService.error("Search criteria empty, please specify a search criteria");
-      return;
-    }
-    if (userId.toUpperCase() == this.group.toUpperCase()) {
-      this.toastService.error("You can't add reference to itself, silly");
-      return;
-    }
 
     try {
 

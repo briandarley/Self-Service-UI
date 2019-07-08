@@ -8,12 +8,13 @@ import SimpleBar from 'simplebar';
 
 @Component({
   name: "side-menu",
-  dependencies: ["$", "RouteSourcesService"]
+  dependencies: ["$", "RouteSourcesService", "EventBus"]
 
 })
 export default class SideMenu extends Vue {
   routes = [];
   currentRoute = null;
+  showSideMenu = true;
 
   tree = [];
 
@@ -40,15 +41,18 @@ export default class SideMenu extends Vue {
       routeDetail = routeTree[0];
     }
 
-    return {routeDetail: routeDetail,menuResult : menuResult }
+    return {
+      routeDetail: routeDetail,
+      menuResult: menuResult
+    }
 
   }
 
-  _getChildRoutes(routeDetail,menuResult){
+  _getChildRoutes(routeDetail, menuResult) {
 
     let childRoutes = [];
 
-     //Is the selected route a parent route?
+    //Is the selected route a parent route?
     //select the selected route + children
     //else
     //find parent of selected route
@@ -96,7 +100,7 @@ export default class SideMenu extends Vue {
     return childRoutes;
   }
 
-  _cleanAndSortRoutes(routes){
+  _cleanAndSortRoutes(routes) {
     routes.sort((a, b) => {
       return a.order > b.order
     })
@@ -121,15 +125,15 @@ export default class SideMenu extends Vue {
 
     let routeInfo = await this._getRouteInfo();
 
-    if(!routeInfo) return;
-    
+    if (!routeInfo) return;
+
     let childRoutes = this._getChildRoutes(routeInfo.routeDetail, routeInfo.menuResult);
-          
+
     childRoutes = this._cleanAndSortRoutes(childRoutes);
-    
+
     this.populateMenu(childRoutes);
     this.buildOutCrumbs();
-
+    this.showSideMenu = false;
   }
 
   isMenuActive(menuItem) {
@@ -164,17 +168,19 @@ export default class SideMenu extends Vue {
         scrollbar: 'sb-scrollbar',
       }
     });
-
+    this.EventBus.attachEvent("toggle-side-menu", this.attachToggleSideMenu);
 
 
   }
-
+  attachToggleSideMenu() {
+    this.showSideMenu = !this.showSideMenu;
+  }
 
   populateMenu(menuItems) {
     if (!menuItems || menuItems.length === 0) return;
-    
+
     this.routes = [];
-    
+
     this.routes = menuItems;
     //this.routes.shift();
   }

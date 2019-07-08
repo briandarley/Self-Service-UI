@@ -61,7 +61,8 @@ export default class MyAliases extends Vue {
 
   }
   getEmailAddresses() {
-    let smtpAddresses = this.userAdProfile.proxyAddresses.map(c => {
+    let proxyAddresses = this.userAdProfile.proxyAddresses.filter(c=> !c.endsWith("adminliveunc.mail.onmicrosoft.com"))
+    let smtpAddresses = proxyAddresses.map(c => {
       if (c.startsWith("SMTP:")) {
         return {
           originalPrimary: true,

@@ -37,12 +37,7 @@ export default class App extends Vue {
       autoHide: false,
       height: "auto"
     });
-    // let height = simple.contentEl.scrollHeight;
-    // setTimeout(() => {
-    //   simple.recalculate();
-    //   height = simple.contentEl.scrollHeight;
-    //   $('.spinner').height(height);
-    // }, 2000);
+    
 
     this.EventBus.attachEvent("attach-scroll", this.attachScrollBar);
   }

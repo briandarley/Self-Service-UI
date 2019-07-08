@@ -2,16 +2,16 @@
 .card {
   margin: 50px 0;
 }
-.alert.alert-info{
-  display:flex;
-  justify-content: space-around;
+// .alert.alert-info{
+//   display:flex;
+//   justify-content: space-around;
   
-  .info{
-    align-self: center;
-    flex:150px;
-    padding:20px;
-  }
-}
+//   .info{
+//     align-self: center;
+//     flex:150px;
+//     padding:20px;
+//   }
+// }
 
 ul,
 li {
@@ -38,7 +38,7 @@ li {
   background: $carolina-blue;
   color: $white;
   display: flex;
-  padding:10px;
+  padding: 10px;
   
   div:first-child{
     text-align: center;
@@ -52,25 +52,33 @@ li {
   border: 1px solid $carolina-blue;
   padding:0;
   margin: 0 20px 100px;
+  
 }
 .email-alias {
   display: flex;
   justify-content: space-around;
   line-height: 35px;
   
-  
+  flex-flow: row nowrap;
+
   &:nth-of-type(even){
     background: $gray-100;
   }
+
   >div{
     text-align: right;
-    
+    height: 40px;
+    margin:auto;
     flex:1;
+    
   }
   
   >div:nth-of-type(even){
      padding-right:20px;
   }
+
+  
+  
 }
 
 .add-new-alias{

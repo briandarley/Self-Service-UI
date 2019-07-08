@@ -101,7 +101,8 @@
               <div class="info">
                 <i class="fa fa-info-circle"></i>
               </div>
-              <p>Your account was identified as having a UNC Hospital association through MIM</p>
+              <div>
+<p>Your account was identified as having a UNC Hospital association through MIM</p>
 
               <p
                 v-if="!hasPrimaryAccountSelected"
@@ -110,8 +111,10 @@
               <p
                 v-else
               >You have selected your {{primaryAccountDisplayName}} account as primary. This is the account that will be visible in the Global Address List (GAL). If you would like to change this you can do so below.</p>
+              </div>
+              
 
-              <div></div>
+
             </div>
             <div class="p-3 pb=0">
               <h4 class="text-primary">Choose Primary Mailbox Designation</h4>

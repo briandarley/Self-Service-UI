@@ -3,7 +3,7 @@
 .dashboard-widgets {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    
+  
 
 }
 
@@ -16,3 +16,13 @@
 }
 
 
+@media only screen and (max-width: 600px) {
+    .dashboard-widgets {
+    grid-template-columns: 1fr;
+
+    }
+
+    .bearer-token-widget{
+        display:none;
+    }
+}
