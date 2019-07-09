@@ -4,8 +4,10 @@
       <div class="info">
         <i class="fa fa-info-circle"></i>
       </div>
-      <p>The accounts listed in this section have been either marked for MFA exemption or have been scheduled for MFA exemption.</p>
-      <p>Use the search field below to locate a desired record using Onyen, PID, Name, or Incident Number</p>
+      <div>
+        <p>The accounts listed in this section have been either marked for MFA exemption or have been scheduled for MFA exemption.</p>
+        <p>Use the search field below to locate a desired record using Onyen, PID, Name, or Incident Number</p>
+      </div>
     </div>
 
     <div class="form-group">
@@ -17,15 +19,13 @@
         placeholder="onyen, pid, name, or incident number"
         v-model="criteria.filterText"
         v-on:keyup.13="search()"
-      >
+      />
     </div>
     <div class="submit text-right" :class="{'mb-4': !pagedRecords.totalRecords}">
-        <button class="btn btn-primary mr-1" @click="search()">Search</button>
-        <button class="btn btn-secondary" @click="clear()">Clear</button>
-      </div>
+      <button class="btn btn-primary mr-1" @click="search()">Search</button>
+      <button class="btn btn-secondary" @click="clear()">Clear</button>
+    </div>
     <div v-if="pagedRecords.totalRecords">
-      
-
       <div class="container mt-5 mb-4">
         <div class="d-flex" style="justify-content:space-between">
           <h3 class="text-primary">Total {{pagedRecords.totalRecords | formatNumber}}</h3>
@@ -67,7 +67,7 @@
             <div class="col text-center">{{item.mfaExemptBeginDate | formatDate}}</div>
             <div class="col text-center">{{item.mfaExemptEndDate | formatDate}}</div>
             <div class="col check-buttons justify-content-center pt-2">
-              <input type="checkbox" @click="enableMfa(item, $event)" :id="item.pid">
+              <input type="checkbox" @click="enableMfa(item, $event)" :id="item.pid" />
             </div>
           </div>
           <div class="reason pl-3">
@@ -103,15 +103,12 @@
         <div class="info">
           <i class="fa fa-exclamation-circle"></i>
         </div>
-        <p class="my-4 pb-3">
-          The search results returned no records. 
-        </p>
-        
+        <p class="my-4 pb-3">The search results returned no records.</p>
       </div>
     </div>
 
     <confirm-dialog id="confirmReEnableMfa" ref="confirmReEnableMfa">
-      <div slot="modal-title"  class="text-white">Enable MFA</div>
+      <div slot="modal-title" class="text-white">Enable MFA</div>
       <div slot="modal-body" v-if="this.selectedRecord">
         <div class="container">
           <div class="alert alert-info p-10">
@@ -123,7 +120,7 @@
             >Would you like to Enable MFA for {{this.selectedRecord.displayName}} at this time?</p>
           </div>
 
-          <br>
+          <br />
         </div>
       </div>
       <div slot="modal-footer">

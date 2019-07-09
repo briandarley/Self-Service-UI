@@ -4,11 +4,13 @@
       <div class="info">
         <i class="fa fa-info-circle"></i>
       </div>
-      <p>Enter the user's Onyen to retrieve the current MFA status for the selected user.</p>
-      <p>
-        Toggle MFA Exempt status to enable/disable the selected user's MFA status, select an exemption end date (Default is 7 days).
-        If you choose not to specify a date, the exemption status will be considered indefinitely. You'll then need to enter an incident number along with a reason for auditing purposes.
-      </p>
+      <div>
+        <p>Enter the user's Onyen to retrieve the current MFA status for the selected user.</p>
+        <p>
+          Toggle MFA Exempt status to enable/disable the selected user's MFA status, select an exemption end date (Default is 7 days).
+          If you choose not to specify a date, the exemption status will be considered indefinitely. You'll then need to enter an incident number along with a reason for auditing purposes.
+        </p>
+      </div>
     </div>
 
     <div class="form-group">
@@ -20,7 +22,7 @@
         placeholder="onyen"
         v-model="filter"
         v-on:keyup.13="search()"
-      >
+      />
     </div>
     <div class="submit text-right" :class="{'mb-5': !mfaAccountStatus}">
       <button class="btn btn-primary mr-1" @click="search()">Search</button>
@@ -143,7 +145,7 @@
       </div>
     </transition>
     <confirm-dialog id="confirm7day" ref="confirm7day" width="800">
-      <div slot="modal-title"  class="text-white">Enable MFA Date</div>
+      <div slot="modal-title" class="text-white">Enable MFA Date</div>
       <div slot="modal-body" v-if="showConfirm7day">
         <div class="container">
           <div class="alert alert-info p-10">
@@ -178,7 +180,7 @@
                 v-validate="'required'"
                 v-model="model.incidentNumber"
                 data-validation="{'name': 'Incident Number','required': true}"
-              >
+              />
             </div>
             <div class="form-group">
               <label for>Reason</label>
@@ -194,7 +196,7 @@
                 data-validation="{'name': 'Reason','required': true}"
               ></textarea>
             </div>
-            <br>
+            <br />
           </form>
         </div>
       </div>
@@ -204,7 +206,7 @@
       </div>
     </confirm-dialog>
     <confirm-dialog id="confirmDateRange" ref="confirmDateRange" width="800">
-      <div slot="modal-title"  class="text-white">Enable MFA Date (Date Range)</div>
+      <div slot="modal-title" class="text-white">Enable MFA Date (Date Range)</div>
       <div slot="modal-body" v-if="showConfirmDateRange">
         <div class="container">
           <div class="alert alert-info p-10">
@@ -247,7 +249,7 @@
                 v-validate="'required'"
                 v-model="model.incidentNumber"
                 data-validation="{'name': 'Incident Number','required': true}"
-              >
+              />
             </div>
             <div class="form-group">
               <label for>Reason</label>
@@ -263,7 +265,7 @@
                 data-validation="{'name': 'Reason','required': true}"
               ></textarea>
             </div>
-            <br>
+            <br />
           </form>
         </div>
       </div>
@@ -273,7 +275,7 @@
       </div>
     </confirm-dialog>
     <confirm-dialog id="confirmIndefinite" ref="confirmIndefinite" width="800">
-      <div slot="modal-title"  class="text-white">Enable MFA Date</div>
+      <div slot="modal-title" class="text-white">Enable MFA Date</div>
       <div slot="modal-body" v-if="showConfirmIndefinite">
         <div class="container">
           <div class="alert alert-info p-10">
@@ -302,7 +304,7 @@
                 v-validate="'required'"
                 v-model="model.incidentNumber"
                 data-validation="{'name': 'Incident Number','required': true}"
-              >
+              />
             </div>
             <div class="form-group">
               <label for>Reason</label>
@@ -318,7 +320,7 @@
                 data-validation="{'name': 'Reason','required': true}"
               ></textarea>
             </div>
-            <br>
+            <br />
           </form>
         </div>
       </div>
@@ -340,7 +342,7 @@
             >Would you like to Enable MFA for {{this.mfaAccountStatus.displayName}} at this time?</p>
           </div>
 
-          <br>
+          <br />
         </div>
       </div>
       <div slot="modal-footer">

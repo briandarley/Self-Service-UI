@@ -8,22 +8,18 @@
         <h3>Active Directory Groups</h3>
       </div>
       <div class="card-body">
-        <h4 class="text-primary">Remedy 3891776, allow users to use any e-mail to look-up persons</h4>
-
-        <h4
-          class="text-primary"
-        >Remedy 3701860, combine group functionality into one UI, provide better search functionality</h4>
-
-        <div class="container">
+         <div class="container">
           <div class="alert alert-info">
             <div class="info">
               <i class="fa fa-info-circle"></i>
             </div>
-            <p>
-              The accounts listed have been identified by AD as being locked. A Window's Event was triggered and this event was submitted to Splunk.
-              We attempt to retrieve the machine name whenever possible but there are times when this value is not available.
-            </p>
-            <p>Use the search field below to locate a desired record using Onyen</p>
+            <div>
+              <p>
+                The accounts listed have been identified by AD as being locked. A Window's Event was triggered and this event was submitted to Splunk.
+                We attempt to retrieve the machine name whenever possible but there are times when this value is not available.
+              </p>
+              <p>Use the search field below to locate a desired record using Onyen</p>
+            </div>
           </div>
 
           <div class="form-group">
@@ -35,7 +31,7 @@
               placeholder="onyen, pid, email"
               v-model="criteria.managedBy"
               v-on:keyup.13="search()"
-            >
+            />
           </div>
           <div class="form-group">
             <label for>Group Name</label>
@@ -46,7 +42,7 @@
               placeholder="group name like"
               v-model="criteria.filterText"
               v-on:keyup.13="search()"
-            >
+            />
           </div>
 
           <div class="submit text-right" :class="{'mb-4': !records.length}">

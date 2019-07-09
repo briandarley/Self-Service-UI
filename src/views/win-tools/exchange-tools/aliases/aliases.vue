@@ -37,12 +37,14 @@
 
           <div class="container" v-if="adUser">
             <div class="alert alert-info mt-3">
-              <p>
+              <div>
+                <p>
                 Use the radio buttons on the grid to designate the a primary alias.
                 Some aliases may not be selected or removed as they are required for proper account function.
               </p>
               <p>Use the 'Add Email Alias' button to add new aliases for the selected account</p>
               <p>Use the 'Forward Address' button to set or remove Forwarding Smtp Address for the selected account</p>
+              </div>
             </div>
             <div class="submit text-right">
               <button class="btn btn-primary mr-2" @click="showAddEmailAliasDialog()">

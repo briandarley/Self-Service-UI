@@ -51,7 +51,7 @@ export default class Groups extends Vue {
   async clear() {
 
     this.performedSearch = false;
-    records = [];
+    this.records = [];
     this.criteria = {
       filterText: '',
       managedBy: ''
