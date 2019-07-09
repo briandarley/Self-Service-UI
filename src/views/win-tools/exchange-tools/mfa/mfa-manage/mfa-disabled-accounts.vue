@@ -103,7 +103,9 @@
         <div class="info">
           <i class="fa fa-exclamation-circle"></i>
         </div>
-        <p class="my-4 pb-3">The search results returned no records.</p>
+        <div>
+          <p class="my-4 pb-3">The search results returned no records.</p>
+        </div>
       </div>
     </div>
 
@@ -115,9 +117,9 @@
             <div class="info">
               <i class="fa fa-exclamation-triangle"></i>
             </div>
-            <p
-              class="mt-3 mb-4"
-            >Would you like to Enable MFA for {{this.selectedRecord.displayName}} at this time?</p>
+            <div>
+              <p>Would you like to Enable MFA for {{this.selectedRecord.displayName}} at this time?</p>
+            </div>
           </div>
 
           <br />

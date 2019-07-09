@@ -16,11 +16,13 @@
                 <div class="info">
                   <i class="fa fa-info-circle"></i>
                 </div>
-                <p class="py-3">
-                  Below is a listing of each of your email aliases and their respective listserv subscriptions.
-                  Remember, to be able to send to a listserv,
-                  you must send from an email address that is subscribed to the list being sent to.
-                </p>
+                <div>
+                  <p>
+                    Below is a listing of each of your email aliases and their respective listserv subscriptions.
+                    Remember, to be able to send to a listserv,
+                    you must send from an email address that is subscribed to the list being sent to.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -55,10 +57,8 @@
             <div class="info">
               <i class="far fa-stop-circle"></i>
             </div>
-            <div class="message">
-              <p
-                class="pt-3 h4 text-secondary"
-              >It appears you are not subscribed to any Lyris Lists.</p>
+            <div>
+              <p>It appears you are not subscribed to any Lyris Lists.</p>
               <p>The system could not locate any Lyris Lists in which you are a subscriber.</p>
             </div>
           </div>

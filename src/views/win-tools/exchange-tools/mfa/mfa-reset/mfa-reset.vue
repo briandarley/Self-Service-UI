@@ -13,9 +13,9 @@
             <div class="info">
               <i class="fa fa-info-circle"></i>
             </div>
-            <p
-              class="mt-4"
-            >MFA Reset allows administrators to cycle the status of a user's Office365 MFA. The process momentarily disables MFA and immediately re-enables MFA for the selected account. Cycling Office365 MFA will require the user to re-verify their secondary verification for access to Office365.</p>
+            <div>
+              <p>MFA Reset allows administrators to cycle the status of a user's Office365 MFA. The process momentarily disables MFA and immediately re-enables MFA for the selected account. Cycling Office365 MFA will require the user to re-verify their secondary verification for access to Office365.</p>
+            </div>
           </div>
 
           <div class="form-group">
@@ -27,7 +27,7 @@
               placeholder="onyen"
               v-model="filter"
               v-on:keyup.13="search()"
-            >
+            />
           </div>
           <div class="submit text-right">
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
@@ -41,7 +41,7 @@
                 <div class="col">E-Mail</div>
                 <div class="col">Status</div>
               </div>
-              <div class="result-grid" >
+              <div class="result-grid">
                 <div class="row">
                   <div class="col">{{mfaMethodType.displayName}}</div>
                   <div class="col">{{mfaMethodType.userPrincipalName}}</div>
@@ -94,9 +94,7 @@
                   </div>
                 </div>
               </div>
-              <div class="result-grid">
-                
-              </div>
+              <div class="result-grid"></div>
               <div class="submit text-center mt-4">
                 <button
                   type="button"

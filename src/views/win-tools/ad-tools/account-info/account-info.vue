@@ -12,9 +12,11 @@
             <div class="info">
                 <i class="fa fa-info-circle"></i>
             </div>
-            <p class="py-4">
+            <div>
+              <p>
                 Use the search function to retrieve summary of user's LDAP, AD, Campus Directory, and Office 365 profiles.
-            </p>
+              </p>
+            </div>
 
         </div>
 

@@ -12,21 +12,37 @@
           <div class="info text-info">
             <i class="fa fa-info-circle"></i>
           </div>
-          
-          <h5 class="strong">Welcome to the University of North Carolina at Chapel Hill List Server</h5>
-          <p>If you know the name of a list you would like to jump directly to, enter it below. Otherwise, if you are a member or administrator of multiple lists, you can view all your lists by selecting one of the links after clicking "Log In".</p>
+          <div>
+            <h5
+              class="strong"
+            >Welcome to the University of North Carolina at Chapel Hill List Server</h5>
+            <p>If you know the name of a list you would like to jump directly to, enter it below. Otherwise, if you are a member or administrator of multiple lists, you can view all your lists by selecting one of the links after clicking "Log In".</p>
+          </div>
         </div>
 
         <div class="card widget">
-          <div >
+          <div>
             <p class="text-primary ml-3 mt-3 mb-0 pb-0">Visit or Manage a Single List</p>
           </div>
           <div class="card-body form-group">
-            <input type="text" class="form-control" placeholder="Enter List Name" v-focus v-model="listName">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter List Name"
+              v-focus
+              v-model="listName"
+            />
             <div class="text-right mt-2">
-              <a class="btn btn-primary mr-1" :href="basePath + 'read/?forum=' + listName" target="_blank" >Visit</a>
-              <a class="btn btn-secondary mr-" :href="basePath + '?current_list=' + listName" target="_blank" >Manage</a>
-             
+              <a
+                class="btn btn-primary mr-1"
+                :href="basePath + 'read/?forum=' + listName"
+                target="_blank"
+              >Visit</a>
+              <a
+                class="btn btn-secondary mr-"
+                :href="basePath + '?current_list=' + listName"
+                target="_blank"
+              >Manage</a>
             </div>
           </div>
         </div>
@@ -57,36 +73,27 @@
       </div>
     </div>
 
-
-  <confirm-dialog id="confirmMigration" ref="confirmMigration" width="850">
-      <div slot="modal-title"  class="text-white">Coming Soon</div>
+    <confirm-dialog id="confirmMigration" ref="confirmMigration" width="850">
+      <div slot="modal-title" class="text-white">Coming Soon</div>
       <div slot="modal-body">
-        <div class="info text-warning">
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        <div class="alert">
+          <div class="info text-warning">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p>The ITS Listserv Service is currently under review for migration to O365.</p>
+            <p>There are options to choose from within O365 such as Teams or Groups to better suit your needs.</p>
+            <p>
+              Please contact (919) 963-HELP for assistance with setting up an O365 Team or group.
+              <br />If you choose to use Listserv, please be advised that this service may migrate to O365 soon.
+            </p>
+          </div>
         </div>
-        <p>
-          The ITS Listserv Service is currently under review for migration to O365.
-        </p>
-        <p>
-          There are options to choose from within O365 such as Teams or Groups to better suit your needs. 
-          </p>
-          <p>
-          Please contact (919) 963-HELP for assistance with setting up an O365 Team or group. 
-          <br/>
-          If you choose to use Listserv, please be advised that this service may migrate to O365 soon.          
-          </p>
-
       </div>
       <div slot="modal-footer">
         <button class="btn btn-primary" @click="closeDialog()">ok</button>
-        
       </div>
     </confirm-dialog>
-
-
-
-
-
   </div>
 </template>
 <script src="./list-manager.js"></script>

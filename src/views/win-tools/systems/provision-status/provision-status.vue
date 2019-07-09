@@ -9,21 +9,25 @@
       </div>
       <div class="card-body">
         <div class="container">
-           <div class="alert alert-info">
-              <div class="info">
-                  <i class="fa fa-info-circle"></i>
-              </div>
-              <p class="py-3">
-                This tool may be used to identify the latest provisioning status for users. Use the search criteria to filter by name, date range, and or provisioning status.                  
-              </p>
-              
+          <div class="alert alert-info">
+            <div class="info">
+              <i class="fa fa-info-circle"></i>
+            </div>
+            <div>
+              <p>This tool may be used to identify the latest provisioning status for users. Use the search criteria to filter by name, date range, and or provisioning status.</p>
+            </div>
           </div>
           <div class="border border-primary">
             <div class="bg bg-primary text-white p-2">Search Criteria</div>
             <div class="m-2">
               <div class="form-group">
                 <label for>Onyen</label>
-                <input type="text" class="form-control" placeholder="Onyen" v-model="criteria.onyen">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Onyen"
+                  v-model="criteria.onyen"
+                />
               </div>
               <div class="form-group">
                 <label for>Date From</label>
@@ -32,7 +36,6 @@
               <div class="form-group">
                 <label for>Date To</label>
                 <date-picker :selected-date.sync="criteria.submittedThruDate"></date-picker>
-                
               </div>
               <div class="form-group">
                 <label for>Limit Result</label>
@@ -45,8 +48,7 @@
                       value="0"
                       name="provision-selection"
                       v-model="provisionSelection"
-                      
-                    >
+                    />
                     <label for="provision-selection-all">All</label>
                   </li>
                   <li>
@@ -56,11 +58,9 @@
                       value="1"
                       name="provision-selection"
                       v-model="provisionSelection"
-                      
-                    >
+                    />
                     <label for="provision-selection-unprovisioned">Unprovisioned</label>
                   </li>
-                  
                 </ul>
               </div>
               <div class="sumbit text-right">
@@ -69,7 +69,6 @@
               </div>
             </div>
           </div>
-
 
           <div class="d-flex mt-3" style="justify-content:space-between">
             <h3 class="text-primary">Total Records {{provisionRecords.totalRecords | formatNumber}}</h3>
@@ -80,7 +79,6 @@
               v-on:indexChanged="indexChanged"
             ></pager>
           </div>
-
 
           <div class="container border border-primary mt-1">
             <div class="row bg-primary text-white row-header">
@@ -105,10 +103,7 @@
             </div>
           </div>
 
-
-
           <div class="mt-3">
-            
             <pager
               :criteria="criteria"
               btn-count="5"

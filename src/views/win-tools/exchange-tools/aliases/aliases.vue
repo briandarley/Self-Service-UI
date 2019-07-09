@@ -12,7 +12,7 @@
           <div class="info">
             <i class="fa fa-info-circle"></i>
           </div>
-          <div class="p-2">
+          <div>
             <p>This tool may be used to manage user's email aliases including, adding, removing, setting primary email alias, as well as manage the user's forwarding address for Office 365.</p>
             <p>Enter the Onyen for the person you wish to modify</p>
           </div>

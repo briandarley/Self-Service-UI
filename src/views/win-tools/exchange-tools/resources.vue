@@ -13,7 +13,9 @@
             <div class="info">
               <i class="fas fa-info-circle"></i>
             </div>
-            <p class="my-4 p-2">Search system for accounts with OWA resource access.</p>
+            <div>
+              <p>Search system for accounts with OWA resource access.</p>
+            </div>
           </div>
         </div>
 
