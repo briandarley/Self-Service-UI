@@ -418,7 +418,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 let queryParams = commonExtensions.convertToQueryParams(criteria);
 
                 const handler = await httpHandlerService.get();
-                let list = await handler.get(`WinTools/exchange-tools/ad-tools/groups?${queryParams}`);
+                let list = await handler.get(`WinTools/exchange-tools/ad-tools/distribution-groups?${queryParams}`);
 
                 return list.data;
 
@@ -435,7 +435,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             try {
 
                 const handler = await httpHandlerService.get();
-                let list = await handler.get(`WinTools/exchange-tools/ad-tools/groups/${id}`);
+                let list = await handler.get(`WinTools/exchange-tools/ad-tools/distribution-groups/${id}`);
 
                 return list.data;
 
@@ -452,11 +452,11 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
                 if (recursively) {
-                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/all-entities?recursively=true`);
+                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/all-entities?recursively=true`);
 
                     return response.data;
                 } else {
-                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/all-entities`);
+                    let response = await handler.get(`/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/all-entities`);
 
                     return response.data;
                 }
@@ -473,7 +473,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         async getDistributionGroupMembers(id) {
             try {
                 const handler = await httpHandlerService.get();
-                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/members`);
+                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/members`);
                 {
                     return response.data;
                 }
@@ -490,7 +490,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         async getDistributionGroupManagers(id) {
             try {
                 const handler = await httpHandlerService.get();
-                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/groups/${id}/managers`);
+                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/managers`);
                 {
                     return response.data;
                 }
@@ -542,7 +542,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
 
-                await handler.delete(`/WinTools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
+                await handler.delete(`/WinTools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${memberId}`);
 
             } catch (e) {
                 if (e.message.includes("404")) {
@@ -592,10 +592,10 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
                 if (!recursively) {
-                    let response = await handler.put(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
+                    let response = await handler.put(`/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${memberId}`);
                     return response.data;
                 } else {
-                    let response = await handler.put(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}?recursively=true`);
+                    let response = await handler.put(`/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${memberId}?recursively=true`);
                     return response.data;
                 }
             } catch (e) {
@@ -612,7 +612,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.delete(`/wintools/exchange-tools/ad-tools/groups/${groupId}/members/${memberId}`);
+                let response = await handler.delete(`/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${memberId}`);
                 return response.data;
             } catch (e) {
                 if (e.message.includes("404")) {
@@ -627,7 +627,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
 
             try {
                 const handler = await httpHandlerService.get();
-                let response = await handler.put(`/wintools/exchange-tools/ad-tools/groups/${groupId}/managers/${memberId}`);
+                let response = await handler.put(`/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/managers/${memberId}`);
                 return response.data;
             } catch (e) {
                 if (e.message.includes("404")) {
@@ -643,7 +643,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.delete(`/wintools/exchange-tools/ad-tools/groups/${groupId}/managers/${memberId}`);
+                let response = await handler.delete(`/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/managers/${memberId}`);
                 return response.data;
             } catch (e) {
                 if (e.message.includes("404")) {
