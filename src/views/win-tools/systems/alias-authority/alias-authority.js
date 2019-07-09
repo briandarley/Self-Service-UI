@@ -127,8 +127,11 @@ export default class AliasAuthority extends Vue {
     }
     this.userSearchResult = {};
     this.clearNewUser();
+    this.search();
+
   }
   clearNewUser(){
+    
     this.newUser = {
       visible: false,
       onyen: "",

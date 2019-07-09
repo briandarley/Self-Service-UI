@@ -12,9 +12,10 @@
           <div class="info">
             <i class="fa fa-info-circle"></i>
           </div>
-          <div class="mt-3">
+          <div class="mt-1">
             <p>Create a Shared Mailbox, its full-access group and populate group with members.</p>
             <p>Shared mailboxes are usually for correspondence and have calendars built in, just like personal mailboxes.</p>
+            <p>If the shared mailbox with the provided name already exists in the system you will have the option to manage it from this view.</p>
           </div>
         </div>
         <!-- Group Definition Fields/Lookup -->
