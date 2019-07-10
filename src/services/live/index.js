@@ -9,3 +9,4 @@ import './userProfileService';
 import './provisionsService';
 import './dataAnalyticsService';
 import './duoAuthService';
+import './administrationService';
