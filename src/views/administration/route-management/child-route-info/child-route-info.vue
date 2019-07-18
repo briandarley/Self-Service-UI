@@ -35,7 +35,10 @@
           <div class="entity-details">
             <transition name="expand">
               <div class="entity-details-data" v-if="item.expanded">
-                <route-info :model="item"></route-info>
+                <route-info 
+                :model="item" 
+                @routeUpdated="onRouteUpdated"
+                @routeDeleted="onRouteDeleted"></route-info>
               </div>
             </transition>
           </div>

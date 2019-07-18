@@ -10,9 +10,14 @@ function RouteSourcesService(httpHandlerService) {
     _routeData: null,
     async getAllMenuItems(criteria) {
       try {
+        if(criteria && (criteria.cached !== undefined || criteria.cached === false))
+        {
+          this._routeData = null;
+        }
         if (!this._routeData) {
-          const handler = await httpHandlerService.get(10000);
 
+          let handler = await httpHandlerService.get(10000);
+          
           let routeData = await handler.get('routes');
 
           this._routeData = routeData.data.map(c => {
@@ -84,7 +89,7 @@ function RouteSourcesService(httpHandlerService) {
 
     async getFlattenedMenu() {
 
-      let result = await this.getRouteMenu({});
+      let result = await this.getRouteMenu({cached:false});
       //get first record where parentMenuRouteId is null (this is the parent of all)
       let homeRoute = result.filter(c => c.parentRouteId == null)[0];
 
@@ -100,7 +105,75 @@ function RouteSourcesService(httpHandlerService) {
       let data = await this.getAllMenuItems(criteria);
       return data;
 
+    },
+    async updateRoute(route) {
+      try {
+
+        const handler = await httpHandlerService.get();
+        let model = JSON.parse(JSON.stringify(route));
+        model.parentMenuRouteId = model.parentRouteId;
+        
+        if(Array.isArray(route.roles)) 
+        {
+          model.roles = route.roles.join(",");
+        }
+        
+        let response = await handler.put(`/routes/${model.id}`, model);
+
+        return response.data;
+
+      } catch (e) {
+        if (e.message.includes("404")) {
+          return {
+            status: false
+          };
+        }
+        throw e;
+      }
+    },
+    async addNewRoute(route) {
+      try {
+        const handler = await httpHandlerService.get();
+        let model = JSON.parse(JSON.stringify(route));
+
+        model.parentMenuRouteId = model.parentRouteId;
+        
+        if(Array.isArray(route.roles)) 
+        {
+          model.roles = route.roles.join(",");
+        }
+        delete model.id;
+
+        let response = await handler.post(`/routes`, model);
+
+        return response.data;
+
+      } catch (e) {
+        if (e.message.includes("404")) {
+          return {
+            status: false
+          };
+        }
+        throw e;
+      }
+    },
+    async deleteRoute(routeId) {
+      try {
+        const handler = await httpHandlerService.get();
+        
+        await handler.delete(`/routes/${routeId}`);
+        
+
+      } catch (e) {
+        if (e.message.includes("404")) {
+          return {
+            status: false
+          };
+        }
+        throw e;
+      }
     }
+  
   };
 }
 

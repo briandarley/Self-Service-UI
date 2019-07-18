@@ -22,73 +22,40 @@
                     class="form-control"
                     placeholder="Route Id, Name"
                     v-model="model.filter"
+                    autocomplete="off"
                   />
-
-                  <!-- <label for="route_id">Id</label>
-                  <input
-                    name="route_id"
-                    id="route_id"
-                    type="text"
-                    class="form-control"
-                    placeholder="Route Id"
-                    v-model="model.routeId"
-                  /> -->
                 </div>
-                <!-- <div class="form-group form-inline">
-                  <label for="route_name">Name</label>
-                  <input
-                    name="route_name"
-                    id="route_name"
-                    type="text"
-                    class="form-control"
-                    placeholder="Route Name"
-                    v-model="model.name"
-                  />
-                </div> -->
-                <!-- <div class="form-group form-inline">
-                  <label for="route_name">Role</label>
-                  <input
-                    name="role_contains"
-                    id="role_contains"
-                    type="text"
-                    class="form-control"
-                    placeholder="Role"
-                    v-model="model.role"
-                  />
-                </div> -->
-                <!-- <div class="form-group form-inline">
-                  <label for="route_name">Parent Route Id</label>
-                  <input
-                    name="parent_route_id"
-                    id="parent_route_id"
-                    type="text"
-                    class="form-control"
-                    placeholder="Parent Route Id"
-                    v-model="model.parentRouteId"
-                  />
-                </div> -->
-                <!-- <div class="form-group form-inline">
-                  <label for="route_name">Enabled</label>
-
-                  <select name id class="form-control" v-model="model.enabled">
-                    <option value></option>
-                    <option value="true">true</option>
-                    <option value="false">false</option>
-                  </select>
-                </div> -->
-                <!-- <div class="form-group form-inline">
-                  <label for="route_name">Include Children</label>
-
-                  <select name id class="form-control" v-model="model.includeChildren">
-                    <option value></option>
-                    <option value="true">true</option>
-                    <option value="false">false</option>
-                  </select>
-                </div> -->
+                <div class="d-flex">
+                  <div class="form-group form-inline">
+                    <input
+                      type="checkbox"
+                      id="chkIncludeChildren"
+                      class="form-control"
+                      :checked="model.includeChildren"
+                      v-model="model.includeChildren"
+                    />
+                    <label for="chkIncludeChildren">Include Children?</label>
+                  </div>
+                  <div class="form-group form-inline">
+                    <input
+                      type="checkbox"
+                      id="chkIncludeParents"
+                      class="form-control"
+                      :checked="model.includeParents"
+                      v-model="model.includeParents"
+                    />
+                    <label for="chkIncludeParents">Include Parents?</label>
+                  </div>
+                </div>
               </div>
-              <div class="submit text-right">
-                <button class="btn btn-primary mr-1" @click="search()">Search</button>
-                <button class="btn btn-secondary" @click="clear()">Clear</button>
+              <div class="submit d-flex justify-content-between">
+                <div class="text-left d-flex-grow-1">
+                  <button class="btn btn-primary" @click="$refs.confirmAddRoute.show()">Add Route</button>
+                </div>
+                <div class="text-right d-flex-grow-1">
+                  <button class="btn btn-primary mr-1" @click="search()">Search</button>
+                  <button class="btn btn-secondary" @click="clear()">Clear</button>
+                </div>
               </div>
             </div>
 
@@ -111,7 +78,7 @@
               <!-- Header Cols -->
               <!-- Record Results -->
               <div class="result-grid row" v-for="(item, index) in entities" v-bind:key="index">
-                <div>
+                <div v-if="item">
                   <div class="col">{{item.id}}</div>
                   <div class="col">{{item.name}}</div>
                   <div class="col">{{item.enabled | toEnabledDisabled}}</div>
@@ -126,15 +93,27 @@
                   <div class="entity-details">
                     <transition name="expand">
                       <div class="entity-details-data" v-if="item.expanded">
-                        <route-info :model="item" ></route-info>
-                        
+                        <route-info :model="item" @routeUpdated="onRouteUpdated" @routeDeleted="onRouteDeleted"></route-info>
                       </div>
                     </transition>
                   </div>
                 </div>
               </div>
-
               <!-- Record Results -->
+
+              <!-- Add New Route -->
+              <confirm-dialog id="confirmAddRoute" ref="confirmAddRoute" width="900">
+                <div slot="modal-title" class="text-white">Confirm: Add New Route</div>
+                <div slot="modal-body">
+                  <route-info :model="newRoute"></route-info>
+                </div>
+                <div slot="modal-footer">
+                  <button class="btn btn-primary" @click="onConfirmAddRouteClick()">add entity</button>
+                  <button class="btn btn-secondary" @click="onCancelAddRouteClick()">cancel</button>
+                </div>
+              </confirm-dialog>
+
+              <!-- Add New Route -->
             </div>
           </div>
         </div>

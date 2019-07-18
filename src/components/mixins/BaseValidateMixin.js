@@ -281,7 +281,7 @@ export default class BaseValidateMixin extends Vue {
       el.find("input").addClass("input-error");
     }
     $formGroup.append(
-      `<span class="validation-error text-danger">${message}</span>`
+      `<span class="validation-error text-danger" ${this.$options._scopeId}>${message}</span>`
     );
 
   }

@@ -7,7 +7,7 @@ import {
 
 @Component({
   name: 'child-route-info',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService','EventBus'],
   components: {
     
   },
@@ -25,8 +25,7 @@ export default class ChildRouteInfo extends Vue {
   }
   toggleShowChildren(entity) {
     entity.expanded = !entity.expanded;
-
-
+   
     const $ = this.$;
 
     function showScroll() {
@@ -49,6 +48,16 @@ export default class ChildRouteInfo extends Vue {
 
 
     this.entities = JSON.parse(JSON.stringify(this.entities));
-
+    this.EventBus.emit("attach-scroll");
   }
+
+  async onRouteUpdated(route){
+    this.$emit('routeUpdated', route)
+  }
+
+  async onRouteDeleted(){
+    debugger;
+    this.$emit('routeDeleted')
+  }
+  
 }

@@ -19,7 +19,7 @@
                 </div>
                 <p class="pt-4 pb-3">
                   The system was unable to retrieve the LDAP record for '{{userId}}'
-                  <br>LDAP and AD records are required to properly provision an account for email.
+                  <br />LDAP and AD records are required to properly provision an account for email.
                 </p>
               </div>
             </div>
@@ -41,7 +41,7 @@
                     v-select-all
                     v-focus
                     v-on:keyup.13="submitNewProvisionRequest()"
-                  >
+                  />
                 </div>
 
                 <div class="submit text-right">
@@ -102,19 +102,16 @@
                 <i class="fa fa-info-circle"></i>
               </div>
               <div>
-<p>Your account was identified as having a UNC Hospital association through MIM</p>
+                <p>Your account was identified as having a UNC Hospital association through MIM</p>
 
-              <p
-                v-if="!hasPrimaryAccountSelected"
-              >You have no primary designation on record. You must designate which account will be displayed in the Global Address List (GAL). Until this designation is made your account will be hidden from the GAL(s).</p>
+                <p
+                  v-if="!hasPrimaryAccountSelected"
+                >You have no primary designation on record. You must designate which account will be displayed in the Global Address List (GAL). Until this designation is made your account will be hidden from the GAL(s).</p>
 
-              <p
-                v-else
-              >You have selected your {{primaryAccountDisplayName}} account as primary. This is the account that will be visible in the Global Address List (GAL). If you would like to change this you can do so below.</p>
+                <p
+                  v-else
+                >You have selected your {{primaryAccountDisplayName}} account as primary. This is the account that will be visible in the Global Address List (GAL). If you would like to change this you can do so below.</p>
               </div>
-              
-
-
             </div>
             <div class="p-3 pb=0">
               <h4 class="text-primary">Choose Primary Mailbox Designation</h4>
@@ -127,7 +124,7 @@
                     name="priary-designation"
                     v-model="selectedPrimaryDesignation"
                     disabled="disabled"
-                  >
+                  />
                   <label for="priary-designation-none">None</label>
                 </li>
                 <li>
@@ -137,7 +134,7 @@
                     value="1"
                     name="priary-designation"
                     v-model="selectedPrimaryDesignation"
-                  >
+                  />
                   <label for="priary-designation-unc">UNC</label>
                 </li>
                 <li>
@@ -147,7 +144,7 @@
                     value="2"
                     name="priary-designation"
                     v-model="selectedPrimaryDesignation"
-                  >
+                  />
                   <label for="priary-designation-unc-health">UNC Health Care</label>
                 </li>
               </ul>

@@ -1,4 +1,4 @@
-.container{
+.route-fields{
     display:flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -6,15 +6,21 @@
         flex-basis:300px;
     }
 
-    .input-bool{
-        // flex-basis: 200px;
-    }
 }
 
-.route-title{
-    
-}
 .child-routes{
     flex-basis:100%;
 
+}
+.validation-error{
+    position: absolute !important;
+    margin-top:-8px;
+}
+.route-info {
+    .nav-link{
+        padding:3px;
+        line-height: 15px;
+        font-size: .8em;
+        
+    }
 }
