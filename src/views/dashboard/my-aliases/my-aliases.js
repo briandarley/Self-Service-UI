@@ -155,7 +155,7 @@ get showAddAlias(){
       await this.loadProvisionProfile();
     } catch (e) {
       window.console.log(e);
-      this.toasterService.error('Failed to update primary alias');
+      this.toastService.error('Failed to update primary alias');
     } finally {
       this.spinnerService.hide();
     }
@@ -170,7 +170,7 @@ get showAddAlias(){
       await this.cancelPrimaryAlias();
     } catch (e) {
       window.console.log(e);
-      this.toasterService.error('');
+      this.toastService.error('');
     } finally {
       this.spinnerService.hide();
     }
@@ -210,7 +210,7 @@ get showAddAlias(){
       await this.cancelPrimaryAlias();
     } catch (e) {
       window.console.log(e);
-      this.toasterService.error('Failed to add new alias');
+      this.toastService.error('Failed to add new alias');
     } finally {
       this.spinnerService.hide();
     }
@@ -227,7 +227,7 @@ get showAddAlias(){
 
     } catch (e) {
       window.console.log(e);
-      this.toasterService.error('Failed to set Primary Alias');
+      this.toastService.error('Failed to set Primary Alias');
     } finally {
       this.spinnerService.hide();
     }

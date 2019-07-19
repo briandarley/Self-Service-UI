@@ -122,7 +122,7 @@ export default class RouteInfo extends BaseValidateMixin {
 
     } catch (e) {
       window.console.log(e);
-      this.toasterService.error("Failed to delete entity");
+      this.toastService.error("Failed to delete entity");
     } finally {
       this.spinnerService.hide();
     }

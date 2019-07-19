@@ -1,46 +1,27 @@
 import injector from 'vue-inject';
 /* eslint-disable */
 // eslint-disable-next-line
-function DashboardService(moment,httpHandlerService, userService) {
+function DashboardService(moment, httpHandlerService, userService) {
   return {
     async getNextGalSync() {
       //http://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/Dashboard/last-gal-sync
       const handler = await httpHandlerService.get(10000);
       let response = await handler.get('dashboard/last-gal-sync');
-      
-      let value =  moment.utc(response.data);
+
+      let value = moment.utc(response.data);
       value.add(31, 'minutes');
       return value;
 
 
 
     },
-    async removeEntityFromGroup(group, entity) {
+    // async removeEntityFromGroup(group, entity) {
 
-    },
-    async addEntityToGroup(group, entity, recursive) {
+    // },
+    // async addEntityToGroup(group, entity, recursive) {
 
-    },
+    // },
     async getMyAdGroups() {
-      return {
-        date: []
-      }
-      return {
-        data: [{
-            "displayName": "DSA_DHRE - Winston 108 Guest Apt resource full access",
-            "samAccountName": "DSA_DHRE - Winston 108 Guest Apt resource full access"
-          },
-          {
-            "displayName": "DSA_DHRE - Service Permit 2 resource full access",
-            "samAccountName": "DSA_DHRE - Service Permit 2 resource full access"
-          },
-          {
-            "displayName": "DSA_DHRE - Lower Quad and Volletball Court resource full access",
-            "samAccountName": "DSA_DHRE - Lower Quad and Volletball Court resource full access"
-          }
-
-        ]
-      }
 
       try {
         const handler = await httpHandlerService.get(10000);
@@ -52,70 +33,53 @@ function DashboardService(moment,httpHandlerService, userService) {
 
         if (e.message.includes("404")) {
           return {
-            data: [{
-                "displayName": "DSA_DHRE - Winston 108 Guest Apt resource full access",
-                "samAccountName": "DSA_DHRE - Winston 108 Guest Apt resource full access"
-              },
-              {
-                "displayName": "DSA_DHRE - Service Permit 2 resource full access",
-                "samAccountName": "DSA_DHRE - Service Permit 2 resource full access"
-              },
-              {
-                "displayName": "DSA_DHRE - Lower Quad and Volletball Court resource full access",
-                "samAccountName": "DSA_DHRE - Lower Quad and Volletball Court resource full access"
-              }
-
-            ]
-          }
-
-
-
+            status: false
+          };
         }
-
         throw e;
       }
     },
 
-    async getGroupMembers(samAccountName) {
-      try {
+    // async getGroupMembers(samAccountName) {
+    //   try {
 
-        return {
-          data: [{
-              "samAccountName": "mattocks",
-              "distinguishedName": "CN=Taron Mattocks (mattocks),OU=Users,OU=Identity,DC=ad,DC=unc,DC=edu",
-              "employeeId": "700083103",
-              "cn": null
-            },
-            {
-              "samAccountName": "romana",
-              "distinguishedName": "CN=Leslie Quattlebaum (romana),OU=Users,OU=Identity,DC=ad,DC=unc,DC=edu",
-              "employeeId": "703026080",
-              "cn": null
-            },
-            {
-              "samAccountName": "diliang",
-              "distinguishedName": "CN=Di Liang (diliang),OU=Users,OU=Identity,DC=ad,DC=unc,DC=edu",
-              "employeeId": "711693450",
-              "cn": null
-            },
-            {
-              "samAccountName": "woodhous",
-              "distinguishedName": "CN=Diana Knobloch Woodhouse (woodhous),OU=Users,OU=Identity,DC=ad,DC=unc,DC=edu",
-              "employeeId": "711880243",
-              "cn": null
-            }
-          ]
-        }
+    //     return {
+    //       data: [{
+    //           "samAccountName": "mattocks",
+    //           "distinguishedName": "CN=Taron Mattocks (mattocks),OU=Users,OU=Identity,DC=ad,DC=unc,DC=edu",
+    //           "employeeId": "700083103",
+    //           "cn": null
+    //         },
+    //         {
+    //           "samAccountName": "romana",
+    //           "distinguishedName": "CN=Leslie Quattlebaum (romana),OU=Users,OU=Identity,DC=ad,DC=unc,DC=edu",
+    //           "employeeId": "703026080",
+    //           "cn": null
+    //         },
+    //         {
+    //           "samAccountName": "diliang",
+    //           "distinguishedName": "CN=Di Liang (diliang),OU=Users,OU=Identity,DC=ad,DC=unc,DC=edu",
+    //           "employeeId": "711693450",
+    //           "cn": null
+    //         },
+    //         {
+    //           "samAccountName": "woodhous",
+    //           "distinguishedName": "CN=Diana Knobloch Woodhouse (woodhous),OU=Users,OU=Identity,DC=ad,DC=unc,DC=edu",
+    //           "employeeId": "711880243",
+    //           "cn": null
+    //         }
+    //       ]
+    //     }
 
 
 
-        const handler = await httpHandlerService.get(10000);
-        let response = await handler.get(`dashboard/my-ad-groups/{samAccountName}/members`);
-        return response;
-      } catch (e) {
+    //     const handler = await httpHandlerService.get(10000);
+    //     let response = await handler.get(`dashboard/my-ad-groups/{samAccountName}/members`);
+    //     return response;
+    //   } catch (e) {
 
-      }
-    },
+    //   }
+    // },
 
     async findMember(uniqueId) {
 
@@ -129,4 +93,4 @@ function DashboardService(moment,httpHandlerService, userService) {
   }
 }
 
-injector.service('DashboardService', ['moment','httpHandlerService', 'UserService'], DashboardService);
+injector.service('DashboardService', ['moment', 'httpHandlerService', 'UserService'], DashboardService);
