@@ -10,8 +10,21 @@
 
 .child-routes{
     flex-basis:100%;
-
 }
+
+.two-col{
+    flex: 100%;
+    display: flex;
+    justify-content: space-between;
+    >div{
+        flex: 1fr;
+        
+    }
+    select {
+        width: 300px !important;
+    }
+}
+
 .validation-error{
     position: absolute !important;
     margin-top:-8px;

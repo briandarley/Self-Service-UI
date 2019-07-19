@@ -118,35 +118,32 @@
               v-model="model.parentRouteId"
             />
           </div>
-          <div class="route-roles">
-            <label for="route-roles-select">Roles</label>
-            <div class="form-inline">
-              <select class="form-control" id="route-roles-select" v-model="seletedRole">
-                <option value>- select role -</option>
-                <option v-for="item in model.roles" :key="item" :value="item">{{item}}</option>
-              </select>
-              <button class="btn btn-primary" @click="onAddNewRole()">
-                <i class="fa fa-plus-circle"></i>
-              </button>
-              <button class="btn btn-danger" @click="onRemoveRole()">
-                <i class="fa fa-minus-circle"></i>
-              </button>
+          <div class="two-col">
+            <div class="route-roles">
+              <label for="route-roles-select">Roles</label>
+              <div class="form-inline">
+                <select class="form-control" id="route-roles-select" v-model="seletedRole">
+                  <option value>- select role -</option>
+                  <option v-for="item in model.roles" :key="item" :value="item">{{item}}</option>
+                </select>
+                <button class="btn btn-primary" @click="onAddNewRole()">
+                  <i class="fa fa-plus-circle"></i>
+                </button>
+                <button class="btn btn-danger" @click="onRemoveRole()">
+                  <i class="fa fa-minus-circle"></i>
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="submit text-right">
-            <div>&nbsp;</div>
-            <button class="btn btn-primary mr-1" @click="saveChanges()">Save</button>
-            <button class="btn btn-danger" @click="deleteRoute()" v-if="!model.isNew">Delete</button>
+            <div class="submit text-right">
+              <div>&nbsp;</div>
+              <button class="btn btn-primary mr-1" @click="saveChanges()">Save</button>
+              <button class="btn btn-danger" @click="deleteRoute()" v-if="!model.isNew">Delete</button>
+            </div>
           </div>
         </div>
       </tabbed-item>
       <tabbed-item slot="tab_1">
-        <textarea 
-          name="raw-json" 
-          id="txtRawJson"  
-          rows="10" 
-          class="form-control" 
-          v-model="rawJson"></textarea>
+        <textarea name="raw-json" id="txtRawJson" rows="10" class="form-control" v-model="rawJson"></textarea>
       </tabbed-item>
     </tabbed-control>
 
