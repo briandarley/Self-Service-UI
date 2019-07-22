@@ -175,10 +175,17 @@ export default class EditList extends Vue {
       c.memberType === (newValue.holdStatus === "held" ? "held" : "normal")
     );
 
+
     this.filteredMembers = list;
+
+    if (this._currentCol) {
+      this._currentSortDir *= -1;
+      this.sort(this._currentCol);
+    }
   }
 
   sort(column) {
+    this.spinnerService.show()
     if (this._currentCol === column) {
       this._currentSortDir *= -1;
     } else {
@@ -213,8 +220,9 @@ export default class EditList extends Vue {
         });
         break;
     }
+    this.spinnerService.hide();
   }
-  
+
   async toggleHold(member) {
     member.memberType = member.memberType === "held" ? "normal" : "held";
 
@@ -235,7 +243,7 @@ export default class EditList extends Vue {
         this.toastService.error("Failed to update member status");
       });
   }
-  
+
   async removeMember(member) {
 
 
@@ -255,9 +263,9 @@ export default class EditList extends Vue {
       })
       .finally(() => {
 
-        this.members.find(c => c)
+        //this.members.find(c => c)
 
-        //trigger filter
+
       });
   }
 
@@ -348,8 +356,7 @@ export default class EditList extends Vue {
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to delete list");
-    }
-    finally{
+    } finally {
       this.spinnerService.hide();
     }
 

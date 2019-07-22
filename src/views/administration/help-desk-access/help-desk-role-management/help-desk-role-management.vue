@@ -38,39 +38,50 @@
 
         <div class="row bg-primary text-white row-header">
           <div class="col">
-            <a href="#" @click.prevent="sort('samAccountName')">Onyen</a>           
-            </div>
-          <div class="col">
-            <a href="#" @click.prevent="sort('employeeId')">PID</a>           
+            <a href="#" @click.prevent="sort('samAccountName')">Onyen</a>
           </div>
           <div class="col">
-            <a href="#" @click.prevent="sort('objectClass')">Type</a>           
+            <a href="#" @click.prevent="sort('employeeId')">PID</a>
           </div>
           <div class="col">
-            <a href="#" @click.prevent="sort('enabled')">Enabled</a>           
-            </div>
+            <a href="#" @click.prevent="sort('objectClass')">Type</a>
+          </div>
+          <div class="col">
+            <a href="#" @click.prevent="sort('enabled')">Enabled</a>
+          </div>
           <div class="col"></div>
-          
         </div>
-        <div class="result-grid row" v-for="item in entities" v-bind:key="item.onyen" :class="{'text-primary': item.objectClass === 'group'}">
+        <div
+          class="result-grid row"
+          v-for="item in entities"
+          v-bind:key="item.onyen"
+          :class="{'text-primary': item.objectClass === 'group'}"
+        >
           <div class="col">{{item.samAccountName}}</div>
           <div class="col">{{item.employeeId}}</div>
           <div class="col">{{item.objectClass}}</div>
-          <div class="col">{{item.enabled | toEnabledDisabled}}</div>
+          <div class="col">
+            <span v-if="item.objectClass === 'user'">{{item.enabled | toEnabledDisabled}}</span>
+          </div>
           <div class="col edit-col text-right">
-            <a href="#" @click.prevent="removeMember(item)" title="remove member">
-              <i class="fa fa-trash-o"></i>
-            </a>
+            <span v-if="item.objectClass === 'user'">
+              <a href="#" @click.prevent="removeMember(item)" title="remove member">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </span>
           </div>
         </div>
       </div>
       <div class="conatiner" v-else>
         <div class="alert alert-warning">
-              <div class="info">
-                <i class="fa fa-exclamation-circle"></i>
-              </div>
-              <p class="my-4 ml-3 pb-3">No members in group <span class="strong">{{roleToManage}}</span> were found.</p>
-            </div>
+          <div class="info">
+            <i class="fa fa-exclamation-circle"></i>
+          </div>
+          <p class="my-4 ml-3 pb-3">
+            No members in group
+            <span class="strong">{{roleToManage}}</span> were found.
+          </p>
+        </div>
       </div>
     </div>
   </div>
