@@ -37,15 +37,25 @@
         <h3 class="text-primary">Total {{entities.length | formatNumber}}</h3>
 
         <div class="row bg-primary text-white row-header">
-          <div class="col">Onyen</div>
-          <div class="col">PID</div>
-          <div class="col">Enabled</div>
+          <div class="col">
+            <a href="#" @click.prevent="sort('samAccountName')">Onyen</a>           
+            </div>
+          <div class="col">
+            <a href="#" @click.prevent="sort('employeeId')">PID</a>           
+          </div>
+          <div class="col">
+            <a href="#" @click.prevent="sort('objectClass')">Type</a>           
+          </div>
+          <div class="col">
+            <a href="#" @click.prevent="sort('enabled')">Enabled</a>           
+            </div>
           <div class="col"></div>
           
         </div>
-        <div class="result-grid row" v-for="item in entities" v-bind:key="item.onyen">
+        <div class="result-grid row" v-for="item in entities" v-bind:key="item.onyen" :class="{'text-primary': item.objectClass === 'group'}">
           <div class="col">{{item.samAccountName}}</div>
           <div class="col">{{item.employeeId}}</div>
+          <div class="col">{{item.objectClass}}</div>
           <div class="col">{{item.enabled | toEnabledDisabled}}</div>
           <div class="col edit-col text-right">
             <a href="#" @click.prevent="removeMember(item)" title="remove member">

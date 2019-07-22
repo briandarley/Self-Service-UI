@@ -13,6 +13,8 @@ export default class HelpDeskRoleManagement extends Vue {
   model = {
     onyen: ""
   }
+  _currentCol = "samAccountName"
+  _currentSortDir = 1;
   entities = [];
   async getGroupUsers() {
     try {
@@ -66,6 +68,53 @@ export default class HelpDeskRoleManagement extends Vue {
       this.toastService.error('Failed to add member to group');
     } finally {
       this.spinnerService.hide();
+    }
+  }
+  sort(column) {
+    if (this._currentCol === column) {
+      this._currentSortDir *= -1;
+    } else {
+      this._currentSortDir = 1;
+    }
+    this._currentCol = column;
+
+    switch (column) {
+      case "samAccountName":
+        this.entities.sort((a, b) => {
+          if (a.samAccountName.toLowerCase() > b.samAccountName.toLowerCase())
+            return this._currentSortDir;
+          if (a.samAccountName.toLowerCase() < b.samAccountName.toLowerCase())
+            return this._currentSortDir * -1;
+          return 0;
+        });
+        break;
+      case "employeeId":
+        this.entities.sort((a, b) => {
+          if (a.employeeId.toLowerCase() > b.employeeId.toLowerCase())
+            return this._currentSortDir;
+          if (a.employeeId.toLowerCase() < b.employeeId.toLowerCase())
+            return this._currentSortDir * -1;
+          return 0;
+        });
+        break;
+        case "objectClass":
+          this.entities.sort((a, b) => {
+            if (a.objectClass.toLowerCase() > b.objectClass.toLowerCase())
+              return this._currentSortDir;
+            if (a.objectClass.toLowerCase() < b.objectClass.toLowerCase())
+              return this._currentSortDir * -1;
+            return 0;
+          });
+          break;
+          case "enabled":
+            this.entities.sort((a, b) => {
+              if (a.enabled.toLowerCase() > b.enabled.toLowerCase())
+                return this._currentSortDir;
+              if (a.enabled.toLowerCase() < b.enabled.toLowerCase())
+                return this._currentSortDir * -1;
+              return 0;
+            });
+            break;
     }
   }
   clear() {
