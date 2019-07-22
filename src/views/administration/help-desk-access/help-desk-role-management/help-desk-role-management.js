@@ -109,7 +109,7 @@ export default class HelpDeskRoleManagement extends Vue {
       case "enabled":
         this.entities.sort((a, b) => {
           
-          return (a === b)? 0 : a? this._currentSortDir * -1 : this._currentSortDir;
+          return (a.enabled === b.enabled)? 0 : a.enabled? this._currentSortDir * -1 : this._currentSortDir;
 
           
         });
