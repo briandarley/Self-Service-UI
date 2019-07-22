@@ -54,7 +54,7 @@ export default class HelpDeskRoleManagement extends Vue {
   async addUserToGroup() {
     try {
       this.spinnerService.show();
-      
+
       await this.AdministrationService.addGroupMember(this.roleToManage, this.model.onyen);
 
       await this.getGroupUsers();
@@ -97,24 +97,23 @@ export default class HelpDeskRoleManagement extends Vue {
           return 0;
         });
         break;
-        case "objectClass":
-          this.entities.sort((a, b) => {
-            if (a.objectClass.toLowerCase() > b.objectClass.toLowerCase())
-              return this._currentSortDir;
-            if (a.objectClass.toLowerCase() < b.objectClass.toLowerCase())
-              return this._currentSortDir * -1;
-            return 0;
-          });
-          break;
-          case "enabled":
-            this.entities.sort((a, b) => {
-              if (a.enabled.toLowerCase() > b.enabled.toLowerCase())
-                return this._currentSortDir;
-              if (a.enabled.toLowerCase() < b.enabled.toLowerCase())
-                return this._currentSortDir * -1;
-              return 0;
-            });
-            break;
+      case "objectClass":
+        this.entities.sort((a, b) => {
+          if (a.objectClass.toLowerCase() > b.objectClass.toLowerCase())
+            return this._currentSortDir;
+          if (a.objectClass.toLowerCase() < b.objectClass.toLowerCase())
+            return this._currentSortDir * -1;
+          return 0;
+        });
+        break;
+      case "enabled":
+        this.entities.sort((a, b) => {
+          
+          return (a === b)? 0 : a? this._currentSortDir * -1 : this._currentSortDir;
+
+          
+        });
+        break;
     }
   }
   clear() {
