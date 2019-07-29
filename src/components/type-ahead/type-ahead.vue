@@ -1,12 +1,12 @@
 <template>
-  <div :id="id" class="col-sm-8">
-    <input class="typeahead form-control" type="text" :placeholder="placeHolder" :value="val">
+
+    <input :id="id" class="typeahead form-control" type="text" :placeholder="placeHolder" :value="val" v-select-all>
     
-  </div>
+  
 </template>
 <script>
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import "typeahead.js/dist/typeahead.bundle.min";
 import "typeahead.js/dist/bloodhound.min";
 
@@ -22,13 +22,14 @@ export default class TypeAhead extends Vue {
     return this.value;
   }
   set val(value) {
+
     this.$emit("change", value);
   }
 
   mounted() {
     const $ = this.$;
-
-    $(`#${this.id} .typeahead`)
+    let that = this;
+    $(`#${this.id}`)
       .typeahead(
         {
           hint: true,
@@ -41,14 +42,15 @@ export default class TypeAhead extends Vue {
           async: true
         }
       )
-      .bind("typeahead:select", (ev, suggestion) => {
-        this.val = suggestion;
+      .bind("typeahead:select", (event, suggestion) => {
+        event.target.value = suggestion;
+        that.val = suggestion;
       })
-      .bind("typeahead:change", (ev, suggestion) => {
-        this.val = suggestion;
+      .bind("typeahead:change", (event, suggestion) => {
+        event.target.value = suggestion;
+        that.val = suggestion;
       })
       .parent()
-      .addClass("col-sm-8")
       .css("padding", "0");
 
       

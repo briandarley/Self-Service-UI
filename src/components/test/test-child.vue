@@ -15,10 +15,10 @@ testClick(){
  this.$emit('childchanged')
 }
  @Watch('childVal', {immediate: true})
- onChildValChanged(newValue, oldValue){
+ onChildValChanged(){
    //console.log(newValue);
    //this.childVal = newValue;
-   console.log(this.$parent.parentVal);
+   window.console.log(this.$parent.parentVal);
    //this.$emit('childchanged', newValue)
  }
   

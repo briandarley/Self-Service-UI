@@ -13,11 +13,9 @@ import './test/test-parent.vue';
 import './test/test-child.vue';
 import './pager/pager.vue';
 export {default as VueRouter} from "vue-router";
-
+import PopOver from './popover/popover.vue'
 import RouteInfo from '../views/administration/route-management/route-info/route-info.vue';
 import ChildRouteInfo from '../views/administration/route-management/child-route-info/child-route-info.vue';
-//export {default as Toastr}  from "vue-toastr";
-//export {default as ProgressBar} from './progress-bar/progress-bar.vue';
 
 
 
@@ -34,3 +32,4 @@ Vue.component("user-list-management",  UserListManagement);
 Vue.component("manager-list-management",  ManagerListManagement);
 Vue.component("route-info",  RouteInfo);
 Vue.component("child-route-info",  ChildRouteInfo);
+Vue.component("pop-over",  PopOver);

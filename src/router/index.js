@@ -9,28 +9,7 @@ Vue.use(Router);
 const router = new Router({
     //mode: 'history',
     base: process.env.BASE_PATH,
-    routes: [
-        
-        // {
-        //     path: '/home',
-        //     name: 'Home',
-        //     title: "Home",
-        //     icon: 'fa-info-circle',
-        //     component: Home
-        // },
-        // {
-        //     path: '/test',
-        //     name: 'Test',
-        //     title: 'Test',
-        //     component: Test
-        // },
-        // {
-        //     path: '*',
-        //     //name: 'information',
-        //     //redirect: '/information',
-        //     component: Home
-        // }
-    ]
+    routes: []
 
 
 

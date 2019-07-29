@@ -14,13 +14,14 @@
     <div class="info">
         <i class="fa fa-info-circle"></i>
     </div>
-    <p>
+    <div>
+      <p>
       Use the search field to search for lists by name or use a known subscriber's email to search lists where the user is a member of.
     </p>
     <p>
       Lyris lists will be returned based on the search string entered. Use the edit link <i class="fa fa-pencil-square-o"></i> to edit the selected list.
     </p>
-    
+    </div>
 </div>
 
 
@@ -146,7 +147,7 @@
                     v-on:keyup.13="searchByEmail()"
                   >
                 </div>
-                <div class="controls text-right mb-5">
+                <div class=" text-right mb-5">
                   <button class="btn btn-primary" @click="searchByEmail()">Search</button>
                   <button class="btn btn-secondary" @click="clear()">Clear</button>
                 </div>

@@ -23,26 +23,14 @@ new Vue({
   data() {
     return {
       currentRoute: "home",
-      duoEnabled: null, //,
-      //page_header: '',
-      //page_header_small: ''
+      duoEnabled: null,
+      routeSources: []
     };
   },
 
   methods: {
-    
-    appendChildRoutes(route) {
-      if (!route.children) {
-        return;
-      }
-      
-    
-      route.children.forEach(route => {
 
-        this.createAndAppendRoute(route, this.loadView(route));
-        this.appendChildRoutes(route);
-      });
-    },
+    
     async getRoutes() {
       let evaluatedRoute = null;
       try {
@@ -55,7 +43,7 @@ new Vue({
           next();
         });
 
-        let duoRoute =   {
+        let duoRoute = {
           "id": 999,
           "title": "Duo",
           "route": "/duo",
@@ -65,19 +53,17 @@ new Vue({
           "alias": "/duo",
           "enabled": true,
           "parentMenuRouteId": 1,
-          "nestedRouting": true     
-   
-    
-        }
-        this.createAndAppendRoute( duoRoute, this.loadView(duoRoute) )
-        let service = injector.get("RouteSourcesService");
-        
-        let routeSources = await service.getRouteMenu();
+          "nestedRouting": true
 
-        routeSources.forEach(route => {
+
+        }
+        await this.createAndAppendRoute(duoRoute, this.loadView(duoRoute))
+
+
+        this.routeSources.forEach(async route => {
           evaluatedRoute = route;
-          this.createAndAppendRoute(route, this.loadView(route));
-          this.appendChildRoutes(route);
+          await this.createAndAppendRoute(route, this.loadView(route));
+          
         });
 
 
@@ -90,8 +76,41 @@ new Vue({
     loadView(view) {
       return () => import("./views/" + view.component);
     },
-    createAndAppendRoute(route, view) {
+    
+    async getNestedChildRoutes(route) {
+      let children = this.routeSources.filter(c => c.parentRouteId === route.id && c.nestedRouting);
+      
+      for (let i = 0; i < children.length; i++) {
+        let childComponent = await import("./views/" + children[i].component);
+        children[i].component = childComponent.default;
+        children[i].path = children[i].route;
+      }
+      let response = children.map(c => {
+        return {
+          component: c.component,
+          path: c.path,
+          name: c.name
+        }
+      });
+      if (response.length) {
+        response.push({
+          
+          path: route.route,
+          name: route.name 
+        })
+        response.reverse()
+      }
 
+      router.addRoutes(response)
+
+      return response;
+    },
+    async createAndAppendRoute(route, view) {
+      //mass-mail/create-request/steps/basic-information/basic-information.vue
+      if(route.nestedRouting)
+      {
+        return;
+      }
       let newRoute = {
         path: route.route === "/" ? "" : `/${route.route}`,
         component: view,
@@ -105,6 +124,18 @@ new Vue({
         }
       };
 
+       let childRoutes = await this.getNestedChildRoutes(route);
+
+       newRoute.children = childRoutes;
+
+
+       if (newRoute.children.length) {
+         newRoute.name = "";
+        
+       }
+
+
+
       let link = router.resolve({
         name: newRoute.name
       });
@@ -112,25 +143,28 @@ new Vue({
       if (!link.resolved.matched.length) {
         router.addRoutes([newRoute]);
       }
-
+      
 
     }
   },
   watch: {
     async $route(to) {
-      const configReaderService = injector.get("ConfigReaderService");
-       if(this.duoEnabled === null){
-         this.duoEnabled = await configReaderService.getConfigurationSetting("duoEnabled");
-       }
       
-      if(this.duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition){
-        if(to.meta.routeDefinition.mfa){
+      const configReaderService = injector.get("ConfigReaderService");
+      if (this.duoEnabled === null) {
+        this.duoEnabled = await configReaderService.getConfigurationSetting("duoEnabled");
+      }
+      
+      if (this.duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
+        if (to.meta.routeDefinition.mfa) {
           let localStorageService = injector.get("localStorageService");
           localStorageService.set("MFA_REQUEST", to.name);
           let duoAuthService = injector.get("DuoAuthService");
-          if(duoAuthService.getDuoState() !== "STATE_AUTH_PASSED"){
+          if (duoAuthService.getDuoState() !== "STATE_AUTH_PASSED") {
             //save to to variable
-            this.$router.push({name: 'duo'})
+            this.$router.push({
+              name: 'duo'
+            })
             return;
           }
         }
@@ -141,15 +175,16 @@ new Vue({
   async created() {
     //var userService = injector.get("UserService");
     //await  userService.get()
+    let service = injector.get("RouteSourcesService");
+    this.routeSources = await service.getRouteMenu();
 
     await this.getRoutes();
     this.currentRoute = router.currentRoute.name;
   },
   mounted() {
-
     this.$refs.toastr.defaultPosition = 'toast-bottom-right';
     this.$refs.toastr.defaultTimeout = 3000;
-  },
+  }
 
 
 

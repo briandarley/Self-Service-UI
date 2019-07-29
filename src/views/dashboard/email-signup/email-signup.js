@@ -101,7 +101,7 @@ export default class EmailSignup extends BaseValidateMixin {
     }
     this.spinnerService.show();
     try {
-      await this.UserProfileService.submitNewProvisionRequest(this.userId, this.model);
+      await this.ProvisionsService.submitNewProvisionRequest(this.userId, this.model);
       this.toastService.success("Successfully submitted provision request.");
       
       await this.loadProvisionProfile();
@@ -131,6 +131,7 @@ export default class EmailSignup extends BaseValidateMixin {
 
   setDestinationMail() {
     if (!this.hasValidLdapRecord) return;
+    console.log(this.userLdapProfile);
     if (this.userLdapProfile.uncEmail.some(c => !c.endsWith("unc.edu"))) {
       let personalEmail = this.userLdapProfile.uncEmail.filter(c => !c.endsWith("unc.edu"));
       this.model.mail = personalEmail[0];

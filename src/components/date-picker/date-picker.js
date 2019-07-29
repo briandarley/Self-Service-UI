@@ -6,7 +6,7 @@ import {
 @Component({
   name: 'date-picker',
   dependencies: ['$', 'moment', 'CommonExtensions'],
-  props: ['minDate', 'startDate', 'endDate', 'dateRange', 'selectedDate']
+  props: ['minDate', 'startDate', 'endDate', 'dateRange', 'selectedDate','label']
 })
 
 export default class DatePicker extends Vue {
@@ -46,15 +46,15 @@ export default class DatePicker extends Vue {
     {
       if(this.minDate.toUpperCase() !== "TODAY")
       {
-        minDate = moment(this.minDate, "MM/DD/YYYY").format("MM/DD/YYYY");
+        minDate = moment(this.minDate, "MM/DD/YYYY").startOf('day').format("MM/DD/YYYY");
       }
     }
     else{
       minDate = null;
     }
-
+    
     if (this.selectedDate) {
-      this.value = moment(this.selectedDate,'MM/DD/YYYY').format("MM/DD/YYYY");
+      this.value = moment(this.selectedDate,'MM/DD/YYYY').startOf('day').format("MM/DD/YYYY");
     }
     
 
@@ -78,6 +78,7 @@ export default class DatePicker extends Vue {
         )
       .on('change', e => 
       {
+        
         this.$emit('update:selectedDate', e.target.value);
         this.value = e.target.value;
         
@@ -105,7 +106,7 @@ export default class DatePicker extends Vue {
         
                
         if(isValid && minDate){
-          isValid = moment(e.target.value, 'MM/DD/YYYY').isSameOrAfter(moment(minDate, 'MM/DD/YYYY'))
+          isValid = moment(e.target.value, 'MM/DD/YYYY').isSameOrAfter(moment(minDate, 'MM/DD/YYYY').startOf('day'))
           
         }
         

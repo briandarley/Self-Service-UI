@@ -1,7 +1,7 @@
 
 <script >
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({
   name: "my-parent",
@@ -18,8 +18,8 @@ export default class MyParent extends Vue {
 
   childchanged(arg1, arg2){
     
-    console.log(arg1);
-    console.log(arg2);
+    window.console.log(arg1);
+    window.console.log(arg2);
   }
 
 

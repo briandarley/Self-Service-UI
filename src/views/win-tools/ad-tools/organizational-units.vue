@@ -76,7 +76,7 @@
 </template>
 <script>
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({
   name: "organizational-units",
@@ -99,7 +99,7 @@ export default class OrganizationalUnits extends Vue {
     await this.initializeRecords();
   }
   async search() {
-    let records = JSON.parse(JSON.stringify(this.records));
+    //let records = JSON.parse(JSON.stringify(this.records));
     let keys = [
       "name",
       "domain",
@@ -156,7 +156,7 @@ export default class OrganizationalUnits extends Vue {
     let col = this.sortCol;
     let dir = this.dir === "asc" ? -1 : 1;
     this.sortCol = name;
-    this.records.sort((a, b) => {
+    this.records.sort(() => {
       switch (name) {
         case "name":
           if (col === "name") dir = dir * -1;

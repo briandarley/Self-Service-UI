@@ -13,10 +13,12 @@
             <div class="info">
               <i class="fa fa-info-circle"></i>
             </div>
-            <p
-              class="strong"
-            >Mass E-mail is a tool for requesting and distributing official UNC-Chapel Hill messages.</p>
-            <p>This system provides support for mailing to predefined, broad sectors of the University community. Approved messages can be sent to all students, as well as to all employees. Some filtering is available to target specific subpopulations of recipients.</p>
+            <div>
+              <p
+                class="strong"
+              >Mass E-mail is a tool for requesting and distributing official UNC-Chapel Hill messages.</p>
+              <p>This system provides support for mailing to predefined, broad sectors of the University community. Approved messages can be sent to all students, as well as to all employees. Some filtering is available to target specific subpopulations of recipients.</p>
+            </div>
           </div>
 
           <div>
@@ -53,19 +55,25 @@
                 class="strong"
               >Select from the drop-down to edit an existing MassMail previously entered.</span>
               <div>
-                <select class="form-control" v-model="seletedMassMail" >
+                <select class="form-control" v-model="seletedMassMail">
                   <option disabled value>Select an Existing MassMail to edit</option>
                   <option
                     v-for="item in activeCampaigns"
-                    :key="item.id" 
+                    :key="item.id"
                     :value="item.id"
                   >{{item.id}} - {{item.subject}}</option>
                 </select>
                 <div class="group-btns">
-                  <button class="btn btn-primary" @click="editMassMail" :disabled="!seletedMassMail">Go</button>
-                  <button class="btn btn-danger" @click="deleteMassMail" :disabled="!seletedMassMail">Delete</button>
-
-          
+                  <button
+                    class="btn btn-primary"
+                    @click="editMassMail"
+                    :disabled="!seletedMassMail"
+                  >Go</button>
+                  <button
+                    class="btn btn-danger"
+                    @click="deleteMassMail"
+                    :disabled="!seletedMassMail"
+                  >Delete</button>
                 </div>
               </div>
             </div>
@@ -82,7 +90,7 @@
       </div>
     </div>
     <confirm-dialog id="confirmDelete" ref="confirmDelete">
-      <div slot="modal-title"  class="text-white">Confirm: Delete Campaign?</div>
+      <div slot="modal-title" class="text-white">Confirm: Delete Campaign?</div>
       <div slot="modal-body">
         <div class="alert alert-info">
           <div class="info">
@@ -91,7 +99,7 @@
           <p>Confirm Delete?</p>
         </div>
       </div>
-       <div slot="modal-footer">
+      <div slot="modal-footer">
         <button class="btn btn-danger" @click="removeEntityClick">yes</button>
         <button class="btn btn-secondary" @click="removeEntityCancelClick">cancel</button>
       </div>

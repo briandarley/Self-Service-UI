@@ -25,11 +25,13 @@
     }
 }
 
-.validation-error{
-    position: absolute !important;
-    margin-top:-8px;
-}
+
 .route-info {
+    .validation-error{
+        position: absolute !important;
+        margin-top:-8px;
+    }
+    
     .nav-link{
         padding:3px;
         line-height: 15px;

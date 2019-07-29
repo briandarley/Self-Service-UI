@@ -5,9 +5,9 @@ import {
 
 @Component({
   name: 'mass-mail',
-  dependencies: ['$', 'toastService', 'spinnerService', 'moment', 'MassMailService'],
-  components: {}
-  //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
+  dependencies: ['$', 'toastService', 'spinnerService', 'moment', 'MassMailService']
+  
+  
 })
 
 export default class MassMail extends Vue {

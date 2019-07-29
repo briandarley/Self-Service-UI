@@ -125,7 +125,13 @@ export default class BaseValidateMixin extends Vue {
       } else {
         $(el).removeClass("input-error");
       }
-    } else {
+    } 
+    else if(el.is("input")){
+      $formGroup = $(el.closest(".form-group"))
+      el.removeClass("input-error");
+
+    }
+    else {
       $formGroup = $(el.find("input").closest(".form-group"))
       el.find(".input-error").removeClass("input-error");
     }
@@ -171,7 +177,7 @@ export default class BaseValidateMixin extends Vue {
   }
   _setMissingValueValidationError(validation, errors, value) {
     let message = "";
-
+    if(!validation.required) return message;
     //if (!validation.minLength && !validation.maxLength) {
     if (!value || !value.length || value === "false") {
       message = "value required";
@@ -206,7 +212,7 @@ export default class BaseValidateMixin extends Vue {
   }
   _setEmailValidationError(validation, errors, value) {
     let message = "";
-
+    if(!value) return message;
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     switch (validation.type) {
       case "email":
@@ -276,7 +282,12 @@ export default class BaseValidateMixin extends Vue {
       } else {
         $(el).addClass("input-error");
       }
-    } else {
+    } 
+    else if(el.is("input")){
+      $formGroup = $(el.closest(".form-group"))
+      el.addClass("input-error");
+    }
+    else {
       $formGroup = $(el.find("input").closest(".form-group"))
       el.find("input").addClass("input-error");
     }
@@ -293,7 +304,27 @@ export default class BaseValidateMixin extends Vue {
 
     return $formGroup.length > 0;
   }
+  _clearErrorsOnFocus(element){
+    //Clear any errors once the user sets focus to element
+    let $ = this.$;
 
+    let isComponent = element instanceof Vue;
+    
+    let el = null;
+    if(isComponent)
+    {
+      el = $(element.$el);
+    }
+    else{
+      el = $(element);
+    }
+    
+    const that = this;
+    el.focus(function () {
+      that._clearFormError(this);
+      that._removeInputError(this)
+    });
+  }
   validate() {
     try {
       let errors = [];
@@ -330,24 +361,23 @@ export default class BaseValidateMixin extends Vue {
 
         messages.push(this._setMissingValueValidationError(validation, errors, value));
         if (!errors.length) {
-          messages.push(this._setMaxLengthValidationError(validation, errors, value));
-          messages.push(this._setMinLengthValidationError(validation, errors, value));
-          messages.push(this._setRegExValidationError(validation, errors, value));
-          messages.push(this._setEmailValidationError(validation, errors, value));
+          // messages.push(this._setMaxLengthValidationError(validation, errors, value));
+          // messages.push(this._setMinLengthValidationError(validation, errors, value));
+          // messages.push(this._setRegExValidationError(validation, errors, value));
+          // messages.push(this._setEmailValidationError(validation, errors, value));
         }
-
+        messages.push(this._setMaxLengthValidationError(validation, errors, value));
+        messages.push(this._setMinLengthValidationError(validation, errors, value));
+        messages.push(this._setRegExValidationError(validation, errors, value));
+        messages.push(this._setEmailValidationError(validation, errors, value));
         let hasError = messages.some(c => c.length);
         if (!hasError) continue;
 
         let message = messages.filter(c => c.length).join()
         this._appendErrorIndicator($element, message);
 
-        let el = $($element instanceof Vue ? $element.el : $element);
-        const that = this;
-        el.focus(function () {
-          that._clearFormError(this);
-          that._removeInputError(this)
-        });
+        this._clearErrorsOnFocus($element)
+       
 
       }
 
