@@ -6,7 +6,7 @@ import {
 
 @Component({
   name: 'my-aliases',
-  dependencies: ['$', 'spinnerService', 'toastService', 'UserProfileService', 'UserService']
+  dependencies: ['$', 'spinnerService', 'toastService', 'UserProfileService', 'UserService','DashboardService']
 
 })
 
@@ -28,13 +28,14 @@ export default class MyAliases extends Vue {
     immediate: false,
     deep: true
   })
-  onEmailAddressChanged(newValue, oldValue) {
+  onEmailAddressChanged(_newValue, oldValue) {
     if (!this.monitorEmailAddressChange) return;
 
     if (oldValue === undefined || oldValue.length == 0) return;
     this.primaryAliasChanged = true;
 
   }
+
   get newAlias() {
     return `${this.model.mailPrefix}@${this.model.domain}`;
   }
@@ -48,8 +49,6 @@ export default class MyAliases extends Vue {
     }, 1000);
   }
 
-
-
   async setUserId() {
     let user = await this.UserService.get();
     this.userId = user.profile.sub
@@ -60,6 +59,7 @@ export default class MyAliases extends Vue {
     }
 
   }
+
   getEmailAddresses() {
     let proxyAddresses = this.userAdProfile.proxyAddresses.filter(c=> !c.endsWith("adminliveunc.mail.onmicrosoft.com"))
     let smtpAddresses = proxyAddresses.map(c => {
@@ -85,10 +85,7 @@ export default class MyAliases extends Vue {
     this.toastService.set(this);
     this.spinnerService.show();
     try {
-
-
       await this.loadProvisionProfile();
-
 
     } catch (e) {
       window.console.log(e);
@@ -99,7 +96,8 @@ export default class MyAliases extends Vue {
     }
 
   }
-get showAddAlias(){
+
+get showAddAlias() {
   return (this.emailAddresses && this.emailAddresses .length <= 4);
 }
   async loadProvisionProfile() {
@@ -144,6 +142,7 @@ get showAddAlias(){
       this.viewLoaded = true;
     }
   }
+
   async updatePrimaryAlias() {
     this.spinnerService.show();
     try {
@@ -160,6 +159,7 @@ get showAddAlias(){
       this.spinnerService.hide();
     }
   }
+
   async removeAlias(alias) {
     this.spinnerService.show();
     try {
@@ -175,6 +175,7 @@ get showAddAlias(){
       this.spinnerService.hide();
     }
   }
+
   async cancelPrimaryAlias() {
     this.userLdapProfile = null;
     this.userAdProfile = null;
@@ -191,12 +192,14 @@ get showAddAlias(){
     this.primaryAliasChanged = false;
     await this.loadProvisionProfile();
   }
+
   async addAlias() {
     if (!this.model.mailPrefix || !this.model.domain) {
       this.toastService.error("Invalid email")
       return;
     }
-    let adUserProfile = await this.UserProfileService.getAdUserProfile(this.newAlias);
+    
+    let adUserProfile = await this.DashboardService.getAdUserProfile();;
     
     if (adUserProfile.status !== false) {
       this.toastService.error("Requested alias has already been taken by another user. ")

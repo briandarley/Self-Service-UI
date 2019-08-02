@@ -1,7 +1,7 @@
 import injector from 'vue-inject';
 /* eslint-disable */
 // eslint-disable-next-line
-function DashboardService(moment, httpHandlerService, userService) {
+function DashboardService(moment, httpHandlerService) {
   return {
     async getNextGalSync() {
       //http://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/Dashboard/last-gal-sync
@@ -15,6 +15,24 @@ function DashboardService(moment, httpHandlerService, userService) {
 
 
     },
+    async getAdUserProfile() {
+      try {
+
+          const handler = await httpHandlerService.get();
+
+          let response = await handler.get(`/dashboard/ad-profile`);
+
+          return response.data;
+
+      } catch (e) {
+          if (e.message.includes("404")) {
+              return {
+                  status: false
+              };
+          }
+          throw e;
+      }
+  },
     // async removeEntityFromGroup(group, entity) {
 
     // },
@@ -39,6 +57,7 @@ function DashboardService(moment, httpHandlerService, userService) {
         throw e;
       }
     },
+ 
 
     // async getGroupMembers(samAccountName) {
     //   try {
@@ -93,4 +112,4 @@ function DashboardService(moment, httpHandlerService, userService) {
   }
 }
 
-injector.service('DashboardService', ['moment', 'httpHandlerService', 'UserService'], DashboardService);
+injector.service('DashboardService', ['moment', 'httpHandlerService'], DashboardService);
