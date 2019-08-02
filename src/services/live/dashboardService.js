@@ -15,12 +15,12 @@ function DashboardService(moment, httpHandlerService) {
 
 
     },
-    async getAdUserProfile() {
+    async getAdUserProfile(newAlias) {
       try {
 
           const handler = await httpHandlerService.get();
 
-          let response = await handler.get(`/dashboard/ad-profile`);
+          let response = await handler.get(`/dashboard/my-ad-profile/${newAlias}`);
 
           return response.data;
 
