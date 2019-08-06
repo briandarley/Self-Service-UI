@@ -53,19 +53,19 @@ new Vue({
           "alias": "/duo",
           "enabled": true,
           "parentMenuRouteId": 1,
-          "nestedRouting": true
+          "nestedRouting": false
 
 
         }
-        await this.createAndAppendRoute(duoRoute, this.loadView(duoRoute))
-
+        await this.createAndAppendRoute(duoRoute, this.loadView(duoRoute));
+//
 
         this.routeSources.forEach(async route => {
           evaluatedRoute = route;
           await this.createAndAppendRoute(route, this.loadView(route));
           
         });
-
+        window.console.log(this.routeSources.length);
 
 
       } catch (err) {

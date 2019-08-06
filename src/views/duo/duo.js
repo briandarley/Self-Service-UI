@@ -11,6 +11,7 @@ export default class Duo extends Vue {
     this.DuoAuthService.initDuoFrame(this.duoCallback);
   }
   async mounted() {
+    window.console.log("duo loaded");
     this.toastService.set(this);
     if (this.DuoAuthService.getDuoState() === "STATE_AUTH_PASSED") {
       return;
