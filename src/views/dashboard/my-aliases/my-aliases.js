@@ -98,7 +98,8 @@ export default class MyAliases extends Vue {
   }
 
 get showAddAlias() {
-  return (this.emailAddresses && this.emailAddresses .length <= 4);
+  if(this.UserService.isInRole("HELP_DESK")) return true;
+  return (this.emailAddresses && this.emailAddresses.length <= 5);
 }
   async loadProvisionProfile() {
     this.viewLoaded = false;
@@ -193,18 +194,39 @@ get showAddAlias() {
     await this.loadProvisionProfile();
   }
 
-  async addAlias() {
-    if (!this.model.mailPrefix || !this.model.domain) {
+  _underMaxAliasCount(){
+    //check if user is an admin, if so return true
+    if(this.UserService.isInRole("HELP_DESK")) return true;
+    
+    return this.emailAddresses.length <= 6
+  }
+
+  async _validateAliasEntry(){
+    if (!this.newAlias) {
       this.toastService.error("Invalid email")
-      return;
+      return false;
     }
     
-    let adUserProfile = await this.DashboardService.getAdUserProfile();;
+    //this needs to be false, meaning alias has not been added. 
+    let adUserProfile = await this.DashboardService.getAdUserProfile(this.newAlias);
     
     if (adUserProfile.status !== false) {
       this.toastService.error("Requested alias has already been taken by another user. ")
-      return;
+      return false;
     }
+
+    if(!this._underMaxAliasCount())
+    {
+      this.toastService.error("You have exceeded the maximum number of allowed aliases.  You must be below the maximum of 5 before being allowed to add another.")
+      return false;
+    }
+
+    return true;
+  }
+
+  async addAlias() {
+    if(!await this._validateAliasEntry()) return;
+
 
     this.spinnerService.show();
     try {

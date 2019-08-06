@@ -33,16 +33,18 @@
               v-model="listName"
             />
             <div class="text-right mt-2">
-              <a
+              <a href="#" class="btn btn-primary mr-1" @click.prevent="navigateToList(listName)">Visit</a>
+              <a href="#" class="btn btn-secondary mr-1" @click.prevent="manageList(listName)">Manage</a>
+              <!-- <a
                 class="btn btn-primary mr-1"
                 :href="basePath + 'read/?forum=' + listName"
                 target="_blank"
-              >Visit</a>
-              <a
+              >Visit</a> -->
+              <!-- <a
                 class="btn btn-secondary mr-"
                 :href="basePath + '?current_list=' + listName"
                 target="_blank"
-              >Manage</a>
+              >Manage</a> -->
             </div>
           </div>
         </div>

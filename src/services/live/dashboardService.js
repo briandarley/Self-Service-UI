@@ -18,27 +18,22 @@ function DashboardService(moment, httpHandlerService) {
     async getAdUserProfile(newAlias) {
       try {
 
-          const handler = await httpHandlerService.get();
+        const handler = await httpHandlerService.get();
 
-          let response = await handler.get(`/dashboard/my-ad-profile/${newAlias}`);
+        let response = await handler.get(`/dashboard/my-ad-profile/${newAlias}`);
 
-          return response.data;
+        return response.data;
 
       } catch (e) {
-          if (e.message.includes("404")) {
-              return {
-                  status: false
-              };
-          }
-          throw e;
+        if (e.message.includes("404")) {
+          return {
+            status: false
+          };
+        }
+        throw e;
       }
-  },
-    // async removeEntityFromGroup(group, entity) {
+    },
 
-    // },
-    // async addEntityToGroup(group, entity, recursive) {
-
-    // },
     async getMyAdGroups() {
 
       try {
@@ -57,7 +52,7 @@ function DashboardService(moment, httpHandlerService) {
         throw e;
       }
     },
- 
+
 
     // async getGroupMembers(samAccountName) {
     //   try {

@@ -13,27 +13,36 @@
             <div class="info">
               <i class="fa fa-info-circle"></i>
             </div>
-            <p>List administrators can perform this task on their own.</p>
-            <p>If you are the current list administrator, see the 
-              <a href="http://help.unc.edu/help/listserv-administrators-faq-collection/">FAQ</a>  
-              for instructions on how to do this.</p>
-            <br>
+            <div>
+              <p>List administrators can perform this task on their own.</p>
+              <p>
+                If you are the current list administrator, see the
+                <a
+                  href="http://help.unc.edu/help/listserv-administrators-faq-collection/"
+                >FAQ</a>
+                for instructions on how to do this.
+              </p>
+            </div>
+            <br />
           </div>
 
           <p>
             If you are not the current list administrator, please try to contact the current administrator
-            <br>by sending email to:
+            <br />by sending email to:
             <a
               href="mailto:owner-listname@listserv.unc.edu"
             >owner-listname@listserv.unc.edu</a>
 
-            <br>Substitute the list's name for "listname" in the preceding email address.
+            <br />Substitute the list's name for "listname" in the preceding email address.
           </p>
           <p>
             If you are unable to contact the current list administrator,
-            <br>download and complete the Change Admin Request Form, below.
+            <br />download and complete the Change Admin Request Form, below.
             Adobe format -
-            <a href="changeadmin.pdf" target="_blank">changeadmin.pdf</a>
+            <a
+              href="changeadmin.pdf"
+              target="_blank"
+            >changeadmin.pdf</a>
           </p>
         </div>
       </div>

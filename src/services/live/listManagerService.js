@@ -1,5 +1,6 @@
 import injector from "vue-inject";
 
+
 function ListManagerService(httpHandlerService, commonExtensions) {
   return {
     async getMySubscriptions() {

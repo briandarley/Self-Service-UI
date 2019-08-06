@@ -28,21 +28,27 @@ function UserService(configReaderService, localStorageService, routerService) {
                 return true;
             }
             //BD temporarily removed
-             //const systemRoles = userRoles.filter(c => c.mapedName.toUpperCase() === role.toUpperCase());
-             //const rolesIsAMemberOf = systemRoles[0].roles.filter((c) => userRoles.some(d => c.toUpperCase() === d));
+            //const systemRoles = userRoles.filter(c => c.mapedName.toUpperCase() === role.toUpperCase());
+            //const rolesIsAMemberOf = systemRoles[0].roles.filter((c) => userRoles.some(d => c.toUpperCase() === d));
 
-             //if (rolesIsAMemberOf.length > 0) {
-                // return true;
-             //}
+            //if (rolesIsAMemberOf.length > 0) {
+            // return true;
+            //}
 
-             switch(role.toUpperCase()){
-                 case "ADMIN":
-                     return userRoles.some(c=> c === "ITS_IdM Users")
-                     
-             }
+            switch (role.toUpperCase()) {
+                case "ADMIN":
+                    return userRoles.some(c => c === "ITS_IdM Users")
+                case "HELP_DESK":
+                    return userRoles.some(c => c === "ITS_IdM Users") ||
+                        userRoles.some(c => c === "ITS_WSP-Access-HelpdeskUsers") ||
+                        userRoles.some(c => c === "ITS_WSP-Access-HelpdeskPostmasters") ||
+                        userRoles.some(c => c === "ITS_WSP-Access-HelpdeskManagers");
 
 
-             return false;
+            }
+
+
+            return false;
 
         },
         async _initializeManager() {
@@ -73,8 +79,10 @@ function UserService(configReaderService, localStorageService, routerService) {
             await this._initializeManager();
 
             let user = await this._mgr.getUser();
-                        
-            await this._mgr.signoutRedirect({'id_token_hint': user.id_token})
+
+            await this._mgr.signoutRedirect({
+                'id_token_hint': user.id_token
+            })
             this._mgr.removeUser();
             this._mgr.clearStaleState();
         },
