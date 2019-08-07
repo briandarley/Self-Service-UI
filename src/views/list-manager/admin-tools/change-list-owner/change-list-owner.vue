@@ -18,7 +18,7 @@
               <p>
                 If you are the current list administrator, see the
                 <a
-                  href="http://help.unc.edu/help/listserv-administrators-faq-collection/"
+                  href="https://help.unc.edu/sp?id=kb_article&sys_id=aa4688d0db037380227afe21399619ba"
                 >FAQ</a>
                 for instructions on how to do this.
               </p>

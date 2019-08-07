@@ -246,8 +246,7 @@ export default class EditList extends Vue {
 
   async removeMember(member) {
 
-
-
+    this.spinnerService.show();
     this.ListManagerService.removeSubscriber(member)
       .then(() => {
         this.toastService.success("Removed Member");
@@ -262,11 +261,13 @@ export default class EditList extends Vue {
         this.toastService.error("Failed to remove member");
       })
       .finally(() => {
-
-        //this.members.find(c => c)
-
+        this.spinnerService.hide();
 
       });
+
+
+
+
   }
 
   async confirmToggleListEnable() {

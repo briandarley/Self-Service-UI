@@ -216,7 +216,7 @@
     <!-- Add Member confirm-dialog -->
     <confirm-dialog id="modalAddMember" ref="modalAddMember">
       <div slot="modal-title"  class="text-white">
-        <span class="text-primary">Add Member</span>
+        <span class="text-white">Add Member</span>
       </div>
       <div slot="modal-body">
         <div class="containter form-group">

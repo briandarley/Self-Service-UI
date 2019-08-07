@@ -29,23 +29,23 @@ export default class LyrisInformation extends Vue {
   data = [
     {
       title: "FAQ-Administrators ",
-      href: "http://help.unc.edu/help/listserv-administrators-faq-collection/"
+      href: "https://help.unc.edu/sp?id=kb_article&sys_id=aa4688d0db037380227afe21399619ba"
     },
     {
       title: "FAQ-Subscribers",
-      href: "https://help.unc.edu/help/listserv-subscribers-faq-collection/"
+      href: "https://help.unc.edu/sp?id=kb_article&sys_id=1cf79a2cdb47b7c0227afe2139961957"
     },
     {
       title: "Get Help",
-      href: "http://help.unc.edu/help/olhr/"
+      href: "https://help.unc.edu/sp?id=search&spa=1&t=kb&q=list%20manager"
     },
     {
       title: "Managing a List",
-      href: "http://help.unc.edu/45"
+      href: "https://help.unc.edu/sp?id=kb_article&sys_id=1cf79a2cdb47b7c0227afe2139961957"
     },
     {
       title: "Subscribing to a List",
-      href: "http://help.unc.edu/62#d0e86"
+      href: "https://help.unc.edu/sp?id=kb_article&sys_id=1cf79a2cdb47b7c0227afe2139961957"
     }
   ];
   async mounted() {
