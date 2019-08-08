@@ -10,11 +10,11 @@
         <option value v-for="list in deleted" :key="list">{{list}}</option>
       </select>
 
-      <label for="admin_password">Admin Password</label>
-      <input type="password" class="form-control" id="admin_password">
+      <label for="admin_password_reinstate">Admin Password</label>
+      <input type="password" class="form-control" id="admin_password_reinstate">
 
-      <label for="description">Description</label>
-      <input type="text" class="form-control" id="description" >
+      <label for="description_reinstate">Description</label>
+      <input type="text" class="form-control" id="description_reinstate" >
 
       <label class="d-inline-block mr-3">Type of List</label>
       <ul class="d-inline-block radio-buttons">
@@ -45,23 +45,5 @@
     </div>
   </div>
 </template>
-<script>
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-
-@Component({
-  name: "reinstate-tab",
-  dependencies: ["$", "moment", "toastService", "spinnerService"],
-  props: ["emailAddresses"]
-})
-export default class TabReinstate extends Vue {
-  deleted = [];
-  certify = false;
-  async mounted() {
-    this.toastService.set(this);
-  }
-  async created() {
-    //called before child views are mounted
-  }
-}
-</script>
+<script src="./tab-reinstate.js"></script>
+<style lang="scss" src="./tab-reinstate.scss" ></style>

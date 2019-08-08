@@ -44,7 +44,7 @@
             </select>
 
             <div class="text-right my-3">
-              <button class="btn btn-danger mr-2" @click="submit()">Delete List</button>
+              <button class="btn btn-danger mr-2" @click="deleteList()">Delete List</button>
               
             </div>
           </div>

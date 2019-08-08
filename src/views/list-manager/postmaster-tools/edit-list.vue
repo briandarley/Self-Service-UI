@@ -213,6 +213,7 @@
         </div>
       </div>
     </div>
+     
     <!-- Add Member confirm-dialog -->
     <confirm-dialog id="modalAddMember" ref="modalAddMember">
       <div slot="modal-title"  class="text-white">
@@ -269,7 +270,7 @@
     <!-- Update Member confirm-dialog -->
     <confirm-dialog id="modalUpdateMember" ref="modalUpdateMember">
       <div slot="modal-title"  class="text-white">
-        <span class="text-primary">Update Member {{modelUpdateMember.fullName}}</span>
+        <span class="text-white">Update Member {{modelUpdateMember.fullName}}</span>
       </div>
       <div slot="modal-body">
         <div class="containter form-group">
@@ -322,7 +323,7 @@
     <!-- Update List Change confirm-dialog -->
     <confirm-dialog id="modalUpdateList" ref="modalUpdateList">
       <div slot="modal-title"  class="text-white">
-        <span class="text-primary">{{modelUpdateList.title}}</span>
+        <span class="text-white">{{modelUpdateList.title}}</span>
       </div>
       <div slot="modal-body">
         <div class="containter form-group" v-html="modelUpdateList.html">

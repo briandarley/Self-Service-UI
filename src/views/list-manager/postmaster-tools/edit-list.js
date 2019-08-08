@@ -292,12 +292,15 @@ export default class EditList extends Vue {
     let title = this.data.disabled ? "Enable List?" : "Disable List?";
 
     this.modelUpdateList.title = title;
-    this.modelUpdateList.html = `<div class="">
-        <div class="info text-warning">
-          <i class="fa fa-exclamation-triangle"></i>
+    this.modelUpdateList.html = `
+    <div class="alert alert-warning">
+        <div class="info">
+            <i class="fa fa-exclamation-triangle m-0"></i>
         </div>
-         ${this.data.disabled ? "Please confirm Enable List?" : "Please confirm Disable List?"}
-        </div>`;
+        <p>
+        ${this.data.disabled ? "Please confirm Enable List?" : "Please confirm Disable List?"}
+        </p>
+    </div>`;
 
 
     this.modelUpdateList.confirm = this.confirmToggleListEnable;
@@ -369,14 +372,15 @@ export default class EditList extends Vue {
     let title = "Delete List?";
 
     this.modelUpdateList.title = title;
-    this.modelUpdateList.html = `<div class="">
-        <div class="info text-danger">
-          <i class="fa fa-exclamation-triangle"></i>
+    this.modelUpdateList.html = `
+    <div class="alert alert-danger">
+        <div class="info">
+            <i class="fa fa-exclamation-triangle m-0"></i>
         </div>
-         <p>
-         Confirm Delete "${this.data.listName}"?
-         </p>
-        </div>`;
+        <p>
+        Confirm Delete "${this.data.listName}"?
+        </p>
+    </div>`;
 
 
     this.modelUpdateList.confirm = this.confirmDeleteList;

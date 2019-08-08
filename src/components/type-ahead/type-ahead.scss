@@ -1,0 +1,36 @@
+
+.tt-menu {
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+  
+  .tt-dataset-query-results {
+    width: 100%;
+    background: $white;
+    font-family: sans-serif;
+    padding: 2px 0 0 0;
+    cursor: pointer;
+    border: 1px solid lighten($carolina-blue, 30%);
+    color:$carolina-blue;
+  }
+  
+  .tt-suggestion {
+    padding: 3px;
+
+  }
+  
+  .tt-suggestion:nth-child(even) {
+    background: $gray-200;
+  }
+  
+  .typeahead-wrapper {
+    display: block;
+    margin: 50px 0;
+  }
+  
+  
+  .tt-suggestion.tt-cursor {
+    
+    background: lighten($carolina-blue, 30%);
+    color:$athletics-navy;
+  }

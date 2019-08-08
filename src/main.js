@@ -58,14 +58,14 @@ new Vue({
 
         }
         await this.createAndAppendRoute(duoRoute, this.loadView(duoRoute));
-//
+
 
         this.routeSources.forEach(async route => {
           evaluatedRoute = route;
           await this.createAndAppendRoute(route, this.loadView(route));
           
         });
-        window.console.log(this.routeSources.length);
+        
 
 
       } catch (err) {

@@ -35,6 +35,8 @@ export default class SideMenu extends Vue {
     if (routeDetail.order === -1) {
       routeDetail = menuResult.find(c => c.id === routeDetail.parentRouteId);
     }
+    if (!routeDetail) return null;
+
     if (routeDetail.route === "*") {
       //revert to home
       let routeTree = menuResult;

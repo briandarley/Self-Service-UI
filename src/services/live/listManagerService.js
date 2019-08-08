@@ -159,7 +159,6 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-
     async getListMetrics(listName) {
       try {
         const handler = await httpHandlerService.get();

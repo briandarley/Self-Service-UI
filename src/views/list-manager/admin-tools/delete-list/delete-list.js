@@ -1,5 +1,7 @@
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import {
+  Component
+} from "vue-property-decorator";
 
 @Component({
   name: "delete-list",
@@ -10,8 +12,12 @@ export default class DeleteList extends Vue {
   selectedList = null;
   async mounted() {
     this.toastService.set(this);
-    this.spinnerService.show();
+    await this.loadListDropDown();
+  }
+  async loadListDropDown() {
+
     try {
+      this.spinnerService.show();
       let myEmails = await this.ListManagerService.getEmailAddresses();
       let queryList = [];
       let list = [];
@@ -23,10 +29,30 @@ export default class DeleteList extends Vue {
         list = list.concat(values[i]);
       }
       this.adminList = list;
-      
+
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to initialize component");
+    } finally {
+      this.spinnerService.hide();
+    }
+  }
+  async deleteList() {
+    if (!this.selectedList) {
+      this.toastService.error("Select a list to remove");
+      return;
+    }
+    try {
+      this.spinnerService.show();
+      this.ListManagerService.deleteList({
+        listName: this.selectedList
+      });
+      await this.loadListDropDown();
+      this.toastService.success("Successfully removed list");
+
+    } catch (e) {
+      window.console.log(e);
+      this.toastService.error('');
     } finally {
       this.spinnerService.hide();
     }
