@@ -26,24 +26,32 @@
             <br />
           </div>
 
-          <p>
-            If you are not the current list administrator, please try to contact the current administrator
-            <br />by sending email to:
-            <a
-              href="mailto:owner-listname@listserv.unc.edu"
-            >owner-listname@listserv.unc.edu</a>
+          <ul>
+            <li>
+              <p>
+                If you are not the current list administrator, please try to contact the current administrator
+                <br />by sending email to:
+                <a
+                  href="mailto:owner-listname@listserv.unc.edu"
+                >owner-listname@listserv.unc.edu</a>
 
-            <br />Substitute the list's name for "listname" in the preceding email address.
-          </p>
-          <p>
-            If you are unable to contact the current list administrator,
-            <br />download and complete the Change Admin Request Form, below.
-            Adobe format -
-            <a
-              href="changeadmin.pdf"
-              target="_blank"
-            >changeadmin.pdf</a>
-          </p>
+                <br />Substitute the list's name for "listname" in the preceding email address.
+              </p>
+            </li>
+            <li>
+              <p>
+                If you are unable to contact the current list administrator,
+                <br />download and complete the Change Admin Request Form, below.
+                Adobe format -
+                <a
+                  href="changeadmin.pdf"
+                  target="_blank"
+                >changeadmin.pdf</a>
+              </p>
+
+
+            </li>
+          </ul>
         </div>
       </div>
     </div>
