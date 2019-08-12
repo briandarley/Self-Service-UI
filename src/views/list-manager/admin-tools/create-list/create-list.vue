@@ -38,7 +38,7 @@
               
             </tabbed-item>
             <tabbed-item slot="tab_1">
-              <tab-reinstate :emailAddresses="emailAddresses"></tab-reinstate>
+              <tab-reinstate :emailAddresses="emailAddresses" :dormantList="dormantList"></tab-reinstate>
             </tabbed-item>
           </tabbed-control>
         </div>

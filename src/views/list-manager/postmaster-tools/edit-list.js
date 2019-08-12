@@ -32,7 +32,36 @@ export default class EditList extends Vue {
   modelAddMember = {};
   modelUpdateMember = {};
   modelUpdateList = {};
+  totalRecords = 0;
+  criteria = {
+    pageSize: 100,
+    index: 0
+  };
 
+  clearCriteria(){
+    this.criteria = {
+      pageSize: 100,
+      index: 0
+    };
+  }
+  indexChanged(index,entities) {
+    this.criteria.index = index;
+
+
+    let begin = this.criteria.index  * this.criteria.pageSize;
+    let end = begin + this.criteria.pageSize;
+
+    if(entities)
+    {
+      this.filteredMembers = entities.slice(begin, end);
+    }
+    else{
+      this.filteredMembers = this.members.slice(begin, end);
+    }
+    
+
+    
+  }
   clickAddNewMember() {
     this.modelAddMember = {};
     this.$refs.modalAddMember.show();
@@ -174,9 +203,11 @@ export default class EditList extends Vue {
       !newValue.holdStatus ||
       c.memberType === (newValue.holdStatus === "held" ? "held" : "normal")
     );
+    
+    this.clearCriteria();
+    this.indexChanged(0, list);
 
-
-    this.filteredMembers = list;
+    //this.filteredMembers = list;
 
     if (this._currentCol) {
       this._currentSortDir *= -1;
@@ -192,10 +223,11 @@ export default class EditList extends Vue {
       this._currentSortDir = 1;
     }
     this._currentCol = column;
+    this.clearCriteria();
 
     switch (column) {
       case "fullName":
-        this.filteredMembers.sort((a, b) => {
+        this.members.sort((a, b) => {
           if (a.fullName.toLowerCase() > b.fullName.toLowerCase())
             return this._currentSortDir;
           if (a.fullName.toLowerCase() < b.fullName.toLowerCase())
@@ -204,7 +236,7 @@ export default class EditList extends Vue {
         });
         break;
       case "email":
-        this.filteredMembers.sort((a, b) => {
+        this.members.sort((a, b) => {
           if (a.emailAddress.toLowerCase() > b.emailAddress.toLowerCase())
             return this._currentSortDir;
           if (a.emailAddress.toLowerCase() < b.emailAddress.toLowerCase())
@@ -213,7 +245,7 @@ export default class EditList extends Vue {
         });
         break;
       case "admin":
-        this.filteredMembers.sort((a, b) => {
+        this.members.sort((a, b) => {
           if (a.isListAdmin < b.isListAdmin) return this._currentSortDir;
           if (a.isListAdmin > b.isListAdmin) return this._currentSortDir * -1;
           return 0;
@@ -407,12 +439,14 @@ export default class EditList extends Vue {
 
   async getMembers() {
     this.spinnerService.show();
-
+    this.clearCriteria();
     try {
       this.members = await this.ListManagerService.getSubscribersByListName(
         this.listName
       );
-      this.filteredMembers = this.members;
+      this.totalRecords = this.members.length;
+      this.indexChanged(0);
+      //this.filteredMembers = this.members;
     } catch (e) {
       this.toastService.error(`Failed to retrieve members`);
       window.console.log(e);

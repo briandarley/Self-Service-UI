@@ -17,16 +17,7 @@
           
         ></type-ahead>
 
-        <!-- <select
-          name="admin_email"
-          id="admin_email"
-          class="form-control"
-          v-model="model.emailAddress"
-          ref="admin_email"
-          data-validation="{'name': 'Admin Email','message':'Invalid', 'required': 'true'}"
-        >
-          <option v-for="email in emailAddresses" :key="email" :value="email">{{email}}</option>
-        </select>-->
+      
       </div>
       <div class="form-group">
         <label for="list_name">List Name</label>

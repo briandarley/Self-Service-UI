@@ -1,6 +1,5 @@
 <template>
   <nav aria-label="Page navigation">
-    
     <ul class="pagination pagination-sm justify-content-end">
       <li 
         class="page-item" 
@@ -32,6 +31,7 @@
       </li>
     </ul>
   </nav>
+
 </template>
 <script src="./pager.js"></script>
 <style lang="scss" src="./pager.scss" scoped></style>

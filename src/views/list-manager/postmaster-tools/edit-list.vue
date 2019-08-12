@@ -126,6 +126,15 @@
           </div>
         </div>
         <div v-if="members.length" class="container member-list">
+            <pager
+              :criteria="criteria"
+              btn-count="5"
+              :total-records="totalRecords"
+              v-on:indexChanged="indexChanged"
+            ></pager>
+            
+
+
           <!-- Header Cols /Sort -->
           <div class="row bg-primary text-white row-header">
             <div class="col">
@@ -139,6 +148,8 @@
             </div>
           </div>
           <!-- Header Cols /Sort -->
+
+
 
           <!-- Column Filters -->
           <div class="row row-filter">
@@ -175,6 +186,7 @@
             </div>
           </div>
           <!-- Column Filters -->
+          
           
           <!-- Record Results -->
           <transition-group name="list">

@@ -40,21 +40,15 @@ export default class CreateList extends Vue {
       .map(c => c.emailAddress)
       .value();
   }
-
   async getDormantLists() {
-    let dormantList = [];
-    let emailAddresses = this.emailAddresses;
-    //emailAddresses = ["elizabeth_steadman@med.unc.edu", "werica@email.unc.edu"];
+    if(!this.emailAddresses.length) return;
 
-    for (var i = 0; i < emailAddresses.length; i++) {
-      let email = emailAddresses[i];
-      let response = await this.ListManagerService.getDormantLists(email);
+    let response = await this.ListManagerService.getDormantLists(this.emailAddresses[0]);
+    
+    this.dormantList =  response;
 
-      dormantList.concat(response);
-    }
-    this.dormantList = dormantList;
+    
   }
-
   //getMySubscriptions
   async mounted() {
     this.toastService.set(this);
