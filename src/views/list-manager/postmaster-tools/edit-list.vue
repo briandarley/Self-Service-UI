@@ -141,6 +141,7 @@
             btn-count="5"
             :total-records="totalRecords"
             v-on:indexChanged="indexChanged"
+            v-if="totalRecords > 100"
           ></pager>
           <!-- Pager -->
 
