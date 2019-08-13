@@ -377,12 +377,14 @@ export default class EditList extends Vue {
     let title = this.data.maxMembers === 0 ? "Enforce Subscriber Cap?" : "Turn Off Subscriber Cap?";
 
     this.modelUpdateList.title = title;
-    this.modelUpdateList.html = `<div class="">
-        <div class="info text-warning">
-          <i class="fa fa-exclamation-triangle"></i>
-        </div>
-         ${this.data.maxMembers === 0 ? "Enforce Subscriber Cap?" : "Turn Off Subscriber Cap?"}
-        </div>`;
+    this.modelUpdateList.html = `
+    <div class="alert alert-danger">
+                        <div class="info">
+                          <i class="fa fa-exclamation-triangle"></i>
+                        </div>
+                        <p>${this.data.maxMembers === 0 ? "Enforce Subscriber Cap?" : "Turn Off Subscriber Cap?"}</p>
+                      </div>
+  `;
 
 
     this.modelUpdateList.confirm = this.confirmToggleSubscriberCap;

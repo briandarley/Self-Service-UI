@@ -236,12 +236,9 @@ function ListManagerService(httpHandlerService, commonExtensions) {
       try {
         const handler = await httpHandlerService.get();
         model.disabled = !model.disabled;
-
-        //if (!model.emailAddress || !model.listName) {
-        //  throw "Invalid model, propeties are invalid";
-        //}
-
-        await handler.put(`listmanager/lists/${model.listName}`, model);
+        let enabled = !model.disabled;
+        
+        await handler.put(`listmanager/lists/${model.listName}/enabled/${enabled}`);
       } catch (e) {
         if (e.message && e.message.includes("404")) {
           return [];
@@ -254,7 +251,7 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         const handler = await httpHandlerService.get();
         model.maxMembers = model.maxMembers === 0 ? 300 : 0;
 
-        await handler.put(`listmanager/lists/${model.listName}`, model);
+        await handler.put(`listmanager/lists/${model.listName}/max-members/${model.maxMembers}`);
       } catch (e) {
         if (e.message && e.message.includes("404")) {
           return [];
