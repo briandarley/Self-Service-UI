@@ -88,8 +88,8 @@ export default class Pager extends Vue {
     }
 
     for (let i = startIndex; i < (startIndex + btnCount); i++) {
-
-      if (i < Math.ceil(this.totalRecords / btnCount)) {
+//btnCount
+      if (i < Math.ceil(this.totalRecords / this.criteria.pageSize)) {
         this.buttons.push(i);
       }
 
@@ -143,9 +143,6 @@ export default class Pager extends Vue {
     this.$emit('indexChanged', index - 1);
   }
 
-  async mounted() {
-
-  }
 
 }
 
