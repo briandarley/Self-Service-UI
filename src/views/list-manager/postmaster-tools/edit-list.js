@@ -171,7 +171,7 @@ export default class EditList extends Vue {
     if (newValue.isListAdmin && newValue.password && newValue.password.length) {
       newValue.valid = newValue.emailAddress.length && newValue.fullName.length;
     } else if (!newValue.isListAdmin) {
-      newValue.valid = newValue.emailAddress.length && newValue.fullName.length;
+      newValue.valid = newValue.emailAddress.length && (!newValue.fullName ? 0 : newValue.fullName.length);
     } else {
       newValue.valid = false;
     }
@@ -187,15 +187,27 @@ export default class EditList extends Vue {
     deep: true
   })
   onFilterChanged(newValue) {
+    
     let list = this.members.filter(
       c =>
-      !newValue.fullName ||
+      {
+        if(!newValue.fullName)
+        {
+          if(!c.fullName) return true;
+        }
+        else{
+          if(!c.fullName) return false;
+        }
+
+        
+        return !newValue.fullName ||
       c.fullName.toUpperCase().includes(newValue.fullName.toUpperCase())
+      }
     );
     list = list.filter(
       c =>
       !newValue.email ||
-      c.emailAddress.toUpperCase().includes(newValue.email.toUpperCase())
+      c.emailAddress.toUpperCase().startsWith(newValue.email.toUpperCase())
     );
     list = list.filter(c => !newValue.isAdmin || c.isListAdmin === true);
     list = list.filter(
@@ -263,6 +275,7 @@ export default class EditList extends Vue {
       listName: this.listName,
       emailAddress: member.emailAddress,
       memberType: member.memberType
+      
     };
 
 

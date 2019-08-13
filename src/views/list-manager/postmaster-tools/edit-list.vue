@@ -10,98 +10,104 @@
       <div class="card-body">
         <!-- List Metrics -->
 
-        
-          <tabbed-control tabs="List Info,List Metrics">
-            <tabbed-item slot="tab_0">
-              <div class="table-info">
-                <label>
-                  Site Name:
-                  <span>{{data.siteName}}</span>
-                </label>
-                <label>
-                  Create Date:
-                  <span>{{data.createDate | formatDate}}</span>
-                </label>
-                <label>
-                  Description:
-                  <span>{{data.description}}</span>
-                </label>
-                <label>
-                  Visibility:
-                  <span>{{data.visibility}}</span>
-                </label>
-                <label>
-                  Max Members:
-                  <span v-if="data.maxMembers === 0">Unlimited
-                    <a href="#" v-on:click.prevent="toggleSubsciberCap()" title="Set Subscirber Cap">
-                      <i class="fa fa-minus-circle"></i>
-                    </a>
-
-                  </span>
-                  <span v-else>
-                    {{data.maxMembers}}
-                    <a href="#"  v-on:click.prevent="toggleSubsciberCap()" title="Remove Subscirber Cap">
-                      <i class="fa fa-plus-circle"></i>
-                    </a>
-                  </span>
-                </label>
-                <label>
-                  Max Msg Number:
-                  <span>{{data.maxMessageNumber}}</span>
-                </label>
-                <label>
-                  Max Msg Size:
-                  <span>{{data.maxMessageSize}}</span>
-                </label>
-                <label>
-                  Disabled:
-                  <span>{{data.disabled}}</span>
-                </label>
-              </div>
-            </tabbed-item>
-            <tabbed-item slot="tab_1">
-              <div class="list-metrics">
-                <div class="text-primary" v-if="retrievingMetrics">retrieving list metrics...</div>
-                <div v-if="!retrievingMetrics && metrics">
-                  <h3>
-                    <span class="h5 text-primary">List Metrics for: {{metrics.listName}}</span>
-                  </h3>
-                  <div class="list-metrics-data">
-                    <div>
-                      <label>Create Date</label>
-                      <span>{{metrics.createDate | formatDate}}</span>
-                    </div>
-                    <div>
-                      <label class="strong">Total Members</label>
-                      <span>{{metrics.totalMembers | formatNumber}}</span>
-                    </div>
-                    <div>
-                      <label class="strong">Total Messages</label>
-                      <span>{{metrics.totalMessages | formatNumber}}</span>
-                    </div>
-                    <div>
-                      <label class="strong">Last Log Activity</label>
-                      <span
-                        v-if="metrics.lastLogActivityDate"
-                      >{{metrics.lastLogActivityDate | formatDate}}</span>
-                      <span v-else>No Log Activity</span>
-                    </div>
-                    <div>
-                      <label class="strong">Last Message Date</label>
-                      <span v-if="metrics.lastMessageDate">{{metrics.lastMessageDate | formatDate}}</span>
-                      <span v-else>No Message Activity</span>
-                    </div>
+        <tabbed-control tabs="List Info,List Metrics">
+          <tabbed-item slot="tab_0">
+            <div class="table-info">
+              <label>
+                Site Name:
+                <span>{{data.siteName}}</span>
+              </label>
+              <label>
+                Create Date:
+                <span>{{data.createDate | formatDate}}</span>
+              </label>
+              <label>
+                Description:
+                <span>{{data.description}}</span>
+              </label>
+              <label>
+                Visibility:
+                <span>{{data.visibility}}</span>
+              </label>
+              <label>
+                Max Members:
+                <span v-if="data.maxMembers === 0">
+                  Unlimited
+                  <a
+                    href="#"
+                    v-on:click.prevent="toggleSubsciberCap()"
+                    title="Set Subscirber Cap"
+                  >
+                    <i class="fa fa-minus-circle"></i>
+                  </a>
+                </span>
+                <span v-else>
+                  {{data.maxMembers}}
+                  <a
+                    href="#"
+                    v-on:click.prevent="toggleSubsciberCap()"
+                    title="Remove Subscirber Cap"
+                  >
+                    <i class="fa fa-plus-circle"></i>
+                  </a>
+                </span>
+              </label>
+              <label>
+                Max Msg Number:
+                <span>{{data.maxMessageNumber}}</span>
+              </label>
+              <label>
+                Max Msg Size:
+                <span>{{data.maxMessageSize}}</span>
+              </label>
+              <label>
+                Disabled:
+                <span>{{data.disabled}}</span>
+              </label>
+            </div>
+          </tabbed-item>
+          <tabbed-item slot="tab_1">
+            <div class="list-metrics">
+              <div class="text-primary" v-if="retrievingMetrics">retrieving list metrics...</div>
+              <div v-if="!retrievingMetrics && metrics">
+                <h3>
+                  <span class="h5 text-primary">List Metrics for: {{metrics.listName}}</span>
+                </h3>
+                <div class="list-metrics-data">
+                  <div>
+                    <label>Create Date</label>
+                    <span>{{metrics.createDate | formatDate}}</span>
+                  </div>
+                  <div>
+                    <label class="strong">Total Members</label>
+                    <span>{{metrics.totalMembers | formatNumber}}</span>
+                  </div>
+                  <div>
+                    <label class="strong">Total Messages</label>
+                    <span>{{metrics.totalMessages | formatNumber}}</span>
+                  </div>
+                  <div>
+                    <label class="strong">Last Log Activity</label>
+                    <span
+                      v-if="metrics.lastLogActivityDate"
+                    >{{metrics.lastLogActivityDate | formatDate}}</span>
+                    <span v-else>No Log Activity</span>
+                  </div>
+                  <div>
+                    <label class="strong">Last Message Date</label>
+                    <span v-if="metrics.lastMessageDate">{{metrics.lastMessageDate | formatDate}}</span>
+                    <span v-else>No Message Activity</span>
                   </div>
                 </div>
-                <div v-if="refreshMetrics">
-                  <a href="#" v-on:click.prevent="getMetrics()">
-                    <i class="fa fa fa-refresh"></i> failed retrieving metrics retry?
-                  </a>
-                </div>
               </div>
-            </tabbed-item>
-          </tabbed-control>
-        
+              <div v-if="refreshMetrics">
+                <a href="#" v-on:click.prevent="getMetrics()">
+                  <i class="fa fa fa-refresh"></i> failed retrieving metrics retry?
+                </a>
+              </div>
+            </div>
+          </tabbed-item>
+        </tabbed-control>
 
         <!-- List Metrics -->
 
@@ -114,9 +120,12 @@
                 <span>Delete List</span>
               </button>
               <button class="btn btn-primary" @click="toggleListEnable()">
-              
-                <span v-if="data.disabled"><i class="fas fa-toggle-off"></i> Enable List</span>
-                <span v-else><i class="fas fa-toggle-on"></i> Disable List</span>
+                <span v-if="data.disabled">
+                  <i class="fas fa-toggle-off"></i> Enable List
+                </span>
+                <span v-else>
+                  <i class="fas fa-toggle-on"></i> Disable List
+                </span>
               </button>
               <button class="btn btn-primary" @click="clickAddNewMember()">
                 <i class="fa fa-plus"></i>
@@ -126,14 +135,14 @@
           </div>
         </div>
         <div v-if="members.length" class="container member-list">
-            <pager
-              :criteria="criteria"
-              btn-count="5"
-              :total-records="totalRecords"
-              v-on:indexChanged="indexChanged"
-            ></pager>
-            
-
+          <!-- Pager -->
+          <pager
+            :criteria="criteria"
+            btn-count="5"
+            :total-records="totalRecords"
+            v-on:indexChanged="indexChanged"
+          ></pager>
+          <!-- Pager -->
 
           <!-- Header Cols /Sort -->
           <div class="row bg-primary text-white row-header">
@@ -149,8 +158,6 @@
           </div>
           <!-- Header Cols /Sort -->
 
-
-
           <!-- Column Filters -->
           <div class="row row-filter">
             <div class="col">
@@ -161,7 +168,7 @@
                 v-select-all
                 v-model="filter.fullName"
                 placeholder="filter full name"
-              >
+              />
             </div>
             <div class="col">
               <input
@@ -171,7 +178,7 @@
                 v-select-all
                 v-model="filter.email"
                 placeholder="filter e-mail"
-              >
+              />
             </div>
             <div class="col filter-edit-col">
               <select name id class="form-control" v-model="filter.isAdmin">
@@ -186,11 +193,14 @@
             </div>
           </div>
           <!-- Column Filters -->
-          
-          
+
           <!-- Record Results -->
           <transition-group name="list">
-            <div class="result-grid row" v-for="item in filteredMembers" v-bind:key="item.emailAddress">
+            <div
+              class="result-grid row"
+              v-for="item in filteredMembers"
+              v-bind:key="item.emailAddress"
+            >
               <div class="col">{{item.fullName}}</div>
               <div class="col">{{item.emailAddress}}</div>
               <div class="col edit-col">
@@ -225,10 +235,10 @@
         </div>
       </div>
     </div>
-     
+
     <!-- Add Member confirm-dialog -->
     <confirm-dialog id="modalAddMember" ref="modalAddMember">
-      <div slot="modal-title"  class="text-white">
+      <div slot="modal-title" class="text-white">
         <span class="text-white">Add Member</span>
       </div>
       <div slot="modal-body">
@@ -239,14 +249,14 @@
             placeholder="Member E-Mail"
             v-model="modelAddMember.emailAddress"
             v-select-all
-          >
+          />
           <input
             type="text"
             class="form-control"
             placeholder="Full Name"
             v-model="modelAddMember.fullName"
             v-select-all
-          >
+          />
           <div class="check-buttons">
             <input
               type="checkbox"
@@ -254,7 +264,7 @@
               id="chkIsListAdmin"
               v-model="modelAddMember.isListAdmin"
               :value="modelAddMember.isListAdmin"
-            >
+            />
             <label for="chkIsListAdmin">Is Admin?</label>
           </div>
 
@@ -265,7 +275,7 @@
             v-select-all
             v-model="modelAddMember.password"
             v-if="modelAddMember.isListAdmin"
-          >
+          />
         </div>
       </div>
 
@@ -281,7 +291,7 @@
     <!-- Add Member confirm-dialog -->
     <!-- Update Member confirm-dialog -->
     <confirm-dialog id="modalUpdateMember" ref="modalUpdateMember">
-      <div slot="modal-title"  class="text-white">
+      <div slot="modal-title" class="text-white">
         <span class="text-white">Update Member {{modelUpdateMember.fullName}}</span>
       </div>
       <div slot="modal-body">
@@ -292,14 +302,14 @@
             placeholder="Member E-Mail"
             v-model="modelUpdateMember.emailAddress"
             v-select-all
-          >
+          />
           <input
             type="text"
             class="form-control"
             placeholder="Full Name"
             v-model="modelUpdateMember.fullName"
             v-select-all
-          >
+          />
           <div class="check-buttons">
             <input
               type="checkbox"
@@ -307,7 +317,7 @@
               id="chkIsListAdmin"
               v-model="modelUpdateMember.isListAdmin"
               :value="modelUpdateMember.isListAdmin"
-            >
+            />
             <label for="chkIsListAdmin">Is Admin?</label>
           </div>
 
@@ -318,7 +328,7 @@
             v-select-all
             v-model="modelUpdateMember.password"
             v-if="modelUpdateMember.isListAdmin"
-          >
+          />
         </div>
       </div>
 
@@ -334,19 +344,15 @@
     <!-- Update Member confirm-dialog -->
     <!-- Update List Change confirm-dialog -->
     <confirm-dialog id="modalUpdateList" ref="modalUpdateList">
-      <div slot="modal-title"  class="text-white">
+      <div slot="modal-title" class="text-white">
         <span class="text-white">{{modelUpdateList.title}}</span>
       </div>
       <div slot="modal-body">
-        <div class="containter form-group" v-html="modelUpdateList.html">
-        </div>
+        <div class="containter form-group" v-html="modelUpdateList.html"></div>
       </div>
 
       <div slot="modal-footer">
-        <button
-          class="btn btn-primary"
-          @click="modelUpdateList.confirm()"
-        >yes</button>
+        <button class="btn btn-primary" @click="modelUpdateList.confirm()">yes</button>
         <button class="btn btn-secondary" @click="closeDialog()">cancel</button>
       </div>
     </confirm-dialog>
