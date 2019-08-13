@@ -238,11 +238,8 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         model.disabled = !model.disabled;
         let enabled = !model.disabled;
         
-        await handler.put(`listmanager/lists/${model.listName}/enabled/${enabled}`);
+        await handler.put(`listmanager/${model.listName}/enabled/${enabled}`);
       } catch (e) {
-        if (e.message && e.message.includes("404")) {
-          return [];
-        }
         throw e;
       }
     },
@@ -251,11 +248,8 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         const handler = await httpHandlerService.get();
         model.maxMembers = model.maxMembers === 0 ? 300 : 0;
 
-        await handler.put(`listmanager/lists/${model.listName}/max-members/${model.maxMembers}`);
+        await handler.put(`listmanager/${model.listName}/max-members/${model.maxMembers}`);
       } catch (e) {
-        if (e.message && e.message.includes("404")) {
-          return [];
-        }
         throw e;
       }
     },

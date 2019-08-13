@@ -62,7 +62,27 @@
               </label>
               <label>
                 Disabled:
-                <span>{{data.disabled}}</span>
+
+                <span v-if="data.disabled">
+                  Disabled
+                  <a
+                    href="#"
+                    v-on:click.prevent="toggleListEnable()"
+                    title="Enable List"
+                  >
+                    <i class="fa fa-plus-circle"></i>
+                  </a>
+                </span>
+                <span v-else>
+                  Enabled
+                  <a
+                    href="#"
+                    v-on:click.prevent="toggleListEnable()"
+                    title="Disable List"
+                  >
+                    <i class="fa fa-minus-circle"></i>
+                  </a>
+                </span>
               </label>
             </div>
           </tabbed-item>
@@ -118,14 +138,6 @@
               <button class="btn btn-danger" @click="deleteList()">
                 <i class="fa fa-trash"></i>
                 <span>Delete List</span>
-              </button>
-              <button class="btn btn-primary" @click="toggleListEnable()">
-                <span v-if="data.disabled">
-                  <i class="fas fa-toggle-off"></i> Enable List
-                </span>
-                <span v-else>
-                  <i class="fas fa-toggle-on"></i> Disable List
-                </span>
               </button>
               <button class="btn btn-primary" @click="clickAddNewMember()">
                 <i class="fa fa-plus"></i>
