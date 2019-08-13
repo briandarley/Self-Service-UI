@@ -30,10 +30,8 @@ export default class Pager extends Vue {
     //return ((this.pageInfo.index + 1) * this.criteria.pageSize) < totalPages
   }
   get nextDisabled() {
-    let totalPages = Math.floor(this.totalRecords / this.criteria.pageSize);
+    let totalPages = Math.ceil(this.totalRecords / this.criteria.pageSize);
     return this.pageInfo.index + 1 >= totalPages;
-
-   // return ((this.pageInfo.index + 1) * this.criteria.pageSize)  >= this.totalRecords
   }
 
   @Watch("criteria", {
