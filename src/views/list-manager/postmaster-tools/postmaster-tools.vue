@@ -9,25 +9,20 @@
       </div>
       <div class="card-body">
         <div class="container">
-
- <div class="alert alert-info">
-    <div class="info">
-        <i class="fa fa-info-circle"></i>
-    </div>
-    <div>
-      <p>
-      Use the search field to search for lists by name or use a known subscriber's email to search lists where the user is a member of.
-    </p>
-    <p>
-      Lyris lists will be returned based on the search string entered. Use the edit link <i class="fa fa-pencil-square-o"></i> to edit the selected list.
-    </p>
-    </div>
-</div>
-
-
-
-
-
+          <div class="alert alert-info">
+            <div class="info">
+              <i class="fa fa-info-circle"></i>
+            </div>
+            <div>
+              <p>Use the search field to search for lists by name or use a known subscriber's email to search lists where the user is a member of.</p>
+              <p>
+                Lyris lists will be returned based on the search string entered. Use the edit link
+                <i
+                  class="fa fa-pencil-square-o"
+                ></i> to edit the selected list.
+              </p>
+            </div>
+          </div>
 
           <tabbed-control tabs="Search by List Name,Subscribers by E-mail">
             <tabbed-item slot="tab_0">
@@ -46,7 +41,7 @@
                     autocomplete="off"
                     v-model="listName"
                     v-on:keyup.13="search()"
-                  >
+                  />
                 </div>
                 <div class="submit text-right">
                   <button class="btn btn-primary mr-1" @click="search()">Search</button>
@@ -66,7 +61,7 @@
                               The search
                               <span class="strong">'{{listName}}'</span>
                               produced no results.
-                              <br>Enter a new value and retry your request.
+                              <br />Enter a new value and retry your request.
                             </p>
                           </div>
                         </div>
@@ -108,17 +103,15 @@
                   </div>
 
                   <confirm-dialog id="modalConfirmDelete" ref="modalConfirmDelete">
-                    <div slot="modal-title"  class="text-white">
-                      <span class="text-primary">Confirm Delete List?</span>
+                    <div slot="modal-title" class="text-white">
+                      <span class="text-white">Confirm Delete List?</span>
                     </div>
                     <div slot="modal-body">
-                      <div class="containter form-group">
-                        <div class>
-                          <div class="info text-warning">
-                            <i class="fa fa-exclamation-triangle"></i>
-                          </div>
-                          <p>Confirm Delete List?</p>
+                      <div class="alert alert-danger">
+                        <div class="info">
+                          <i class="fa fa-exclamation-triangle"></i>
                         </div>
+                        <p>Confirm Delete List?</p>
                       </div>
                     </div>
 
@@ -145,13 +138,12 @@
                     autocomplete="off"
                     v-model="emailAddress"
                     v-on:keyup.13="searchByEmail()"
-                  >
+                  />
                 </div>
-                <div class=" text-right mb-5">
+                <div class="text-right mb-5">
                   <button class="btn btn-primary" @click="searchByEmail()">Search</button>
                   <button class="btn btn-secondary" @click="clear()">Clear</button>
                 </div>
-
 
                 <div v-if="emailSearchData.length" class="my-3 mt-5">
                   <span
@@ -184,8 +176,6 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </tabbed-item>
           </tabbed-control>
@@ -323,8 +313,8 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
     background: $gray-100;
   }
 }
-.subscribers-by-email:nth-of-type(odd){
-background: $white;
+.subscribers-by-email:nth-of-type(odd) {
+  background: $white;
 }
 
 ul.search-links,
