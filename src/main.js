@@ -180,7 +180,7 @@ new Vue({
     //  if(referer.indexOf("SAML2") > -1){
        
     //  }
-     window.onbeforeunload = function (event) {
+     window.onbeforeunload = async function () {
       let userService = injector.get("UserService");
        await userService.logout();
        return true;
