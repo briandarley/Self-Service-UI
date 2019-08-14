@@ -180,11 +180,13 @@ new Vue({
     //  if(referer.indexOf("SAML2") > -1){
        
     //  }
-     window.onbeforeunload = async function () {
+    window.addEventListener('unload', async function(event) {
       let userService = injector.get("UserService");
-       await userService.logout();
-       return true;
-      }
+      await userService.logout();
+      return true;
+    });
+
+    
 
     
     let service = injector.get("RouteSourcesService");
