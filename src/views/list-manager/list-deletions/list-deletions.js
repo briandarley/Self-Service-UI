@@ -23,7 +23,7 @@ export default class ListDeletions extends Vue {
   clearCriteria() {
     this.deletionList = {};
     this.criteria = {
-      pageSize: 10,
+      pageSize: 100,
       index: 0
     };
   }
@@ -41,6 +41,9 @@ export default class ListDeletions extends Vue {
   async loadDeletions() {
     this.spinnerService.show();
     try {
+      //Sort=deleteDate&ListSortDirection=1
+      this.criteria.sort = "deleteDate,listName";
+      this.criteria.listSortDirection = 1;
       let response = await this.ListManagerService.getDeletionList(
         this.criteria
       );
