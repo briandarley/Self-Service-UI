@@ -4,6 +4,8 @@
       <p>Bearer Token</p>
     </div>
     <div class="card-body text-center">
+      <p>Auth Time: {{authTime}}</p>
+      <p>Expires: {{expiresAt}}</p>
       <button class="btn btn-primary" @click="copyToken()">Copy Bearer Token</button>
     </div>
   </div>

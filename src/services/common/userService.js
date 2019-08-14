@@ -100,8 +100,9 @@ function UserService(configReaderService, localStorageService, routerService) {
 
                 this.expireDate = new Date(this._user.expires_at * 1000);
 
+                
                 if (this._user.expires_at < new Date().getTime() / 1000) {
-                    this.logout();
+                    await this.logout();
                     this.login();
                 }
 
