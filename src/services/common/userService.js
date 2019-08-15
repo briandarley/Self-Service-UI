@@ -80,10 +80,12 @@ function UserService(configReaderService, localStorageService, routerService) {
 
             let user = await this._mgr.getUser();
 
+            await this._mgr.removeUser();
+            
             await this._mgr.signoutRedirect({
                 'id_token_hint': user.id_token
             })
-            await this._mgr.removeUser();
+            
             this._mgr.clearStaleState();
         },
         async get() {
