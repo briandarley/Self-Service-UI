@@ -176,9 +176,11 @@ new Vue({
     //var userService = injector.get("UserService");
     //await  userService.get()
     let referer = window.document.referrer;
+    let userService = injector.get("UserService");  
+    let user = await userService.get();
+    console.log(user);
     //https://sso-test.isis.unc.edu/idp/profile/SAML2/Redirect/SSO?execution=e1s1
-     if(referer.indexOf("SAML2") > -1){
-      let userService = injector.get("UserService");
+     if(user && referer.indexOf("SAML2") > -1){
       await userService.logout();
       return true;
      }
