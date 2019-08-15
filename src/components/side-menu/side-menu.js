@@ -104,6 +104,7 @@ export default class SideMenu extends Vue {
 
   _cleanAndSortRoutes(routes) {
     routes.sort((a, b) => {
+      if(a.id == b.parentRouteId) return false;
       return a.order > b.order
     })
 

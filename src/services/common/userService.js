@@ -109,7 +109,8 @@ function UserService(configReaderService, localStorageService, routerService) {
                 }
                 
                 this._logoutTimeOut = setTimeout(async()=> {
-                     await this.logout();
+                    
+                 await this.logout();
                 }, expiresIn);
 
                 //let user = (await this.UserService.get());

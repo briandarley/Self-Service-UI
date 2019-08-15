@@ -20,23 +20,31 @@
           <div class="border border-primary">
             <div class="bg bg-primary text-white p-2">Search Criteria</div>
             <div class="m-2">
-              <div class="form-group">
-                <label for>Onyen</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Onyen"
-                  v-model="criteria.onyen"
-                />
+              <div class="">
+                <div class="form-group form-inline d-flex">
+                  <label for="txtOnyen">Onyen</label>
+                  <input
+                    id="txtOnyen"
+                    type="text"
+                    class="form-control flex-grow-1"
+                    placeholder="Onyen"
+                    v-model="criteria.onyen"
+                  />
+                </div>
+                <div></div>
               </div>
-              <div class="form-group">
-                <label for>Date From</label>
-                <date-picker :selected-date.sync="criteria.submittedFromDate"></date-picker>
+
+              <div class="d-flex justify-content-around">
+                <div class="form-group form-inline">
+                  <label for>Date From</label>
+                  <date-picker :selected-date.sync="criteria.submittedFromDate"></date-picker>
+                </div>
+                <div class="form-group form-inline">
+                  <label for>Date To</label>
+                  <date-picker :selected-date.sync="criteria.submittedThruDate"></date-picker>
+                </div>
               </div>
-              <div class="form-group">
-                <label for>Date To</label>
-                <date-picker :selected-date.sync="criteria.submittedThruDate"></date-picker>
-              </div>
+
               <div class="form-group">
                 <label for>Limit Result</label>
 

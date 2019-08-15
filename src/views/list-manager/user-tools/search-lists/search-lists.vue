@@ -25,7 +25,7 @@
           <div v-if="data.length" class="my-3 mt-5">
             <span class="h5 text-primary">Total Records: {{data.length|formatNumber}}</span>
           </div>
-          <div class="search-results">
+          <div class="search-results" v-if="data.length">
               <div v-for="item in data" :key="item.listName">
                   <span>{{item.listName}}</span>
                   <span>{{item.description}}</span>

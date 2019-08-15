@@ -79,7 +79,8 @@
                 <div class="info">
                   <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                 </div>
-                <p>
+                <div>
+                  <p>
                   The provisioning process for account
                   <span class="strong">{{provisionData.onyen}}</span> is still processing.
                 </p>
@@ -93,6 +94,7 @@
                     class="strong"
                   >{{provisionData.status}}</span>
                 </p>
+                </div>
               </div>
             </div>
           </div>
