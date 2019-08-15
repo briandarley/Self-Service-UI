@@ -113,7 +113,11 @@ export default class EditList extends Vue {
         this.modelUpdateMember.newEmailAddress = newEmailAddress;
       }
 
-      await this.ListManagerService.updateSubscriber(this.modelUpdateMember);
+      let response = await this.ListManagerService.updateSubscriber(this.modelUpdateMember);
+      if(response && response.status === false){
+        this.toastService.error(response.message);
+        return;
+      }
       this.toastService.success("Updated Member");
 
       //clear filter so that user can verify themselves of success
@@ -280,7 +284,12 @@ export default class EditList extends Vue {
 
 
     this.ListManagerService.updateSubscriber(model)
-      .then(() => {
+      .then((e) => {
+        if(e && e.status === false){
+          this.toastService.error(e.message);
+          return;
+        }
+
         this.toastService.success("Updated hold status for member");
       })
       .catch(() => {
@@ -293,7 +302,11 @@ export default class EditList extends Vue {
 
     this.spinnerService.show();
     this.ListManagerService.removeSubscriber(member)
-      .then(() => {
+      .then((e) => {
+        if(e && e.status === false){
+          this.toastService.error(e.message);
+          return;
+        }
         this.toastService.success("Removed Member");
         let index = this.members.findIndex(c => c.memberId == member.memberId);
         this.members.splice(index, 1);
@@ -319,7 +332,11 @@ export default class EditList extends Vue {
     let model = JSON.parse(JSON.stringify(this.data));
     this.closeDialog();
     this.ListManagerService.toggleListEnable(model)
-      .then(() => {
+      .then((e) => {
+        if(e && e.status === false){
+          this.toastService.error(e.message);
+          return;
+        }
         this.data.disabled = !this.data.disabled;
         this.toastService.success("Updated table status");
       })
@@ -358,7 +375,11 @@ export default class EditList extends Vue {
     let model = JSON.parse(JSON.stringify(this.data));
     this.closeDialog();
     this.ListManagerService.toggleSubsciberCap(model)
-      .then(() => {
+      .then((e) => {
+        if(e && e.status === false){
+          this.toastService.error(e.message);
+          return;
+        }
         this.data.maxMembers = this.data.maxMembers === 0 ? 300 : 0;
         this.toastService.success("Updated Max Subscribers");
       })
@@ -396,7 +417,11 @@ export default class EditList extends Vue {
     this.spinnerService.show();
     this.closeDialog();
     try {
-      await this.ListManagerService.deleteList(this.data);
+      let response = await this.ListManagerService.deleteList(this.data);
+      if(response && response.status === false){
+        this.toastService.error(response.message);
+        return;
+      }
 
       this.toastService.success("Deleted List");
       this.$router.push({

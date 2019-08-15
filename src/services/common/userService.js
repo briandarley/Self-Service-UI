@@ -7,7 +7,7 @@ function UserService(configReaderService, localStorageService, routerService) {
     return {
         _user: null,
         _mgr: null,
-
+        _logoutTimeOut: null,
         isInRole(role) {
             if (!this._user) {
                 return false;
@@ -99,6 +99,25 @@ function UserService(configReaderService, localStorageService, routerService) {
                 }
 
                 this.expireDate = new Date(this._user.expires_at * 1000);
+                 
+                let currentTime = new Date().getTime();
+                let expiryTime = this._user.expires_at * 1000;
+                
+                let expiresIn = (expiryTime - currentTime);
+                if(this._logoutTimeOut){
+                    clearTimeout(this._logoutTimeOut);
+                }
+                
+                this._logoutTimeOut = setTimeout(async()=> {
+                     await this.logout();
+                }, expiresIn);
+
+                //let user = (await this.UserService.get());
+    
+                //this.authTime = new Date(user.profile.auth_time * 1000).toLocaleString("en-US", {timeZone: "America/New_York"});
+                //this.expiresAt = new Date(user.expires_at * 1000).toLocaleString("en-US", {timeZone: "America/New_York"});
+            
+
 
                 
                 if (this._user.expires_at < new Date().getTime() / 1000) {

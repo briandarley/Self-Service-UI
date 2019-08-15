@@ -126,13 +126,53 @@ function ListManagerService(httpHandlerService, commonExtensions) {
     async getSubscribersByListName(name) {
       try {
         const handler = await httpHandlerService.get();
-
+        
         let response = await handler.get(`listmanager/lists/${name}/members`);
         return response.data;
       } catch (e) {
         if (e.message.includes("404")) {
           return [];
         }
+        throw e;
+      }
+    },
+    async getListMetrics(listName) {
+      try {
+        const handler = await httpHandlerService.get();
+        let response = await handler.get(
+          `listmanager/lists/${listName}/metrics`
+        );
+
+        return [response.data];
+      } catch (e) {
+        throw e;
+      }
+    },
+    async getDeletionList(criteria) {
+      try {
+        const handler = await httpHandlerService.get();
+        criteria.includeSubcriberCounts = true;
+        let queryParams = commonExtensions.convertToQueryParams(criteria);
+
+        let response = await handler.get(
+          `listmanager/lists/deletions?${queryParams}`
+        );
+
+        return response.data;
+      } catch (e) {
+        throw e;
+      }
+    },
+    async getSubscriberDump(listName) {
+      try {
+        const handler = await httpHandlerService.get();
+
+        let response = await handler.get(
+          `listmanager/lists/deletions/${listName}/members`
+        );
+
+        return response.data;
+      } catch (e) {
         throw e;
       }
     },
@@ -156,21 +196,15 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         if (e.message && e.message.includes("404")) {
           return [];
         }
+        else if (e.message && e.message.includes("401")) {
+          return {
+            status: false,
+            message: 'Unauthorized to perform this request'};
+        }
         throw e;
       }
     },
-    async getListMetrics(listName) {
-      try {
-        const handler = await httpHandlerService.get();
-        let response = await handler.get(
-          `listmanager/lists/${listName}/metrics`
-        );
-
-        return [response.data];
-      } catch (e) {
-        throw e;
-      }
-    },
+    
     async addSubscriber(model) {
       try {
         const handler = await httpHandlerService.get();
@@ -211,6 +245,11 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         if (e.message && e.message.includes("404")) {
           return [];
         }
+        else if (e.message && e.message.includes("401")) {
+          return {
+            status: false,
+            message: 'Unauthorized to perform this request'};
+        }
         throw e;
       }
     },
@@ -229,6 +268,11 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         if (e.message && e.message.includes("404")) {
           return [];
         }
+        else if (e.message && e.message.includes("401")) {
+          return {
+            status: false,
+            message: 'Unauthorized to perform this request'};
+        }
         throw e;
       }
     },
@@ -240,6 +284,11 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         
         await handler.put(`listmanager/${model.listName}/enabled/${enabled}`);
       } catch (e) {
+        if (e.message && e.message.includes("401")) {
+          return {
+            status: false,
+            message: 'Unauthorized to perform this request'};
+        }
         throw e;
       }
     },
@@ -250,6 +299,11 @@ function ListManagerService(httpHandlerService, commonExtensions) {
 
         await handler.put(`listmanager/${model.listName}/max-members/${model.maxMembers}`);
       } catch (e) {
+        if (e.message && e.message.includes("401")) {
+          return {
+            status: false,
+            message: 'Unauthorized to perform this request'};
+        }
         throw e;
       }
     },
@@ -261,6 +315,11 @@ function ListManagerService(httpHandlerService, commonExtensions) {
       } catch (e) {
         if (e.message && e.message.includes("404")) {
           return [];
+        }
+        else if (e.message && e.message.includes("401")) {
+          return {
+            status: false,
+            message: 'Unauthorized to perform this request'};
         }
         throw e;
       }
@@ -284,37 +343,15 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         if (e.message && e.message.includes("404")) {
           return [];
         }
-        throw e;
-      }
-    },
-    async getDeletionList(criteria) {
-      try {
-        const handler = await httpHandlerService.get();
-        criteria.includeSubcriberCounts = true;
-        let queryParams = commonExtensions.convertToQueryParams(criteria);
-
-        let response = await handler.get(
-          `listmanager/lists/deletions?${queryParams}`
-        );
-
-        return response.data;
-      } catch (e) {
-        throw e;
-      }
-    },
-    async getSubscriberDump(listName) {
-      try {
-        const handler = await httpHandlerService.get();
-
-        let response = await handler.get(
-          `listmanager/lists/deletions/${listName}/members`
-        );
-
-        return response.data;
-      } catch (e) {
+        else if (e.message && e.message.includes("401")) {
+          return {
+            status: false,
+            message: 'Unauthorized to perform this request'};
+        }
         throw e;
       }
     }
+    
   };
 }
 
