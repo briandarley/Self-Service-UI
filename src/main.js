@@ -177,9 +177,11 @@ new Vue({
     //await  userService.get()
     let referer = window.document.referrer;
     //https://sso-test.isis.unc.edu/idp/profile/SAML2/Redirect/SSO?execution=e1s1
-    //  if(referer.indexOf("SAML2") > -1){
-       
-    //  }
+     if(referer.indexOf("SAML2") > -1){
+      let userService = injector.get("UserService");
+      await userService.logout();
+      return true;
+     }
     // window.addEventListener('beforeunload', async function(event) {
     //   let userService = injector.get("UserService");
     //   await userService.logout();
