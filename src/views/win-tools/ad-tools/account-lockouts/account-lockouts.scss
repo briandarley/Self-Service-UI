@@ -1,5 +1,6 @@
 .row-header{
-    div{
+    display:flex;
+    >div{
         flex:1;
         &:nth-of-type(2){
             flex:2;

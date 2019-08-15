@@ -41,7 +41,7 @@
                   <a href="#" @click.prevent="sort('department')">Department</a>
                 </div>
               </div>
-              <div class="result-grid">
+              <div class="result-grid list-container">
                 <div class="entity-info" v-for="(item, index) in records" :key="index">
                   <div class="row org-info">
                     <div class="col">{{item.name}}</div>
@@ -230,4 +230,9 @@ export default class OrganizationalUnits extends Vue {
 .entity-info:nth-of-type(even) {
   background: $white;
 }
+
+
+
+
+
 </style>

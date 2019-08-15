@@ -49,7 +49,7 @@
                 ></pager>
               </div>
               <!-- Header Cols -->
-              <div class="row bg-primary text-white row-header">
+              <div class="bg-primary text-white row-header">
                 <div class="col">
                   <span>Account</span>
                 </div>
@@ -63,19 +63,19 @@
               <!-- Header Cols -->
 
               <!-- Record Results -->
-
-              <div
-                class="result-grid row"
-                v-for="(item, index) in pagedRecords.entities"
-                v-bind:key="index"
-              >
-                <div>
-                  <div class="col">{{item.uid}}</div>
-                  <div class="col">{{item.computer}}</div>
-                  <div class="col">{{item.submittedDate | formatDateTime}}</div>
+              <div class="list-container">
+                <div
+                  class="result-grid"
+                  v-for="(item, index) in pagedRecords.entities"
+                  v-bind:key="index"
+                >
+                  <div>
+                    <div class="col">{{item.uid}}</div>
+                    <div class="col">{{item.computer}}</div>
+                    <div class="col">{{item.submittedDate | formatDateTime}}</div>
+                  </div>
                 </div>
               </div>
-
               <!-- Record Results -->
             </div>
 

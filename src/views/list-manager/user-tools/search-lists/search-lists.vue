@@ -10,13 +10,14 @@
       <div class="card-body">
         <div class="container">
           <div class="form-group">
-            <input type="text" 
-            class="form-control" 
-            v-model="nameLike" 
-            v-select-all 
-            placeholder="name like" 
-            v-on:keyup.13="search()">
-            
+            <input
+              type="text"
+              class="form-control"
+              v-model="nameLike"
+              v-select-all
+              placeholder="name like"
+              v-on:keyup.13="search()"
+            />
           </div>
           <div class="submit text-right">
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
@@ -26,15 +27,26 @@
             <span class="h5 text-primary">Total Records: {{data.length|formatNumber}}</span>
           </div>
           <div class="search-results" v-if="data.length">
-              <div v-for="item in data" :key="item.listName">
-                  <span>{{item.listName}}</span>
-                  <span>{{item.description}}</span>
-                  <div>
-                    <a :href="basePath + 'read/?forum=' + item.listName" target="_blank">Visit</a>
-                    <a :href="basePath + 'read/all_forums/subscribe?name=' + item.listName" target="_blank">Subscribe</a>
-                  </div>
-
+            <div class="bg-primary text-white row-header">
+              <div class="col">List Name</div>
+              <div class="col">Description</div>
+              <div class="col"></div>
+            </div>
+            <div class="list-container">
+              <div class="result-grid" v-for="item in data" :key="item.listName">
+                <div class="col">{{item.listName}}</div>
+                <div class="col">{{item.description}}</div>
+                <div class="col">
+                  <a :href="basePath + 'read/?forum=' + item.listName" target="_blank">Visit</a>
+                  <a
+                    :href="basePath + 'read/all_forums/subscribe?name=' + item.listName"
+                    target="_blank"
+                  >Subscribe</a>
+                </div>
               </div>
+            </div>
+
+            
           </div>
         </div>
       </div>

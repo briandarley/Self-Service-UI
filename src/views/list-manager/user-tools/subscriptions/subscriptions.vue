@@ -26,13 +26,12 @@
             </div>
           </div>
           <div class="subscription-info">
-            <div class="row mt-3">
-              <div class="col">
-                <div class="list-container mt-3">
-                  <ul>
-                    <li v-for="item in userSubscriptions" :key="item.name">{{item.name}}</li>
-                  </ul>
-                </div>
+            <div class="bg-primary text-white row-header">
+              <div class="col">List Name</div>
+            </div>
+            <div class="list-container">
+              <div class="result-grid" v-for="item in userSubscriptions" :key="item.name">
+                <div class="col">{{item.name}}</div>
               </div>
             </div>
           </div>

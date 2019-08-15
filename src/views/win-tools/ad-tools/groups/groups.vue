@@ -8,7 +8,7 @@
         <h3>Active Directory Groups</h3>
       </div>
       <div class="card-body">
-         <div class="container">
+        <div class="container">
           <div class="alert alert-info">
             <div class="info">
               <i class="fa fa-info-circle"></i>
@@ -55,7 +55,7 @@
                 <h3 class="text-primary">Total {{records.length | formatNumber}}</h3>
               </div>
               <!-- Header Cols -->
-              <div class="row bg-primary text-white row-header">
+              <div class="bg-primary text-white row-header">
                 <div class="col">
                   <span>Name</span>
                 </div>
@@ -67,47 +67,47 @@
               <!-- Header Cols -->
 
               <!-- Record Results -->
-
-              <div class="result-grid row" v-for="(item, index) in records" v-bind:key="index">
-                <div class="record">
-                  <div class="record-info">
-                    <div class="col">{{item.displayName}}</div>
-                    <div class="col">{{item.whenCreated | formatDate}}</div>
-                    <div class="col">
-                      <a href="#" @click.prevent="toggleUsers(item)">
-                        <i
-                          class="fa fa-angle-double-down more-info"
-                          :class="{expanded: item.showUsers, collapsed: item.showUsers === false}"
-                        ></i> Members
-                      </a>
+              <div class>
+                <div class="result-grid" v-for="(item, index) in records" v-bind:key="index">
+                  <div class="record">
+                    <div class="record-info">
+                      <div class="col">{{item.displayName}}</div>
+                      <div class="col">{{item.whenCreated | formatDate}}</div>
+                      <div class="col">
+                        <a href="#" @click.prevent="toggleUsers(item)">
+                          <i
+                            class="fa fa-angle-double-down more-info"
+                            :class="{expanded: item.showUsers, collapsed: item.showUsers === false}"
+                          ></i> Members
+                        </a>
+                      </div>
                     </div>
+
+                    <transition name="expand">
+                      <div class="group-users" v-if="item.showUsers">
+                        <tabbed-control tabs="Members,Managers">
+                          <tabbed-item slot="tab_0">
+                            <user-list-management
+                              ref="groupUsers"
+                              :group="item.samAccountName"
+                              autoLoadEntities="true"
+                              @controlLoaded="onGroupUserListLoaded(item)"
+                            ></user-list-management>
+                          </tabbed-item>
+                          <tabbed-item slot="tab_1">
+                            <manager-list-management
+                              ref="groupManagers"
+                              :group="item.samAccountName"
+                              autoLoadEntities="true"
+                              @controlLoaded="onManagerListLoaded(item)"
+                            ></manager-list-management>
+                          </tabbed-item>
+                        </tabbed-control>
+                      </div>
+                    </transition>
                   </div>
-
-                  <transition name="expand">
-                    <div class="group-users" v-if="item.showUsers">
-                      <tabbed-control tabs="Members,Managers">
-                        <tabbed-item slot="tab_0">
-                          <user-list-management
-                            ref="groupUsers"
-                            :group="item.samAccountName"
-                            autoLoadEntities="true"
-                            @controlLoaded="onGroupUserListLoaded(item)"
-                          ></user-list-management>
-                        </tabbed-item>
-                        <tabbed-item slot="tab_1">
-                          <manager-list-management
-                            ref="groupManagers"
-                            :group="item.samAccountName"
-                            autoLoadEntities="true"
-                            @controlLoaded="onManagerListLoaded(item)"
-                          ></manager-list-management>
-                        </tabbed-item>
-                      </tabbed-control>
-                    </div>
-                  </transition>
                 </div>
               </div>
-
               <!-- Record Results -->
             </div>
           </div>

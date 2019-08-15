@@ -108,10 +108,12 @@
               <div class="info">
                 <i class="fa fa-question-circle"></i>
               </div>
-              <p>User {{userLdap.displayName}}, Onyen {{userLdap.uid}}, PID {{userLdap.pid}} does not have an e-mail provisioned.</p>
+              <div>
+                <p>User {{userLdap.displayName}}, Onyen {{userLdap.uid}}, PID {{userLdap.pid}} does not have an e-mail provisioned.</p>
               <p
                 class="strong"
               >Would you like to provision an e-mail account for {{userLdap.displayName}} at this time?</p>
+              </div>
             </div>
             <div class="submit text-right">
               <button class="btn btn-primary" @click="nextStep()">Provision Record</button>
@@ -122,8 +124,8 @@
               <div class="info">
                 <i class="fa fa-info-circle"></i>
               </div>
-
-              <p>
+              <div>
+                <p>
                 When the provisioning prcess has completed,
                 the owner of the e-mail account should be notified. In addition we can notify you upon completion of this request.
                 If you do not wish to be notified, simply remove your e-mail from the list. You may also notify additional persons by entering the e-mail in the field below and click 'Add'
@@ -152,6 +154,8 @@
                   </div>
                 </div>
               </div>
+              </div>
+              
             </div>
             <div class="submit text-right">
               <button class="btn btn-primary mr-1" @click="submit()">Submit</button>
@@ -167,12 +171,14 @@
             <div class="info">
               <i class="fa fa-exclamation-triangle"></i>
             </div>
-            <p>
+           <div>
+              <p>
               The system tried to find a user with an id of '
               <span class="strong">{{filter}}</span>' but no records were found in provision history nor could the system locate an LDAP record matching that criteria.
             </p>
             <p>Please check the id entered and try your request again</p>
             <br>
+           </div>
           </div>
         </div>
       </transition>
