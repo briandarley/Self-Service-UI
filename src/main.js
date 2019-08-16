@@ -178,12 +178,15 @@ new Vue({
     let referer = window.document.referrer;
     let userService = injector.get("UserService");  
     let user = await userService.get();
-    console.log(user);
-    console.log(`Referer: ${referer}`)
+    
     //https://sso-test.isis.unc.edu/idp/profile/SAML2/Redirect/SSO?execution=e1s1
-     if(user && referer.indexOf("SAML2") > -1){
-      await userService.logout();
-      return true;
+     if(referer.indexOf("call-back") > -1){
+       //todo, add browser close event handler to log user out
+        window.onbeforeunload = async function(){
+        await userService.logout();
+        return false;
+      }
+      
      }
     // window.addEventListener('beforeunload', async function(event) {
     //   let userService = injector.get("UserService");
