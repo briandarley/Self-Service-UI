@@ -17,6 +17,10 @@
 .result-grid{
     display: flex;
     >div{
+        flex:2;
+
+    }
+    >div:nth-of-type(4),>div:nth-of-type(5){
         flex:1;
 
     }
@@ -24,4 +28,10 @@
 
 .row-header{
     display:flex;
+    .col{
+        flex:2;
+    }
+    .col:nth-of-type(4),.col:nth-of-type(5){
+        flex:1;   
+    }
 }
