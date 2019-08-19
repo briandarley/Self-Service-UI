@@ -202,9 +202,11 @@ export default class Aliases extends Vue {
       this.deleteEntity = {};
     }
   }
+
   removeEntityCancelClick() {
     this.$refs.confirmDelete.hide();
   }
+
   async mounted() {
     this.toastService.set(this);
     this.adminProfile = await this.AdminProfileService.getAdminProfile();
