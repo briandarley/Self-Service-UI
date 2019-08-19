@@ -17,9 +17,7 @@
       }
     }
   }
-  .alert.alert-info {
-    padding-bottom: 30px;
-  }
+  
   .input-controls {
     .form-inline {
       display: flex;
@@ -36,4 +34,6 @@
     }
   }
   
-  
+  .additional-emails{
+      border: 1px solid $carolina-blue;
+  }

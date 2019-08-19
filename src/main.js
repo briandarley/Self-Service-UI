@@ -175,9 +175,9 @@ new Vue({
   async created() {
     //var userService = injector.get("UserService");
     //await  userService.get()
-    let referer = window.document.referrer;
-    let userService = injector.get("UserService");  
-    let user = await userService.get();
+    //let referer = window.document.referrer;
+    //let userService = injector.get("UserService");  
+    //let user = await userService.get();
     
     //https://sso-test.isis.unc.edu/idp/profile/SAML2/Redirect/SSO?execution=e1s1
     //  if(referer.indexOf("call-back") > -1){

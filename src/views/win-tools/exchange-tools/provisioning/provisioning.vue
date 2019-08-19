@@ -119,20 +119,22 @@
                   <button class="btn btn-primary" @click="nextStep()">Provision Record</button>
                 </div>
               </div>
-              <div class="container additional-emails" v-if="enterEmailResponse">
+              <div class="additional-emails" v-if="enterEmailResponse">
                 <div class="alert alert-info">
                   <div class="info">
                     <i class="fa fa-info-circle"></i>
                   </div>
                   <div>
                     <p>
-                      When the provisioning prcess has completed,
+                      When the provisioning process has completed,
                       the owner of the e-mail account should be notified. In addition we can notify you upon completion of this request.
                       If you do not wish to be notified, simply remove your e-mail from the list. You may also notify additional persons by entering the e-mail in the field below and click 'Add'
                       When you're ready click the submit button.
                     </p>
                     <br />
-                    <div class="input-controls">
+                  </div>
+                </div>
+                <div class="input-controls">
                       <div class="form-group form-inline">
                         <input
                           type="text"
@@ -158,9 +160,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="submit text-right">
+                <div class="submit text-right m-4">
                   <button class="btn btn-primary mr-1" @click="submit()">Submit</button>
                   <button class="btn btn-secondary" @click="clear()">Cancel</button>
                 </div>
