@@ -1,0 +1,39 @@
+.provision-history {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid $carolina-blue;
+    flex-wrap: wrap;
+    padding: 20px;
+    div {
+      flex-basis: 260px;
+      display: flex;
+    }
+    span {
+      margin-right: 10px;
+      flex-basis: 50%;
+  
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+  .alert.alert-info {
+    padding-bottom: 30px;
+  }
+  .input-controls {
+    .form-inline {
+      display: flex;
+      justify-content: center;
+    }
+    input[type="text"] {
+      width: 300px;
+    }
+    select {
+      width: 300px;
+    }
+    .buttons {
+      width: 150px;
+    }
+  }
+  
+  
