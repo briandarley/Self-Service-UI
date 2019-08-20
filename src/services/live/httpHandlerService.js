@@ -14,7 +14,7 @@ function httpHandlerService(axios, configReaderService, userService) {
 
                 baseURL: serviceEndpoint,
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    //"Access-Control-Allow-Origin": "*",
                     "Authorization": `Bearer ${user.access_token}`,
                     "Content-Type": "application/json"
                 },
@@ -43,7 +43,7 @@ function httpHandlerService(axios, configReaderService, userService) {
 
                 baseURL: serviceEndpoint,
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    //"Access-Control-Allow-Origin": "*",
                     "Authorization": `Bearer ${user.access_token}`,
                     "Content-Type": "application/json"
                 },
