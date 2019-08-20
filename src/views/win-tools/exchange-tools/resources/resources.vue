@@ -35,11 +35,11 @@
           <button class="btn btn-secondary" @click="clear()">Clear</button>
         </div>
 
-        <div class="container" v-if="resources.length">
-          <div class="row bg-primary text-white row-header">
-            <div class="col">Resource Name</div>
-          </div>
-          <div class="row result-grid" v-for="(item, index) in resources" :key="index">
+        <div class="bg-primary text-white row-header">
+          <div class="col">Resource Name</div>
+        </div>
+        <div class="list-container" v-if="resources.length">
+          <div class="result-grid" v-for="(item, index) in resources" :key="index">
             <div class="col">
               <a :href="'https://outlook.unc.edu/owa/' + item" target="_blank">{{item}}</a>
             </div>
