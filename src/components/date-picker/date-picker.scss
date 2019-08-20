@@ -13,6 +13,9 @@
       //this is the validation error span
       width: 100%;
     }
+    >div{
+      display: flex;
+    }
 }
 .calendar-icon{
     cursor: pointer;
