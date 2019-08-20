@@ -25,7 +25,7 @@
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
         </div>
-        <div class="container" v-if="compromisedAccounts && compromisedAccounts.length > 0">
+        <div class="list-container" v-if="compromisedAccounts && compromisedAccounts.length > 0">
           <div class="bg-primary text-white row-header">
             <div class="col">Display Name</div>
             <div class="col">OWA Enabled</div>
