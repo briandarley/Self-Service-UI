@@ -106,7 +106,7 @@
           v-if="mfaRequireExemptionPeriod"
         >
           <div class="alert alert-info">
-            <h4 class="text-center">Select MFA exemption period</h4>
+            <span class="text-center mt-1">Select MFA exemption period</span>
           </div>
 
           <div class="mfa-end-date-select">
