@@ -74,7 +74,13 @@ new Vue({
       }
     },
     loadView(view) {
-      return () => import("./views/" + view.component);
+      return () => {
+        try {
+          return import("./views/" + view.component);
+        } catch (error) {
+          window.location.reload();
+        }
+      }
     },
     
     async getNestedChildRoutes(route) {
