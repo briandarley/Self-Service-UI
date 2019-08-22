@@ -58,7 +58,7 @@ export default class Groups extends Vue {
 
     }
     this.lookupEntityModel = null;
-    await this.search();
+    //await this.search();
   }
   async toggleUsers(entity) {
     let samAccountName = entity.samAccountName;
