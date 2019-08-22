@@ -38,4 +38,30 @@
        }
    }
    
-   .result-grid {}
+   .lookup-result {
+    div{
+        ul,
+        ul li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    
+        li {
+            display: flex;
+    
+            span {
+                flex: 1;
+            }
+    
+            label {
+                text-align: right;
+                width: 180px;
+                margin-right: 20px;
+    
+            }
+        }
+    }
+    
+
+}
