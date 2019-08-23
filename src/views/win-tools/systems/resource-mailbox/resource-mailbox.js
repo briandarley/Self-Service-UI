@@ -34,7 +34,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
       this.model.name = "";
       return;
     }
-    this.model.name = newvalue.replace(/[^a-z0-9_-]/g, '');
+    this.model.name = newvalue.replace(/[^a-zA-Z0-9_-]/g, '');
     
   }
 

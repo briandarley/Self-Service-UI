@@ -37,7 +37,7 @@ export default class SharedMailbox extends BaseValidateMixin {
       this.model.replyToAddress = "";
       return;
     }
-    this.model.name = newvalue.replace(/[^a-z0-9_-]/g, '');
+    this.model.name = newvalue.replace(/[^a-zA-Z0-9_-]/g, '');
     this.model.replyToAddress = this.model.name + '@email.unc.edu';
   }
 
@@ -66,10 +66,12 @@ export default class SharedMailbox extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+
   async mounted() {
     this.toastService.set(this);
     await this.loadOrganizationalUnits();
   }
+
   async getUserByEmail() {
 
     try {
@@ -84,6 +86,7 @@ export default class SharedMailbox extends BaseValidateMixin {
       return null;
     }
   }
+
   async getDistributionGroup() {
 
     try {
@@ -99,6 +102,7 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
 
   }
+
   async getAllDistributionGroupEntities() {
 
     try {
@@ -114,6 +118,7 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
 
   }
+
   async getSharedMailbox() {
 
     try {
@@ -176,6 +181,7 @@ export default class SharedMailbox extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+
   async createSharedMailbox() {
     try {
       this.spinnerService.show();
@@ -273,12 +279,10 @@ export default class SharedMailbox extends BaseValidateMixin {
     this.toastService.error(`Failed to retrieve group with id ${groupId}`)
   }
   
-  onGroupManagerRetrieveFailed(groupId){
+  onGroupManagerRetrieveFailed(groupId) {
     this.toastService.error(`Failed to retrieve group managers with id ${groupId}`)
   }
   
-
-
   clear() {
     this.persistedModel = {};
 
