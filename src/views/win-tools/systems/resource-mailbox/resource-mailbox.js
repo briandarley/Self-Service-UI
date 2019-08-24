@@ -44,6 +44,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
     }
     return entity.name;
   }
+
   async loadOrganizationalUnits() {
     this.spinnerService.show();
     try {
@@ -62,6 +63,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+
   async mounted() {
     this.toastService.set(this);
     await this.loadOrganizationalUnits();
@@ -82,6 +84,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
     }
 
   }
+
   async getAllDistributionGroupEntities() {
 
     try {
@@ -97,6 +100,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
     }
 
   }
+  
   async getSharedMailbox() {
 
     try {

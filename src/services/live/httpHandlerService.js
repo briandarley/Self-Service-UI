@@ -9,12 +9,13 @@ function httpHandlerService(axios, configReaderService, userService) {
             const serviceEndpoint = await configReaderService.getConfigurationSetting("serviceEndpoint")
             
             const user = await userService.get();
-            
+            // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             const instance = axios.create({
 
                 baseURL: serviceEndpoint,
                 headers: {
-                    //"Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
                     "Authorization": `Bearer ${user.access_token}`,
                     "Content-Type": "application/json"
                 },
@@ -43,7 +44,8 @@ function httpHandlerService(axios, configReaderService, userService) {
 
                 baseURL: serviceEndpoint,
                 headers: {
-                    //"Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
                     "Authorization": `Bearer ${user.access_token}`,
                     "Content-Type": "application/json"
                 },

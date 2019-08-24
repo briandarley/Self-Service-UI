@@ -16,7 +16,7 @@
         "silent_redirect_uri": "http://localhost:8080/silent-refresh.html",
         "automaticSilentRenew": true
       },
-    "duoEnabled":false
+    "duoEnabled":true
 }
   
   

@@ -48,7 +48,7 @@
               ref="friendlyName"
               data-validation="{'name': 'Friendly Name','message':'Friendly name is required', 'required':true}"
               v-model="model.displayName"
-            >
+            />
           </div>
           <div class="form-group">
             <label for="mailbox-name">Shared Mailbox short name</label>
@@ -61,7 +61,7 @@
               data-validation="{'name': 'Short Name','message':'Invalid, can contain only alpha numeric characters with no spaces', 'maxLength': 23,'regex': '^[-a-zA-Z0-9]+$'}"
               ref="name"
               title="Alpha Numeric only"
-            >
+            />
           </div>
           <div class="form-group">
             <label for="reply-to">Reply-to Address (This should be a unique email address)</label>
@@ -73,7 +73,7 @@
               v-model="model.replyToAddress"
               ref="replyToAddress"
               data-validation="{'name': 'Reply to Address','type':'email', 'minLength': 10}"
-            >
+            />
           </div>
           <div class="submit text-right">
             <button
@@ -89,10 +89,15 @@
               :class="{'disabled': showAddMembers}"
             >Clear</button>
 
-            <a href="#" class="btn btn-primary ml-1" title="refresh" @click.prevent="create" v-if="showAddMembers">
+            <a
+              href="#"
+              class="btn btn-primary ml-1"
+              title="refresh"
+              @click.prevent="create"
+              v-if="showAddMembers"
+            >
               <i class="fa fa-refresh"></i>
             </a>
-            
           </div>
         </div>
         <!-- Group Definition Fields/Lookup -->
@@ -102,16 +107,12 @@
           <div class="section add-entity">
             <h3 class="text-primary">Members</h3>
 
-
-          <user-list-management 
-          ref="groupMembers"
-          :group="groupId"
-          @controlLoaded="onMemberListLoaded"
-          @groupRetrieveFailed="onGroupRetrieveFailed"
-          ></user-list-management>
-
-
-         
+            <user-list-management
+              ref="groupMembers"
+              :group="groupId"
+              @controlLoaded="onMemberListLoaded"
+              @groupRetrieveFailed="onGroupRetrieveFailed"
+            ></user-list-management>
           </div>
           <!-- Add Group Members -->
 
@@ -120,12 +121,11 @@
             <h3 class="text-primary">Managers</h3>
 
             <manager-list-management
-            ref="groupManagers"
-            :group="groupId"
-            @controlLoaded="onManagerListLoaded"
-            @groupRetrieveFailed="onGroupManagerRetrieveFailed"
-            >
-            </manager-list-management>
+              ref="groupManagers"
+              :group="groupId"
+              @controlLoaded="onManagerListLoaded"
+              @groupRetrieveFailed="onGroupManagerRetrieveFailed"
+            ></manager-list-management>
           </div>
           <!-- Add Group Managers -->
         </div>

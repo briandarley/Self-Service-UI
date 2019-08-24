@@ -156,10 +156,14 @@ new Vue({
   watch: {
     async $route(to) {
       
-      const configReaderService = injector.get("ConfigReaderService");
-      if (this.duoEnabled === null) {
-        this.duoEnabled = await configReaderService.getConfigurationSetting("duoEnabled");
-      }
+      //const configReaderService = injector.get("ConfigReaderService");
+      const duoAuthService = injector.get("DuoAuthService");
+      
+      this.duoEnabled = await duoAuthService.duoRequired();
+      
+      // if (this.duoEnabled === null) {
+      //   this.duoEnabled = await configReaderService.getConfigurationSetting("duoEnabled");
+      // }
       
       if (this.duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {

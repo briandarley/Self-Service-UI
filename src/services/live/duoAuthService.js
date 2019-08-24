@@ -68,7 +68,18 @@ function DuoAuthService(httpHandlerService,localStorageService) {
             } catch(e){
               throw e;
             }
+        },
+        async duoRequired(){
+            try {
+                const handler = await httpHandlerService.get();
+                let response = await handler.get(`duo/duo-required`);
+                return response.data;
+
+            } catch (error) {
+                throw e;
+            }
         }
+
 
     }
 }
