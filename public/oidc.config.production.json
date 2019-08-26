@@ -13,9 +13,8 @@
       "silent_redirect_uri": "https://selfservice.unc.edu/client/self-sevice/silent-refresh.html",
       "automaticSilentRenew": true,
       "revokeAccessTokenOnSignout": true
-    },
-    "duoEnabled":true
-    
+    }
+        
   }
   
   

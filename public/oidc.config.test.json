@@ -14,9 +14,8 @@
       "silent_redirect_uri": "https://its-idmst-web.adtest.unc.edu/client/self-sevice/silent-refresh.html",
       "automaticSilentRenew": true,
       "revokeAccessTokenOnSignout": true
-    },
-    "duoEnabled":true
-  
+    }
+    
     
   }
   

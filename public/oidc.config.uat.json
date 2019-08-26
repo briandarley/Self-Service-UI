@@ -13,8 +13,8 @@
       "silent_redirect_uri": "https://its-idmuat-web.ad.unc.edu/client/self-sevice/silent-refresh.html",
       "automaticSilentRenew": true,
       "revokeAccessTokenOnSignout": true
-    },
-    "duoEnabled":false
+    }
+    
     
   }
   
