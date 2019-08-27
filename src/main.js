@@ -157,10 +157,10 @@ new Vue({
             
       const duoAuthService = injector.get("DuoAuthService");
       
-      this.duoEnabled = await duoAuthService.duoRequired();
+      let duoEnabled = await duoAuthService.duoRequired();
           
       
-      if (this.duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
+      if (duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {
           let localStorageService = injector.get("localStorageService");
           localStorageService.set("MFA_REQUEST", to.name);

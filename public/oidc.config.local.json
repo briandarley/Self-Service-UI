@@ -5,8 +5,8 @@
       "lyris_list_base_path": "https://listtstapp1.ad.unc.edu/"
     },
     "security": {
-        "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
-        "authority1": "http://localhost:5000",
+        "authority1": "https://its-idmtst-web.adtest.unc.edu/identityserver",
+        "authority": "http://localhost:5000",
         "client_id": "self-service-client",
         "redirect_uri": "http://localhost:8080/call-back.html",
         "response_type": "id_token token",

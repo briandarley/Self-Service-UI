@@ -131,7 +131,7 @@ export default class EmailSignup extends BaseValidateMixin {
 
   setDestinationMail() {
     if (!this.hasValidLdapRecord) return;
-    console.log(this.userLdapProfile);
+    
     if (this.userLdapProfile.uncEmail.some(c => !c.endsWith("unc.edu"))) {
       let personalEmail = this.userLdapProfile.uncEmail.filter(c => !c.endsWith("unc.edu"));
       this.model.mail = personalEmail[0];
