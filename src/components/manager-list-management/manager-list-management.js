@@ -35,8 +35,18 @@ export default class ManagerListManagement extends Vue {
 
   async removeEntity(samAccountName){
     try {
-      this.showSpinner();
+      if(this.entities.length <= 1){
+        this.toastService.error("All groups must have at least one owner who manages membership, message approval, and other settings for the group.")
+        return;
+      }
+      if(samAccountName.toLowerCase() === "its_exchmbcreate.svc"){
+        this.toastService.error("Service account cannot be removed as a manager of group.")
+        return;
+      }
+      
 
+      this.showSpinner();
+      
       await this.ExchangeToolsService.removeGroupManager(this.group, samAccountName);
       this.entities = this.entities.filter(c => c.samAccountName !== samAccountName);
       this.toastService.success("Successfully removed entity");
