@@ -82,7 +82,6 @@ export default class Aliases extends Vue {
       //this.loadingAliases = false;
     }
   }
-
   
   async confrimDeleteEntity(entity) {
    if(!entity.valid)
@@ -121,7 +120,7 @@ export default class Aliases extends Vue {
       this.newAliasPrefix = "";
 
       if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
-        this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
+        this.newAliasDomain = this.adminProfile.adminAliases[0];
       }
 
     } catch (e) {
@@ -140,7 +139,7 @@ export default class Aliases extends Vue {
     this.newAliasPrefix = "";
     this.mailbox = {};
     if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
-      this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
+      this.newAliasDomain = this.adminProfile.adminAliases[0];
     }
   }
 
@@ -174,13 +173,12 @@ export default class Aliases extends Vue {
     }
   }
 
-  confirmChangePrimaryAliasCancelClick(){
+  confirmChangePrimaryAliasCancelClick() {
     
     this.primary = this.currentPrimary;
     this.$refs.confirmChangePrimaryAliasDialog.hide();
     
   }
-
 
   async removeEntityClick() {
     try {
@@ -212,11 +210,11 @@ export default class Aliases extends Vue {
     this.adminProfile = await this.AdminProfileService.getAdminProfile();
     
     if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
-      this.newAliasDomain = this.adminProfile.adminAliases[0].domain;
+      this.newAliasDomain = this.adminProfile.adminAliases[0];
     }
   }
 
-  async setForwardingAddress(){
+  async setForwardingAddress() {
     try{
       
       if(this.mailbox.forwardingSmtpAddress && !this.ValidationService.isValidEmail(this.mailbox.forwardingSmtpAddress))
@@ -243,19 +241,19 @@ export default class Aliases extends Vue {
     }
   }
   
-  showAddFormwardingAddressDialog(){
+  showAddFormwardingAddressDialog() {
     this.$refs.confirmAddForwardingAddressDialog.show();  
   }
 
-  closeAddFormwardingAddressDialog(){
+  closeAddFormwardingAddressDialog() {
     this.$refs.confirmAddForwardingAddressDialog.hide();  
   }
 
-  showAddEmailAliasDialog(){
+  showAddEmailAliasDialog() {
     this.$refs.addEmailAliasDialog.show();
   }
 
-  closeAddEmailAliasDialog(){
+  closeAddEmailAliasDialog() {
     this.$refs.addEmailAliasDialog.hide();
   }
 }

@@ -6,10 +6,8 @@
   <div class="side-menu" :class="{'hide-side-menu': !showSideMenu}" >
     <div class="side-menu-pager">
       <ul :class="{'reduce-text': tree.length > 2}">
-        <li v-for="item in tree" v-bind:key="item.id">
-          <router-link :to="{path: '/'+ item.route}">
-            <a href="#">{{item.title}}</a>
-          </router-link>
+        <li v-for="(item, index) in tree" v-bind:key="item.id">
+          <router-link :to="{path: '/'+ item.route}">{{item.title}}</router-link>
           <i class="fa fa-arrow-right"></i>
         </li>
       </ul>
@@ -23,7 +21,7 @@
         :key="item.id"  
         :class="{'active': isMenuActive(item), 'has-children': hasChildren(item)}"
       >
-        <router-link :to="{path: '/'+ item.route}" v-if="!item.redirect" class="nav-link" :tabindex="index">
+        <router-link :to="{path: '/'+ item.route}" v-if="!item.redirect" class="nav-link">
         <i class="material-icons" v-if="item.iconType === 'material'">{{item.iconContent}}</i>
             <i class="fa fas" :class="item.iconContent" v-if="item.iconType === 'fontawesome'"></i>
             <p>{{item.title}}</p>

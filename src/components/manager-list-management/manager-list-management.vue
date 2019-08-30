@@ -22,9 +22,10 @@
         <div class="container">
           <div class="add-member">
            <div class="form-group form-inline">
-              <label for>Entity Id</label>
+              <label for="entityId">Entity Id</label>
               <input
                 type="text"
+                id="entityId"
                 class="form-control input-xl"
                 placeholder="onyen, pid, email"
                 v-model="userId"

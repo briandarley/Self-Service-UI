@@ -22,10 +22,11 @@
 
 
         <div class="form-group">
-          <label for>User Id</label>
+          <label for="userId">User Id</label>
           <input
             type="text"
             class="form-control"
+            id="userId"
             v-select-all
             v-model="filter"
             placeholder="onyen, pid, or email"

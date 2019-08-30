@@ -19,9 +19,10 @@
           </div>
 
           <div class="form-group">
-            <label for>Search</label>
+            <label for="onyen">Search</label>
             <input
               type="text"
+              id="onyen"
               class="form-control"
               v-select-all
               placeholder="onyen"
@@ -66,7 +67,7 @@
                     <span>{{mfaMethodType.deviceName}}</span>
                   </div>
                   <div>
-                    <label for>MFA Method</label>
+                    <label>MFA Method</label>
                     <span>{{mfaMethodType.methodType}}</span>
                   </div>
                 </div>
@@ -89,7 +90,7 @@
                     <span>Not Available</span>
                   </div>
                   <div>
-                    <label for>MFA Method</label>
+                    <label>MFA Method</label>
                     <span>Not Available</span>
                   </div>
                 </div>

@@ -55,9 +55,10 @@
 
             <!-- Add New Alias -->
             <div class="form-group form-inline add-new-alias" v-if="showAddAlias">
-              <label for>New Alias</label>
+              <label for="newAlias">New Alias</label>
               <input
                 type="text"
+                id="newAlias"
                 class="form-control"
                 placeholder="email alias"
                 v-model="model.mailPrefix"

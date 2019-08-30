@@ -6,11 +6,11 @@ import {
 @Component({
   name: 'date-picker',
   dependencies: ['$', 'moment', 'CommonExtensions'],
-  props: ['minDate', 'startDate', 'endDate', 'dateRange', 'selectedDate','label']
+  props: ['minDate', 'startDate', 'endDate', 'dateRange', 'selectedDate','label','id']
 })
 
 export default class DatePicker extends Vue {
-  id = ""
+  //id = ""
   value = "";
   initialized = false;
 
@@ -23,7 +23,7 @@ export default class DatePicker extends Vue {
   }
 
   async mounted() {
-    this.id = this.CommonExtensions.uuid4();
+    //this.id = this.CommonExtensions.uuid4();
   }
   showCalendar() {
     const $ = this.$;

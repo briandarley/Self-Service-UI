@@ -30,8 +30,10 @@
           <div class="subscription-info">
             <div class="row">
               <div class="col">
-                <span class="text-primary">Lyris Subscriber E-mail</span>
-                <select name="select" id="select" class="form-control" v-model="selectedEmail">
+
+                <label class="text-primary" id="subscriber-email">Lyris Subscriber E-mail</label>
+
+                <select name="select" id="subscriber-email" class="form-control" v-model="selectedEmail">
                   <option v-for="item in uniqueEmails" v-bind:key="item">{{item}}</option>
                 </select>
               </div>

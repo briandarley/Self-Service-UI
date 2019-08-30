@@ -1,5 +1,6 @@
 .top-header {
     display: flex;
+    
     /* god damn ie */
     -ms-grid-row: 1;
 
@@ -25,6 +26,7 @@
 
         a {
             color: $carolina-blue;
+            color: $athletics-navy;
         }
 
         a:hover {

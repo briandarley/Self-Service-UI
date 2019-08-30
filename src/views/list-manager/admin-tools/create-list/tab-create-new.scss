@@ -8,3 +8,19 @@
   input[type="checkbox"] {
     width: 60px;
   }
+
+  .check-buttons{
+    
+    display: flex;
+    
+    
+    
+    input{
+      align-self: center;
+      margin-left: 20px;
+    }
+    label{
+      margin-top:0;
+      margin-left: 20px;
+    }
+  }

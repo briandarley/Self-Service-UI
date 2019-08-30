@@ -14,8 +14,10 @@
           </div>
           <div class="mt-3">
             <p>Create Resource Mailbox, its full-access group and populate group with members.</p>
-            <p>Resource mailboxes are similar to Shared Mailboxes but provide expanded calendar control.
-               A typical use of Resource Mailbox is for managing room reservations.</p>
+            <p>
+              Resource mailboxes are similar to Shared Mailboxes but provide expanded calendar control.
+              A typical use of Resource Mailbox is for managing room reservations.
+            </p>
           </div>
         </div>
         <!-- Group Definition Fields/Lookup -->
@@ -48,7 +50,7 @@
               ref="friendlyName"
               data-validation="{'name': 'Friendly Name','message':'Friendly name is required', 'required':true}"
               v-model="model.displayName"
-            >
+            />
           </div>
           <div class="form-group">
             <label for="mailbox-name">Shared Mailbox short name</label>
@@ -61,9 +63,9 @@
               data-validation="{'name': 'Short Name','message':'Invalid, can contain only alpha numeric characters with no spaces', 'maxLength': 23,'regex': '^[-a-zA-Z0-9]+$'}"
               ref="name"
               title="Alpha Numeric only"
-            >
+            />
           </div>
-          
+
           <div class="submit text-right">
             <button
               class="btn btn-primary mr-1"
@@ -78,10 +80,15 @@
               :class="{'disabled': showAddMembers}"
             >Clear</button>
 
-            <a href="#" class="btn btn-primary ml-1" title="refresh" @click.prevent="create" v-if="showAddMembers">
+            <a
+              href="#"
+              class="btn btn-primary ml-1"
+              title="refresh"
+              @click.prevent="create"
+              v-if="showAddMembers"
+            >
               <i class="fa fa-refresh"></i>
             </a>
-            
           </div>
         </div>
         <!-- Group Definition Fields/Lookup -->
@@ -89,11 +96,11 @@
         <div class="container" v-if="showAddMembers">
           <h3 class="text-primary">Members</h3>
           <!-- Add Group Members -->
-          <user-list-management 
-          ref="groupMembers"
-          :group="groupId"
-          @controlLoaded="onMemberListLoaded"
-          @groupRetrieveFailed="onGroupRetrieveFailed"
+          <user-list-management
+            ref="groupMembers"
+            :group="groupId"
+            @controlLoaded="onMemberListLoaded"
+            @groupRetrieveFailed="onGroupRetrieveFailed"
           ></user-list-management>
 
           <!-- Add Group Members -->
@@ -102,55 +109,15 @@
           <div class="section add-entity mt-3">
             <h3 class="text-primary">Managers</h3>
 
-             <manager-list-management
-            ref="groupManagers"
-            :group="groupId"
-            @controlLoaded="onManagerListLoaded"
-            @groupRetrieveFailed="onGroupManagerRetrieveFailed"
-            >
-            </manager-list-management>
-
-            <h1></h1>
-            <!-- <div class="container">
-              <div class="row bg-primary text-white row-header">
-                <div class="col">User</div>
-                <div class="col">Canonical Name</div>
-                <div class="col"></div>
-              </div>
-              <div
-                class="result-grid row"
-                v-for="(item, index) in persistedModel.managers"
-                :key="index"
-              >
-                <div class="col">{{item.samAccountName}}</div>
-                <div class="col">{{item.id}}</div>
-                <div class="col">
-                  <a href="#" @click.prevent="removeManager(item.samAccountName)">
-                    <i class="fa fa-trash-o"></i>
-                    <span>remove</span>
-                  </a>
-                </div>
-              </div>
-              <div class="container add-member">
-                <div class="form-group form-inline">
-                  <label for>Entity Id</label>
-                  <input
-                    type="text"
-                    class="form-control input-xl"
-                    placeholder="onyen, pid, email"
-                    v-model="groupManagerId"
-                    v-select-all
-                    v-on:keyup.13="addGroupManager(groupManagerId)"
-                  >
-                  <button class="btn btn-primary" @click="addGroupManager()">Add</button>
-                  <button class="btn btn-secondary" @click="groupManagerId = ''">Clear</button>
-                </div>
-              </div>
-            </div> -->
+            <manager-list-management
+              ref="groupManagers"
+              :group="groupId"
+              @controlLoaded="onManagerListLoaded"
+              @groupRetrieveFailed="onGroupManagerRetrieveFailed"
+            ></manager-list-management>
           </div>
           <!-- Add Group Managers -->
         </div>
-        
       </div>
     </div>
   </div>

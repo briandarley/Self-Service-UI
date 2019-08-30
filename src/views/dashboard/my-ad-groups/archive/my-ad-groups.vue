@@ -67,9 +67,10 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group form-inline px-3">
-                    <label for>Entity Id</label>
+                    <label for="entityId">Entity Id</label>
                     <input
                       type="text"
+                      id="entityId"
                       class="form-control"
                       placeholder="onyen, pid, or email"
                       v-model="memberSearch"

@@ -23,9 +23,10 @@
           </div>
 
           <div class="form-group">
-            <label for>Managed By</label>
+            <label for="managedBy">Managed By</label>
             <input
               type="text"
+              id="managedBy"
               class="form-control"
               v-select-all
               placeholder="onyen, pid, email"
@@ -34,9 +35,10 @@
             />
           </div>
           <div class="form-group">
-            <label for>Group Name</label>
+            <label for="groupName">Group Name</label>
             <input
               type="text"
+              id="groupName"
               class="form-control"
               v-select-all
               placeholder="group name like"

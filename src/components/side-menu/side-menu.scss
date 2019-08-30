@@ -109,16 +109,24 @@
 
       &:hover {
         background: $gray-300;
+        
       }
-
+      
       &.active {
         background: $carolina-blue;
         box-shadow: 0 2px 5px #333;
-
+        
         a {
           color: $white;
         }
       }
+
+      :focus{
+        border: 1px solid $athletics-navy;
+        position: relative;
+        overflow: hidden;
+        margin-top:-1px;
+      } 
 
       &:last-of-type {
         margin-bottom: 0px;
@@ -126,6 +134,8 @@
     }
   }
 }
+
+
 /* https://www.w3schools.com/css/css_rwd_mediaqueries.asp */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

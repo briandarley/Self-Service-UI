@@ -11,10 +11,11 @@
     </div>
 
     <div class="form-group">
-      <label for>Search</label>
+      <label for="filter">Search</label>
       <input
         type="text"
         class="form-control"
+        id="filter"
         v-select-all
         placeholder="onyen, pid, name, or incident number"
         v-model="criteria.filterText"

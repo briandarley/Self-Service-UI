@@ -30,11 +30,12 @@
                   class="text-info"
                 >Please provide an existing email address for account {{userId}} to receive a notification when your UNC email request is complete.</p>
                 <div class="form-group" :class="{'not-empty': model.mail.length}">
-                  <label for="user" class="animated-label">Notification E-Mail Address</label>
+                  <label for="email" class="animated-label">Notification E-Mail Address</label>
                   <input
                     type="text"
                     class="form-control"
                     data-validation="{'name': 'Notification E-Mail','type':'email', 'minLength': 10}"
+                    id="email"
                     ref="email"
                     placeholder="Email for notification upon completion"
                     v-model="model.mail"
@@ -115,8 +116,9 @@
             </div>
             <div class="p-3 pb=0">
               <h4 class="text-primary">Choose Primary Mailbox Designation</h4>
-              <ul class="radio-buttons mx-5 mt-2 mb-4">
-                <li>
+
+              <div class="radio-buttons mx-5 mt-2 mb-4">
+                <div class="form-group">
                   <input
                     type="radio"
                     id="priary-designation-none"
@@ -126,8 +128,8 @@
                     disabled="disabled"
                   />
                   <label for="priary-designation-none">None</label>
-                </li>
-                <li>
+                </div>
+                <div class="form-group">
                   <input
                     type="radio"
                     id="priary-designation-unc"
@@ -136,8 +138,8 @@
                     v-model="selectedPrimaryDesignation"
                   />
                   <label for="priary-designation-unc">UNC</label>
-                </li>
-                <li>
+                </div>
+                <div class="form-group">
                   <input
                     type="radio"
                     id="priary-designation-unc-health"
@@ -146,8 +148,10 @@
                     v-model="selectedPrimaryDesignation"
                   />
                   <label for="priary-designation-unc-health">UNC Health Care</label>
-                </li>
-              </ul>
+                </div>
+
+                
+              </div>
             </div>
             <div class="submit text-right m-3 ml-0">
               <button class="btn btn-primary mr-1" @click="updateDualRoleStatus()">submit</button>

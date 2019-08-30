@@ -20,7 +20,7 @@
           <div class="border border-primary">
             <div class="bg bg-primary text-white p-2">Search Criteria</div>
             <div class="m-2">
-              <div class="">
+              <div class>
                 <div class="form-group form-inline d-flex">
                   <label for="txtOnyen">Onyen</label>
                   <input
@@ -36,20 +36,25 @@
 
               <div class="d-flex justify-content-around">
                 <div class="form-group form-inline">
-                  <label for>Date From</label>
-                  <date-picker :selected-date.sync="criteria.submittedFromDate"></date-picker>
+                  <label for="submittedFromDate">Date From</label>
+                  <date-picker
+                    :selected-date.sync="criteria.submittedFromDate"
+                    id="submittedFromDate"
+                  ></date-picker>
                 </div>
                 <div class="form-group form-inline">
-                  <label for>Date To</label>
-                  <date-picker :selected-date.sync="criteria.submittedThruDate"></date-picker>
+                  <label for="submittedThruDate">Date To</label>
+                  <date-picker
+                    :selected-date.sync="criteria.submittedThruDate"
+                    id="submittedThruDate"
+                  ></date-picker>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label for>Limit Result</label>
-
-                <ul class="radio-buttons mx-5 mt-2 mb-4">
-                  <li>
+              <div class="limit-filter">
+                <label for="provision-selection-all">Limit Result</label>
+                <div class="radio-buttons mx-5 mt-2 mb-4">
+                  <div class="form-group">
                     <input
                       type="radio"
                       id="provision-selection-all"
@@ -58,8 +63,8 @@
                       v-model="provisionSelection"
                     />
                     <label for="provision-selection-all">All</label>
-                  </li>
-                  <li>
+                  </div>
+                  <div class="form-group">
                     <input
                       type="radio"
                       id="provision-selection-unprovisioned"
@@ -68,8 +73,9 @@
                       v-model="provisionSelection"
                     />
                     <label for="provision-selection-unprovisioned">Unprovisioned</label>
-                  </li>
-                </ul>
+                  </div>
+                </div>
+                
               </div>
               <div class="sumbit text-right">
                 <button class="btn btn-primary mr-1" @click="search()">Search</button>

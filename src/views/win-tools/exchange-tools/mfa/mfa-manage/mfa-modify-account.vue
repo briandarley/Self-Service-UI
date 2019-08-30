@@ -14,10 +14,11 @@
     </div>
 
     <div class="form-group">
-      <label for>Search</label>
+      <label for="onyen">Search</label>
       <input
         type="text"
         class="form-control"
+        id="onyen"
         v-select-all
         placeholder="onyen"
         v-model="filter"
@@ -228,11 +229,12 @@
           </div>
           <form @submit.prevent.prevent class="container validation-form" autocomplete="off">
             <div class="form-group">
-              <label>Exempt End Date</label>
+              <label for="dtSelectedMfaDate2">Exempt End Date</label>
               <date-picker
                 :selected-date.sync="model.selectedMfaDate"
                 dateRange="true"
                 ref="dtSelectedMfaDate2"
+                id="dtSelectedMfaDate2"
                 v-validate="'required'"
                 data-validation="{'name': 'Date Required','required': false}"
               ></date-picker>
@@ -252,7 +254,7 @@
               />
             </div>
             <div class="form-group">
-              <label for>Reason</label>
+              <label for="txtReason">Reason</label>
               <textarea
                 class="form-control"
                 rows="4"
@@ -307,7 +309,7 @@
               />
             </div>
             <div class="form-group">
-              <label for>Reason</label>
+              <label for="txtReason">Reason</label>
               <textarea
                 class="form-control"
                 rows="4"

@@ -13,16 +13,18 @@
             <i class="fa fa-info-circle"></i>
           </div>
           <div>
-            <p>This tool may be used to manage user's email aliases including, adding, removing, setting primary email alias, as well as manage the user's forwarding address for Office 365.</p>
+            <p>This tool may be used to manage user's email aliases including, adding, removing, setting primary email alias
+              <!-- , as well as manage the user's forwarding address for Office 365.--></p> 
             <p>Enter the Onyen for the person you wish to modify</p>
           </div>
         </div>
 
         <div class="container">
           <div class="form-group">
-            <label for>User Id</label>
+            <label for="onyen">User Id</label>
             <input
               type="text"
+              id="onyen"
               class="form-control"
               v-select-all
               v-model="filter"
@@ -44,7 +46,7 @@
                 Some aliases may not be selected or removed as they are required for proper account function.
               </p>
               <p>Use the 'Add Email Alias' button to add new aliases for the selected account</p>
-              <p>Use the 'Forward Address' button to set or remove Forwarding Smtp Address for the selected account</p>
+              <!-- <p>Use the 'Forward Address' button to set or remove Forwarding Smtp Address for the selected account</p> -->
             </div>
           </div>
           <div class="submit text-right">
@@ -52,10 +54,10 @@
               <i class="fa fa-plus-circle"></i>
               <span class="ml-2">Add Email Alias</span>
             </button>
-            <button class="btn btn-primary" @click="showAddFormwardingAddressDialog()">
+            <!-- <button class="btn btn-primary" @click="showAddFormwardingAddressDialog()">
               <i class="fa fa-address-card"></i>
               <span class="ml-2">Forward Address</span>
-            </button>
+            </button> -->
           </div>
           <!-- Alias List -->
           <div class="container">
@@ -156,7 +158,7 @@
               />
               <i class="fa fa-at"></i>
               <select name id class="form-control" v-model="newAliasDomain">
-                <option v-for="item in adminProfile.adminAliases" :key="item.id">{{item.domain}}</option>
+                <option v-for="item in adminProfile.adminAliases" :key="item">{{item}}</option>
               </select>
               <button class="btn btn-primary" @click="addEmailAlias()">Add</button>
               <button class="btn btn-secondary" @click="newAliasPrefix = ''">Clear</button>
@@ -168,6 +170,7 @@
         <button class="btn btn-primary" @click="closeAddEmailAliasDialog()">close</button>
       </div>
     </confirm-dialog>
+    <!--
     <confirm-dialog
       id="confirmAddForwardingAddressDialog"
       ref="confirmAddForwardingAddressDialog"
@@ -208,6 +211,8 @@
         <button class="btn btn-primary" @click="closeAddFormwardingAddressDialog()">close</button>
       </div>
     </confirm-dialog>
+
+    -->
   </div>
 </template>
 <script src="./aliases.js"></script>

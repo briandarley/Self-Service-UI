@@ -23,11 +23,12 @@
           </div>
 
           <div class="form-group">
-            <label for>Search</label>
+            <label for="filterText">Search</label>
             <input
               type="text"
               class="form-control"
               v-select-all
+              id="filterText"
               placeholder="onyen"
               v-model="criteria.filterText"
               v-on:keyup.13="search()"

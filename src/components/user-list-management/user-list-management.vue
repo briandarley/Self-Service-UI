@@ -22,9 +22,10 @@
         <div class="container">
           <div class="add-member">
            <div class="form-group form-inline">
-              <label for>Entity Id</label>
+              <label for="entityId">Entity Id</label>
               <input
                 type="text"
+                id="entityId"
                 class="form-control input-xl"
                 placeholder="onyen, pid, email"
                 v-model="userId"
@@ -50,7 +51,7 @@
       <div slot="modal-body">
         <div class="lookup-result" v-if="multipleRecords">
           <div class="form-group select-group">
-            <label>Select Group</label>
+            <label for="selectGroup">Select Group</label>
             <select name="selectGroup" id="selectGroup" class="form-control" v-model="selectedGroup">
               <option v-for="(item, index) in groupListResult" :key="index" :value="item">{{item.samAccountName}}</option>
             </select>

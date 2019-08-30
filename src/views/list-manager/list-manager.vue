@@ -21,12 +21,12 @@
         </div>
 
         <div class="card widget">
-          <div>
-            <p class="text-primary ml-3 mt-3 mb-0 pb-0">Visit or Manage a Single List</p>
-          </div>
+
           <div class="card-body form-group">
+            <label for="list-name" class="text-primary my-2">Visit or Manage a Single List</label>
             <input
               type="text"
+              id="list-name"
               class="form-control"
               placeholder="Enter List Name"
               v-focus

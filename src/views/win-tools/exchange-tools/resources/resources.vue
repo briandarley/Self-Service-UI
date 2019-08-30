@@ -20,9 +20,10 @@
         </div>
 
         <div class="form-group">
-          <label for>User Id</label>
+          <label for="onyen">User Id</label>
           <input
             type="text"
+            id="onyen"
             class="form-control"
             v-select-all
             v-model="filter"

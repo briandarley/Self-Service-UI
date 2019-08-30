@@ -3,11 +3,11 @@
     <div class="bg bg-primary text-white p-2">Search Criteria</div>
     <div class="m-2">
       <div class="form-group">
-        <label for>Onyen</label>
-        <input type="text" class="form-control" placeholder="Onyen" v-model="criteria.uid" />
+        <label for="onyen">Onyen</label>
+        <input type="text" class="form-control" placeholder="Onyen" v-model="criteria.uid" id="onyen"/>
       </div>
       <div class="form-group">
-        <label for>Domain</label>
+        <label for="domain-select">Domain</label>
         <select
           name="domain-select"
           id="domain-select"

@@ -10,9 +10,10 @@
       <div class="card-body">
         <div class="container">
           <div class="form-group">
-            <label for>Search</label>
+            <label for="filter">Search</label>
             <input
               type="text"
+              id="filter"
               class="form-control"
               v-select-all
               placeholder="name, domain, onyen, etc.. "
