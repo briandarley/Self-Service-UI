@@ -1,53 +1,123 @@
-.admin-onyen{
-    display:flex;
+.row-header {
+  display: flex;
 
-    .col:nth-child(2){
-        text-align: right;
-    }
-}
-.alias-domains .row{
-    display:flex;
+  >div {
+    flex: 4;
 
-    .col:nth-child(2){
-        text-align: right;
+    &:nth-of-type(2) {
+      flex: 1;
     }
+
+    &:nth-of-type(3) {
+      flex: 1;
+      text-align: right;
+    }
+  }
 }
-.add-domain{
+
+.domain-detail {
+
+  .entity-detail {
     display: flex;
-    justify-content: center;
-    
-}
-.more-info {
-    margin-left: 10px;
-    border: 1px solid $gray-500;
-    border-radius: 5px;
-    padding: 2px 3px;
-  }
-  .more-info.expanded {
-    transform: rotate(-180deg);
-    transition: transform 150ms ease;
-  }
-  .more-info.collapsed {
-    transform: rotate(-360deg);
-    transition: transform 150ms ease;
-  }
 
-  .expand-enter-active {
-    transition: all 0.5s ease;
-    height: 242px;
-    overflow: hidden;
-    .sdd-grid {
-      overflow: hidden !important;
+    >div {
+      flex: 4;
+
+      &:nth-of-type(2) {
+        flex: 1;
+      }
+
+      &:nth-of-type(3) {
+        flex: 1;
+        text-align: right;
+      }
     }
   }
-  
-  .expand-leave-active {
-    transition: all 0.5s ease;
-    height: 242px;
+
+  >div.container {
+    >div {
+      display: block;
+    }
   }
-  .expand-enter,
-  .expand-leave-to {
-    height: 0;
-    opacity: 0;
+
+}
+
+.expanded {
+  transform: rotate(-180deg);
+  transition: transform 150ms ease;
+}
+
+.collapsed {
+  transform: rotate(-360deg);
+  transition: transform 150ms ease;
+}
+
+.child-entities {
+  border: 1px solid $carolina-blue;
+
+  .child-entity {
+    padding: 0 20px;
+    display: flex;
+
+    >div {
+      flex: 1;
+    }
+
+    >div:nth-of-type(2) {
+      text-align: right;
+    }
   }
-  
+
+  .child-entity:nth-of-type(even) {
+    background: $white;
+  }
+
+  .child-entity:nth-of-type(odd) {
+    background: $gray-100;
+  }
+
+
+}
+
+.entity-children {
+  margin: 0 40px;
+}
+
+
+.more-info {
+  margin-left: 10px;
+  border: 1px solid $gray-500;
+  border-radius: 5px;
+  padding: 2px 3px;
+}
+
+.more-info.expanded {
+  transform: rotate(-180deg);
+  transition: transform 150ms ease;
+}
+
+.more-info.collapsed {
+  transform: rotate(-360deg);
+  transition: transform 150ms ease;
+}
+
+.expand-enter-active {
+  transition: all 0.5s ease;
+  height: 242px;
+  overflow: hidden;
+
+  .sdd-grid {
+    overflow: hidden !important;
+  }
+}
+
+.expand-leave-active {
+  transition: all 0.5s ease;
+  height: 242px;
+}
+
+.expand-enter,
+.expand-leave-to {
+  height: 0;
+  opacity: 0;
+}

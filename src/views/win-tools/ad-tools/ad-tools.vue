@@ -23,35 +23,35 @@
 
           <div class="user-actions">
             <div class="action">
-              <router-link :to="{name: 'organizational-units'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'organizational-units'}" class="btn btn-outline-primary">
+                
                   <i class="fas fa-cubes"></i>
                   <span>Organization Units</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'account-info'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'account-info'}" class="btn btn-outline-primary">
+                
                   <i class="fab fa-linode"></i>
                   <span>Account Info</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'account-lockouts'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'account-lockouts'}" class="btn btn-outline-primary">
+                
                   <i class="fas fa-user-lock"></i>
                   <span>Account Lockouts</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'ad-groups'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'ad-groups'}" class="btn btn-outline-primary">
+                
                   <i class="fas fa-object-group"></i>
                   <span>Groups</span>
-                </a>
+                
               </router-link>
             </div>
           </div>

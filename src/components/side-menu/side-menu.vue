@@ -19,11 +19,11 @@
     <transition-group class="nav" name="fly_in" tag="ul">   
       <li
         class="nav-item"
-        v-for="item in routes"
+        v-for="(item, index) in routes"
         :key="item.id"  
         :class="{'active': isMenuActive(item), 'has-children': hasChildren(item)}"
       >
-        <router-link :to="{path: '/'+ item.route}" v-if="!item.redirect" class="nav-link">
+        <router-link :to="{path: '/'+ item.route}" v-if="!item.redirect" class="nav-link" :tabindex="index">
         <i class="material-icons" v-if="item.iconType === 'material'">{{item.iconContent}}</i>
             <i class="fa fas" :class="item.iconContent" v-if="item.iconType === 'fontawesome'"></i>
             <p>{{item.title}}</p>

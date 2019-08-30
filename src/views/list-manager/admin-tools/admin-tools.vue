@@ -10,27 +10,25 @@
       <div class="card-body">
         <div class="user-actions">
           <div class="action">
-            <router-link :to="{name: 'change-list-owner'}">
-              <a href="#" class="btn btn-outline-primary">
+            <router-link :to="{name: 'change-list-owner'}" class="btn btn-outline-primary">
                 <i class="far fa-address-book"></i>
                 <span>Change List Owner</span>
-              </a>
             </router-link>
           </div>
           <div class="action">
-            <router-link :to="{name: 'create-list'}">
-              <a href="#" class="btn btn-outline-primary">
+            <router-link :to="{name: 'create-list'}" class="btn btn-outline-primary">
+              
                 <i class="material-icons">create</i>
                 <span>Create List</span>
-              </a>
+              
             </router-link>
           </div>
-          <div class="action">
-            <router-link :to="{name: 'delete-list'}">
-              <a href="#" class="btn btn-outline-primary">
+          <div class="action" >
+            <router-link :to="{name: 'delete-list'}" class="btn btn-outline-primary">
+              
                 <i class="far fa-trash-alt"></i>
                 <span>Delete List</span>
-              </a>
+              
             </router-link>
           </div>
         </div>

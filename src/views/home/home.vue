@@ -30,43 +30,33 @@
 
           <div class="user-actions">
             <div class="action">
-              <router-link :to="{name: 'emailsignup'}">
-                <a href="#" class="btn btn-outline-primary">
-                  <i class="material-icons">email</i>
-                  <span>Email Sign-Up</span>
-                </a>
+              <router-link :to="{name: 'emailsignup'}" class="btn btn-outline-primary">
+                <i class="material-icons">email</i>
+                <span>Email Sign-Up</span>
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'listserv-subscriptions'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'listserv-subscriptions'}" class="btn btn-outline-primary">
                   <i class="material-icons">subscriptions</i>
                   <span>Listserv Subscriptions</span>
-                </a>
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'my-aliases'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'my-aliases'}" class="btn btn-outline-primary">
                   <i class="material-icons">person_outline</i>
                   <span>My Aliases</span>
-                </a>
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'my-ad-groups'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'my-ad-groups'}" class="btn btn-outline-primary">
                   <i class="material-icons">group_work</i>
                   <span>My AD Groups</span>
-                </a>
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'my-resources'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'my-resources'}" class="btn btn-outline-primary">
                   <i class="fa fa-book"></i>
                   <span>My Resources</span>
-                </a>
               </router-link>
             </div>
           </div>

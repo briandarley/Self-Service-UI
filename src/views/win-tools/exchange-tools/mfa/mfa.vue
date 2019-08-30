@@ -21,19 +21,19 @@
 
         <div class="user-actions my-5">
           <div class="action">
-            <router-link :to="{name: 'mfa-reset'}">
-              <a href="#" class="btn btn-outline-primary">
+            <router-link :to="{name: 'mfa-reset'}" class="btn btn-outline-primary">
+              
                 <i class="material-icons">undo</i>
                 <span>MFA Reset</span>
-              </a>
+              
             </router-link>
           </div>
           <div class="action">
-            <router-link :to="{name: 'mfa-manage'}">
-              <a href="#" class="btn btn-outline-primary">
+            <router-link :to="{name: 'mfa-manage'}" class="btn btn-outline-primary">
+              
                 <i class="material-icons">supervised_user_circle</i>
                 <span>MFA Management</span>
-              </a>
+              
             </router-link>
           </div>
         </div>

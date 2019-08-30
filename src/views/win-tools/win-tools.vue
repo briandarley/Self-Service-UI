@@ -20,27 +20,27 @@
 
           <div class="user-actions">
             <div class="action">
-              <router-link :to="{name: 'exchange-tools'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'exchange-tools'}" class="btn btn-outline-primary">
+                
                   <i class="fa fas fas fa-mail-bulk"></i>
                   <span>Exchange Tools</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'ad-tools'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'ad-tools'}" class="btn btn-outline-primary">
+                
                   <i class="fa fas fas fa-project-diagram"></i>
                   <span>AD Tools</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'systems'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'systems'}" class="btn btn-outline-primary">
+                
                   <i class="fa fas fas fa-network-wired"></i>
                   <span>Systems</span>
-                </a>
+                
               </router-link>
             </div>
           </div>

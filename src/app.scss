@@ -317,14 +317,14 @@ input::placeholder {
 
 
 
-.sb-scrollbar {
+.sb-scrollbar,.slim-scrollbar {
   position: absolute;
   right: 2px;
   width: 7px;
   min-height: 10px;
 }
 
-.sb-scrollbar:before {
+.sb-scrollbar:before, .slim-scrollbar:before {
   position: absolute;
   content: "";
   background: #000;
@@ -336,24 +336,24 @@ input::placeholder {
 
 }
 
-.simplebar-track .sb-scrollbar.simplebar-visible:before {
+.simplebar-track .sb-scrollbar.simplebar-visible:before,.simplebar-track .slim-scrollbar.simplebar-visible:before {
   /* When hovered, remove all transitions from drag handle */
   opacity: 0.5;
   transition: opacity 0s linear;
 }
 
-.simplebar-track.simplebar-vertical .sb-scrollbar:before {
+.simplebar-track.simplebar-vertical .sb-scrollbar:before,.simplebar-track.simplebar-vertical .slim-scrollbar:before {
   top: 2px;
   bottom: 2px;
 }
 
-.simplebar-track.simplebar-horizontal .sb-scrollbar:before {
+.simplebar-track.simplebar-horizontal .sb-scrollbar:before,.simplebar-track.simplebar-horizontal .slim-scrollbar:before {
   height: 100%;
   left: 2px;
   right: 2px;
 }
 
-.simplebar-track.simplebar-horizontal .sb-scrollbar {
+.simplebar-track.simplebar-horizontal .sb-scrollbar,.simplebar-track.simplebar-horizontal .slim-scrollbar {
   right: auto;
   left: 0;
   top: 2px;

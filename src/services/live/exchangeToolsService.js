@@ -85,7 +85,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 return response.data;
 
             } catch (e) {
-                
+
                 if (e.message.includes("404")) {
                     return {
                         status: false
@@ -473,8 +473,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         async getDistributionGroupMembers(id) {
             try {
                 const handler = await httpHandlerService.get();
-                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/members`);
-                {
+                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/members`); {
                     return response.data;
                 }
 
@@ -490,8 +489,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         async getDistributionGroupManagers(id) {
             try {
                 const handler = await httpHandlerService.get();
-                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/managers`);
-                {
+                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/managers`); {
                     return response.data;
                 }
 
@@ -672,13 +670,34 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getAvailableDomains() {
+        // async getAvailableDomains() {
+        //     try {
+        //         const handler = await httpHandlerService.get();
+
+        //         let response = await handler.get(`/WinTools/systems/available-domains`);
+
+        //         return response.data;
+        //     } catch (e) {
+        //         if (e.message.includes("404")) {
+        //             return {
+        //                 status: false
+        //             };
+        //         }
+        //         throw e;
+        //     }
+        // },
+
+        //
+        async getAliasManagers(criteria) {
             try {
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.get(`/WinTools/systems/available-domains`);
+                let queryParams = commonExtensions.convertToQueryParams(criteria);
+                
+                let response = await handler.get(`/WinTools/systems/alias-managers?${queryParams}`);
 
                 return response.data;
+
             } catch (e) {
                 if (e.message.includes("404")) {
                     return {
@@ -688,6 +707,74 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
+        async removeAliasManager(domains, uid) {
+            try {
+                const handler = await httpHandlerService.get();
+                
+                let response = await handler.delete(`/WinTools/systems/alias-manager/${uid}`,  {data:domains});
+
+                return response.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async addAliasManager(domains, uid) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.post(`/WinTools/systems/alias-manager/${uid}`, domains);
+
+                return response.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        _promise_getAliasDomains:null,
+        async getAliasDomains() {
+            try {
+                //multiple calls are occurring at the same time, prevent this with the promise, 
+                //clear promise after 5 sec
+                if(this._promise_getAliasDomains){
+                    let response = await this._promise_getAliasDomains;
+                    setTimeout(()=> {
+                        this._promise_getAliasDomains = null;
+                    }, 5000)
+                    return response;
+                }
+
+                return this._promise_getAliasDomains = new Promise(async (resolve,reject) => {
+
+                    const handler = await httpHandlerService.get();
+
+                    let response = await handler.get(`/WinTools/systems/alias-domains`);
+    
+                    resolve(response.data);
+                });
+               
+               
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+
         async addAuthorizedDomain(userID, domain) {
             try {
                 const handler = await httpHandlerService.get();
@@ -724,12 +811,12 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
 
-                
+
                 let response = await handler.get(`/WinTools/exchange-tools/ad-tools/office365-mailboxes/${userId}`);
 
                 return response.data;
             } catch (e) {
-                
+
                 if (e.message.includes("404")) {
                     return {
                         status: false
@@ -738,8 +825,8 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        
-        async setForwardingAddress(userId, forwardingAddress){
+
+        async setForwardingAddress(userId, forwardingAddress) {
             try {
                 const handler = await httpHandlerService.get();
 

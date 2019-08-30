@@ -1,0 +1,126 @@
+.all-records-select{
+  display:flex;
+  >div{
+    flex:1;
+
+    &:nth-of-type(2){
+      display:block;
+      text-align: right;
+      
+     input{
+       margin:0 20px 0;       
+     }
+    }
+  }
+}
+.domain-list{
+  height:250px;
+  
+  overflow-y:scroll;
+  border: 1px solid $carolina-blue;
+  
+  .records{
+    display: flex;
+    &:nth-of-type(even){
+      background: $gray-100;
+    }
+    >div{
+      flex:1;
+      align-self: center;
+      &:nth-of-type(2){
+        display:block;
+        text-align: right;
+        
+       input{
+         margin:0;
+         margin-top:4px;
+         
+       }
+      }
+    }
+  }
+
+}
+
+.row-header {
+    display: flex;
+  
+    >div {
+      flex: 1;
+  
+      &:nth-of-type(2) {
+        flex: 1;
+      }
+  
+      &:nth-of-type(3) {
+        flex: 1;
+        text-align: right;
+      }
+    }
+  }
+
+  
+.user-detail {
+    .row-header {
+     >div {
+        &:nth-of-type(1) {
+            flex: 2;
+          }
+        &:nth-of-type(2) {
+            flex: 1;
+          }
+          &:nth-of-type(3) {
+            flex: 1;
+            text-align: right;
+          }
+     }
+
+    }
+    .entity-detail {
+      display: flex;
+  
+      >div {
+        flex: 4;
+        &:nth-of-type(1) {
+            flex: 2;
+          }
+        &:nth-of-type(2) {
+          flex: 1;
+          
+        }
+  
+        &:nth-of-type(3) {
+          flex: 1;
+          text-align: right;
+          
+        }
+      }
+
+      
+    }
+    .child-entity{
+        display: flex;
+        >div{
+            flex:1;
+            
+            &:nth-of-type(1){
+                flex:2;
+            }
+            &:nth-of-type(2){
+                flex:1;
+                text-align: left !important;
+                
+            }
+            &:nth-of-type(3){
+                flex:1;
+                text-align: right;
+            }
+        }
+      }
+    >div.container {
+      >div {
+        display: block;
+      }
+    }
+  
+  }

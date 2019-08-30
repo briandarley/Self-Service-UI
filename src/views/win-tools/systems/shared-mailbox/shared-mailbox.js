@@ -47,7 +47,7 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
     return entity.name;
   }
-
+ 
   async loadOrganizationalUnits() {
     this.spinnerService.show();
     try {

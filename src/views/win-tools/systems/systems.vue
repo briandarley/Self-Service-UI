@@ -26,35 +26,35 @@
 
           <div class="user-actions">
             <div class="action">
-              <router-link :to="{name: 'provision-status'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'provision-status'}" class="btn btn-outline-primary">
+                
                   <i class="fa fas fas fa-digital-tachograph"></i>
                   <span>Provision Status</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'shared-mailbox'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'shared-mailbox'}" class="btn btn-outline-primary">
+                
                   <i class="fa fas fas fa-mail-bulk"></i>
                   <span>Shared Mailbox</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'resource-mailbox'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'resource-mailbox'}" class="btn btn-outline-primary">
+                
                   <i class="material-icons">contact_mail</i>
                   <span>Resource Mailbox</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'alias-authority'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'alias-authority'}" class="btn btn-outline-primary">
+                
                   <i class="fa fas far fa-id-card"></i>
                   <span>Alias Authority</span>
-                </a>
+                
               </router-link>
             </div>
 

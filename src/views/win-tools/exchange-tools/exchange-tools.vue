@@ -20,44 +20,44 @@
 
           <div class="user-actions">
             <div class="action">
-              <router-link :to="{name: 'provisioning'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'provisioning'}" class="btn btn-outline-primary">
+                
                   <i class="material-icons">email</i>
                   <span>Provisioning</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'aliases'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'aliases'}" class="btn btn-outline-primary">
+                
                   <i class="fa fas fa fa-user-circle-o"></i>
                   <span>Aliases</span>
-                </a>
+                
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'resources'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'resources'}" class="btn btn-outline-primary">
+              
                   <i class="material-icons">ballot</i>
                   <span>Resources</span>
-                </a>
+              
               </router-link>
             </div>
             <div class="action">
-              <router-link :to="{name: 'compromised-accounts'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'compromised-accounts'}" class="btn btn-outline-primary">
+                
                   <i class="fa fas fas fa-skull-crossbones"></i>
                   <span>Compromised Accounts</span>
-                </a>
+                
               </router-link>
             </div>
 
             <div class="action">
-              <router-link :to="{name: 'mfa'}">
-                <a href="#" class="btn btn-outline-primary">
+              <router-link :to="{name: 'mfa'}" class="btn btn-outline-primary">
+                
                   <i class="material-icons">verified_user</i>
                   <span>MFA</span>
-                </a>
+                
               </router-link>
             </div>
           </div>
