@@ -23,6 +23,7 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 body {
   font-family: 'Roboto', sans-serif;
+  font-display: auto;
   /*hack to get dialog behavior correct*/
   position: relative;
   z-index: -1;
