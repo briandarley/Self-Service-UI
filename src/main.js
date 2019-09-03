@@ -214,6 +214,14 @@ new Vue({
     this.currentRoute = router.currentRoute.name;
   },
   mounted() {
+
+    if (process.env.NODE_ENV === "production") {
+      if (window.location.protocol != "https:") {
+        window.location.protocol = "https:";
+        window.location.reload();
+      }
+    }
+
     this.$refs.toastr.defaultPosition = 'toast-bottom-right';
     this.$refs.toastr.defaultTimeout = 3000;
   }
