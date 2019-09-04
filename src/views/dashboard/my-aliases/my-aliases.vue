@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fa-user-circle-o"></i>
+          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
         </div>
         <h3>My Aliases</h3>
       </div>
@@ -13,7 +13,7 @@
             <div class="col">
               <div class="alert alert-info">
                 <div class="info">
-                  <i class="fa fa-info-circle"></i>
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </div>
                 <div>
                   <p>
@@ -40,11 +40,11 @@
 
               <div v-if="!item.originalPrimary">
                 <a href="#" @click.prevent="setPrimaryAlias(item)" class="mr-2">
-                  <i class="fa fa-save"></i>
+                  <i class="fa fa-save" aria-hidden="true"></i>
                   set primary
                 </a>
                 <a href="#" @click.prevent="removeAlias(item)">
-                  <i class="fa fa-trash"></i>
+                  <i class="fa fa-trash" aria-hidden="true"></i>
                   remove
                 </a>
               </div>
@@ -54,32 +54,51 @@
             </div>
 
             <!-- Add New Alias -->
-            <div class="form-group form-inline add-new-alias" v-if="showAddAlias">
-              <label for="newAlias">New Alias</label>
-              <input
-                type="text"
-                id="newAlias"
-                class="form-control"
-                placeholder="email alias"
-                v-model="model.mailPrefix"
-              >
-              <div class="input-group-append">
-                <span class="input-group-text">@</span>
+            <form class="add-new-alias" v-if="showAddAlias" role="form">
+              <h4>Add New Alias</h4>
+              <div class="col form-group">
+                <div class="label-info">
+                  <label for="newAlias">New Alias (E-mail prefix)</label>
+                  <span class="required">Required</span>
+                </div>
+                <input
+                  type="text"
+                  id="newAlias"
+                  class="form-control"
+                  placeholder="email alias"
+                  v-model="model.mailPrefix"
+                  data-validation="{'name': 'E-mail alias (prefix)','required': 'true'}"
+                  ref="newAlias"
+                  v-select-all
+                />
+              </div>
+              <div class="col form-group">
+                <div class="input-group-append">
+                  <span class="input-group-text">@</span>
+                </div>
+              </div>
+              <div class="col form-group">
+                <div class="label-info">
+                  <label for="select-domain">Domain</label>
+                  <span class="required">Required</span>
+                </div>
+                
+                <select class="form-control" v-model="model.domain" id="select-domain">
+                  <option v-for="item in allowedDomains" :key="item" :value="item">{{item}}</option>
+                </select>
               </div>
 
-              <select class="form-control" v-model="model.domain">
-                <option v-for="item in allowedDomains" :key="item" :value="item">{{item}}</option>
-              </select>
-
-              <button class="btn btn-primary" @click="addAlias">Add Alias</button>
-            </div>
+              <div class="submit">
+                <button class="btn btn-primary" @click="addAlias">Add Alias</button>
+              </div>
+            </form>
             <!-- End Add New Alias -->
           </div>
         </div>
         <div v-else>
           <div class="alert alert-warning">
             <div class="info">
-              <i class="fa fa-exclamation-circle"></i>
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
             </div>
             <p
               class="py-4 my-3"

@@ -1,9 +1,9 @@
 import Vue from "vue"
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({
     name: 'office-365-info',
-    dependencies: ['$','moment','toastService','spinnerService'],
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService'],
     props: ['data']
     
   })
@@ -11,6 +11,7 @@ import { Component, Watch } from "vue-property-decorator";
 export default class Office365Info extends Vue {
   async mounted() { 
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Office 365 Information");
   }
   
 }

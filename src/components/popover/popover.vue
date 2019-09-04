@@ -7,7 +7,7 @@
        v-bind:title="title"
        data-trigger="focus"
        v-bind:data-content="dataContent">
-      <i class="fa fa-info-circle"></i> {{linkText}}
+      <i class="fa fa-info-circle" aria-hidden="true"></i> {{linkText}}
     </a>
 
 

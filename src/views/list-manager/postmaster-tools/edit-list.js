@@ -13,7 +13,8 @@ import {
     "toastService",
     "spinnerService",
     "ListManagerService",
-    "ValidationService"
+    "ValidationService",
+    "ScreenReaderAnnouncerService"
   ],
   components: {}
   //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
@@ -357,7 +358,7 @@ export default class EditList extends Vue {
     this.modelUpdateList.html = `
     <div class="alert alert-warning">
         <div class="info">
-            <i class="fa fa-exclamation-triangle m-0"></i>
+            <i class="fa fa-exclamation-triangle m-0" aria-hidden="true"></i>
         </div>
         <p>
         ${this.data.disabled ? "Please confirm Enable List?" : "Please confirm Disable List?"}
@@ -401,7 +402,7 @@ export default class EditList extends Vue {
     this.modelUpdateList.html = `
     <div class="alert alert-danger">
                         <div class="info">
-                          <i class="fa fa-exclamation-triangle"></i>
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                         </div>
                         <p>${this.data.maxMembers === 0 ? "Enforce Subscriber Cap?" : "Turn Off Subscriber Cap?"}</p>
                       </div>
@@ -447,7 +448,7 @@ export default class EditList extends Vue {
     this.modelUpdateList.html = `
     <div class="alert alert-danger">
         <div class="info">
-            <i class="fa fa-exclamation-triangle m-0"></i>
+            <i class="fa fa-exclamation-triangle m-0" aria-hidden="true"></i>
         </div>
         <p>
         Confirm Delete "${this.data.listName}"?
@@ -517,6 +518,7 @@ export default class EditList extends Vue {
 
     await this.getMembers();
     this.getMetrics();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Edit Lyris List");
   }
 
 }

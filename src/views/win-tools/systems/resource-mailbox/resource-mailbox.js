@@ -10,7 +10,7 @@ import {
 
 @Component({
   name: 'shared-mailbox',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','ScreenReaderAnnouncerService']
 
 })
 export default class ResourceMailbox extends BaseValidateMixin {
@@ -67,6 +67,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
   async mounted() {
     this.toastService.set(this);
     await this.loadOrganizationalUnits();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Systems - Resource Mailbox");
   }
   
   async getDistributionGroup() {

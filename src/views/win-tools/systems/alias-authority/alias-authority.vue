@@ -3,14 +3,14 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="far fa-id-card"></i>
+          <i class="far fa-id-card" aria-hidden="true"></i>
         </div>
         <h3>Alias Authority</h3>
       </div>
       <div class="card-body">
         <div class="alert alert-info">
           <div class="info">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <div>
             <p>This tool may be used to manage aliases for users who are authorized to administer aliases.</p>

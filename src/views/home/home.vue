@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">home</i>
+          <i class="material-icons" aria-hidden="true">home</i>
         </div>
         <h3>Self Service Home</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="border border-primary">
           <div class="alert alert-info">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p>
@@ -28,34 +28,34 @@
             </div>
           </div>
 
-          <div class="user-actions">
-            <div class="action">
+          <div class="user-actions" role="menu">
+            <div class="action" role="menuitem">
               <router-link :to="{name: 'emailsignup'}" class="btn btn-outline-primary">
-                <i class="material-icons">email</i>
+                <i class="material-icons" aria-hidden="true">email</i>
                 <span>Email Sign-Up</span>
               </router-link>
             </div>
-            <div class="action">
+            <div class="action" role="menuitem">
               <router-link :to="{name: 'listserv-subscriptions'}" class="btn btn-outline-primary">
-                  <i class="material-icons">subscriptions</i>
+                  <i class="material-icons" aria-hidden="true">subscriptions</i>
                   <span>Listserv Subscriptions</span>
               </router-link>
             </div>
-            <div class="action">
+            <div class="action" role="menuitem">
               <router-link :to="{name: 'my-aliases'}" class="btn btn-outline-primary">
-                  <i class="material-icons">person_outline</i>
+                  <i class="material-icons" aria-hidden="true">person_outline</i>
                   <span>My Aliases</span>
               </router-link>
             </div>
-            <div class="action">
+            <div class="action" role="menuitem">
               <router-link :to="{name: 'my-ad-groups'}" class="btn btn-outline-primary">
-                  <i class="material-icons">group_work</i>
+                  <i class="material-icons" aria-hidden="true">group_work</i>
                   <span>My AD Groups</span>
               </router-link>
             </div>
-            <div class="action">
+            <div class="action" role="menuitem">
               <router-link :to="{name: 'my-resources'}" class="btn btn-outline-primary">
-                  <i class="fa fa-book"></i>
+                  <i class="fa fa-book" aria-hidden="true"></i>
                   <span>My Resources</span>
               </router-link>
             </div>

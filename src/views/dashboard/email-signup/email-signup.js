@@ -8,7 +8,7 @@ import {
 
 @Component({
   name: 'email-signup',
-  dependencies: ['$', 'moment', 'spinnerService', 'toastService', 'ProvisionsService', 'UserProfileService', 'UserService']
+  dependencies: ['$', 'moment', 'spinnerService', 'toastService', 'ProvisionsService', 'UserProfileService', 'UserService','ScreenReaderAnnouncerService']
 })
 export default class EmailSignup extends BaseValidateMixin {
   showProgress = false;
@@ -159,6 +159,7 @@ export default class EmailSignup extends BaseValidateMixin {
 
   async mounted() {
     await this.loadProvisionProfile();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("E-mail signup");
 
   }
   async loadProvisionProfile(){

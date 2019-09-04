@@ -3,7 +3,7 @@
      <div class="card card-icon">                    
        <div class="card-header text-primary">       
            <div class="icon bg-primary text-white"> 
-             <i class="material-icons">security</i> 
+             <i class="material-icons" aria-hidden="true">security</i> 
             </div>
             <h3>Administration</h3>                                     
        </div>                                         

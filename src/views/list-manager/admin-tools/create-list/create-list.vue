@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">create</i>
+          <i class="material-icons" aria-hidden="true">create</i>
         </div>
         <h3>Create List</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="container">
           <div class="alert alert-warning">
             <div class="info">
-              <i class="fas fa-exclamation-circle"></i>
+              <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
             </div>
             <p class="my-4 p-2">
               Note: Open and Closed mailing lists have a subscriber cap of 250 members. For details on this policy visit the

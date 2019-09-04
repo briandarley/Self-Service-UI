@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">email</i>
+          <i class="material-icons" aria-hidden="true">email</i>
         </div>
         <h3>Provisioning</h3>
       </div>
@@ -106,7 +106,7 @@
               <div v-if="!enterEmailResponse">
                 <div class="alert alert-info">
                   <div class="info">
-                    <i class="fa fa-question-circle"></i>
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
                   </div>
                   <div>
                     <p>User {{userLdap.displayName}}, Onyen {{userLdap.uid}}, PID {{userLdap.pid}} does not have an e-mail provisioned.</p>
@@ -122,7 +122,7 @@
               <div class="additional-emails" v-if="enterEmailResponse">
                 <div class="alert alert-info">
                   <div class="info">
-                    <i class="fa fa-info-circle"></i>
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
                   </div>
                   <div>
                     <p>
@@ -172,7 +172,7 @@
             <div v-if="showNoLdapRecord">
               <div class="alert alert-warning">
                 <div class="info">
-                  <i class="fa fa-exclamation-triangle"></i>
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 </div>
                 <div>
                   <p>

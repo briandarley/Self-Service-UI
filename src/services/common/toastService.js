@@ -1,7 +1,7 @@
 import injector from 'vue-inject';
 
 
-function toastService() {
+function toastService(ScreenReaderAnnouncerService) {
   return {
     module: null,
     set(module) {
@@ -10,17 +10,33 @@ function toastService() {
 
     warn(msg) {
       this.module.$root.$refs.toastr.w("warning", msg);
+      ScreenReaderAnnouncerService.sendAnnouncement(`Operation Warning, ${msg}`)
+      setTimeout(()=> {
+        ScreenReaderAnnouncerService.clear();
+      },500)
     },
     success(msg) {
       this.module.$root.$refs.toastr.s("success", msg);
+      ScreenReaderAnnouncerService.sendAnnouncement(`Opperation Successful, ${msg}`)
+      setTimeout(()=> {
+        ScreenReaderAnnouncerService.clear();
+      },500)
     },
     info(msg) {
       this.module.$root.$refs.toastr.i("information", msg);
+      ScreenReaderAnnouncerService.sendAnnouncement(`Information Notice, ${msg}`)
+      setTimeout(()=> {
+        ScreenReaderAnnouncerService.clear();
+      },500)
     },
     error(msg) {
       this.module.$root.$refs.toastr.e("error", msg);
+      ScreenReaderAnnouncerService.sendAnnouncement(`Opperation Failed, ${msg}`)
+      setTimeout(()=> {
+        ScreenReaderAnnouncerService.clear();
+      },500)
     }
   }
 }
 
-injector.service('toastService', toastService);
+injector.service('toastService', ['ScreenReaderAnnouncerService'], toastService);

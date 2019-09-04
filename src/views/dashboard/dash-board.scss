@@ -17,6 +17,51 @@
 }
 
 
+.widget{
+    .spinner {
+        position: absolute;
+        top: -20px !important;
+    }
+}
+.widget-nav {
+    display: flex;
+    a span{
+        position: absolute;
+        display:block;
+        text-indent: -9999px;
+        text-align:left;
+        overflow:hidden;
+        
+    }
+    div {
+        flex: 1;
+        font-size: 1.8em;
+        align-self: flex-end;
+
+        padding: 0;
+
+        &:nth-of-type(2) {
+            flex: 10;
+            text-align: center;
+            align-self: flex-start;
+            font-size: 1em;
+            span{
+                display: block;
+            }
+        }
+        &:nth-of-type(3){
+            text-align: right;
+        }
+
+    }
+    .max-date {
+        color: $gray-500;
+    }
+}
+
+
+
+
 @media only screen and (max-width: 600px) {
     .dashboard-widgets {
     grid-template-columns: 1fr;

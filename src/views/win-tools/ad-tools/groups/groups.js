@@ -6,7 +6,7 @@ import {
 
 @Component({
   name: 'groups',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService', 'EventBus']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService', 'EventBus','ScreenReaderAnnouncerService']
   
 
 })
@@ -187,6 +187,7 @@ export default class Groups extends Vue {
   }
   async mounted() {
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Active Directory - Groups");
 
   }
 

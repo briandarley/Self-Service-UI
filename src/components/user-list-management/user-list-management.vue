@@ -14,14 +14,14 @@
           <div class="col">{{item.id}}</div>
           <div class="col">
             <a href="#" @click.prevent="removeEntity(item.samAccountName)">
-              <i class="fa fa-trash-o"></i>
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
               <span>remove</span>
             </a>
           </div>
         </div>
         <div class="container">
           <div class="add-member">
-           <div class="form-group form-inline">
+           <form class="form-group form-inline" role="form">
               <label for="entityId">Entity Id</label>
               <input
                 type="text"
@@ -37,7 +37,7 @@
                 <button class="btn btn-primary" @click="onLookupMember()">Search</button>
                 <button class="btn btn-secondary" @click="onClear()">Clear</button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

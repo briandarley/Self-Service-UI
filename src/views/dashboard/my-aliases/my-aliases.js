@@ -1,4 +1,8 @@
-import Vue from "vue"
+import {
+  BaseValidateMixin
+} from "../../../components/mixins/index";
+//"../../../../components/mixins/index";
+
 import {
   Component,
   Watch
@@ -6,11 +10,11 @@ import {
 
 @Component({
   name: 'my-aliases',
-  dependencies: ['$', 'spinnerService', 'toastService', 'UserProfileService', 'UserService','DashboardService']
+  dependencies: ['$', 'spinnerService', 'toastService', 'UserProfileService', 'UserService', 'DashboardService','CommonExtensions','ScreenReaderAnnouncerService']
 
 })
 
-export default class MyAliases extends Vue {
+export default class MyAliases extends BaseValidateMixin {
   userId = null;
   userLdapProfile = null;
   userAdProfile = null;
@@ -18,7 +22,8 @@ export default class MyAliases extends Vue {
   allowedDomains = [];
   monitorEmailAddressChange = false;
   successfullyLoaded = true;
-  
+  mailPrefix = "";
+
   model = {
     email: "",
     mailPrefix: "",
@@ -61,7 +66,7 @@ export default class MyAliases extends Vue {
   }
 
   getEmailAddresses() {
-    let proxyAddresses = this.userAdProfile.proxyAddresses.filter(c=> !c.endsWith("adminliveunc.mail.onmicrosoft.com"))
+    let proxyAddresses = this.userAdProfile.proxyAddresses.filter(c => !c.endsWith("adminliveunc.mail.onmicrosoft.com"))
     let smtpAddresses = proxyAddresses.map(c => {
       if (c.startsWith("SMTP:")) {
         return {
@@ -86,21 +91,24 @@ export default class MyAliases extends Vue {
     this.spinnerService.show();
     try {
       await this.loadProvisionProfile();
-
+      this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("My E-mail Aliases");
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to retrieve user profile");
 
     } finally {
       this.spinnerService.hide();
+
+      
     }
 
   }
 
-get showAddAlias() {
-  if(this.UserService.isInRole("HELP_DESK")) return true;
-  return (this.emailAddresses && this.emailAddresses.length <= 5);
-}
+  get showAddAlias() {
+    if (this.UserService.isInRole("HELP_DESK")) return true;
+    return (this.emailAddresses && this.emailAddresses.length <= 5);
+  }
+
   async loadProvisionProfile() {
     this.viewLoaded = false;
     await this.setUserId();
@@ -194,29 +202,39 @@ get showAddAlias() {
     await this.loadProvisionProfile();
   }
 
-  _underMaxAliasCount(){
+  _underMaxAliasCount() {
     //check if user is an admin, if so return true
-    if(this.UserService.isInRole("HELP_DESK")) return true;
-    
+    if (this.UserService.isInRole("HELP_DESK")) return true;
+
     return this.emailAddresses.length <= 6
   }
 
-  async _validateAliasEntry(){
+  async _validateAliasEntry() {
+    
+    let errors = this.validate();
+    if (errors.length) {
+      this.toastService.error("Validation Failed");
+      return false;
+    }
     if (!this.newAlias) {
       this.toastService.error("Invalid email")
       return false;
     }
+    if(!this.CommonExtensions.isValidEmailAddress(this.newAlias)){
+      this.toastService.error("Invalid email")
+      return false;
+    }
     
+
     //this needs to be false, meaning alias has not been added. 
     let adUserProfile = await this.DashboardService.getAdUserProfile(this.newAlias);
-    
+
     if (adUserProfile.status !== false) {
       this.toastService.error("Requested alias has already been taken by another user. ")
       return false;
     }
 
-    if(!this._underMaxAliasCount())
-    {
+    if (!this._underMaxAliasCount()) {
       this.toastService.error("You have exceeded the maximum number of allowed aliases.  You must be below the maximum of 5 before being allowed to add another.")
       return false;
     }
@@ -225,7 +243,7 @@ get showAddAlias() {
   }
 
   async addAlias() {
-    if(!await this._validateAliasEntry()) return;
+    if (!await this._validateAliasEntry()) return;
 
 
     this.spinnerService.show();

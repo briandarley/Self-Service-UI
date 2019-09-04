@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="far fa-trash-alt"></i>
+          <i class="far fa-trash-alt" aria-hidden="true"></i>
         </div>
         <h3>Delete List</h3>
       </div>
@@ -12,7 +12,7 @@
           <div class="system-message">
             <div class="alert alert-warning">
               <div class="info">
-                <i class="far fa-stop-circle"></i>
+                <i class="far fa-stop-circle" aria-hidden="true"></i>
               </div>
               <div class="message">
                 <p class="pt-3 h4 text-secondary">It appears you have no Lyrist Lists to manage.</p>
@@ -26,7 +26,7 @@
           <div class="system-message">
             <div class="alert alert-info">
               <div class="info">
-                <i class="fa fa-info-circle"></i>
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
               </div>
               <div class="message">
                 <p

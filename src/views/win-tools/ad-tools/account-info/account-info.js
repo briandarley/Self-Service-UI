@@ -9,7 +9,7 @@ import CampusDirectoryInfo from './campus-directory-info/campus-directory-info.v
 import Office365Info from './office-365-info/office-365-info.vue';
 @Component({
   name: 'account-info',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','EventBus'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','EventBus','ScreenReaderAnnouncerService'],
   components: {
     ActiveDirectoryInfo,
     AuditInfo,
@@ -95,6 +95,7 @@ clearArrays(){
 
   async mounted() {
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Account Info");
   }
 
 }

@@ -8,7 +8,8 @@ import { Component } from "vue-property-decorator";
     "toastService",
     "spinnerService",
     "ExchangeToolsService",
-    "CommonExtensions"
+    "CommonExtensions",
+    "ScreenReaderAnnouncerService"
   ]
 })
 export default class Resources extends Vue {
@@ -16,6 +17,7 @@ export default class Resources extends Vue {
   resources = [];
   async mounted() {
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Exchange Tools - Resources");
   }
 
   async search() {

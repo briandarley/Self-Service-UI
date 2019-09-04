@@ -4,7 +4,7 @@ import MfaModifyAccount from "./mfa-modify-account.vue";
 import MfaDisabledAccounts from "./mfa-disabled-accounts.vue";
 @Component({
     name: 'mfa-manage',
-    dependencies: ['$','moment','toastService','spinnerService'],
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService'],
     components:{MfaModifyAccount,MfaDisabledAccounts}
   })
 
@@ -18,6 +18,7 @@ export default class MfaManage extends Vue {
   }
   async mounted() { 
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Exchange Tools - MFA Management");
   }
   
 }

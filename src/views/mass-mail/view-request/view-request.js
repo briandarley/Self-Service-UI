@@ -1,19 +1,18 @@
 import Vue from "vue"
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({
     name: 'view-request',
-    dependencies: ['$','moment','toastService','spinnerService'],
-    components:{}
-    //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService']
+    
+    
   })
 
 export default class ViewRequest extends Vue {
   async mounted() { 
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail View Request");
   }
-  async created(){
-     //called before child views are mounted
-  }
+  
 }
 

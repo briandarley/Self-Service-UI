@@ -73,7 +73,7 @@
       border-radius: 3px;
       cursor: pointer;
 
-      a {
+      a,a:visited {
         text-align: center;
         display: flex;
         flex-direction: row;
@@ -100,7 +100,7 @@
           
         }
 
-        p {
+        span {
           text-align: left;
           margin: 0;
           width: 130px;
@@ -116,7 +116,7 @@
         background: $carolina-blue;
         box-shadow: 0 2px 5px #333;
         
-        a {
+        a,a:visited {
           color: $white;
         }
       }

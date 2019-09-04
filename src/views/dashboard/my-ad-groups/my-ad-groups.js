@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: 'my-ad-groups',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'DashboardService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'DashboardService','ScreenReaderAnnouncerService'],
 
 })
 
@@ -38,8 +38,7 @@ export default class MyAdGroups extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.loadMyAdGroups();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("My Active Directory Groups");
   }
-  async created() {
-    //called before child views are mounted
-  }
+  
 }

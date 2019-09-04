@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">view_agenda</i>
+          <i class="material-icons" aria-hidden="true">view_agenda</i>
         </div>
         <h3>List Deletions</h3>
       </div>
@@ -100,7 +100,7 @@
                                 href="#"
                                 @click.prevent="downloadCsv(item)"
                               >
-                                <i class="fas fa-file-csv"></i>
+                                <i class="fas fa-file-csv" aria-hidden="true"></i>
                               </a>
                             </span>
                           </div>

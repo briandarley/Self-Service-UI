@@ -3,7 +3,7 @@ import { Component } from "vue-property-decorator";
 
 @Component({
     name: 'campus-directory-info',
-    dependencies: ['$','moment','toastService','spinnerService'],
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService'],
     props: ['data']
   
   })
@@ -11,6 +11,7 @@ import { Component } from "vue-property-decorator";
 export default class CampusDirectoryInfo extends Vue {
   async mounted() { 
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Campus Directory Info");
     
   }
   get homeAddress(){

@@ -10,3 +10,4 @@ import './provisionsService';
 import './dataAnalyticsService';
 import './duoAuthService';
 import './administrationService';
+import './ScreenReaderAnnouncerService';

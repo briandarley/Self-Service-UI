@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fa-user-cog"></i>
+          <i class="fa fa-user-cog" aria-hidden="true"></i>
         </div>
         <h3>User Tools</h3>
       </div>
@@ -23,7 +23,7 @@ import { Component } from "vue-property-decorator";
 
 @Component({
   name: "lyris-login",
-  dependencies: ["ConfigReaderService"]
+  dependencies: ["ConfigReaderService","ScreenReaderAnnouncerService"]
 })
 export default class LyrisLogin extends Vue {
   links = [];
@@ -50,6 +50,8 @@ export default class LyrisLogin extends Vue {
     setTimeout(() => {
       this.links = this.data;
     }, 500);
+
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Lyris User Tools");
   }
   
 }

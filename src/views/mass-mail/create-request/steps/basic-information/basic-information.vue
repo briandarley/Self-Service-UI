@@ -46,7 +46,7 @@
                 class="input-group-addon btn btn-outline-light text-info border-secondary"
                 @click="model.sendFrom = ''"
               >
-                <i class="fa fa-at"></i>
+                <i class="fa fa-at" aria-hidden="true"></i>
               </span>
 
               <pop-over
@@ -80,7 +80,7 @@
                 class="input-group-addon btn btn-outline-light text-info border-secondary"
                 @click="model.replyTo = ''"
               >
-                <i class="fa fa-at"></i>
+                <i class="fa fa-at" aria-hidden="true"></i>
               </span>
 
               <pop-over

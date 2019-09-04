@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">ballot</i>
+          <i class="material-icons" aria-hidden="true">ballot</i>
         </div>
         <h3>Resources</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="container">
           <div class="alert alert-info">
             <div class="info">
-              <i class="fas fa-info-circle"></i>
+              <i class="fas fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p>Search system for accounts with OWA resource access.</p>

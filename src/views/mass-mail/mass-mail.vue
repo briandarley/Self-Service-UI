@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">contact_mail</i>
+          <i class="material-icons" aria-hidden="true">contact_mail</i>
         </div>
         <h3>Mass Mail</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="container">
           <div class="alert alert-info">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p
@@ -49,7 +49,7 @@
               <router-link :to="{name: 'create-request'}">Create Request</router-link>from the menu on the left.
             </p>
           </div>
-          <div v-if="activeCampaigns && activeCampaigns.length">
+         <form v-if="activeCampaigns && activeCampaigns.length" role="form">
             <div class="select-list">
               <span
                 class="strong"
@@ -77,11 +77,11 @@
                 </div>
               </div>
             </div>
-          </div>
+          </form>
           <div class="text-right">
             <router-link :to="{name: 'create-request'}" class="btn btn-primary ico">
               <span class>
-                <i data-v-0fe20b93 class="fa fa-newspaper-o"></i>
+                <i data-v-0fe20b93 class="fa fa-newspaper-o" aria-hidden="true"></i>
               </span>
               Create New Request
             </router-link>

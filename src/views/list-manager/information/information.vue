@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fas fa-question-circle"></i>
+          <i class="fa fas fa-question-circle" aria-hidden="true"></i>
         </div>
         <h3>Lyris Information</h3>
       </div>
@@ -23,6 +23,7 @@ import { Component } from "vue-property-decorator";
 
 @Component({
   name: "lyris-information",
+  dependencies: ["ScreenReaderAnnouncerService"]
 })
 export default class LyrisInformation extends Vue {
   links = [];
@@ -49,7 +50,7 @@ export default class LyrisInformation extends Vue {
     }
   ];
   async mounted() {
-  
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Lyris Information");
   
     setTimeout(() => {
       this.links = this.data;

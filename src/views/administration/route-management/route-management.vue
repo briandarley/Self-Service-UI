@@ -3,14 +3,14 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fas fa-network-wired"></i>
+          <i class="fas fa-network-wired" aria-hidden="true"></i>
         </div>
         <h3>Route Management</h3>
       </div>
       <div class="card-body">
         <div class="container">
           <!-- Search Criteria -->
-          <div class="section">
+          <form class="section" role="form">
             <div class="search-criteria">
               <div class="header">Search Routes</div>
               <div class="search-criteria-fields">
@@ -60,7 +60,7 @@
             </div>
 
             <!-- Search Criteria -->
-          </div>
+          </form>
           <div class="section">
             <div class="container">
               <div class="row bg-primary text-white row-header">

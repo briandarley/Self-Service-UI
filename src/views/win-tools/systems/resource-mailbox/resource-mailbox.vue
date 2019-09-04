@@ -3,14 +3,17 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">contact_mail</i>
+          <i class="material-icons" aria-hidden="true">contact_mail</i>
         </div>
         <h3>Resource Mailbox</h3>
       </div>
       <div class="card-body">
+        <div class="border border-primary">
+
+        
         <div class="alert alert-info">
           <div class="info">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <div class="mt-3">
             <p>Create Resource Mailbox, its full-access group and populate group with members.</p>
@@ -66,7 +69,7 @@
             />
           </div>
 
-          <div class="submit text-right">
+          <div class="submit text-right mb-3">
             <button
               class="btn btn-primary mr-1"
               @click="create"
@@ -87,7 +90,7 @@
               @click.prevent="create"
               v-if="showAddMembers"
             >
-              <i class="fa fa-refresh"></i>
+              <i class="fa fa-refresh" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -117,6 +120,8 @@
             ></manager-list-management>
           </div>
           <!-- Add Group Managers -->
+        </div>
+
         </div>
       </div>
     </div>

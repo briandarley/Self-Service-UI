@@ -2,7 +2,7 @@
   <div class="container">
     <div class="alert alert-info">
       <div class="info">
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
       </div>
       <div>
         <p>Enter the user's Onyen to retrieve the current MFA status for the selected user.</p>
@@ -48,8 +48,8 @@
             <div class="col">{{mfaAccountStatus.pid}}</div>
             <div class="col">{{mfaAccountStatus.displayName}}</div>
             <div class="col text-center fa-2x">
-              <i class="fa fa-check text-primary" v-if="mfaAccountStatus.mfaEnabled"></i>
-              <i class="fa fa-times-circle-o text-warning" v-else></i>
+              <i class="fa fa-check text-primary" v-if="mfaAccountStatus.mfaEnabled" aria-hidden="true"></i>
+              <i class="fa fa-times-circle-o text-warning" aria-hidden="true" v-else></i>
             </div>
             <div class="col text-center" v-if="mfaExemptBeginDate">{{mfaExemptBeginDate}}</div>
             <div class="col text-center" v-if="mfaExemptEndDate">{{mfaExemptEndDate}}</div>
@@ -118,7 +118,7 @@
             >
               <span>7 Day Ext</span>
               <div>
-                <i class="fa fa-calendar-week"></i>
+                <i class="fa fa-calendar-week" aria-hidden="true"></i>
               </div>
             </div>
             <div
@@ -128,7 +128,7 @@
             >
               <span>Date Range</span>
               <div>
-                <i class="fa fa-calendar-alt"></i>
+                <i class="fa fa-calendar-alt" aria-hidden="true"></i>
               </div>
             </div>
             <div
@@ -138,7 +138,7 @@
             >
               <span>Pick Date</span>
               <div>
-                <i class="fa fa-calendar-check"></i>
+                <i class="fa fa-calendar-check" aria-hidden="true"></i>
               </div>
             </div>
           </div>
@@ -151,7 +151,7 @@
         <div class="container">
           <div class="alert alert-info p-10">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <p class="mt-3 mb-4">
               Leave '
@@ -212,7 +212,7 @@
         <div class="container">
           <div class="alert alert-info p-10">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p class="mt-3 mb-4">
@@ -282,7 +282,7 @@
         <div class="container">
           <div class="alert alert-info p-10">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <p class="mt-3 mb-4">
               Leave '
@@ -337,7 +337,7 @@
         <div class="container" v-if="showConfirmEnableMfa">
           <div class="alert alert-info p-10">
             <div class="info">
-              <i class="fa fa-exclamation-triangle"></i>
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
             </div>
             <p
               class="mt-3 mb-4"

@@ -3,14 +3,14 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">list_alt</i>
+          <i class="material-icons" aria-hidden="true">list_alt</i>
         </div>
         <h3>List Manager</h3>
       </div>
       <div class="card-body">
         <div class="alert alert-info">
           <div class="info text-info">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <div>
             <h5

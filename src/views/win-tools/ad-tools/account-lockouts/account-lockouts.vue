@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fas fa-user-lock"></i>
+          <i class="fas fa-user-lock" aria-hidden="true"></i>
         </div>
         <h3>Account Lockouts</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="container">
           <div class="alert alert-info">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p>
@@ -90,7 +90,7 @@
           <div v-if="!pagedRecords.totalRecords && performedSearch">
             <div class="alert alert-warning">
               <div class="info">
-                <i class="fa fa-exclamation-circle"></i>
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
               </div>
               <p class="my-4 pb-3">The search results returned no records.</p>
             </div>

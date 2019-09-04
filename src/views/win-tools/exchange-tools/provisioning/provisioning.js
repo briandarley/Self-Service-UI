@@ -10,7 +10,8 @@ import { Component } from "vue-property-decorator";
     "spinnerService",
     "ExchangeToolsService",
     "UserService",
-    "ValidationService"]   
+    "ValidationService",
+    "ScreenReaderAnnouncerService"]   
     
   })
 
@@ -29,6 +30,7 @@ export default class Provisioning extends Vue {
     this.toastService.set(this);
     let user = await this.UserService.get();
     this.userProfile = user.profile;
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Exchange Tools - Provisioning");
   }
 
   get showNewProvision() {

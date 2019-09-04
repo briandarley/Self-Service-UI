@@ -3,7 +3,7 @@ import { Component } from "vue-property-decorator";
 
 @Component({
     name: 'provision-status',
-    dependencies: ['$','moment','CommonExtensions','toastService','spinnerService','ExchangeToolsService']
+    dependencies: ['$','moment','CommonExtensions','toastService','spinnerService','ExchangeToolsService','ScreenReaderAnnouncerService']
     
   })
 
@@ -27,6 +27,7 @@ export default class ProvisionStatus extends Vue {
 
     await this.fetchProvisionRecords();
     this.clearCriteria();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Systems - Provision Status");
 
   }
   async search(){

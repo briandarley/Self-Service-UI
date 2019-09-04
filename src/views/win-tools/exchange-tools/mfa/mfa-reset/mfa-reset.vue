@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">undo</i>
+          <i class="material-icons" aria-hidden="true">undo</i>
         </div>
         <h3>MFA Reset</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="container">
           <div class="alert alert-info">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p>MFA Reset allows administrators to cycle the status of a user's Office365 MFA. The process momentarily disables MFA and immediately re-enables MFA for the selected account. Cycling Office365 MFA will require the user to re-verify their secondary verification for access to Office365.</p>
@@ -104,7 +104,7 @@
                   @click="resetMfa()"
                 >
                   <span>
-                    <i data-v-1da7b41f class="material-icons">undo</i>
+                    <i data-v-1da7b41f class="material-icons" aria-hidden="true">undo</i>
                   </span>
                   <span>Reset</span>
                 </button>

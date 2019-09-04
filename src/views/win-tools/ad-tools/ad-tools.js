@@ -3,7 +3,7 @@ import { Component, Watch } from "vue-property-decorator";
 
 @Component({
     name: 'ad-tools',
-    dependencies: ['$','moment','toastService','spinnerService'],
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService'],
   
   
   })
@@ -11,6 +11,7 @@ import { Component, Watch } from "vue-property-decorator";
 export default class AdTools extends Vue {
   async mounted() { 
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Active Directory Tools");
   }
   
 }

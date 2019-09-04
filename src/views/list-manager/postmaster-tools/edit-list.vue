@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fas fa-tools"></i>
+          <i class="fa fas fa-tools" aria-hidden="true"></i>
         </div>
         <h3>Edit List - {{listName}}</h3>
       </div>
@@ -38,7 +38,7 @@
                     v-on:click.prevent="toggleSubsciberCap()"
                     title="Set Subscirber Cap"
                   >
-                    <i class="fa fa-minus-circle"></i>
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </a>
                 </span>
                 <span v-else>
@@ -48,7 +48,7 @@
                     v-on:click.prevent="toggleSubsciberCap()"
                     title="Remove Subscirber Cap"
                   >
-                    <i class="fa fa-plus-circle"></i>
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
                   </a>
                 </span>
               </label>
@@ -70,7 +70,7 @@
                     v-on:click.prevent="toggleListEnable()"
                     title="Enable List"
                   >
-                    <i class="fa fa-plus-circle"></i>
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
                   </a>
                 </span>
                 <span v-else>
@@ -80,7 +80,7 @@
                     v-on:click.prevent="toggleListEnable()"
                     title="Disable List"
                   >
-                    <i class="fa fa-minus-circle"></i>
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </a>
                 </span>
               </label>
@@ -122,7 +122,7 @@
               </div>
               <div v-if="refreshMetrics">
                 <a href="#" v-on:click.prevent="getMetrics()">
-                  <i class="fa fa fa-refresh"></i> failed retrieving metrics retry?
+                  <i class="fa fa fa-refresh" aria-hidden="true"></i> failed retrieving metrics retry?
                 </a>
               </div>
             </div>
@@ -136,11 +136,11 @@
             <h3 class="text-primary">List Members {{members.length | formatNumber}}</h3>
             <div>
               <button class="btn btn-danger" @click="deleteList()">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-trash" aria-hidden="true"></i>
                 <span>Delete List</span>
               </button>
               <button class="btn btn-primary" @click="clickAddNewMember()">
-                <i class="fa fa-plus"></i>
+                <i class="fa fa-plus" aria-hidden="true"></i>
                 <span>Add Member</span>
               </button>
             </div>
@@ -218,7 +218,7 @@
               <div class="col">{{item.emailAddress}}</div>
               <div class="col edit-col">
                 <div>
-                  <i class="fa fa-check" v-if="item.isListAdmin"></i>
+                  <i class="fa fa-check" v-if="item.isListAdmin" aria-hidden="true"></i>
                 </div>
                 <div class="edit-links">
                   <a
@@ -228,17 +228,17 @@
                     title="toggle hold status"
                   >
                     <span v-if="item.memberType == 'held'">
-                      <i class="fa fa-lock"></i>
+                      <i class="fa fa-lock" aria-hidden="true"></i>
                     </span>
                     <span v-else>
-                      <i class="fa fa-lock-open"></i>
+                      <i class="fa fa-lock-open" aria-hidden="true"></i>
                     </span>
                   </a>
                   <a href="#" @click.prevent="clickUpdateMember(item)" title="edit">
-                    <i class="fa fa-pencil-square-o"></i>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </a>
                   <a href="#" @click.prevent="removeMember(item)" title="remove">
-                    <i class="fa fa-trash-o"></i>
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </a>
                 </div>
               </div>

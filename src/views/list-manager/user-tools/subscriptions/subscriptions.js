@@ -3,7 +3,7 @@ import { Component, Watch } from "vue-property-decorator";
 
 @Component({
     name: 'subscriptions',
-    dependencies: ['$','toastService','spinnerService','ListManagerService'],
+    dependencies: ['$','toastService','spinnerService','ListManagerService','ScreenReaderAnnouncerService'],
     components:{}
     //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
   })
@@ -38,7 +38,7 @@ export default class Subscriptions extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.loadMySubscriptions();
- 
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Lyris Subscriptions");
   }
 
 }

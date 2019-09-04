@@ -10,7 +10,7 @@ import {
 
 @Component({
   name: 'shared-mailbox',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','ScreenReaderAnnouncerService']
 
 })
 export default class SharedMailbox extends BaseValidateMixin {
@@ -71,6 +71,7 @@ export default class SharedMailbox extends BaseValidateMixin {
   async mounted() {
     this.toastService.set(this);
     await this.loadOrganizationalUnits();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Systems - Shared Mailbox");
   }
 
   async getUserByEmail() {

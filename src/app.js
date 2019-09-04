@@ -22,6 +22,8 @@ import "simplebar/dist/simplebar.css";
 })
 export default class App extends Vue {
   currentRoute;
+  
+
   @Watch("$route", {
     immediate: false
   })
@@ -37,10 +39,36 @@ export default class App extends Vue {
       autoHide: false,
       height: "auto"
     });
-    
+
 
     this.EventBus.attachEvent("attach-scroll", this.attachScrollBar);
+
+    this.EventBus.attachEvent('announcement-page-load', this.onAnnouncePageLoad);
+    this.EventBus.attachEvent('announcement-send-announcement', this.onAnnounceMessage);
+    this.EventBus.attachEvent('announcement-clear', this.onAnnounceClear);
   }
+
+  onAnnouncePageLoad(page) {
+    let announcer = window.document.getElementById("announcer");
+    announcer.innerHTML = `${page} has loaded`;
+    setTimeout(()=> {
+      this.onAnnounceClear();
+    }, 500);
+  }
+  onAnnounceMessage(message) {
+    let announcer = window.document.getElementById("announcer");
+    announcer.innerHTML = message;
+
+    setTimeout(()=> {
+      this.onAnnounceClear();
+    }, 500);
+
+  }
+  onAnnounceClear() {
+    let announcer = window.document.getElementById("announcer");
+    announcer.innerHTML = "";
+  }
+
   attachScrollBar() {
     let $ = this.$;
     let simple = new SimpleBar($(".app-section")[0], {

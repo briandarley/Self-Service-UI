@@ -27,11 +27,12 @@ body {
   /*hack to get dialog behavior correct*/
   position: relative;
   z-index: -1;
+  
 }
 
 label,
 .label {
-  color: #888;
+  color: $gray-800;
 }
 
 input::placeholder {
@@ -103,7 +104,10 @@ input::placeholder {
   }
 
 }
-
+.screen-reader-hide{
+  position: absolute;
+  text-indent: -9999px;
+}
 
 .radio-buttons,
 .check-buttons {
@@ -233,7 +237,7 @@ input::placeholder {
 .row-header {
   line-height: 40px;
 
-  a {
+  a,a:visited {
     color: $white;
     text-decoration: underline;
   }
@@ -263,7 +267,7 @@ input::placeholder {
 
     i {
       font-size: 5em;
-      opacity: .2;
+      opacity: .4;
       padding: 5px;
       margin-left: 20px;
     }
@@ -274,7 +278,7 @@ input::placeholder {
     flex: 1fr;
     padding-left: 15px;
     padding: 0 15px;
-    color: $gray-600;
+    color: $gray-700;
 
   }
 }
@@ -417,7 +421,6 @@ input::placeholder {
 
 .fade-enter,
 .fade-leave-to
-
 /* .fade-leave-active below version 2.1.8 */
   {
   opacity: 0;
@@ -455,11 +458,6 @@ input::placeholder {
 
 }
 
-
-
-//  font-family: 'Roboto', sans-serif;
-//font-family: 'Open Sans', sans-serif;
-//font-family: 'Vollkorn', serif;
 
 /* https://www.w3schools.com/css/css_rwd_mediaqueries.asp */
 /* Extra small devices (phones, 600px and down) */

@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: "delete-list",
-  dependencies: ["$", "toastService", "spinnerService", "ListManagerService"]
+  dependencies: ["$", "toastService", "spinnerService", "ListManagerService","ScreenReaderAnnouncerService"]
 })
 export default class DeleteList extends Vue {
   adminList = [];
@@ -13,6 +13,7 @@ export default class DeleteList extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.loadListDropDown();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Delete Lyris List");
   }
   async loadListDropDown() {
 

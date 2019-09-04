@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">check_circle</i>
+          <i class="material-icons" aria-hidden="true">check_circle</i>
         </div>
         <h3>Check Subscriptions</h3>
       </div>
@@ -13,7 +13,7 @@
             <div class="col">
               <div class="alert alert-info">
                 <div class="info">
-                  <i class="fa fa-info-circle"></i>
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </div>
                 <div>
                   <p>
@@ -42,7 +42,7 @@
           <div class="system-message">
             <div class="alert alert-warning">
               <div class="info">
-                <i class="far fa-stop-circle"></i>
+                <i class="far fa-stop-circle" aria-hidden="true"></i>
               </div>
               <div>
                 <p

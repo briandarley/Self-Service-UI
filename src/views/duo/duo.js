@@ -3,7 +3,7 @@ import { Component } from "vue-property-decorator";
 
 @Component({
   name: 'duo',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'DuoAuthService','localStorageService']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'DuoAuthService','localStorageService','ScreenReaderAnnouncerService']
 })
 
 export default class Duo extends Vue {
@@ -18,6 +18,7 @@ export default class Duo extends Vue {
     }
 
      this.initializeDuoMfaRequest();
+     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("DUO Authentication Required");
   }
   async duoCallback() {
     //redirect to requested resource or fail

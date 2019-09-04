@@ -7,9 +7,9 @@ import Criteria from '../criteria/criteria.vue';
 
 @Component({
   name: 'alias-list',
-  dependencies: ['$', '_', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService'],
+  dependencies: ['$', '_', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','ScreenReaderAnnouncerService'],
   components: { Criteria}
-  //props: ['entities']
+  
 
 })
 
@@ -28,6 +28,7 @@ export default class AliasList extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.getAliasDomains();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Systems - Alias List");
   }
 
   async getAliasDomains() {

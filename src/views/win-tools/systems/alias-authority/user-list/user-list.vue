@@ -79,7 +79,7 @@
               style="margin-left: -40px; z-index: 100;"
               @click="domainFilter = null"
             >
-              <i class="fa fa-times"></i>
+              <i class="fa fa-times" aria-hidden="true"></i>
             </button>
           </div>
         </div>
@@ -123,7 +123,7 @@
               style="margin-left: -40px; z-index: 100;"
               @click="addAliasManagerOnyen = null"
             >
-              <i class="fa fa-times"></i>
+              <i class="fa fa-times" aria-hidden="true"></i>
             </button>
           </div>
         </div>

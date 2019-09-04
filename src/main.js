@@ -154,11 +154,9 @@ new Vue({
   },
   watch: {
     async $route(to) {
-            
       const duoAuthService = injector.get("DuoAuthService");
       
       let duoEnabled = await duoAuthService.duoRequired();
-          
       
       if (duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {
@@ -173,7 +171,9 @@ new Vue({
             return;
           }
         }
+
       }
+      
       this.currentRoute = to.name;
     }
   },

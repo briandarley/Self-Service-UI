@@ -3,40 +3,37 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fab fa-linode"></i>
+          <i class="fab fa-linode" aria-hidden="true"></i>
         </div>
         <h3>Account Info</h3>
       </div>
       <div class="card-body">
-         <div class="alert alert-info">
+        <form role="form">
+          <div class="alert alert-info">
             <div class="info">
-                <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
-              <p>
-                Use the search function to retrieve summary of user's LDAP, AD, Campus Directory, and Office 365 profiles.
-              </p>
+              <p>Use the search function to retrieve summary of user's LDAP, AD, Campus Directory, and Office 365 profiles.</p>
             </div>
-
-        </div>
-
-
-        <div class="form-group">
-          <label for="userId">User Id</label>
-          <input
-            type="text"
-            class="form-control"
-            id="userId"
-            v-select-all
-            v-model="filter"
-            placeholder="onyen, pid, or email"
-            v-on:keyup.13="search()"
-          >
-        </div>
-        <div class="submit text-right">
-          <button class="btn btn-primary mr-1" @click="search()">Search</button>
-          <button class="btn btn-secondary" @click="clear()">Clear</button>
-        </div>
+          </div>
+          <div class="form-group">
+            <label for="userId">User Id</label>
+            <input
+              type="text"
+              class="form-control"
+              id="userId"
+              v-select-all
+              v-model="filter"
+              placeholder="onyen, pid, or email"
+              v-on:keyup.13="search()"
+            />
+          </div>
+          <div class="submit text-right">
+            <button class="btn btn-primary mr-1" @click="search()">Search</button>
+            <button class="btn btn-secondary" @click="clear()">Clear</button>
+          </div>
+        </form>
         <transition name="fade">
           <div class="container" v-if="dataRetrievalSuccess">
             <tabbed-control tabs="Audit,Active Directory,Campus Directory,Office 365">

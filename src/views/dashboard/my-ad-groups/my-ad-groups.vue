@@ -3,14 +3,14 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">group_work</i>
+          <i class="material-icons" aria-hidden="true">group_work</i>
         </div>
         <h3>My AD Groups</h3>
       </div>
       <div class="card-body">
         <div class="alert alert-info">
           <div class="info">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <p class="ml-4">View All AD groups in which you are a member of</p>
         </div>

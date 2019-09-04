@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">supervised_user_circle</i>
+          <i class="material-icons" aria-hidden="true">supervised_user_circle</i>
         </div>
         <h3>MFA Management</h3>
       </div>

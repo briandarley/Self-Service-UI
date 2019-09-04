@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fas fas fa-skull-crossbones"></i>
+          <i class="fa fas fas fa-skull-crossbones" aria-hidden="true"></i>
         </div>
         <h3>Compromised Accounts</h3>
       </div>

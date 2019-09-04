@@ -5,15 +5,15 @@
         <li :class="{'selected': isSelected('BASIC_INFORMATION')}" >
           <a href="#" @click.prevent="goto('BASIC_INFORMATION')">Basic Information</a>
         </li>
-        <i class="fa fa-arrow-right"></i>
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
         <li :class="{'not-selectable': notSelectable('AUDIENCE_CRITERIA'), 'selected': isSelected('AUDIENCE_CRITERIA')}" >
           <a href="#" @click.prevent="goto('AUDIENCE_CRITERIA')">Audience Criteria</a>
         </li>
-        <i class="fa fa-arrow-right"></i>
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
         <li :class="{'not-selectable': notSelectable('MESSAGE_CONTENTS'),'selected': isSelected('MESSAGE_CONTENTS')}"  >
           <a href="#" @click.prevent="goto('MESSAGE_CONTENTS')">Message Contents</a>
         </li>
-        <i class="fa fa-arrow-right"></i>
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
         <li :class="{'not-selectable': notSelectable('MESSAGE_SUMMARY'),'selected': isSelected('MESSAGE_SUMMARY')}"   >
           <a href="#" @click.prevent="goto('MESSAGE_SUMMARY')">Message Summary</a>
         </li>

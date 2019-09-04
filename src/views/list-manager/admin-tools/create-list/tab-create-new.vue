@@ -1,15 +1,15 @@
 <template>
-  <form @submit.prevent.prevent class="validation-form" autocomplete="off" >
+  <form @submit.prevent.prevent class="validation-form" autocomplete="off" role="form" >
      
     <div class="container">
       <div class="form-group">
         <!-- <h4 class="text-primary">Todo, Remedy 3924152, allow member to manually enter email address</h4>
         <h4 class="text-primary">Todo, Remedy 3993792, description is a required field</h4>
         -->
-        <label for="admin_email">Admin Email</label>
+        <label for="create_new_admin_email" >Admin Email</label>
         
         <type-ahead
-          :id="'admin_email'"
+          :id="'create_new_admin_email'"
           v-model="emailAddress"
           min-length="0"
           @change="onChangeAdminEmailAddress"
@@ -112,7 +112,7 @@
         <div slot="modal-body">
            <div class="alert alert-danger">
               <div class="info">
-                  <i class="fa fa-exclamation-triangle m-0"></i>
+                  <i class="fa fa-exclamation-triangle m-0" aria-hidden="true"></i>
               </div>
               <p>There appears to be validation errors. Please ensure valid inputs and retry your request again.</p>
           </div>

@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">email</i>
+          <i class="material-icons" aria-hidden="true">email</i>
         </div>
         <h3>Email Sign-Up</h3>
       </div>
@@ -15,7 +15,7 @@
             <div class="container" v-if="!hasValidLdapRecord">
               <div class="alert alert-danger">
                 <div class="info">
-                  <i class="fa fa-exclamation-triangle"></i>
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 </div>
                 <p class="pt-4 pb-3">
                   The system was unable to retrieve the LDAP record for '{{userId}}'
@@ -24,7 +24,7 @@
               </div>
             </div>
             <!-- New request -->
-            <div class="container" v-if="isNewRequest">
+            <form class="container" v-if="isNewRequest" role="form">
               <div autocomplete="off">
                 <p
                   class="text-info"
@@ -50,7 +50,7 @@
                   <button class="btn btn-secondary" @click="clear()">clear</button>
                 </div>
               </div>
-            </div>
+            </form>
             <div class="container" v-if="isProvisionRecord">
               <div class="mt-2">
                 <h5 class="text-primary" v-if="isMailboxCreated">Mailbox successfully created</h5>
@@ -100,7 +100,7 @@
           <div class="border border-primary mt-5">
             <div class="alert alert-info">
               <div class="info">
-                <i class="fa fa-info-circle"></i>
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
               </div>
               <div>
                 <p>Your account was identified as having a UNC Hospital association through MIM</p>
@@ -114,7 +114,7 @@
                 >You have selected your {{primaryAccountDisplayName}} account as primary. This is the account that will be visible in the Global Address List (GAL). If you would like to change this you can do so below.</p>
               </div>
             </div>
-            <div class="p-3 pb=0">
+            <form class="p-3 pb=0" role="form">
               <h4 class="text-primary">Choose Primary Mailbox Designation</h4>
 
               <div class="radio-buttons mx-5 mt-2 mb-4">
@@ -152,7 +152,7 @@
 
                 
               </div>
-            </div>
+            </form>
             <div class="submit text-right m-3 ml-0">
               <button class="btn btn-primary mr-1" @click="updateDualRoleStatus()">submit</button>
               <button class="btn btn-secondary" @click="clear()">cancel</button>
@@ -162,7 +162,7 @@
         <div class="container mt-3" v-if="showInEligible">
           <div class="alert alert-warning">
             <div class="info">
-              <i class="fa fa-exclamation-circle"></i>
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
             </div>
             <p
               class="mt-3 mb-4"

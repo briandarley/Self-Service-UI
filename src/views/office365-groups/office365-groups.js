@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: 'office365-groups',
-  dependencies: ['$', 'moment']
+  dependencies: ['$', 'moment','ScreenReaderAnnouncerService']
 
 
 })
@@ -40,6 +40,8 @@ export default class Office365Groups extends Vue {
     setTimeout(() => {
       this.links = this.data;
     }, 500);
+
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Office 365 Groups");
   }
 
 

@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fas fas fa-digital-tachograph"></i>
+          <i class="fa fas fas fa-digital-tachograph" aria-hidden="true"></i>
         </div>
         <h3>Provision Status</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="container">
           <div class="alert alert-info">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p>This tool may be used to identify the latest provisioning status for users. Use the search criteria to filter by name, date range, and or provisioning status.</p>

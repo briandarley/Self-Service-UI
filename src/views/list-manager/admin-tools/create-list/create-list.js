@@ -9,7 +9,8 @@ import TabReinstate from "./tab-reinstate.vue";
     "_",
     "toastService",
     "spinnerService",
-    "ListManagerService"
+    "ListManagerService",
+    "ScreenReaderAnnouncerService"
   ],
   components: { TabCreateNew, TabReinstate }
 })
@@ -59,6 +60,7 @@ export default class CreateList extends Vue {
         this.getSubscribedLists()
       ]);
       await this.getDormantLists();
+      this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Create List");
     } catch (e) {
       window.console.log(e)
       this.toastService.error("Failed to initialize component");

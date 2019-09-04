@@ -1,26 +1,32 @@
 <template>
-  <div class="card widget">
+  <div class="card widget" role="grid" title="E-mail provision counts for given week">
     <spinner allow-service-update="false" ref="spinner"></spinner>
     <div class="card-header bg-primary text-white ct-chart provisions-today"></div>
     <div class="card-body">
-      <div class="text-center">Email Provisions for Week of</div>
-      <div class="navigate">
-        <a href="#"  @click.prevent="previous()">
-          <i class="fa fa-caret-square-left"></i>
-        </a>
-        {{provisionsDate | formatDate}}
-        <a
-          href="#"
-          :class="{'max-date': isMaxDate}"
-          :disabled="isMaxDate"
-          @click.prevent="next()"
-        >
-          <i class="fa fa-caret-square-right"></i>
-        </a>
+      <div class="widget-nav">
+        <div class="col">
+          <a href="#" @click.prevent="previous()" title="previous week" role="navigation">
+            <i class="fa fa-caret-square-left" aria-hidden="true"></i>
+            <span>Previous Week</span>
+          </a>
+        </div>
+        <div class="col">Email Provisions for Week of {{provisionsDate | formatDate}}</div>
+        <div class="col">
+          <a
+            href="#"
+            title="next week"
+            :class="{'max-date': isMaxDate}"
+            :disabled="isMaxDate"
+            :aria-disabled="isMaxDate"
+            @click.prevent="next()"
+            role="navigation"
+          >
+            <i class="fa fa-caret-square-right" aria-hidden="true"></i>
+            <span>Next Week</span>
+          </a>
+        </div>
       </div>
-      
     </div>
-    
   </div>
 </template>
 <script src="./provisions-widget.js"></script>

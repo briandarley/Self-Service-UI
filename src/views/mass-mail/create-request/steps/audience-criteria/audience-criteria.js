@@ -3,9 +3,8 @@ import { Component,Watch } from "vue-property-decorator";
 import {CountUp} from 'countup.js';
 @Component({
     name: 'audience-criteria',
-    dependencies: ['$','moment','toastService','spinnerService','MassMailService'],
+    dependencies: ['$','moment','toastService','spinnerService','MassMailService','ScreenReaderAnnouncerService'],
     props: ['value']
-    //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
   })
 
 export default class AudienceCriteria extends Vue {
@@ -208,6 +207,8 @@ export default class AudienceCriteria extends Vue {
     this.showEmployeeCriteria = this._showEmployeeCriteria();
 
     this.initializeAudienceSize();
+
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Audience Criteria");
 
   }
 }

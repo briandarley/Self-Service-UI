@@ -10,7 +10,8 @@ import {
     "toastService",
     "spinnerService",
     "ExchangeToolsService",
-    "CommonExtensions"
+    "CommonExtensions",
+    "ScreenReaderAnnouncerService"
   ]
 
 })
@@ -45,6 +46,8 @@ export default class CompromisedAccounts extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.search();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Exchange Tools - Compromised Accounts");
+    
   }
 
 }

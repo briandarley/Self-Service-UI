@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: 'mfa-reset',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','ScreenReaderAnnouncerService']
 
 })
 
@@ -31,6 +31,7 @@ export default class MfaReset extends Vue {
   }
   async mounted() {
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Exchange Tools - MFA Reset");
   }
   async search() {
     this.spinnerService.show();

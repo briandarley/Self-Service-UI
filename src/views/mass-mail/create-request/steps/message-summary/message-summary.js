@@ -3,17 +3,14 @@ import { Component, Watch } from "vue-property-decorator";
 
 @Component({
     name: 'message-summary',
-    dependencies: ['$','moment','toastService','spinnerService'],
-    components:{}
-    //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService']
   })
 
 export default class MessageSummary extends Vue {
   async mounted() { 
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Message Summary");
   }
-  async created(){
-     //called before child views are mounted
-  }
+  
 }
 

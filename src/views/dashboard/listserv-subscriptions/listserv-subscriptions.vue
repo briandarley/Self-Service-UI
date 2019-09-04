@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">subscriptions</i>
+          <i class="material-icons" aria-hidden="true">subscriptions</i>
         </div>
         <h3>My Lyris Subscriptions</h3>
       </div>
@@ -14,7 +14,7 @@
             <div class="col">
               <div class="alert alert-info">
                 <div class="info">
-                  <i class="fa fa-info-circle"></i>
+                  <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </div>
                 <div>
                   <p>
@@ -31,7 +31,7 @@
             <div class="row">
               <div class="col">
 
-                <label class="text-primary" id="subscriber-email">Lyris Subscriber E-mail</label>
+                <label class="text-primary" for="subscriber-email">Lyris Subscriber E-mail</label>
 
                 <select name="select" id="subscriber-email" class="form-control" v-model="selectedEmail">
                   <option v-for="item in uniqueEmails" v-bind:key="item">{{item}}</option>
@@ -57,7 +57,7 @@
         <div class="container" v-else>
           <div class="alert alert-warning">
             <div class="info">
-              <i class="far fa-stop-circle"></i>
+              <i class="far fa-stop-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p>It appears you are not subscribed to any Lyris Lists.</p>

@@ -2,7 +2,7 @@
   <div class="container">
     <h5 class="text-primary">{{roleToManage}}</h5>
     <!-- Search Criteria -->
-    <div class="section">
+    <form class="section" role="form">
       <div class="search-criteria">
         <div class="header">Add User to Access Group</div>
         <div class="container pt-3">
@@ -29,7 +29,7 @@
       </div>
 
       <!-- Search Criteria -->
-    </div>
+    </form>
     <div class="section">
       <!-- Search Results -->
 
@@ -66,7 +66,7 @@
           <div class="col edit-col text-right">
             <span v-if="item.objectClass === 'user'">
               <a href="#" @click.prevent="removeMember(item)" title="remove member">
-                <i class="fa fa-trash-o"></i>
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
               </a>
             </span>
           </div>
@@ -75,7 +75,7 @@
       <div class="conatiner" v-else>
         <div class="alert alert-warning">
           <div class="info">
-            <i class="fa fa-exclamation-circle"></i>
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
           </div>
           <p class="my-4 ml-3 pb-3">
             No members in group

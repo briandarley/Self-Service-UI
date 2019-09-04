@@ -3,17 +3,13 @@ import { Component } from "vue-property-decorator";
 
 @Component({
     name: 'win-tools',
-    dependencies: ['$','moment'],
-    components:{}
-    //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
+    dependencies: ['$','moment','ScreenReaderAnnouncerService']
   })
-
 export default class WinTools extends Vue {
   async mounted() { 
-    //child views are 'mounted' before parent is 'mounted' 
+    
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Landing Page");
   }
-  async created(){
-     //called before child views are mounted
-  }
+  
 }
 

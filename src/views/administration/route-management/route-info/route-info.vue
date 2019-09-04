@@ -2,7 +2,7 @@
   <div class="route-info">
     <tabbed-control tabs="Route Info,Raw JSON">
       <tabbed-item slot="tab_0">
-        <div class="route-fields pb-3">
+        <form class="route-fields pb-3" role="form">
           <div class="route-title form-group">
             <label for="route-title-value">Title</label>
             <input
@@ -127,10 +127,10 @@
                   <option v-for="item in model.roles" :key="item" :value="item">{{item}}</option>
                 </select>
                 <button class="btn btn-primary" @click="onAddNewRole()">
-                  <i class="fa fa-plus-circle"></i>
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </button>
                 <button class="btn btn-danger" @click="onRemoveRole()">
-                  <i class="fa fa-minus-circle"></i>
+                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
@@ -140,7 +140,7 @@
               <button class="btn btn-danger" @click="deleteRoute()" v-if="!model.isNew">Delete</button>
             </div>
           </div>
-        </div>
+        </form>
       </tabbed-item>
       <tabbed-item slot="tab_1">
         <textarea name="raw-json" id="txtRawJson" rows="10" class="form-control" v-model="rawJson"></textarea>

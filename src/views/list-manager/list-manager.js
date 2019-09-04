@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: 'list-manager',
-  dependencies: ['$', 'moment','spinnerService','toastService', 'localStorageService', 'ConfigReaderService', 'ListManagerService']
+  dependencies: ['$', 'moment','spinnerService','toastService', 'localStorageService', 'ConfigReaderService', 'ListManagerService','ScreenReaderAnnouncerService']
 
 })
 export default class ListManager extends Vue {
@@ -28,6 +28,7 @@ export default class ListManager extends Vue {
       this.localStorageService.sessionSet('list-manager:showMessage', true);
     }
 
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Lyris List Manager");
 
   }
   async navigateToList(listName) {

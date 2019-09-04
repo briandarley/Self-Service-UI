@@ -3,32 +3,28 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fas fa-toolbox"></i>
+          <i class="fa fas fa-toolbox" aria-hidden="true"></i>
         </div>
         <h3>Admin Tools</h3>
       </div>
       <div class="card-body">
-        <div class="user-actions">
-          <div class="action">
+        <div class="user-actions" role="menu">
+          <div class="action" role="menuitem">
             <router-link :to="{name: 'change-list-owner'}" class="btn btn-outline-primary">
-                <i class="far fa-address-book"></i>
+                <i class="far fa-address-book" aria-hidden="true"></i>
                 <span>Change List Owner</span>
             </router-link>
           </div>
-          <div class="action">
+          <div class="action" role="menuitem">
             <router-link :to="{name: 'create-list'}" class="btn btn-outline-primary">
-              
-                <i class="material-icons">create</i>
+                <i class="material-icons" aria-hidden="true">create</i>
                 <span>Create List</span>
-              
             </router-link>
           </div>
-          <div class="action" >
+          <div class="action" role="menuitem">
             <router-link :to="{name: 'delete-list'}" class="btn btn-outline-primary">
-              
-                <i class="far fa-trash-alt"></i>
+              <i class="far fa-trash-alt" aria-hidden="true"></i>
                 <span>Delete List</span>
-              
             </router-link>
           </div>
         </div>

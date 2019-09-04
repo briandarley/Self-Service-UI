@@ -3,7 +3,7 @@
     <div class="card card-icon">
     <div class="card-header text-primary">
       <div class="icon bg-primary text-white">
-        <i class="fab fa-hire-a-helper"></i>
+        <i class="fab fa-hire-a-helper" aria-hidden="true"></i>
       </div>
       <h3>Help Desk Access</h3>
     </div>

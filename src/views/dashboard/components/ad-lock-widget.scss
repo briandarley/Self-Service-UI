@@ -1,20 +1,7 @@
-
-.navigate{
-    
-    display:flex;
-    justify-content: space-around;
-
-    i{
-        font-size: 25px;
+.widget-nav {
+    div {
+        &:nth-of-type(2) {
+            flex: 2;
+        }
     }
-
-    .max-date{
-        color:$gray-500;
-        
-    }
-}
-
-.spinner {
-    position: absolute;
-    top:-20px !important;
 }

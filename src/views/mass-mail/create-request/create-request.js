@@ -9,7 +9,7 @@ import BasicInformation from './steps/basic-information/basic-information.vue';
 import AudienceCriteria from './steps/audience-criteria/audience-criteria.vue';
 @Component({
   name: 'create-request',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'MassMailService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'MassMailService', 'ScreenReaderAnnouncerService'],
   components: {
     StepNavigation,
     BasicInformation,
@@ -22,16 +22,16 @@ export default class CreateRequest extends BaseValidateMixin {
   loaded = true;
   currentView = "BASIC_INFORMATION";
   model = {
-  
-     sendFrom: "",
-     expirationDate: null,
-     sendDate: null,
-     replyTo: "",
-     subject: "",
-     sponsoringUniversity: ""
-  
+
+    sendFrom: "",
+    expirationDate: null,
+    sendDate: null,
+    replyTo: "",
+    subject: "",
+    sponsoringUniversity: ""
+
   }
- 
+
   //maxNavigation = "BASIC_INFORMATION";
   getCurrentNavIndex() {
     if (!this.$refs.stepNav) return 0;
@@ -63,33 +63,30 @@ export default class CreateRequest extends BaseValidateMixin {
 
   async mounted() {
     this.toastService.set(this);
-
-    //this.campaignId = this.$route.params.id;
-
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Create Request");
   }
-  isValid(){
-    
-    if(this.$refs.stepBasicInformation.isValid())
-    {
+  
+  isValid() {
+
+    if (this.$refs.stepBasicInformation.isValid()) {
       return true;
     }
     return false;
   }
   navigateNext() {
-    if(!this.isValid())
-    {
-return;
+    if (!this.isValid()) {
+      return;
     }
-    
+
 
     let nextNav = this.getNextNav();
-    this.toastService.success( nextNav);
-    if(!nextNav) return;
+    this.toastService.success(nextNav);
+    if (!nextNav) return;
     this.currentView = nextNav;
   }
   navigatePrevious() {
     let previousNav = this.getPreviousNav();
-    if(!previousNav) return;
+    if (!previousNav) return;
     this.currentView = previousNav;
   }
 }

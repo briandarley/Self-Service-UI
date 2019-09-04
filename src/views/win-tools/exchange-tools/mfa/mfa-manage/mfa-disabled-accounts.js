@@ -7,7 +7,7 @@ import {
 
 @Component({
   name: 'mfa-disabled-accounts',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService', 'CommonExtensions']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService', 'CommonExtensions','ScreenReaderAnnouncerService']
 
 })
 
@@ -120,7 +120,8 @@ export default class MfaDisabledAccounts extends Vue {
 
   async mounted() {
     this.toastService.set(this);
-    //await this.search();
+    
+    
   }
 
 }

@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fas fa-cubes"></i>
+          <i class="fa fas fa-cubes" aria-hidden="true"></i>
         </div>
         <h3>Organizational Units</h3>
       </div>
@@ -86,7 +86,8 @@ import { Component } from "vue-property-decorator";
     "moment",
     "toastService",
     "spinnerService",
-    "ExchangeToolsService"
+    "ExchangeToolsService",
+    "ScreenReaderAnnouncerService"
   ]
 })
 export default class OrganizationalUnits extends Vue {
@@ -98,6 +99,7 @@ export default class OrganizationalUnits extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.initializeRecords();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Active Directory - Organizational Units");
   }
   async search() {
     //let records = JSON.parse(JSON.stringify(this.records));

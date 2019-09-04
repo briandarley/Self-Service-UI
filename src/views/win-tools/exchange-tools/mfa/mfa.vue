@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">verified_user</i>
+          <i class="material-icons" aria-hidden="true">verified_user</i>
         </div>
         <h3>MFA</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="border border-primary">
         <div class="alert alert-info">
           <div class="info">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <div class="py-3">
             <p>Select MFA Reset to cycle MFA for a single account.</p>
@@ -23,7 +23,7 @@
           <div class="action">
             <router-link :to="{name: 'mfa-reset'}" class="btn btn-outline-primary">
               
-                <i class="material-icons">undo</i>
+                <i class="material-icons" aria-hidden="true">undo</i>
                 <span>MFA Reset</span>
               
             </router-link>
@@ -31,7 +31,7 @@
           <div class="action">
             <router-link :to="{name: 'mfa-manage'}" class="btn btn-outline-primary">
               
-                <i class="material-icons">supervised_user_circle</i>
+                <i class="material-icons" aria-hidden="true">supervised_user_circle</i>
                 <span>MFA Management</span>
               
             </router-link>

@@ -3,15 +3,17 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">image_search</i>
+          <i class="material-icons" aria-hidden="true">image_search</i>
         </div>
         <h3>Search Lists</h3>
       </div>
       <div class="card-body">
-        <div class="container">
+        <form class="container" role="form">
           <div class="form-group">
+            <label for="name-like">Search Lists by Name (Name Like)</label>
             <input
               type="text"
+              id="name-like"
               class="form-control"
               v-model="nameLike"
               v-select-all
@@ -48,7 +50,7 @@
 
             
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

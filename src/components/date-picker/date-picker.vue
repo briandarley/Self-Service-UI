@@ -11,7 +11,7 @@
         v-model="value"
       />
       <span class="input-group-addon btn btn-outline-primary calendar-icon" @click="showCalendar()">
-        <i class="fa fa-calendar"></i>
+        <i class="fa fa-calendar" aria-hidden="true"></i>
       </span>
     </div>
   </div>

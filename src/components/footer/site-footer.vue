@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div role="contentinfo">
     <div class="site-footer">
     <div class="col item1"></div>
     <div class="col item2">

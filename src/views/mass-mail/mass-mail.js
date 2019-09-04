@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: 'mass-mail',
-  dependencies: ['$', 'toastService', 'spinnerService', 'moment', 'MassMailService']
+  dependencies: ['$', 'toastService', 'spinnerService', 'moment', 'MassMailService','ScreenReaderAnnouncerService']
   
   
 })
@@ -26,7 +26,7 @@ export default class MassMail extends Vue {
     } finally {
       this.spinnerService.hide();
     }
-
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Landing");
 
   }
 

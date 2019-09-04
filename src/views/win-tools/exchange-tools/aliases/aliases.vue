@@ -3,14 +3,14 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fa-user-circle-o"></i>
+          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
         </div>
         <h3>Aliases</h3>
       </div>
       <div class="card-body">
         <div class="alert alert-info">
           <div class="info">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <div>
             <p>This tool may be used to manage user's email aliases including, adding, removing, setting primary email alias
@@ -46,18 +46,13 @@
                 Some aliases may not be selected or removed as they are required for proper account function.
               </p>
               <p>Use the 'Add Email Alias' button to add new aliases for the selected account</p>
-              <!-- <p>Use the 'Forward Address' button to set or remove Forwarding Smtp Address for the selected account</p> -->
-            </div>
+                          </div>
           </div>
           <div class="submit text-right">
             <button class="btn btn-primary mr-2" @click="showAddEmailAliasDialog()">
-              <i class="fa fa-plus-circle"></i>
+              <i class="fa fa-plus-circle" aria-hidden="true"></i>
               <span class="ml-2">Add Email Alias</span>
             </button>
-            <!-- <button class="btn btn-primary" @click="showAddFormwardingAddressDialog()">
-              <i class="fa fa-address-card"></i>
-              <span class="ml-2">Forward Address</span>
-            </button> -->
           </div>
           <!-- Alias List -->
           <div class="container">
@@ -156,7 +151,7 @@
                 v-model="newAliasPrefix"
                 v-select-all
               />
-              <i class="fa fa-at"></i>
+              <i class="fa fa-at" aria-hidden="true"></i>
               <select name id class="form-control" v-model="newAliasDomain">
                 <option v-for="item in adminProfile.adminAliases" :key="item">{{item}}</option>
               </select>

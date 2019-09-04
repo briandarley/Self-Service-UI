@@ -7,8 +7,7 @@ import {
   name: "base-validate-mixin"
 })
 export default class BaseValidateMixin extends Vue {
-  //model = {};
-  //{ name: "sendDate", label: "Send Date" }
+  
   requiredFields = [];
 
   _getEmptyMissingRequiredFields(requiredFields) {
@@ -67,10 +66,7 @@ export default class BaseValidateMixin extends Vue {
     if (!data) {
       return null;
     }
-    // if(!Object(data).keys){
-    //   return null;
-    // }
-
+    
     let validation = null;
     if (isComponent && data instanceof Object && data["data-validation"]) {
       validation = JSON.parse(data["data-validation"].toString().replace(/'/g, "\""));

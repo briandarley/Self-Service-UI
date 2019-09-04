@@ -10,17 +10,16 @@ import { Component } from "vue-property-decorator";
 
 @Component({
     name: 'lockouts',
-    dependencies: ['$','moment','toastService','spinnerService']
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService']
     
   })
 
 export default class Lockouts extends Vue {
   async mounted() { 
     this.toastService.set(this);
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Active Directory - Lockouts");
   }
-  async created(){
-     //called before child views are mounted
-  }
+  
 }
 
 

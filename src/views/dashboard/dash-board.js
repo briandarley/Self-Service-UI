@@ -9,7 +9,7 @@ import EnvironmentWidget from './components/environment-widget.vue';
 
 @Component({
   name: 'dash-board',
-  dependencies: ['$', 'moment', 'UserService', 'DashboardService', 'toastService', 'DataAnalyticsService'],
+  dependencies: ['$', 'moment', 'UserService', 'DashboardService', 'toastService', 'DataAnalyticsService','ScreenReaderAnnouncerService'],
   components: {ProvisionsWidget,AdLockWidget,GalSyncWidget,BearerTokenWidget,EnvironmentWidget}
  
 })
@@ -18,10 +18,7 @@ export default class DashBoard extends Vue {
   
   async mounted() {
     this.toastService.set(this);
-    
-    
-        
-
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Self Service Dashboard");
   }
 
 

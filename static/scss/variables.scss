@@ -43,8 +43,11 @@ $yellow: #ffc107 !default;
 $green: #28a745 !default;
 $teal: #20c997 !default;
 $cyan: #17a2b8 !default;
-$carolina-blue: #4B9CD3 !default;
+//$carolina-blue: #4B9CD3 !default;
+$carolina-blue: #318ecc !default;
+
 $link-blue: #007FAE !default;
+$link-blue: black !default;
 $athletics-navy: #13294B !default;
 $coral: #FF7F50 !default;
 
@@ -55,7 +58,8 @@ $colors: map-merge(( "blue": $blue, "indigo": $indigo, "purple": $purple, "pink"
 $primary: $carolina-blue !default;
 $secondary: $gray-600 !default;
 $success: $green !default;
-$info: $link-blue !default;
+$info: lighten($carolina-blue, 10%) !default;
+//$info: $black !default;
 $warning: $coral !default;
 $danger: $red !default;
 $light: $gray-100 !default;
@@ -112,14 +116,15 @@ $sizes: map-merge(( 25: 25%, 50: 50%, 75: 75%, 100: 100% ), $sizes);
 //
 // Settings for the `<body>` element.
 
-$body-bg: $gray-100 !default;
-$body-color: $gray-900 !default;
+$body-bg: $white !default;
+$body-color: $gray-700 !default;
 
 // Links
 //
 // Style anchor elements.
 
-$link-color: $carolina-blue !default;
+$link-color: darken($carolina-blue, 10%) !default;
+//$link-color: $athletics-navy !default;
 $link-decoration: none !default;
 $link-hover-color: darken($link-color, 15%) !default;
 $link-hover-decoration: underline !default;

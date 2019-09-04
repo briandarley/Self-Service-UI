@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">mail_outline</i>
+          <i class="material-icons" aria-hidden="true">mail_outline</i>
         </div>
         <h3>Create Request</h3>
       </div>
@@ -33,29 +33,25 @@
           <!-- Child view for various steps -->
 
           <div class="container">
-            <div class="submit">
+            <form class="submit" role="form">
               <button 
                   @click="navigatePrevious()"
                   class="btn btn-primary" 
                   :class="{'disabled': getCurrentNavIndex() <= 1}">
-                <i class="fa fa-chevron-left"></i> <span class="ml-3">Previous Step</span> 
+                <i class="fa fa-chevron-left" aria-hidden="true"></i> <span class="ml-3">Previous Step</span> 
               </button>
-
-              <!-- <div>
-                <button class="btn btn-primary">Save</button>
-                <button class="btn btn-primary">Submit</button>
-              </div> -->
+       
 
               <button 
                   @click="navigateNext()"
                   class="btn btn-primary" 
                   :class="{'disabled': getCurrentNavIndex() >= 4}" v-if="!(getCurrentNavIndex() >= 4)">
-                <span class="mr-3">Next Step</span> <i class="fa fa-chevron-right"></i>
+                <span class="mr-3">Next Step</span> <i class="fa fa-chevron-right" aria-hidden="true"></i>
               </button>
               <button class="btn btn-primary" v-else>Submit</button>
-            </div>
+            </form>
           </div>
-          <!-- <button class="btn btn-primary" @click="test()">test</button> -->
+          
         </div>
       </div>
     </div>

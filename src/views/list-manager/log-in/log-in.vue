@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fas fa-sign-in-alt"></i>
+          <i class="fa fas fa-sign-in-alt" aria-hidden="true"></i>
         </div>
         <h3>Lyris Log In</h3>
       </div>
@@ -25,7 +25,7 @@ import { Component } from "vue-property-decorator";
 
 @Component({
   name: "lyris-login",
-  dependencies: ["ConfigReaderService"]
+  dependencies: ["ConfigReaderService","ScreenReaderAnnouncerService"]
 })
 export default class LyrisLogin extends Vue {
   links = [];
@@ -52,6 +52,8 @@ export default class LyrisLogin extends Vue {
     setTimeout(() => {
       this.links = this.data;
     }, 500);
+
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Log into Lyris List");
   }
   
 }

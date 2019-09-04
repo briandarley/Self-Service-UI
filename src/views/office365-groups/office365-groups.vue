@@ -3,14 +3,15 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">group</i>
+          <i class="material-icons" aria-hidden="true">group</i>
         </div>
         <h3>Office365 Groups</h3>
       </div>
       <div class="card-body">
+        <div class="border border-primary">
         <div class="alert alert-info">
           <div class="info">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <p
             class="my-4 pb-3"
@@ -22,6 +23,7 @@
             <a :href="item.href" target="_blank">{{item.title}}</a>
           </li>
         </transition-group>
+        </div>
       </div>
     </div>
   </div>

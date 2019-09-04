@@ -8,7 +8,7 @@ import UserList from './user-list/user-list.vue';
 
 @Component({
   name: 'alias-authority',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','ScreenReaderAnnouncerService'],
   components: {
     AliasList,
     UserList
@@ -86,6 +86,8 @@ export default class AliasAuthority extends Vue {
     this.toastService.set(this);
 
     await this.search();
+
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Systems - Alias Authority");
   }
 
   async search() {

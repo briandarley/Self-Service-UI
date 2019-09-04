@@ -66,6 +66,7 @@ export default class UserList extends Vue {
     this.toastService.set(this);
     await this.getAliasDomains();
     await this.getAliasManagers();
+    
   }
   _expandedAdminAlias = null;
   toggleShowDomains(entity) {

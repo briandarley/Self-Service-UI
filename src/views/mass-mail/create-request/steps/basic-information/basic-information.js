@@ -5,7 +5,7 @@ import { Component, Watch } from "vue-property-decorator";
 
 @Component({
     name: 'basic-information',
-    dependencies: ['$','moment','toastService','spinnerService','MassMailService'],
+    dependencies: ['$','moment','toastService','spinnerService','MassMailService','ScreenReaderAnnouncerService'],
     props: ['value']
   })
 
@@ -32,10 +32,10 @@ export default class BasicInformation extends BaseValidateMixin {
     this.model = newValue;
   }
   async mounted() {
-    
     this.toastService.set(this);
     this.campaignId = this.$route.params.id;
     await this.loadDepartments();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Basic Information");
   }
   
   

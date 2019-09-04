@@ -11,7 +11,8 @@ import { timeout } from "q";
     "moment",
     "toastService",
     "spinnerService",
-    "ListManagerService"
+    "ListManagerService",
+    "ScreenReaderAnnouncerService"
   ],
   components: {}
 })
@@ -63,6 +64,7 @@ export default class ListDeletions extends Vue {
     this.toastService.set(this);
     this.clearCriteria();
     await this.loadDeletions();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Delete Lyris");
   }
   async indexChanged(index) {
     this.criteria.index = index;

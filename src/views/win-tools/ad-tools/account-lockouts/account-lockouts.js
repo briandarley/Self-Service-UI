@@ -6,7 +6,7 @@ import {
 
 @Component({
   name: 'account-lockouts',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','ScreenReaderAnnouncerService'],
 
 
 })
@@ -55,6 +55,7 @@ export default class AccountLockouts extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.search();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Account Lockouts");
   }
   async indexChanged(index) {
     this.criteria.index = index;

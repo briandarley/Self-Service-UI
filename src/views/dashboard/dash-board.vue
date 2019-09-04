@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container" >
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="material-icons">dashboard</i>
+          <i class="material-icons" aria-hidden="true">dashboard</i>
         </div>
         <h3>Dashboard</h3>
       </div>

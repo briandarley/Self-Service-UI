@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: 'search-lists',
-  dependencies: ['toastService', 'spinnerService', 'ConfigReaderService','ListManagerService']
+  dependencies: ['toastService', 'spinnerService', 'ConfigReaderService','ListManagerService','ScreenReaderAnnouncerService']
 })
 export default class SearchLists extends Vue {
   nameLike = "";
@@ -35,6 +35,8 @@ export default class SearchLists extends Vue {
     );
     this.basePath = listmanagerSettings.lyris_list_base_path;
     this.toastService.set(this);
+
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Search Lyris Lists");
   }
 
 }

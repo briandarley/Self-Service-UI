@@ -11,7 +11,8 @@ import { Component, Watch } from "vue-property-decorator";
     "ExchangeToolsService",
     "CommonExtensions",
     "AdminProfileService",
-    "ValidationService"
+    "ValidationService",
+    "ScreenReaderAnnouncerService"
     
   ]
 })
@@ -212,6 +213,7 @@ export default class Aliases extends Vue {
     if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
       this.newAliasDomain = this.adminProfile.adminAliases[0];
     }
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Exchange Tools - Aliases");
   }
 
   async setForwardingAddress() {

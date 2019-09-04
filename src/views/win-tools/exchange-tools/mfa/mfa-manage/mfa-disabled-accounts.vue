@@ -2,7 +2,7 @@
   <div class="container">
     <div class="alert alert-info">
       <div class="info">
-        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
       </div>
       <div>
         <p>The accounts listed in this section have been either marked for MFA exemption or have been scheduled for MFA exemption.</p>
@@ -104,7 +104,7 @@
     <div v-else>
       <div class="alert alert-warning">
         <div class="info">
-          <i class="fa fa-exclamation-circle"></i>
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
         </div>
         <div>
           <p class="my-4 pb-3">The search results returned no records.</p>
@@ -118,7 +118,7 @@
         <div class="container">
           <div class="alert alert-info p-10">
             <div class="info">
-              <i class="fa fa-exclamation-triangle"></i>
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
             </div>
             <div>
               <p>Would you like to Enable MFA for {{this.selectedRecord.displayName}} at this time?</p>

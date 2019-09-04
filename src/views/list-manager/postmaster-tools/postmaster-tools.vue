@@ -3,7 +3,7 @@
     <div class="card card-icon">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
-          <i class="fa fas fa-tools"></i>
+          <i class="fa fas fa-tools" aria-hidden="true"></i>
         </div>
         <h3>Postmaster Tools</h3>
       </div>
@@ -11,7 +11,7 @@
         <div class="container">
           <div class="alert alert-info">
             <div class="info">
-              <i class="fa fa-info-circle"></i>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
               <p>Use the search field to search for lists by name or use a known subscriber's email to search lists where the user is a member of.</p>
@@ -54,7 +54,7 @@
                       <div class="col">
                         <div class="alert alert-warning">
                           <div class="info">
-                            <i class="fa fa-info-circle"></i>
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
                           </div>
                           <div class="container">
                             <p class="py-3">
@@ -92,11 +92,11 @@
                           title="edit list"
                         >
                           <a href="#">
-                            <i class="fa fa-pencil-square-o"></i>
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                           </a>
                         </router-link>
                         <a href="#" @click.prevent="deleteList(item)" title="delete list">
-                          <i class="fa fa-trash-o"></i>
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </a>
                       </div>
                     </div>
@@ -109,7 +109,7 @@
                     <div slot="modal-body">
                       <div class="alert alert-danger">
                         <div class="info">
-                          <i class="fa fa-exclamation-triangle"></i>
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                         </div>
                         <p>Confirm Delete List?</p>
                       </div>
@@ -170,7 +170,7 @@
                         title="edit list"
                       >
                         <a href="#">
-                          <i class="fa fa-pencil-square-o"></i>
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
                       </router-link>
                     </div>
@@ -196,7 +196,8 @@ import { BaseListServePostMasterSearchMixin } from "../../../components/mixins/i
     "moment",
     "toastService",
     "spinnerService",
-    "ListManagerService"
+    "ListManagerService",
+    "ScreenReaderAnnouncerService"
   ]
 })
 export default class PostmasterTools extends BaseListServePostMasterSearchMixin {
@@ -290,6 +291,7 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
   }
   async mounted() {
     this.currentAction = "by-list-name";
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Lyris Post Master Tools Landing");
   }
 }
 </script>

@@ -7,7 +7,7 @@ import {
 
 @Component({
   name: 'listserv-subscriptions',
-  dependencies: ['$', '_', 'spinnerService', 'toastService', 'ListManagerService'],
+  dependencies: ['$', '_', 'spinnerService', 'toastService', 'ListManagerService','ScreenReaderAnnouncerService'],
   components: {}
 
 })
@@ -71,6 +71,7 @@ export default class ListservSubscriptions extends Vue {
   async mounted() {
     this.toastService.set(this);
     this.loadMySubscriptions();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("My Lyris Subscriptions");
 
   }
 
