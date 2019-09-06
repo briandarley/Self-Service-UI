@@ -55,7 +55,8 @@ export default class TabbedControl extends Vue {
     this.$emit("tabChange", item);
   }
 
-  mounted() {
-
+  watchKeyDown(event, index){
+    if(!(event.which === 32 || event.which === 13 )) return;
+    this.tabChanged(index);
   }
 }

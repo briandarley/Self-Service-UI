@@ -8,35 +8,41 @@
         <h3>Resources</h3>
       </div>
       <div class="card-body">
-        <div class="container">
-          <div class="alert alert-info">
-            <div class="info">
-              <i class="fas fa-info-circle" aria-hidden="true"></i>
-            </div>
-            <div>
-              <p>Search system for accounts with OWA resource access.</p>
-            </div>
+        <div class="alert alert-info">
+          <div class="info">
+            <i class="fas fa-info-circle" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p>Search system for accounts with OWA resource access.</p>
           </div>
         </div>
+        <form @submit.prevent.prevent class="container" role="form" ref="submitForm">
+          <div class="form-group">
+            <div class="label-info">
+              <label for="searchField">User Onyen</label>
+              <span class="required">Required</span>
+            </div>
+            <input
+              type="text"
+              id="searchField"
+              class="form-control"
+              v-select-all
+              v-model="filter"
+              placeholder="onyen"
+              data-validation="{'required': 'true'}"
+              ref="searchField"
+              v-on:keyup.13="search()"
+              autocomplete="off"
+            />
+          </div>
 
-        <div class="form-group">
-          <label for="onyen">User Id</label>
-          <input
-            type="text"
-            id="onyen"
-            class="form-control"
-            v-select-all
-            v-model="filter"
-            placeholder="onyen"
-            v-on:keyup.13="search()"
-          />
-        </div>
-        <div class="submit text-right">
-          <button class="btn btn-primary mr-1" @click="search()">Search</button>
-          <button class="btn btn-secondary" @click="clear()">Clear</button>
-        </div>
+          <div class="submit text-right mt-3">
+            <button class="btn btn-primary mr-1" @click="search()">Search</button>
+            <button class="btn btn-secondary" @click="clear()">Clear</button>
+          </div>
+        </form>
 
-        <div class="bg-primary text-white row-header">
+        <div class="bg-primary text-white row-header" v-if="resources.length">
           <div class="col">Resource Name</div>
         </div>
         <div class="list-container" v-if="resources.length">

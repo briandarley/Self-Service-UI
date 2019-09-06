@@ -24,7 +24,7 @@
               </div>
             </div>
             <!-- New request -->
-            <form class="container" v-if="isNewRequest" role="form">
+            <form @submit.prevent.prevent class="container" v-if="isNewRequest" role="form" ref="submitForm">
               <div autocomplete="off">
                 <p
                   class="text-info"
@@ -114,7 +114,7 @@
                 >You have selected your {{primaryAccountDisplayName}} account as primary. This is the account that will be visible in the Global Address List (GAL). If you would like to change this you can do so below.</p>
               </div>
             </div>
-            <form class="p-3 pb=0" role="form">
+            <form @submit.prevent.prevent class="p-3 pb=0" role="form">
               <h4 class="text-primary">Choose Primary Mailbox Designation</h4>
 
               <div class="radio-buttons mx-5 mt-2 mb-4">

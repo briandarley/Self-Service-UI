@@ -64,7 +64,7 @@
       <!-- Check Audience -->
       <div class="one-column">
         <div class="form-field">
-          <form class="form-group form-inline" role="form">
+          <form @submit.prevent.prevent class="form-group form-inline" role="form">
             <label for="checkAudience">Check Audience</label>
             <div class>
               <input

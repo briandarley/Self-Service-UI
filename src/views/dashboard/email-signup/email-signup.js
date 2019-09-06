@@ -94,7 +94,7 @@ export default class EmailSignup extends BaseValidateMixin {
 
   
   async submitNewProvisionRequest() {
-    let errors = this.validate();
+    let errors = this.validate(this.$refs.submitForm);
     if (errors.length) {
       this.toastService.error(errors.join("<br/>"));
       return;

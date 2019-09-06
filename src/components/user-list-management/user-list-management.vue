@@ -21,7 +21,7 @@
         </div>
         <div class="container">
           <div class="add-member">
-           <form class="form-group form-inline" role="form">
+           <form @submit.prevent.prevent class="form-group form-inline" role="form">
               <label for="entityId">Entity Id</label>
               <input
                 type="text"

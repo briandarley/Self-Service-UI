@@ -111,6 +111,7 @@ function RouteSourcesService(httpHandlerService) {
 
         const handler = await httpHandlerService.get();
         let model = JSON.parse(JSON.stringify(route));
+        model.roles = model.roles.join();
         model.parentMenuRouteId = model.parentRouteId;
         
         if(Array.isArray(route.roles)) 

@@ -8,7 +8,7 @@
         <h3>Account Info</h3>
       </div>
       <div class="card-body">
-        <form role="form">
+        <form @submit.prevent.prevent role="form">
           <div class="alert alert-info">
             <div class="info">
               <i class="fa fa-info-circle" aria-hidden="true"></i>

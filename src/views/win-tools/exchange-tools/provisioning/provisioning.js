@@ -1,4 +1,8 @@
-import Vue from "vue"
+
+import {
+  BaseValidateMixin
+} from "../../../../components/mixins/index";
+
 import { Component } from "vue-property-decorator";
 
 @Component({
@@ -15,7 +19,7 @@ import { Component } from "vue-property-decorator";
     
   })
 
-export default class Provisioning extends Vue {
+export default class Provisioning extends BaseValidateMixin {
   filter = "";
   provisionData = null;
   userLdap = null;
@@ -67,6 +71,14 @@ export default class Provisioning extends Vue {
 
   async search() {
     this.clearBaseFields();
+
+    let errors = this.validate(this.$refs.submitForm);
+    if (errors.length) {
+      this.toastService.error("Validation Failed");
+      return false;
+    }
+
+
     if (!this.filter) {
       this.toastService.error("Invlaid search params");
       return;

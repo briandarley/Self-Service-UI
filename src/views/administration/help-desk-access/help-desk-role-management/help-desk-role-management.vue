@@ -2,7 +2,7 @@
   <div class="container">
     <h5 class="text-primary">{{roleToManage}}</h5>
     <!-- Search Criteria -->
-    <form class="section" role="form">
+    <form @submit.prevent.prevent class="section" role="form">
       <div class="search-criteria">
         <div class="header">Add User to Access Group</div>
         <div class="container pt-3">

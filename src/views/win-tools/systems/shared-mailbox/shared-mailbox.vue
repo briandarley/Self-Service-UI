@@ -20,7 +20,7 @@
             </div>
           </div>
           <!-- Group Definition Fields/Lookup -->
-          <div class="container">
+          <form @submit.prevent.prevent class="container" role="form" ref="submitForm">
             <div class="form-group">
               <label for="select-department">Departmental Unit Abbreviation (ie. ITS, DSA, FPG)</label>
               <select
@@ -102,7 +102,8 @@
                 <i class="fa fa-refresh" aria-hidden="true"></i>
               </a>
             </div>
-          </div>
+          </form>
+
           <!-- Group Definition Fields/Lookup -->
 
           <div class="container" v-if="showAddMembers">

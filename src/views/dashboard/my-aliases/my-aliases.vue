@@ -54,7 +54,7 @@
             </div>
 
             <!-- Add New Alias -->
-            <form class="add-new-alias" v-if="showAddAlias" role="form">
+            <form @submit.prevent.prevent class="add-new-alias" v-if="showAddAlias" role="form" ref="submitForm">
               <h4>Add New Alias</h4>
               <div class="col form-group">
                 <div class="label-info">

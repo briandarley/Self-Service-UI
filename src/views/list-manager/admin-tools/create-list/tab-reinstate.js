@@ -77,7 +77,7 @@ export default class TabReinstate extends Vue {
 
 
   async submit() {
-    let errors = this.validate();
+    let errors = this.validate(this.$refs.submitForm);
     if (errors.length) {
       this.toastService.error(errors.join("<br/>"));
       this.$refs.validationModal.show();

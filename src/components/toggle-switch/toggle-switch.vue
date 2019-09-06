@@ -1,7 +1,7 @@
 <template>
   <div class="toggle-switch">
     <input type="checkbox" :id="id" v-model="checked">
-    <label :for="id">Toggle</label>
+    <label :for="id" tabindex="0" ref="toggler" @keydown="watchKeyDown">Toggle</label>
     <span >{{label}}</span>
   </div>
 </template>
@@ -32,6 +32,15 @@ export default class ToggleSwitch extends Vue {
     }
   }
   
+  watchKeyDown(ev){
+    if(ev && ev.which === 32){
+      //space key pressed
+      this.checked = !this.checked
+    }
+    
+    
+  }
+
   mounted() {
     this.id = this._uid;
   }
@@ -62,6 +71,7 @@ label {
   display: block;
   border-radius: 20px;
   position: relative;
+  line-height: 0;
 }
 
 label:after {

@@ -8,24 +8,31 @@
         <h3>Compromised Accounts</h3>
       </div>
       <div class="card-body">
-        <div class="container">
+        <form @submit.prevent.prevent class="container" role="form" ref="submitForm">
           <div class="form-group">
-            <label for="onyen">User Id</label>
+            <div class="label-info">
+              <label for="searchField">User Id</label>
+              <span class="required">Required</span>
+            </div>
+            
             <input
               type="text"
-              id="onyen"
+              id="searchField"
               class="form-control"
               v-select-all
               v-model="filter"
               placeholder="onyen"
               v-on:keyup.13="search()"
-            >
+              data-validation="{'required': 'true'}"
+              ref="searchField"
+              autocomplete="off"
+            />
           </div>
           <div class="submit text-right">
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
-        </div>
+        </form>
         <div class="list-container" v-if="compromisedAccounts && compromisedAccounts.length > 0">
           <div class="bg-primary text-white row-header">
             <div class="col">Display Name</div>

@@ -214,7 +214,7 @@ export default class SharedMailbox extends BaseValidateMixin {
   
   async create() {
     this.showAddMembers = false;
-    let errors = this.validate();
+    let errors = this.validate(this.$refs.submitForm);
     this.groupId = `${this.model.department}_${this.model.name}.dg`
 
     if (errors.length) {

@@ -6,9 +6,12 @@
         class="nav-item" 
         v-for="(navItem, index) in items" 
         v-bind:key="index" 
+        tabindex="0"
+        @keydown="watchKeyDown($event,index)"
         v-bind:class="{active: navItem.active, disabled: navItem.enabled === false}">
         <a 
         class="nav-link" 
+        
         :class="{disabled: navItem.enabled === false}"  
         data-toggle="tab" 
         @click="tabChanged(index)">{{navItem.label}}</a>

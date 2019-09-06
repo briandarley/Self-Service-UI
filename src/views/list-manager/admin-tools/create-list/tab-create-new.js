@@ -24,12 +24,10 @@ export default class TabCreateNew extends BaseValidateMixin {
     this.emailAddress = "";
     this.clearValidation();
   }
-  // async click() {
-  //   let errors = this.validate();
-  // }
+  
 
   async submit() {
-    let errors = this.validate();
+    let errors = this.validate(this.$refs.submitForm);
     if (errors.length) {
       this.toastService.error(errors.join("<br/>"));
       this.$refs.validationModal.show();

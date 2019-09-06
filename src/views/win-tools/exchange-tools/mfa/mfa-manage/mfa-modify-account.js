@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-import Vue from "vue"
 import {
   Component,
   Watch
@@ -21,49 +19,59 @@ export default class MfaModifyAccount extends BaseValidateMixin {
   showConfirmEnableMfa = false;
   mfaRequireExemptionPeriod = false;
   mfaMethodType = null;
+  recordSaved = false;
   model = {
     selectedMfaDate: null,
     onyen: null,
     reason: null,
     incidentNumber: null
   };
+
   test = null;
   @Watch("mfaAccountStatus", {
     immediate: false,
     deep: true
   })
   onMfaAccountStatusChanged(newValue, oldValue) {
+
     if (!oldValue || !newValue) return;
     this.mfaStatusChanged(newValue.enabled);
-    if(newValue.enabled){
+    if (newValue.enabled) {
+      if (!this.recordSaved) return;
       this.showConfirmEnableMfa = true;
       this.$refs.confirmEnableMfa.show();
     }
   }
-get mfaExemptBeginDate(){
-  let model = this.mfaAccountStatus;
-  if(!model) return null;
-  if(!model.mfaExemptBeginDate) return null;
-  return this.$options.filters.formatDate(model.mfaExemptBeginDate)
 
-}
-get mfaExemptEndDate(){
-  let model = this.mfaAccountStatus;
-  if(!model) return null;
-  if(!model.mfaExemptEndDate) return null;
-  return this.$options.filters.formatDate(model.mfaExemptEndDate)
+  get mfaExemptBeginDate() {
+    let model = this.mfaAccountStatus;
+    if (!model) return null;
+    if (!model.mfaExemptBeginDate) return null;
+    return this.$options.filters.formatDate(model.mfaExemptBeginDate)
 
-}
-
-get showContactMethod(){
-  if(!this.mfaMethodType ) return false;
-  if(!this.mfaMethodType.phoneNumber && !this.mfaMethodType.deviceName && !this.mfaMethodType.methodType ){
-    return false;
   }
-  return true;
-}
+  get mfaExemptEndDate() {
+    let model = this.mfaAccountStatus;
+    if (!model) return null;
+    if (!model.mfaExemptEndDate) return null;
+    return this.$options.filters.formatDate(model.mfaExemptEndDate)
+
+  }
+
+  get showContactMethod() {
+    if (!this.mfaMethodType) return false;
+    if (!this.mfaMethodType.phoneNumber && !this.mfaMethodType.deviceName && !this.mfaMethodType.methodType) {
+      return false;
+    }
+    return true;
+  }
 
   showConfirm7Day() {
+    const moment = this.moment;
+    let d = new Date();
+    d.setDate(d.getDate() + 7);
+    this.model.selectedMfaDate = moment(d, "MM/DD/YYYY").format("MM/DD/YYYY");
+
     this.showConfirm7day = true;
     this.$refs.confirm7day.show();
   }
@@ -89,36 +97,48 @@ get showContactMethod(){
     if (!this.mfaAccountStatus.enabled) return "Disabled";
     return "Enabled";
   }
-  
+
   async mounted() {
     this.toastService.set(this);
 
     this.clear();
 
   }
+
   mfaStatusChanged(newValue) {
     if (!this.mfaAccountStatus) return;
-    
+
     this.mfaRequireExemptionPeriod = !newValue;
 
   }
+
   async search() {
     this.mfaAccountStatus = null;
+    this.mfaRequireExemptionPeriod = false;
+
+    let errors = this.validate(this.$refs.searchForm);
+    if (errors.length) {
+      this.toastService.error("Validation Failed");
+      return false;
+    }
+
+
     this.spinnerService.show();
     try {
-      
+
       let response = await this.ExchangeToolsService.getMfaAccountStatus(this.filter);
       this.mfaMethodType = await this.ExchangeToolsService.getMfaMethodType(this.filter);
-      
-      if(response.status == false){
+
+      if (response.status == false) {
         throw "Failed to retrieve MFA account status";
       }
 
-      if(response.mfaExemptBeginDate || response.mfaExemptEndDate)
-      {
+      if (response.mfaExemptBeginDate || response.mfaExemptEndDate) {
         response.enabled = false;
+        this.recordSaved = true;
       }
-      this.mfaAccountStatus  = response;
+
+      this.mfaAccountStatus = response;
 
     } catch (e) {
       window.console.log(e);
@@ -128,6 +148,7 @@ get showContactMethod(){
     }
 
   }
+
   reCreateModel() {
     //Issue we can simply define our model like...
     /*
@@ -151,28 +172,36 @@ get showContactMethod(){
       incidentNumber: null
     };
   }
+
   clear() {
+
+    this.clearValidation();
+
+
     const moment = this.moment;
     this.mfaMethodType = null;
     this.reCreateModel();
     this.filter = "";
     this.mfaAccountStatus = null;
+    this.mfaRequireExemptionPeriod = false;
 
     this.showConfirm7day = false;
     this.showConfirmDateRange = false;
     this.showConfirmIndefinite = false;
     this.showConfirmEnableMfa = false;
+
     let d = new Date();
     d.setDate(d.getDate() + 7);
     this.model.selectedMfaDate = moment(d, "MM/DD/YYYY").format("MM/DD/YYYY");
 
 
   }
+
   async saveChanges() {
     this.spinnerService.show();
     try {
       await this.ExchangeToolsService.updateMfaAccountStatus(this.model);
-      
+      this.recordSaved = true;
       return true;
     } catch (e) {
       window.console.log(e);
@@ -182,13 +211,16 @@ get showContactMethod(){
       this.spinnerService.hide();
     }
   }
-  async submitMfaChange() {
 
-    let errors = this.validate();
+  async submitMfaChange(ref) {
+
+    let errors = [];
+    if (ref) {
+      errors = this.validate(this.$refs[ref]);
+    }
 
     if (errors.length) {
       this.toastService.error(errors.join("<br/>"));
-      
       return;
     } else {
       this.model.onyen = this.filter;
@@ -197,25 +229,26 @@ get showContactMethod(){
       if (success) {
         this.toastService.success("success");
         this.cancelMfaChange();
+        return success;
       }
-
-
-
     }
 
-
+    return false;
 
   }
+
   cancelMfaChange() {
+
+    this.$refs.confirm7day.hide();
+    this.$refs.confirmDateRange.hide();
+    this.$refs.confirmIndefinite.hide();
+
+
     const moment = this.moment;
     let d = new Date();
     d.setDate(d.getDate() + 7);
     this.reCreateModel();
     this.model.selectedMfaDate = moment(d, "MM/DD/YYYY").format("MM/DD/YYYY");
-    
-    this.$refs.confirm7day.hide();
-    this.$refs.confirmDateRange.hide();
-    this.$refs.confirmIndefinite.hide();
 
     this.showConfirm7day = false;
     this.showConfirmDateRange = false;
@@ -223,19 +256,46 @@ get showContactMethod(){
     this.showConfirmEnableMfa = false;
     this.clearValidation();
   }
-  cancelEnableMfa(){
-    
+
+  cancelEnableMfa() {
+
+    this.$refs.confirmEnableMfa.hide();
     this.mfaAccountStatus.enabled = false;
     this.cancelMfaChange();
   }
-  async enableMfa(){
+
+  async enableMfa() {
+    this.$refs.confirmEnableMfa.hide();
+
     this.model.selectedMfaDate = null;
     this.model.reason = null;
     this.model.enabled = true;
+
     this.model.onyen = this.filter;
-    
+
     this.showConfirmEnableMfa = false;
-    await this.submitMfaChange();
+    let response = await this.submitMfaChange();
     
+    if (response) {
+      this.mfaAccountStatus.mfaEnabled = true;
+    }
+
+
+  }
+
+  watchBtn(event, element){
+      if(!(event.which === 32 || event.which === 13 )) return;
+    switch(element){
+      case 'mfa-end-date-7-day':
+        this.showConfirm7Day();
+        break;
+        case 'mfa-end-date-range':
+        this.showConfirmDateRangeDlg();
+        break;
+        case 'mfa-end-date-pick-date':
+        this.showConfirmIndefiniteDlg();
+        break;
+    }
+           
   }
 }

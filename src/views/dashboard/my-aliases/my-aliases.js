@@ -1,7 +1,7 @@
 import {
   BaseValidateMixin
 } from "../../../components/mixins/index";
-//"../../../../components/mixins/index";
+
 
 import {
   Component,
@@ -211,7 +211,7 @@ export default class MyAliases extends BaseValidateMixin {
 
   async _validateAliasEntry() {
     
-    let errors = this.validate();
+    let errors = this.validate(this.$refs.submitForm);
     if (errors.length) {
       this.toastService.error("Validation Failed");
       return false;

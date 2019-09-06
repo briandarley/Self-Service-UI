@@ -33,7 +33,7 @@
           <!-- Child view for various steps -->
 
           <div class="container">
-            <form class="submit" role="form">
+            <form @submit.prevent.prevent class="submit" role="form">
               <button 
                   @click="navigatePrevious()"
                   class="btn btn-primary" 

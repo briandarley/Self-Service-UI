@@ -98,13 +98,7 @@ li {
     flex-shrink: 1;
     padding:0;
     
-    .label-info{
-      display:flex;
-      justify-content: space-between;
-      .required{
-        color: $red;
-      }
-    }
+    
     
     //<label for="newAlias">New Alias (E-mail prefix)</label>
     //<span class="required">Required</span>

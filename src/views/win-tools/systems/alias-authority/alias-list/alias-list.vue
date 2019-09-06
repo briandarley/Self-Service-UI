@@ -24,6 +24,8 @@
                   class="fa fa-angle-double-down more-info"
                   :class="{expanded: item.expanded, collapsed: item.expanded === false}"
                 ></i>
+                 <span v-if="item.expanded">collapse</span>
+                <span v-else>expand</span>
               </a>
             </div>
           </div>

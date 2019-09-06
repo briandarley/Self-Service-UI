@@ -1,6 +1,10 @@
+.hidden {
+  display: none;
+}
+
 .list-metrics {
-  border: 1px solid $carolina-blue;
-  padding: 10px;
+  
+  
   margin: 0 0 30px;
 
   .list-metrics-data {
@@ -23,30 +27,34 @@
   .filter-edit-col {
     display: flex;
   }
-  select {
-  }
+
+  select {}
+
   div {
     padding: 0;
   }
 }
-.member-list {
-  .cmds-result{
-      display:flex;
-      justify-content: space-between;
-      margin-top:20px;
-      margin-bottom:5px;
 
-      button{
-        margin-right:10px;
-        &:last-of-type{
-          margin-right:0;
-        }
+.member-list {
+  .cmds-result {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 5px;
+
+    button {
+      margin-right: 10px;
+
+      &:last-of-type {
+        margin-right: 0;
       }
-      
-      button i{
-        margin-right: 5px;
-      }
+    }
+
+    button i {
+      margin-right: 5px;
+    }
   }
+
   // .result-grid:nth-of-type(odd) {
   //   background: $gray-100;
   // }
@@ -55,47 +63,81 @@
     display: flex;
     justify-content: space-between;
 
-    > div:first-of-type {
+    >div:first-of-type {
       text-align: center;
       width: 30px;
     }
+
     .edit-links {
       width: 100%;
 
       display: flex;
       justify-content: flex-end;
+
       a {
         margin-right: 20px;
+
+        span {
+          position: absolute;
+          display: block;
+          text-indent: -9999px;
+          text-align: left;
+          overflow: hidden;
+        }
       }
-      > a:last-of-type {
+
+      >a:last-of-type {
         margin-right: 0;
       }
 
       .hold-status {
-       span{ display: inline-block; text-align: right;}
+        span {
+          display: inline-block;
+          text-align: right;
+        }
       }
     }
   }
 }
 
 
-.check-buttons{
-    margin: 10px 0;
-    input{
-        width: 30px;
-    }
+.check-buttons {
+  margin: 10px 0;
+
+  input {
+    width: 30px;
+  }
 }
-.table-info{
+
+.table-info {
   background: transparent;
   display: flex;
   flex-wrap: wrap;
-  
-  label{
+
+  label, .label {
     flex-basis: 33%;
   }
 
+  a span {
+    position: absolute;
+    display: block;
+    text-indent: -9999px;
+    text-align: left;
+    overflow: hidden;
+  }
+
 }
-.tabbed-control, .tab-content    {
+
+.icon-mark span {
+  position: absolute;
+  display: block;
+  text-indent: -9999px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.tabbed-control,
+.tab-content {
   min-height: 175px !important;
-  
+
 }

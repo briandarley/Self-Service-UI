@@ -13,23 +13,23 @@
         <tabbed-control tabs="List Info,List Metrics">
           <tabbed-item slot="tab_0">
             <div class="table-info">
-              <label>
+              <span class="label">
                 Site Name:
                 <span>{{data.siteName}}</span>
-              </label>
-              <label>
+              </span>
+              <span class="label">
                 Create Date:
                 <span>{{data.createDate | formatDate}}</span>
-              </label>
-              <label>
+              </span>
+              <span class="label">
                 Description:
                 <span>{{data.description}}</span>
-              </label>
-              <label>
+              </span>
+              <span class="label">
                 Visibility:
                 <span>{{data.visibility}}</span>
-              </label>
-              <label>
+              </span>
+              <span class="label">
                 Max Members:
                 <span v-if="data.maxMembers === 0">
                   Unlimited
@@ -39,6 +39,7 @@
                     title="Set Subscirber Cap"
                   >
                     <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    <span>Set Subscriber Cap</span>
                   </a>
                 </span>
                 <span v-else>
@@ -49,50 +50,44 @@
                     title="Remove Subscirber Cap"
                   >
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span>Remove Subscriber Cap</span>
                   </a>
                 </span>
-              </label>
-              <label>
+              </span>
+              <span class="label">
                 Max Msg Number:
                 <span>{{data.maxMessageNumber}}</span>
-              </label>
-              <label>
+              </span>
+              <span class="label">
                 Max Msg Size:
                 <span>{{data.maxMessageSize}}</span>
-              </label>
-              <label>
+              </span>
+              <span class="label">
                 Disabled:
-
                 <span v-if="data.disabled">
                   Disabled
-                  <a
-                    href="#"
-                    v-on:click.prevent="toggleListEnable()"
-                    title="Enable List"
-                  >
+                  <a href="#" v-on:click.prevent="toggleListEnable()" title="Enable List">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span>Enable List</span>
                   </a>
                 </span>
                 <span v-else>
                   Enabled
-                  <a
-                    href="#"
-                    v-on:click.prevent="toggleListEnable()"
-                    title="Disable List"
-                  >
+                  <a href="#" v-on:click.prevent="toggleListEnable()" title="Disable List">
                     <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    <span>Disable List</span>
                   </a>
                 </span>
-              </label>
+              </span>
             </div>
           </tabbed-item>
           <tabbed-item slot="tab_1">
             <div class="list-metrics">
               <div class="text-primary" v-if="retrievingMetrics">retrieving list metrics...</div>
               <div v-if="!retrievingMetrics && metrics">
-                <h3>
-                  <span class="h5 text-primary">List Metrics for: {{metrics.listName}}</span>
-                </h3>
+                <h5 class="text-primary">
+                  List Metrics for: {{metrics.listName}}
+                </h5>
                 <div class="list-metrics-data">
                   <div>
                     <label>Create Date</label>
@@ -160,13 +155,22 @@
           <!-- Header Cols /Sort -->
           <div class="row bg-primary text-white row-header">
             <div class="col">
-              <a href="#" @click.prevent="sort('fullName')">Full Name</a>
+              <label for="filter-fullname" class="p-0 m-0">
+                <a href="#" @click.prevent="sort('fullName')">Full Name</a>
+              </label>
             </div>
             <div class="col">
+              <label for="filter-email" class="p-0 m-0">
               <a href="#" @click.prevent="sort('email')">E-mail</a>
+              </label>
             </div>
             <div class="col">
+              <label for="filter-admin" class="p-0 m-0">
               <a href="#" @click.prevent="sort('admin')">Is Admin</a>
+              </label>
+            </div>
+            <div class="">
+              <label for="filter-hold-status" class="hidden">Hold Status</label>
             </div>
           </div>
           <!-- Header Cols /Sort -->
@@ -181,6 +185,7 @@
                 v-select-all
                 v-model="filter.fullName"
                 placeholder="filter full name"
+                id="filter-fullname"
               />
             </div>
             <div class="col">
@@ -191,14 +196,15 @@
                 v-select-all
                 v-model="filter.email"
                 placeholder="filter e-mail"
+                id="filter-email"
               />
             </div>
             <div class="col filter-edit-col">
-              <select name id class="form-control" v-model="filter.isAdmin">
+              <select id="filter-admin" class="form-control" v-model="filter.isAdmin" >
                 <option value>All</option>
                 <option value="isadmin">Is Admn</option>
               </select>
-              <select name id class="form-control" v-model="filter.holdStatus">
+              <select id="filter-hold-status" class="form-control" v-model="filter.holdStatus">
                 <option value>All</option>
                 <option value="held">Hold</option>
                 <option value="normal">Unhold</option>
@@ -217,8 +223,9 @@
               <div class="col">{{item.fullName}}</div>
               <div class="col">{{item.emailAddress}}</div>
               <div class="col edit-col">
-                <div>
+                <div class="icon-mark">
                   <i class="fa fa-check" v-if="item.isListAdmin" aria-hidden="true"></i>
+                  <span>List Admin</span>
                 </div>
                 <div class="edit-links">
                   <a
@@ -227,18 +234,22 @@
                     class="hold-status"
                     title="toggle hold status"
                   >
-                    <span v-if="item.memberType == 'held'">
+                    <div v-if="item.memberType == 'held'">
                       <i class="fa fa-lock" aria-hidden="true"></i>
-                    </span>
-                    <span v-else>
+                      <span>Lock</span>
+                    </div>
+                    <div v-else>
                       <i class="fa fa-lock-open" aria-hidden="true"></i>
-                    </span>
+                      <span>Unlock</span>
+                    </div>
                   </a>
                   <a href="#" @click.prevent="clickUpdateMember(item)" title="edit">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <span>Edit List</span>
                   </a>
                   <a href="#" @click.prevent="removeMember(item)" title="remove">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    <span>Remove List</span>
                   </a>
                 </div>
               </div>
@@ -251,34 +262,36 @@
 
     <!-- Add Member confirm-dialog -->
     <confirm-dialog id="modalAddMember" ref="modalAddMember">
-      <div slot="modal-title" class="text-white">
-        <span class="text-white">Add Member</span>
-      </div>
+      <div slot="modal-title" class="text-white">Add Member</div>
       <div slot="modal-body">
         <div class="containter form-group">
+          <label for="member-email">Member E-Mail</label>
           <input
             type="text"
+            id="member-email"
             class="form-control"
             placeholder="Member E-Mail"
             v-model="modelAddMember.emailAddress"
             v-select-all
           />
+          <label for="member-full-name">Member Full Name</label>
           <input
             type="text"
             class="form-control"
             placeholder="Full Name"
+            id="member-full-name"
             v-model="modelAddMember.fullName"
             v-select-all
           />
           <div class="check-buttons">
             <input
               type="checkbox"
-              name="isListAdmin"
+              name="chkIsListAdmin"
               id="chkIsListAdmin"
               v-model="modelAddMember.isListAdmin"
               :value="modelAddMember.isListAdmin"
             />
-            <label for="chkIsListAdmin">Is Admin?</label>
+            <label for="chkIsListAdmin" class="m-0">Is Admin?</label>
           </div>
 
           <input
@@ -304,34 +317,36 @@
     <!-- Add Member confirm-dialog -->
     <!-- Update Member confirm-dialog -->
     <confirm-dialog id="modalUpdateMember" ref="modalUpdateMember">
-      <div slot="modal-title" class="text-white">
-        <span class="text-white">Update Member {{modelUpdateMember.fullName}}</span>
-      </div>
+      <div slot="modal-title" class="text-white">Update Member: {{modelUpdateMember.fullName}}</div>
       <div slot="modal-body">
         <div class="containter form-group">
+          <label for="update-member-email">Member E-Mail</label>
           <input
             type="text"
+            id="update-member-email"
             class="form-control"
             placeholder="Member E-Mail"
             v-model="modelUpdateMember.emailAddress"
             v-select-all
           />
+          <label for="update-full-name">Member Full Name</label>
           <input
             type="text"
             class="form-control"
             placeholder="Full Name"
+            id="update-full-name"
             v-model="modelUpdateMember.fullName"
             v-select-all
           />
           <div class="check-buttons">
             <input
               type="checkbox"
-              name="isListAdmin"
-              id="chkIsListAdmin"
+              name="chkUpdateIsListAdmin"
+              id="chkUpdateIsListAdmin"
               v-model="modelUpdateMember.isListAdmin"
               :value="modelUpdateMember.isListAdmin"
             />
-            <label for="chkIsListAdmin">Is Admin?</label>
+            <label for="chkUpdateIsListAdmin" class="m-0">Is Admin?</label>
           </div>
 
           <input
@@ -357,9 +372,7 @@
     <!-- Update Member confirm-dialog -->
     <!-- Update List Change confirm-dialog -->
     <confirm-dialog id="modalUpdateList" ref="modalUpdateList">
-      <div slot="modal-title" class="text-white">
-        <span class="text-white">{{modelUpdateList.title}}</span>
-      </div>
+      <div slot="modal-title" class="text-white">Update List: {{modelUpdateList.title}}</div>
       <div slot="modal-body">
         <div class="containter form-group" v-html="modelUpdateList.html"></div>
       </div>

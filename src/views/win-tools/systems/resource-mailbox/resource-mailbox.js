@@ -192,7 +192,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
   async create() {
     this.groupId = `${this.model.department}_${this.model.name}.dg`
     this.showAddMembers = false;
-    let errors = this.validate();
+    let errors = this.validate(this.$refs.submitForm);
     if (errors.length) {
       this.toastService.error(errors.join("<br/>"));
       return;

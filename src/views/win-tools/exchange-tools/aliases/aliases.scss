@@ -1,73 +1,123 @@
-.fa-at{
+.fa-at {
     border: 1px solid $gray-500;
     padding: 10px;
     background: $gray-300;
 }
-.btn.btn-add-alias{
+
+.btn.btn-add-alias {
     margin-left: 0;
 }
+
 select {
-    margin:0;
+    margin: 0;
 }
+
 .row-header {
 
     margin-top: 20px;
 }
 
-.row-header,.result-grid{
-    display:flex;
+.row-header,
+.result-grid {
+    display: flex;
     flex-flow: nowrap;
     justify-content: space-evenly;
-    .col-1,.col-2,.col-3{
+
+    .col-1,
+    .col-2,
+    .col-3 {
         max-width: 100%;
-        
+
     }
+
     &:nth-child(even) {
         background: $gray-100;
-      }
-    .col-1{
+    }
+
+    .col-1 {
         flex: 8;
     }
-    .col-2{
+
+    .col-2 {
         flex: 1;
     }
-    .col-3{
+
+    .col-3 {
         flex: 1;
     }
-}
-input[type="radio"]{
-    top: 0;
-}
-input[type="radio"][disabled="disabled"]{
-    border: 1px solid $gray-400;
-    background: $gray-400;
-    
 }
 
-.result-grid{
-    div{
+input[type="radio"] {
+    top: 0;
+}
+
+input[type="radio"][disabled="disabled"] {
+    border: 1px solid $gray-100;
+    background: $gray-100;
+
+}
+
+.result-grid {
+    div {
         padding-top: 10px;
     }
 }
 
-.add-alias-cmd{
-display: flex;
-justify-content:center;
+.add-alias-cmd {
+    display: flex;
+    justify-content: center;
 }
 
-.forwarding-address-controls{
-    width:100%;
-    display:flex;
-   
-    input{
-        flex:380px;
+.forwarding-address-controls {
+    width: 100%;
+    display: flex;
+
+    input {
+        flex: 380px;
         margin-right: 10px;
     }
-    div{
+
+    div {
         text-align: right;
-        button:nth-of-type(1){
-            margin-right:5px;
+
+        button:nth-of-type(1) {
+            margin-right: 5px;
         }
 
     }
 }
+
+
+
+.add-email-alias {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    padding:0 40px;
+       
+    .submit {
+      flex-basis: 100%;
+    }
+  
+    .submit {
+      text-align: right;
+      margin:20px 0;
+    }
+    >div {
+      
+      flex-grow: 1;
+      flex-shrink: 1;
+      padding:0;
+      
+      
+      
+      //<label for="newAlias">New Alias (E-mail prefix)</label>
+      //<span class="required">Required</span>
+      
+      &:nth-of-type(2) {
+        flex-basis: 1em;
+        flex-grow: 0;
+        flex-shrink: 0;
+      }
+    }
+  }

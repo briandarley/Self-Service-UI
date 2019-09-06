@@ -107,7 +107,7 @@ export default class BasicInformation extends BaseValidateMixin {
         if (this.model.errors) {
           //if the model was previously initialized, i.e. model.errors, then re-validate
           //this is required because date-picker sets the form to 'needs-validation' which is not desired
-          this.validate();
+          this.validate(this.$refs.submitForm);
         }
       },
       100);
@@ -118,7 +118,7 @@ export default class BasicInformation extends BaseValidateMixin {
 
   isValid(){
     
-    if(!this.validate() || !this.validate().length) return true;
+    if(!this.validate(this.$refs.submitForm) || !this.validate(this.$refs.submitForm).length) return true;
     return false;
   }
 }

@@ -10,7 +10,7 @@
       <div class="card-body">
         <div class="container">
           <!-- Search Criteria -->
-          <form class="section" role="form">
+          <form @submit.prevent.prevent class="section" role="form">
             <div class="search-criteria">
               <div class="header">Search Routes</div>
               <div class="search-criteria-fields">
@@ -88,6 +88,8 @@
                         class="fa fa-angle-double-down more-info"
                         :class="{expanded: item.expanded, collapsed: item.expanded === false}"
                       ></i>
+                       <span v-if="item.expanded">collapse</span>
+                <span v-else>expand</span>
                     </a>
                   </div>
                   <div class="entity-details">

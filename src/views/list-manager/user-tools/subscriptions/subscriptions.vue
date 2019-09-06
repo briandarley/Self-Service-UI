@@ -9,9 +9,10 @@
       </div>
       <div class="card-body" v-if="this.userSubscriptions.length > 0">
         <div class="container">
+          <div class="border border-primary">
           <div class="row">
             <div class="col">
-              <div class="alert alert-info">
+              <div class="alert alert-info m-0">
                 <div class="info">
                   <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </div>
@@ -25,8 +26,8 @@
               </div>
             </div>
           </div>
-          <div class="subscription-info">
-            <div class="bg-primary text-white row-header">
+
+          <div class="bg-primary text-white row-header">
               <div class="col">List Name</div>
             </div>
             <div class="list-container">
@@ -40,6 +41,7 @@
       <div class="card-body" v-else>
         <div class="container">
           <div class="system-message">
+            
             <div class="alert alert-warning">
               <div class="info">
                 <i class="far fa-stop-circle" aria-hidden="true"></i>
@@ -51,6 +53,7 @@
                 <p>We've tried to retrieve your subscriptions but none were found</p>
               </div>
             </div>
+            
           </div>
         </div>
       </div>

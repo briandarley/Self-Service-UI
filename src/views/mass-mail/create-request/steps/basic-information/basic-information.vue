@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent.prevent class="container validation-form" autocomplete="off">
+  <form @submit.prevent.prevent class="container validation-form" autocomplete="off" ref="submitForm">
     <div class="border border-primary">
       <div class="bg-primary text-white row-header">
         <div class="pl-3">Create Mass Mail - Basic Information</div>

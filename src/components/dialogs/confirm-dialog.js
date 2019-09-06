@@ -10,10 +10,10 @@ import {
 })
 export default class ConfirmDialog extends Vue {
   hide() {
-
     const $ = this.$;
     
-    $('.modal').modal('hide') 
+    
+    $(`#${this.id}`).modal('hide') 
     .appendTo(this.$el);
   }
 
@@ -29,10 +29,9 @@ export default class ConfirmDialog extends Vue {
   
 
     if (this.width) {
-      //$(".modal-dialog").css("max-width", `${this.width}px !important`);
-      $(".modal-dialog").css("max-width", `${this.width}px`);
+      $(`#${this.id} .modal-dialog`).css("max-width", `${this.width}px`);
     } else {
-      $(".modal-dialog").css("max-width", `500px`);
+      $(`#${this.id} .modal-dialog`).css("max-width", `500px`);
     }
 
   }

@@ -123,8 +123,9 @@ input::placeholder {
     appearance: none;
     display: inline-block;
     position: relative;
-    background-color: #f1f1f1;
-    color: $athletics-navy;
+    background-color: $gray-500;
+    color: $black;
+    
     top: 10px;
     height: 30px;
     width: 30px;
@@ -136,19 +137,20 @@ input::placeholder {
 
     &:checked::before {
       position: absolute;
-      font: 13px/1 'Open Sans', sans-serif;
+      font: 16px/1 'Open Sans', sans-serif;
+      font-weight: bolder;
       left: 11px;
-      top: 7px;
+      top: 5px;
       content: '\02143';
       transform: rotate(40deg);
     }
 
     &:hover {
-      background-color: #f7f7f7;
+      background-color: $gray-600;
     }
 
     &:checked {
-      background-color: #f1f1f1;
+      background-color: $gray-500;
     }
     &:active,&:focus  {
       border: 1px solid $carolina-blue;
@@ -211,6 +213,13 @@ input::placeholder {
   .card-header {
     background: transparent;
     border: 0;
+  }
+}
+.label-info{
+  display:flex;
+  justify-content: space-between;
+  .required{
+    color: $red;
   }
 }
 
@@ -285,6 +294,52 @@ input::placeholder {
 
 .input-error {
   border: 1px solid red;
+}
+
+.more-info {
+  margin-left: 10px;
+  border: 1px solid $gray-500;
+  border-radius: 5px;
+  padding: 2px 3px;
+}
+
+.more-info.expanded {
+  transform: rotate(-180deg);
+  transition: transform 150ms ease;
+}
+
+.more-info.collapsed {
+  transform: rotate(-360deg);
+  transition: transform 150ms ease;
+}
+
+
+.expand-enter-active {
+  transition: all 0.5s ease;
+  height: 242px;
+  overflow: hidden;
+
+  .sdd-grid {
+    overflow: hidden !important;
+  }
+}
+
+.expand-leave-active {
+  transition: all 0.5s ease;
+  height: 242px;
+}
+
+.expand-enter,
+.expand-leave-to {
+  height: 0;
+  opacity: 0;
+}
+.result-grid a span {
+  position: absolute;
+  display: block;
+  text-indent: -9999px;
+  text-align: left;
+  overflow: hidden;
 }
 
 

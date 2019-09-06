@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent.prevent class="validation-form" autocomplete="off" role="form" >
+  <form @submit.prevent.prevent class="validation-form" autocomplete="off" role="form" ref="submitForm" >
      
     <div class="container">
       <div class="form-group">

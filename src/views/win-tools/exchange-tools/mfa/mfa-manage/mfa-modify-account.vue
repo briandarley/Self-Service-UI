@@ -13,22 +13,31 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="onyen">Search</label>
-      <input
-        type="text"
-        class="form-control"
-        id="onyen"
-        v-select-all
-        placeholder="onyen"
-        v-model="filter"
-        v-on:keyup.13="search()"
-      />
-    </div>
-    <div class="submit text-right" :class="{'mb-5': !mfaAccountStatus}">
-      <button class="btn btn-primary mr-1" @click="search()">Search</button>
-      <button class="btn btn-secondary" @click="clear()">Clear</button>
-    </div>
+    <form @submit.prevent.prevent class="container" ref="searchForm">
+      <div class="form-group">
+        
+        <div class="label-info">
+              <label for="searchField">Search</label>
+              <span class="required">Required</span>
+            </div>
+        <input
+          type="text"
+          class="form-control"
+          id="searchField"
+          placeholder="onyen"
+          v-model="filter"
+          v-on:keyup.13="search()"
+          data-validation="{'required': 'true'}"
+          ref="searchField"
+          autocomplete="off"
+          v-select-all
+        />
+      </div>
+      <div class="submit text-right" :class="{'mb-5': !mfaAccountStatus}">
+        <button class="btn btn-primary mr-1" @click="search()">Search</button>
+        <button class="btn btn-secondary" @click="clear()">Clear</button>
+      </div>
+    </form>
     <transition name="fade">
       <div
         class="mfa-user-status-results"
@@ -48,7 +57,11 @@
             <div class="col">{{mfaAccountStatus.pid}}</div>
             <div class="col">{{mfaAccountStatus.displayName}}</div>
             <div class="col text-center fa-2x">
-              <i class="fa fa-check text-primary" v-if="mfaAccountStatus.mfaEnabled" aria-hidden="true"></i>
+              <i
+                class="fa fa-check text-primary"
+                v-if="mfaAccountStatus.mfaEnabled"
+                aria-hidden="true"
+              ></i>
               <i class="fa fa-times-circle-o text-warning" aria-hidden="true" v-else></i>
             </div>
             <div class="col text-center" v-if="mfaExemptBeginDate">{{mfaExemptBeginDate}}</div>
@@ -114,6 +127,8 @@
             <div
               class="mfa-end-date-7-day"
               title="Set default 7 day extension"
+              tabindex="0"
+              @keydown="watchBtn($event,'mfa-end-date-7-day')"
               @click="showConfirm7Day()"
             >
               <span>7 Day Ext</span>
@@ -124,6 +139,8 @@
             <div
               class="mfa-end-date-range"
               title="Specify date range"
+              @keydown="watchBtn($event,'mfa-end-date-range')"
+              tabindex="0"
               @click="showConfirmDateRangeDlg()"
             >
               <span>Date Range</span>
@@ -134,6 +151,8 @@
             <div
               class="mfa-end-date-pick-date"
               title="Select expiration date"
+              @keydown="watchBtn($event,'mfa-end-date-pick-date')"
+              tabindex="0"
               @click="showConfirmIndefiniteDlg()"
             >
               <span>Pick Date</span>
@@ -158,14 +177,21 @@
               <strong>Exempt End Date</strong>' blank to indefinitely disable MFA or enter a date in which MFA restrictions should be automatically applied.
             </p>
           </div>
-          <form @submit.prevent.prevent class="container validation-form" autocomplete="off">
+          <form
+            @submit.prevent.prevent
+            class="container validation-form"
+            autocomplete="off"
+            ref="enableMfaSubmitForm"
+          >
             <div class="form-group">
+
               <label>Exempt End Date</label>
               <date-picker
                 :selected-date.sync="model.selectedMfaDate"
                 minDate="today"
                 ref="dtSelectedMfaDate"
                 v-validate="'required'"
+                
                 data-validation="{'name': 'Date Required','required': false}"
               ></date-picker>
             </div>
@@ -202,7 +228,7 @@
         </div>
       </div>
       <div slot="modal-footer">
-        <button class="btn btn-primary" @click="submitMfaChange()">yes</button>
+        <button class="btn btn-primary" @click="submitMfaChange('enableMfaSubmitForm')">yes</button>
         <button class="btn btn-secondary" @click="cancelMfaChange()">cancel</button>
       </div>
     </confirm-dialog>
@@ -227,12 +253,17 @@
               </p>
             </div>
           </div>
-          <form @submit.prevent.prevent class="container validation-form" autocomplete="off">
+          <form
+            @submit.prevent.prevent
+            class="container validation-form"
+            autocomplete="off"
+            ref="exemptEndDateForm"
+          >
             <div class="form-group">
               <label for="dtSelectedMfaDate2">Exempt End Date</label>
               <date-picker
                 :selected-date.sync="model.selectedMfaDate"
-                dateRange="true"
+                date-range="true"
                 ref="dtSelectedMfaDate2"
                 id="dtSelectedMfaDate2"
                 v-validate="'required'"
@@ -272,7 +303,7 @@
         </div>
       </div>
       <div slot="modal-footer">
-        <button class="btn btn-primary" @click="submitMfaChange()">yes</button>
+        <button class="btn btn-primary" @click="submitMfaChange('exemptEndDateForm')">yes</button>
         <button class="btn btn-secondary" @click="cancelMfaChange()">cancel</button>
       </div>
     </confirm-dialog>
@@ -289,7 +320,12 @@
               <strong>Exempt End Date</strong>' blank to indefinitely disable MFA or enter a date in which MFA restrictions should be automatically applied.
             </p>
           </div>
-          <form @submit.prevent.prevent class="container validation-form" autocomplete="off">
+          <form
+            @submit.prevent.prevent
+            class="container validation-form"
+            autocomplete="off"
+            ref="exemptEndDateForm"
+          >
             <div class="form-group">
               <label>Exempt End Date</label>
               <date-picker :selected-date.sync="model.selectedMfaDate" minDate="today"></date-picker>
@@ -327,7 +363,7 @@
         </div>
       </div>
       <div slot="modal-footer">
-        <button class="btn btn-primary" @click="submitMfaChange()">yes</button>
+        <button class="btn btn-primary" @click="submitMfaChange('exemptEndDateForm')">yes</button>
         <button class="btn btn-secondary" @click="cancelMfaChange()">cancel</button>
       </div>
     </confirm-dialog>

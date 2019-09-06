@@ -8,7 +8,7 @@
         <h3>Search Lists</h3>
       </div>
       <div class="card-body">
-        <form class="container" role="form">
+        <form @submit.prevent.prevent class="container" role="form">
           <div class="form-group">
             <label for="name-like">Search Lists by Name (Name Like)</label>
             <input

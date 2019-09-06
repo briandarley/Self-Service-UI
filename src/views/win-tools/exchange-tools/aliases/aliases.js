@@ -1,4 +1,7 @@
-import Vue from "vue";
+import {
+  BaseValidateMixin
+} from "../../../../components/mixins/index";
+
 import { Component, Watch } from "vue-property-decorator";
 
 @Component({
@@ -16,7 +19,7 @@ import { Component, Watch } from "vue-property-decorator";
     
   ]
 })
-export default class Aliases extends Vue {
+export default class Aliases extends BaseValidateMixin {
   adminProfile = {};
 
   adUser = null;
@@ -45,6 +48,13 @@ export default class Aliases extends Vue {
   }
 
   async search() {
+    let errors = this.validate(this.$refs.searchForm);
+    
+    if (errors.length) {
+      this.toastService.error("Validation Failed");
+      return false;
+    }
+    
     this.spinnerService.show();
     try {
       this.loadingAliases = true;
@@ -256,6 +266,7 @@ export default class Aliases extends Vue {
   }
 
   closeAddEmailAliasDialog() {
+    this.newAliasPrefix = "";
     this.$refs.addEmailAliasDialog.hide();
   }
 }

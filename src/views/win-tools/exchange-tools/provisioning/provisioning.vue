@@ -8,9 +8,13 @@
         <h3>Provisioning</h3>
       </div>
       <div class="card-body">
-        <div class="container">
+        <form @submit.prevent.prevent role="form" ref="submitForm">
           <div class="form-group">
-            <label for="searchField">Search Provision/Initiate Provision</label>
+            
+             <div class="label-info">
+                  <label for="searchField">Search Provision/Initiate Provision</label>
+                  <span class="required">Required</span>
+                </div>
             <input
               type="text"
               class="form-control"
@@ -18,6 +22,8 @@
               id="searchField"
               v-select-all
               v-model="filter"
+              data-validation="{'required': 'true'}"
+              ref="searchField"
               v-on:keyup.13="search()"
             />
           </div>
@@ -25,7 +31,8 @@
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
-        </div>
+        </form>
+        
 
         <transition name="fade">
           <div v-if="provisionData">
@@ -135,31 +142,30 @@
                   </div>
                 </div>
                 <div class="input-controls">
-                      <div class="form-group form-inline">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="notify e-mail address"
-                          v-model="emailEntry"
-                        />
-                        <div class="buttons">
-                          <button class="btn btn-primary" @click="addEmail()">Add</button>
-                          <button class="btn btn-secondary" @click="emailEntry = ''">Clear</button>
-                        </div>
-                      </div>
-                      <div class="form-group form-inline">
-                        
-                        <select name id class="form-control" v-model="selectedEmail">
-                          <option v-for="item in emailResponse" :key="item">{{item}}</option>
-                        </select>
-                        <div class="buttons">
-                          <button
-                            class="btn btn-primary pull-right"
-                            @click="removeSelectedEmail()"
-                          >Remove</button>
-                        </div>
-                      </div>
+                  <div class="form-group form-inline">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="notify e-mail address"
+                      v-model="emailEntry"
+                    />
+                    <div class="buttons">
+                      <button class="btn btn-primary" @click="addEmail()">Add</button>
+                      <button class="btn btn-secondary" @click="emailEntry = ''">Clear</button>
                     </div>
+                  </div>
+                  <div class="form-group form-inline">
+                    <select name id class="form-control" v-model="selectedEmail">
+                      <option v-for="item in emailResponse" :key="item">{{item}}</option>
+                    </select>
+                    <div class="buttons">
+                      <button
+                        class="btn btn-primary pull-right"
+                        @click="removeSelectedEmail()"
+                      >Remove</button>
+                    </div>
+                  </div>
+                </div>
                 <div class="submit text-right m-4">
                   <button class="btn btn-primary mr-1" @click="submit()">Submit</button>
                   <button class="btn btn-secondary" @click="clear()">Cancel</button>

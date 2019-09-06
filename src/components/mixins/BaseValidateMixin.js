@@ -7,7 +7,7 @@ import {
   name: "base-validate-mixin"
 })
 export default class BaseValidateMixin extends Vue {
-  
+
   requiredFields = [];
 
   _getEmptyMissingRequiredFields(requiredFields) {
@@ -25,6 +25,7 @@ export default class BaseValidateMixin extends Vue {
   getInvalidFields() {
     return this._getEmptyMissingRequiredFields(this.requiredFields);
   }
+
   clearValidation() {
 
     let $ = this.$;
@@ -66,7 +67,7 @@ export default class BaseValidateMixin extends Vue {
     if (!data) {
       return null;
     }
-    
+
     let validation = null;
     if (isComponent && data instanceof Object && data["data-validation"]) {
       validation = JSON.parse(data["data-validation"].toString().replace(/'/g, "\""));
@@ -96,7 +97,7 @@ export default class BaseValidateMixin extends Vue {
 
   _removeInputError(element) {
     let $ = this.$;
-
+    element[0]
     let isComponent = element instanceof Vue;
 
     let el = null;
@@ -121,13 +122,11 @@ export default class BaseValidateMixin extends Vue {
       } else {
         $(el).removeClass("input-error");
       }
-    } 
-    else if(el.is("input")){
+    } else if (el.is("input")) {
       $formGroup = $(el.closest(".form-group"))
       el.removeClass("input-error");
 
-    }
-    else {
+    } else {
       $formGroup = $(el.find("input").closest(".form-group"))
       el.find(".input-error").removeClass("input-error");
     }
@@ -173,7 +172,7 @@ export default class BaseValidateMixin extends Vue {
   }
   _setMissingValueValidationError(validation, errors, value) {
     let message = "";
-    if(!validation.required) return message;
+    if (!validation.required) return message;
     //if (!validation.minLength && !validation.maxLength) {
     if (!value || !value.length || value === "false") {
       message = "value required";
@@ -208,7 +207,7 @@ export default class BaseValidateMixin extends Vue {
   }
   _setEmailValidationError(validation, errors, value) {
     let message = "";
-    if(!value) return message;
+    if (!value) return message;
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     switch (validation.type) {
       case "email":
@@ -236,11 +235,16 @@ export default class BaseValidateMixin extends Vue {
     if (isComponent) {
       el = $(element.$el);
     } else {
-      el = $(element)[0];
+      el = $([element[0]]);
     }
 
+    let $form = null;
+    if (el.tagName === "FORM") {
+      $form = el;
+    } else {
+      $form = $(el.closest("form.validation-form"));
+    }
 
-    let $form = $(el.closest("form.validation-form"));
 
     $form.removeClass("form-error");
 
@@ -250,7 +254,34 @@ export default class BaseValidateMixin extends Vue {
     $validationError.remove();
 
   }
+  _clearFormError2(element) {
+    const $ = this.$;
 
+    let isComponent = element instanceof Vue;
+
+    let el = null;
+    if (isComponent) {
+      el = $(element.$el);
+    } else {
+      el = $([element[0]]);
+    }
+
+    let $form = null;
+    if (el.tagName === "FORM") {
+      $form = el;
+    } else {
+      $form = $(el.closest("form.validation-form"));
+    }
+
+
+    $form.removeClass("form-error");
+
+    let $formGroup = $(el.closest(".form-group"));
+
+    let $validationError = $formGroup.find(".validation-error");
+    $validationError.remove();
+
+  }
   _appendErrorIndicator(element, message) {
     const $ = this.$;
     let isComponent = element instanceof Vue;
@@ -278,12 +309,10 @@ export default class BaseValidateMixin extends Vue {
       } else {
         $(el).addClass("input-error");
       }
-    } 
-    else if(el.is("input")){
+    } else if (el.is("input")) {
       $formGroup = $(el.closest(".form-group"))
       el.addClass("input-error");
-    }
-    else {
+    } else {
       $formGroup = $(el.find("input").closest(".form-group"))
       el.find("input").addClass("input-error");
     }
@@ -294,88 +323,99 @@ export default class BaseValidateMixin extends Vue {
   }
   _hasFormGroup(element) {
     const $ = this.$;
+    let isComponent = element instanceof Vue;
 
-    let el = $(element instanceof Vue ? element.$el : element);
+    let el = null;
+    if (isComponent) {
+      el = $(element.$el);
+    } else {
+      el = $(element)[0];
+    }
+
+
+    if ($(el).hasClass("form-group")) {
+      return true;
+    }
     let $formGroup = $(el.closest(".form-group"));
 
     return $formGroup.length > 0;
   }
-  _clearErrorsOnFocus(element){
+  _clearErrorsOnFocus(element) {
     //Clear any errors once the user sets focus to element
     let $ = this.$;
 
     let isComponent = element instanceof Vue;
-    
+
     let el = null;
-    if(isComponent)
-    {
+    if (isComponent) {
       el = $(element.$el);
-    }
-    else{
+    } else {
       el = $(element);
     }
-    
+
     const that = this;
     el.focus(function () {
       that._clearFormError(this);
       that._removeInputError(this)
     });
   }
-  validate() {
+  
+  validate(form) {
     try {
+      //1) clear existing errors (Removing elements with class 'validation-error')
+      //2) remove class 'input-error' from input elements
+      //3) get validation elements
+      //4) get validation attributes
+      //5) iterate over validation logic, append to errors
+      //6) Append all errors to single string
+      //7) Append error to element
+      //8) Add clear error on focus event
+      if(form == null)
+      {
+        throw "Form passed is undefined";
+      }
       let errors = [];
-      let $ = this.$;
+      const $ = this.$;
+      //1) clear existing errors (Removing elements with class 'validation-error')
+      $(form).find(".validation-error").remove();
 
-      let refs = Object.keys(this.$refs);
-      let formErrorCleared = false;
+      //2) remove class 'input-error' from input elements
+      let inputErrors = $(form).find(".input-error");
+      for (let i = 0; i < inputErrors.length; i++) {
+        $(inputErrors[i]).removeClass("input-error");
+      }
 
-      let currentRef = null;
-      for (let i = 0; i < refs.length; i++) {
-        currentRef = this.$refs[refs[i]];
-        let $element = currentRef instanceof Vue ? currentRef : $(currentRef);
+      //3) get validation elements
+      let validationElements = $(form).find("[data-validation]");
 
-        if (!formErrorCleared) {
-          this._clearFormError($element);
-          formErrorCleared = true;
+
+      let validations = [
+        this._setMissingValueValidationError,
+        this._setMaxLengthValidationError,
+        this._setMinLengthValidationError,
+        this._setRegExValidationError,
+        this._setEmailValidationError,
+      ];
+      let messages = [];
+      for (let i = 0; i < validationElements.length; i++) {
+        let rawRule = $(validationElements[i]).attr("data-validation").replace(/'/g, "\"");
+        let validation = JSON.parse(rawRule);
+        let value = this._getValue($(validationElements[i]));
+
+        for (let j = 0; j < validations.length; j++) {
+          messages.push(validations[j](validation, errors, value))
         }
 
-        let hasFormGroup = this._hasFormGroup(currentRef);
-
-        if (!hasFormGroup) {
-          continue;
-        }
-
-        this._removeInputError($element);
-
-        let validation = this._getDataValidation($element);
-
-        if (!validation) continue;
-
-        let value = this._getValue($element);
-
-        let messages = [];
-
-        messages.push(this._setMissingValueValidationError(validation, errors, value));
-        if (!errors.length) {
-          // messages.push(this._setMaxLengthValidationError(validation, errors, value));
-          // messages.push(this._setMinLengthValidationError(validation, errors, value));
-          // messages.push(this._setRegExValidationError(validation, errors, value));
-          // messages.push(this._setEmailValidationError(validation, errors, value));
-        }
-        messages.push(this._setMaxLengthValidationError(validation, errors, value));
-        messages.push(this._setMinLengthValidationError(validation, errors, value));
-        messages.push(this._setRegExValidationError(validation, errors, value));
-        messages.push(this._setEmailValidationError(validation, errors, value));
         let hasError = messages.some(c => c.length);
         if (!hasError) continue;
 
-        let message = messages.filter(c => c.length).join()
-        this._appendErrorIndicator($element, message);
+        let message = messages.filter(c => c.length).join();
+        this._appendErrorIndicator($(validationElements[i]), message);
 
-        this._clearErrorsOnFocus($element)
-       
+        this._clearErrorsOnFocus($(validationElements[i]));
 
       }
+
 
       return errors;
     } catch (e) {
@@ -383,4 +423,6 @@ export default class BaseValidateMixin extends Vue {
       this.toastService.error("An error occurred validating form");
     }
   }
+
+  
 }

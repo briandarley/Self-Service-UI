@@ -2,7 +2,7 @@
   <div class="route-info">
     <tabbed-control tabs="Route Info,Raw JSON">
       <tabbed-item slot="tab_0">
-        <form class="route-fields pb-3" role="form">
+        <form @submit.prevent.prevent class="route-fields pb-3" role="form" ref="submitForm">
           <div class="route-title form-group">
             <label for="route-title-value">Title</label>
             <input

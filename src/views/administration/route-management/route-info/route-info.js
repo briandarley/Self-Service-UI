@@ -85,13 +85,15 @@ export default class RouteInfo extends BaseValidateMixin {
   async onRouteUpdated(route) {
     this.$emit('routeUpdated', route);
   }
-  async onRouteDeleted(){
-     this.$emit('routeDeleted');
+  async onRouteDeleted() {
+    this.$emit('routeDeleted');
   }
   async saveChanges() {
     try {
+
       this.spinnerService.show();
-      let errors = this.validate();
+      let errors = this.validate(this.$refs.submitForm);
+      
       if (errors.length) {
         this.toastService.error("Validation Failed");
         return;

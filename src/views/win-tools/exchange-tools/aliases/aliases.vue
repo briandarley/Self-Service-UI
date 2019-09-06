@@ -13,15 +13,19 @@
             <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <div>
-            <p>This tool may be used to manage user's email aliases including, adding, removing, setting primary email alias
-              <!-- , as well as manage the user's forwarding address for Office 365.--></p> 
+            <p>
+              This tool may be used to manage user's email aliases including, adding, removing, setting primary email alias
+              <!-- , as well as manage the user's forwarding address for Office 365.-->
+            </p>
             <p>Enter the Onyen for the person you wish to modify</p>
           </div>
         </div>
-
-        <div class="container">
+        <form @submit.prevent.prevent class="form-group" role="form" ref="searchForm">
           <div class="form-group">
-            <label for="onyen">User Id</label>
+            <div class="label-info">
+              <label for="onyen">User Id</label>
+              <span class="required">Required</span>
+            </div>
             <input
               type="text"
               id="onyen"
@@ -29,6 +33,9 @@
               v-select-all
               v-model="filter"
               placeholder="onyen"
+              data-validation="{'required': 'true'}"
+              ref="searchField"
+              autocomplete="off"
               v-on:keyup.13="search()"
             />
           </div>
@@ -36,7 +43,8 @@
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
-        </div>
+        </form>
+        <div class="container"></div>
 
         <div class v-if="adUser">
           <div class="alert alert-info mt-3">
@@ -46,7 +54,7 @@
                 Some aliases may not be selected or removed as they are required for proper account function.
               </p>
               <p>Use the 'Add Email Alias' button to add new aliases for the selected account</p>
-                          </div>
+            </div>
           </div>
           <div class="submit text-right">
             <button class="btn btn-primary mr-2" @click="showAddEmailAliasDialog()">
@@ -61,12 +69,19 @@
               <div class="col-2 text-center">Is Primary</div>
               <div class="col-3"></div>
             </div>
-            <div class="result-grid row" v-for="item in emailAddresses" v-bind:key="item.email">
-              <div class="col-1">{{item.email}}</div>
+            <div
+              class="result-grid row"
+              v-for="(item, index) in emailAddresses"
+              v-bind:key="item.email"
+            >
+              <div class="col-1">
+                <label :for="'alias-selection' + index">{{item.email}}</label>
+              </div>
               <div class="col-2 radio-buttons text-center">
                 <input
                   type="radio"
                   name="primary"
+                  :id="'alias-selection' + index"
                   :checked="item.primary"
                   :value="item.email"
                   v-model="primary"
@@ -141,73 +156,49 @@
               </p>
             </div>
           </div>
-
-          <div class="form-group add-alias-cmd">
-            <div class="form-inline">
+          <form @submit.prevent.prevent class="form-group add-email-alias" role="form">
+            <div class="col form-group">
+              <div class="label-info">
+                <label for="newAlias">Alias Prefix</label>
+                <span class="required">Required</span>
+              </div>
               <input
                 type="text"
+                id="newAlias"
                 class="form-control"
-                placeholder="alias prefix"
+                placeholder="email alias"
                 v-model="newAliasPrefix"
+                data-validation="{'name': 'E-mail alias (prefix)','required': 'true'}"
+                ref="newAlias"
                 v-select-all
               />
-              <i class="fa fa-at" aria-hidden="true"></i>
-              <select name id class="form-control" v-model="newAliasDomain">
-                <option v-for="item in adminProfile.adminAliases" :key="item">{{item}}</option>
-              </select>
-              <button class="btn btn-primary" @click="addEmailAlias()">Add</button>
-              <button class="btn btn-secondary" @click="newAliasPrefix = ''">Clear</button>
             </div>
-          </div>
-        </div>
-      </div>
-      <div slot="modal-footer">
-        <button class="btn btn-primary" @click="closeAddEmailAliasDialog()">close</button>
-      </div>
-    </confirm-dialog>
-    <!--
-    <confirm-dialog
-      id="confirmAddForwardingAddressDialog"
-      ref="confirmAddForwardingAddressDialog"
-      width="800"
-    >
-      <div slot="modal-title" class="text-white">Set Forwarding Address</div>
-      <div slot="modal-body">
-        <div class="container forwarding-address">
-          <div class="alert alert-info">
-            <div>
-              <p>Use this control to set or remove the account's Forwarding SMTP Address.</p>
-              <p>The value entered must be a valid email address. If you wish to clear the Forwarding SMTP Address, press the clear button and select 'Set Forwarding Address' button.</p>
-            </div>
-          </div>
-
-          <div class="form-group add-alias-cmd">
-            <div class="forwarding-address-controls">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="forwarding address"
-                v-model="mailbox.forwardingSmtpAddress"
-                v-select-all
-              />
-
-              <div class>
-                <button
-                  class="btn btn-primary"
-                  @click="setForwardingAddress()"
-                >Set Forwarding Address</button>
-                <button class="btn btn-secondary" @click="mailbox.forwardingSmtpAddress = ''">Clear</button>
+            <div class="col form-group">
+              <div class="input-group-append">
+                <span class="input-group-text">@</span>
               </div>
             </div>
-          </div>
+            <div class="col form-group">
+              <div class="label-info">
+                <label for="select-domain">Domain</label>
+                <span class="required">Required</span>
+              </div>
+
+              <select class="form-control" v-model="newAliasDomain" id="select-domain">
+                <option v-for="item in adminProfile.adminAliases" :key="item" :value="item">{{item}}</option>
+              </select>
+            </div>
+            
+
+            
+          </form>
         </div>
       </div>
       <div slot="modal-footer">
-        <button class="btn btn-primary" @click="closeAddFormwardingAddressDialog()">close</button>
+        <button class="btn btn-primary" @click="addEmailAlias()">add</button>
+        <button class="btn btn-secondary" @click="closeAddEmailAliasDialog()">close</button>
       </div>
     </confirm-dialog>
-
-    -->
   </div>
 </template>
 <script src="./aliases.js"></script>
