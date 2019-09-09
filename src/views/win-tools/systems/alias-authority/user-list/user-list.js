@@ -36,6 +36,9 @@ export default class UserList extends Vue {
     this.selectAll = false;
   }
 
+  checkElementName(index){
+    return 'chk' + index;
+  }
 
   filterAvailableDomains() {
     if (!this.domainFilter) {

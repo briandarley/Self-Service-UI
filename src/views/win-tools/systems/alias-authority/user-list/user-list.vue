@@ -1,6 +1,6 @@
 <template>
   <div class="user-alias-result">
-    <criteria :aliasDomains="aliasDomains" @search="onSearch"></criteria>
+    <criteria id="user-list-criteria" :aliasDomains="aliasDomains" @search="onSearch"></criteria>
 
     <div class="d-flex mt-3" style="justify-content:space-between">
       <h3 class="text-primary">Total Records {{pagedRecords.totalRecords | formatNumber}}</h3>
@@ -30,7 +30,7 @@
                   class="fa fa-angle-double-down more-info"
                   :class="{expanded: item.expanded, collapsed: item.expanded === false}"
                 ></i>
-                 <span v-if="item.expanded">collapse</span>
+                <span v-if="item.expanded">collapse</span>
                 <span v-else>expand</span>
               </a>
             </div>
@@ -66,7 +66,7 @@
       <div slot="modal-title" class="text-white">Confirm: Apply Domain Changes for User?</div>
       <div slot="modal-body">
         <div class="form-group">
-          <label for="add-domain">Domain</label>
+          <label for="domainFilter">Domain</label>
           <div class="input-group">
             <input
               type="text"
@@ -81,21 +81,35 @@
               style="margin-left: -40px; z-index: 100;"
               @click="domainFilter = null"
             >
-              <i class="fa fa-times" aria-hidden="true"></i>
+              <i class="fa fa-times" aria-hidden="true" title="Clear Field"></i>
+              <span class="screen-reader-hide">Clear Field</span>
             </button>
           </div>
         </div>
         <div class="all-records-select">
-          <div class="col">All Domains</div>
+          <label class="col" for="chkSelectAll">All Domains</label>
           <div class="col check-buttons">
-            <input type="checkbox" name="recursive" id="chkSelectAll" @click="selectAllClick()" v-model="selectAll" />
+            <input
+              type="checkbox"
+              name="recursive"
+              id="chkSelectAll"
+              @click="selectAllClick()"
+              v-model="selectAll"
+            />
           </div>
         </div>
         <div id="domain-list" class="domain-list">
           <div class="records" v-for="(item, index) in filterAvailableDomains()" :key="index">
-            <div class="col">{{item.name}}</div>
+            <div class="col">
+              <label :for="checkElementName(index)">{{item.name}}</label>
+            </div>
             <div class="col check-buttons">
-              <input type="checkbox" name="recursive" id="chkSelectEntity" v-model="item.checked" />
+              <input
+                type="checkbox"
+                name="recursive"
+                :id="checkElementName(index)"
+                v-model="item.checked"
+              />
             </div>
           </div>
         </div>
@@ -124,12 +138,13 @@
               class="btn bg-transparent"
               style="margin-left: -40px; z-index: 100;"
               @click="addAliasManagerOnyen = null"
+              title="Clear Field"
             >
               <i class="fa fa-times" aria-hidden="true"></i>
+              <span class="screen-reader-hide">Clear Field</span>
             </button>
           </div>
         </div>
-        
       </div>
       <div slot="modal-footer">
         <button class="btn btn-primary" @click="onConfirmAddAliasManagerClick()">update</button>

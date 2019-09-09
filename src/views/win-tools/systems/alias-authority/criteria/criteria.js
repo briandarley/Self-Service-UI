@@ -4,7 +4,7 @@ import { Component, Watch } from "vue-property-decorator";
 @Component({
     name: 'criteria',
     dependencies: ['$','moment','toastService','spinnerService'],
-    props: ['aliasDomains']
+    props: ['aliasDomains','id']
   })
 
 export default class Criteria extends Vue {
@@ -26,6 +26,10 @@ export default class Criteria extends Vue {
     this.$emit('search', this.criteria);
   }
 
+  getControlId(label)
+  {
+    return label + this.id;
+  }
 
 }
 

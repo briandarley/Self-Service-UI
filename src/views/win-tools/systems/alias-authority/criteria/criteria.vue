@@ -3,14 +3,14 @@
     <div class="bg bg-primary text-white p-2">Search Criteria</div>
     <div class="m-2">
       <div class="form-group">
-        <label for="onyen">Onyen</label>
-        <input type="text" class="form-control" placeholder="Onyen" v-model="criteria.uid" id="onyen"/>
+        <label :for="getControlId('onyen')">Onyen</label>
+        <input type="text" class="form-control" placeholder="Onyen" v-model="criteria.uid" :id="getControlId('onyen')"/>
       </div>
       <div class="form-group">
-        <label for="domain-select">Domain</label>
+        <label :for="getControlId('domain-select')">Domain</label>
         <select
           name="domain-select"
-          id="domain-select"
+          :id="getControlId('domain-select')"
           class="form-control"
           v-model="criteria.domainName"
         >
