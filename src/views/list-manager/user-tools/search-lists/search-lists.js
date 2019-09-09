@@ -1,13 +1,16 @@
-import Vue from "vue"
+import {
+  BaseValidateMixin
+} from "../../../../components/mixins/index";
+
 import {
   Component
 } from "vue-property-decorator";
 
 @Component({
   name: 'search-lists',
-  dependencies: ['toastService', 'spinnerService', 'ConfigReaderService','ListManagerService','ScreenReaderAnnouncerService']
+  dependencies: ['$','toastService', 'spinnerService', 'ConfigReaderService', 'ListManagerService', 'ScreenReaderAnnouncerService']
 })
-export default class SearchLists extends Vue {
+export default class SearchLists extends BaseValidateMixin {
   nameLike = "";
   data = [];
   basePath = "";
@@ -19,6 +22,13 @@ export default class SearchLists extends Vue {
     this.data = [];
   }
   async search() {
+    
+    let errors = this.validate(this.$refs.searchForm);
+    if (errors.length) {
+      this.toastService.error("Validation Failed");
+      return false;
+    }
+
     this.spinnerService.show();
     try {
       this.data = await this.ListManagerService.queryListsByName(this.nameLike);

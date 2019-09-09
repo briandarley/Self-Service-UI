@@ -1,4 +1,6 @@
-import Vue from "vue"
+import {BaseValidateMixin} from "../../components/mixins/index";
+
+
 import {
   Component
 } from "vue-property-decorator";
@@ -8,7 +10,7 @@ import {
   dependencies: ['$', 'moment','spinnerService','toastService', 'localStorageService', 'ConfigReaderService', 'ListManagerService','ScreenReaderAnnouncerService']
 
 })
-export default class ListManager extends Vue {
+export default class ListManager extends BaseValidateMixin {
   basePath = "";
   listName = "";
   closeDialog() {
@@ -33,6 +35,13 @@ export default class ListManager extends Vue {
   }
   async navigateToList(listName) {
     try {
+      let errors = this.validate(this.$refs.searchForm);
+      if (errors.length) {
+        this.toastService.error("Validation Failed");
+        return false;
+      }
+
+      
       
       this.spinnerService.show();
       let response = await this.ListManagerService.getListsByName(listName)

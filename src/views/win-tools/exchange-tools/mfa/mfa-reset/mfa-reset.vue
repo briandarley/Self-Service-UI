@@ -28,13 +28,13 @@
                 type="text"
                 id="onyen"
                 class="form-control"
-                v-select-all
                 placeholder="onyen"
                 v-model="filter"
                 ref="searchField"
                 v-on:keyup.13="search()"
                 data-validation="{'required': 'true', 'message': 'Search field required'}"
                 autocomplete="off"
+                v-select-all
               />
             </div>
             <div class="submit text-right">

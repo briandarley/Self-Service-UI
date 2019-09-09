@@ -21,23 +21,43 @@
         </div>
 
         <div class="card widget">
+          <form @submit.prevent.prevent class="container" role="form" ref="searchForm">
+            <div class="card-body">
+              <div class="form-group">
+                <div class="label-info">
+                  <label for="searchField">Visit or Manage a Single List</label>
+                  <span class="required">Required</span>
+                </div>
 
-          <div class="card-body form-group">
-            <label for="list-name" class="text-primary my-2">Visit or Manage a Single List</label>
-            <input
-              type="text"
-              id="list-name"
-              class="form-control"
-              placeholder="Enter List Name"
-              v-focus
-              v-model="listName"
-            />
-            <div class="text-right mt-2">
-              <a href="#" class="btn btn-primary mr-1" @click.prevent="navigateToList(listName)">Visit</a>
-              <a href="#" class="btn btn-secondary mr-1" @click.prevent="manageList(listName)">Manage</a>
-             
+                <input
+                  type="text"
+                  id="list-name"
+                  class="form-control"
+                  placeholder="Enter List Name"
+                  v-focus
+                  v-model="listName"
+                  ref="searchField"
+                  v-on:keyup.13="navigateToList(listName)"
+                  data-validation="{'required': 'true', 'message': 'List Name Required'}"
+                  autocomplete="off"
+                  v-select-all
+                />
+              </div>
+
+              <div class="submit text-right">
+                <a
+                  href="#"
+                  class="btn btn-primary mr-1"
+                  @click.prevent="navigateToList(listName)"
+                >Visit</a>
+                <a
+                  href="#"
+                  class="btn btn-secondary mr-1"
+                  @click.prevent="manageList(listName)"
+                >Manage</a>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
 
         <div class="alert warning border border-warning">

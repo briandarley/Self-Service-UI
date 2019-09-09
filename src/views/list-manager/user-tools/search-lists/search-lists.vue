@@ -8,9 +8,12 @@
         <h3>Search Lists</h3>
       </div>
       <div class="card-body">
-        <form @submit.prevent.prevent class="container" role="form">
+        <form @submit.prevent.prevent class="container" role="form" ref="searchForm">
           <div class="form-group">
-            <label for="name-like">Search Lists by Name (Name Like)</label>
+            <div class="label-info">
+                <label for="searchField">Search Lists by Name (Name Like)</label>
+                <span class="required">Required</span>
+              </div>
             <input
               type="text"
               id="name-like"
@@ -18,7 +21,11 @@
               v-model="nameLike"
               v-select-all
               placeholder="name like"
+              data-validation="{'required': 'true', 'message': 'Search field required'}"
+              ref="searchField"
               v-on:keyup.13="search()"
+              autocomplete="off"
+                
             />
           </div>
           <div class="submit text-right">
