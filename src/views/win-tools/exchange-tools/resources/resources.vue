@@ -29,7 +29,7 @@
               v-select-all
               v-model="filter"
               placeholder="onyen"
-              data-validation="{'required': 'true'}"
+              data-validation="{'required': 'true', 'message': 'Search field required'}"
               ref="searchField"
               v-on:keyup.13="search()"
               autocomplete="off"

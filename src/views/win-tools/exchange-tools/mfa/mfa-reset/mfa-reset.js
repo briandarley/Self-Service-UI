@@ -1,4 +1,7 @@
-import Vue from "vue"
+import {
+  BaseValidateMixin
+} from "../../../../../components/mixins/index";
+
 import {
   Component
 } from "vue-property-decorator";
@@ -9,7 +12,7 @@ import {
 
 })
 
-export default class MfaReset extends Vue {
+export default class MfaReset extends BaseValidateMixin {
   filter = "";
   mfaMethodType = null;
   get currentStatus() {
@@ -34,6 +37,14 @@ export default class MfaReset extends Vue {
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Exchange Tools - MFA Reset");
   }
   async search() {
+    let errors = this.validate(this.$refs.searchForm);
+    if (errors.length) {
+      this.toastService.error("Validation Failed");
+      return false;
+    }
+
+
+
     this.spinnerService.show();
     try {
       this.mfaMethodType = await this.ExchangeToolsService.getMfaMethodType(this.filter);

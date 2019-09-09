@@ -17,23 +17,31 @@
               <p>MFA Reset allows administrators to cycle the status of a user's Office365 MFA. The process momentarily disables MFA and immediately re-enables MFA for the selected account. Cycling Office365 MFA will require the user to re-verify their secondary verification for access to Office365.</p>
             </div>
           </div>
+          <form @submit.prevent.prevent role="form" class="container" ref="searchForm">
+            <div class="form-group">
+              <div class="label-info">
+                <label for="searchField">Search</label>
+                <span class="required">Required</span>
+              </div>
 
-          <div class="form-group">
-            <label for="onyen">Search</label>
-            <input
-              type="text"
-              id="onyen"
-              class="form-control"
-              v-select-all
-              placeholder="onyen"
-              v-model="filter"
-              v-on:keyup.13="search()"
-            />
-          </div>
-          <div class="submit text-right">
-            <button class="btn btn-primary mr-1" @click="search()">Search</button>
-            <button class="btn btn-secondary" @click="clear()">Clear</button>
-          </div>
+              <input
+                type="text"
+                id="onyen"
+                class="form-control"
+                v-select-all
+                placeholder="onyen"
+                v-model="filter"
+                ref="searchField"
+                v-on:keyup.13="search()"
+                data-validation="{'required': 'true', 'message': 'Search field required'}"
+                autocomplete="off"
+              />
+            </div>
+            <div class="submit text-right">
+              <button class="btn btn-primary mr-1" @click="search()">Search</button>
+              <button class="btn btn-secondary" @click="clear()">Clear</button>
+            </div>
+          </form>
 
           <transition name="fade">
             <div class="mfa-user-status-results" v-if="mfaMethodType">

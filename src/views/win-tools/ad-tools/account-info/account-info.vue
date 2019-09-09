@@ -20,7 +20,7 @@
 
           <div class="form-group">
             <div class="label-info">
-              <label for="userId">User Id (Onyen, PID, Email)</label>
+              <label for="userId">Search (Onyen, PID, Email)</label>
               <span class="required">Required</span>
             </div>
 
@@ -33,7 +33,7 @@
               v-model="filter"
               placeholder="onyen, pid, or email"
               v-on:keyup.13="search()"
-              data-validation="{'name': 'User Id','required': 'true'}"
+              data-validation="{'required': 'true', 'message': 'Search field required'}"
               ref="newAlias"
                   
             />

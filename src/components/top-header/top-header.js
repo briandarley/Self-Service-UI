@@ -11,12 +11,10 @@ export default class TopHeader extends Vue {
   name = "";
   async mounted() {
     let user = await this.UserService.get();
+    if(user == null) return;
     this.name =  user.profile.preferred_username;
   }
-  async getName(){
-    let user = await this.UserService.get();
-    return  user;
-  }
+  
   async signOut(){
       await this.UserService.logout();
   }

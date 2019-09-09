@@ -15,11 +15,10 @@
 
     <form @submit.prevent.prevent class="container" ref="searchForm">
       <div class="form-group">
-        
         <div class="label-info">
-              <label for="searchField">Search</label>
-              <span class="required">Required</span>
-            </div>
+          <label for="searchField">Search</label>
+          <span class="required">Required</span>
+        </div>
         <input
           type="text"
           class="form-control"
@@ -27,7 +26,7 @@
           placeholder="onyen"
           v-model="filter"
           v-on:keyup.13="search()"
-          data-validation="{'required': 'true'}"
+          data-validation="{'required': 'true', 'message': 'Search field required'}"
           ref="searchField"
           autocomplete="off"
           v-select-all
@@ -184,14 +183,12 @@
             ref="enableMfaSubmitForm"
           >
             <div class="form-group">
-
               <label>Exempt End Date</label>
               <date-picker
                 :selected-date.sync="model.selectedMfaDate"
                 minDate="today"
                 ref="dtSelectedMfaDate"
                 v-validate="'required'"
-                
                 data-validation="{'name': 'Date Required','required': false}"
               ></date-picker>
             </div>

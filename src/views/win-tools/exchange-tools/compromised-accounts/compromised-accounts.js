@@ -56,7 +56,7 @@ export default class CompromisedAccounts extends BaseValidateMixin {
   }
   async mounted() {
     this.toastService.set(this);
-    await this.search();
+    await this.search(true);
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Exchange Tools - Compromised Accounts");
 
   }
