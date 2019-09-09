@@ -27,15 +27,7 @@ export default class DatePicker extends Vue {
   onSelectedDateChange(newValue) {
     this.value = newValue;
   }
-
-  @Watch("dateRange", {
-    immediate: true
-  })
-  async onControlTypeChanged(value) {
-    //await this.controlUpdated();
-    return;
-    if(!value) return;
-
+  _attachDatePickerBehaviour(){
     const $ = this.$;
 
     $.fn.datepicker.defaults.autoclose = true;
@@ -61,43 +53,13 @@ export default class DatePicker extends Vue {
           this.$emit('update:selectedDate', e.target.value);
           this.value = e.target.value;
         });
-
-
-
-    //setTimeout(async ()=> {
-    //  await this.controlUpdated();
-    //},500)
   }
 
   async mounted() {
     
     if(this.dateRange !== "true" ) return;
-
-    const $ = this.$;
-
-    $.fn.datepicker.defaults.autoclose = true;
-    $.fn.datepicker.defaults.orientation = "bottom auto";
-
-
-    let date = new Date();
-    date.setDate(date.getDate());
-    let minDate = date;
-
-    let model = {
-        opens: 'right',
-        startDate: this.startDate,
-        endDate: this.endDate,
-        minDate: minDate
-     };
-
-    $(`#${this.id}`).daterangepicker(
-          model, () => {}
-          //model, (start, end, label) => {}
-        )
-        .on('change', e => {
-          this.$emit('update:selectedDate', e.target.value);
-          this.value = e.target.value;
-        });
+    this._attachDatePickerBehaviour();
+    
   }
   showCalendar() {
     const $ = this.$;

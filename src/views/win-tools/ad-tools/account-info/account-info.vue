@@ -8,7 +8,7 @@
         <h3>Account Info</h3>
       </div>
       <div class="card-body">
-        <form @submit.prevent.prevent role="form">
+        <form @submit.prevent.prevent role="form" ref="searchForm">
           <div class="alert alert-info">
             <div class="info">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -17,8 +17,14 @@
               <p>Use the search function to retrieve summary of user's LDAP, AD, Campus Directory, and Office 365 profiles.</p>
             </div>
           </div>
+
           <div class="form-group">
-            <label for="userId">User Id</label>
+            <div class="label-info">
+              <label for="userId">User Id (Onyen, PID, Email)</label>
+              <span class="required">Required</span>
+            </div>
+
+            
             <input
               type="text"
               class="form-control"
@@ -27,6 +33,9 @@
               v-model="filter"
               placeholder="onyen, pid, or email"
               v-on:keyup.13="search()"
+              data-validation="{'name': 'User Id','required': 'true'}"
+              ref="newAlias"
+                  
             />
           </div>
           <div class="submit text-right">
