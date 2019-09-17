@@ -83,6 +83,7 @@ export default class BaseValidateMixin extends Vue {
     let isComponent = element instanceof Vue;
     let value = isComponent ? element.value : element.val();
 
+
     if (isComponent) {
       return value ? value.trim() : value;
     }
@@ -91,6 +92,21 @@ export default class BaseValidateMixin extends Vue {
       value = element.attr("model");
     }
 
+    const $ = this.$;
+
+    if ($(element).hasClass("date-picker")) {
+      value = $(element).find("input").val();
+    } else if ($(element).find(".typeahead").length > 0) {
+      
+      let inputs = $(element).find("input");
+      //convert to array from htmlcollection -> select just value -> only where there is a value
+      inputs = Array.prototype.slice.call(inputs).map(c => c.value).filter(c=> c);
+
+      if (inputs.length) {
+        value = inputs[0];
+      }
+      
+    }
 
     return value;
   }
@@ -107,7 +123,7 @@ export default class BaseValidateMixin extends Vue {
       el = $(element)[0];
     }
 
-
+    //el = $(el).closest(".form-group");
 
     let $formGroup = null;
     if (!isComponent) {
@@ -115,14 +131,17 @@ export default class BaseValidateMixin extends Vue {
       const stdInputs = ["TEXTAREA", "INPUT", "SELECT"]
       let isStandInputs = stdInputs.indexOf(el.tagName) > -1;
 
+
       if (el.type === "checkbox" || !isStandInputs) {
         $(el)
           .parent()
           .removeClass("input-error");
       } else {
+        el = $formGroup.find(".input-error");
         $(el).removeClass("input-error");
       }
     } else if (el.is("input")) {
+
       $formGroup = $(el.closest(".form-group"))
       el.removeClass("input-error");
 
@@ -171,6 +190,7 @@ export default class BaseValidateMixin extends Vue {
     return message;
   }
   _setMissingValueValidationError(validation, errors, value) {
+
     let message = "";
     if (!validation.required) return message;
     //if (!validation.minLength && !validation.maxLength) {
@@ -235,14 +255,25 @@ export default class BaseValidateMixin extends Vue {
     if (isComponent) {
       el = $(element.$el);
     } else {
-      el = $([element[0]]);
+      if ($(element).is("input")) {
+        el = $(element);
+      } else {
+        el = $([element[0]]);
+      }
+
     }
 
     let $form = null;
     if (el.tagName === "FORM") {
       $form = el;
     } else {
-      $form = $(el.closest("form.validation-form"));
+
+      if ($(element).is("input")) {
+        $form = $(element).closest(".form-group"); //.find(".form-error")
+      } else {
+        $form = $(el.closest("form.validation-form"));
+      }
+
     }
 
 
@@ -283,6 +314,7 @@ export default class BaseValidateMixin extends Vue {
 
   }
   _appendErrorIndicator(element, message) {
+
     const $ = this.$;
     let isComponent = element instanceof Vue;
 
@@ -301,13 +333,28 @@ export default class BaseValidateMixin extends Vue {
       $formGroup = $(el.closest(".form-group"));
       const stdInputs = ["TEXTAREA", "INPUT", "SELECT"]
       let isStandInputs = stdInputs.indexOf(el.tagName) > -1;
+      let isCalendar = $(el).hasClass("date-picker");
+      //let isTypeAhead = $(el).find(".tt-input").length > 0;
+      let isTypeAhead = $(el).find(".typeahead").length > 0;
 
-      if (el.type === "checkbox" || !isStandInputs) {
+      if (isCalendar) {
+        el = $(el).find('.calendar-control')
+        isStandInputs = true;
+      }
+
+
+      if (el.type === "checkbox" || (!isStandInputs && !isTypeAhead)) {
         $(el)
           .parent()
           .addClass("input-error");
       } else {
-        $(el).addClass("input-error");
+        if (isTypeAhead) {
+          $($(el).find(".typeahead")).addClass("input-error");
+        } else {
+          $(el).addClass("input-error");
+        }
+
+
       }
     } else if (el.is("input")) {
       $formGroup = $(el.closest(".form-group"))
@@ -316,9 +363,16 @@ export default class BaseValidateMixin extends Vue {
       $formGroup = $(el.find("input").closest(".form-group"))
       el.find("input").addClass("input-error");
     }
-    $formGroup.append(
-      `<span class="validation-error text-danger" ${this.$options._scopeId}>${message}</span>`
-    );
+    if (this.$options._scopeId) {
+      $formGroup.append(
+        `<span class="validation-error text-danger" ${this.$options._scopeId}>${message}</span>`
+      );
+    } else {
+      $formGroup.append(
+        `<span class="validation-error text-danger">${message}</span>`
+      );
+    }
+
 
   }
   _hasFormGroup(element) {
@@ -343,6 +397,8 @@ export default class BaseValidateMixin extends Vue {
   _clearErrorsOnFocus(element) {
     //Clear any errors once the user sets focus to element
     let $ = this.$;
+    //let isTypeAhead = $(element).find(".tt-input").length > 0;
+    let isTypeAhead = $(element).find(".typeahead").length > 0;
 
     let isComponent = element instanceof Vue;
 
@@ -353,13 +409,23 @@ export default class BaseValidateMixin extends Vue {
       el = $(element);
     }
 
+    let isCalendar = $(el).hasClass("date-picker");
+    if (isCalendar) {
+      //el = $(el).find('.calendar-control')
+      el = $(el).find('input')
+
+    } else if (isTypeAhead) {
+      //tt-input
+      el = $(el).find('.typeahead')
+    }
+
     const that = this;
     el.focus(function () {
       that._clearFormError(this);
       that._removeInputError(this)
     });
   }
-  
+
   validate(form) {
     try {
       //1) clear existing errors (Removing elements with class 'validation-error')
@@ -370,8 +436,7 @@ export default class BaseValidateMixin extends Vue {
       //6) Append all errors to single string
       //7) Append error to element
       //8) Add clear error on focus event
-      if(form == null)
-      {
+      if (form == null) {
         throw "Form passed is undefined";
       }
       let errors = [];
@@ -398,21 +463,30 @@ export default class BaseValidateMixin extends Vue {
       ];
       let messages = [];
       for (let i = 0; i < validationElements.length; i++) {
-        let rawRule = $(validationElements[i]).attr("data-validation").replace(/'/g, "\"");
+        let validationElement = $(validationElements[i]);
+        
+        let rawRule =  validationElement
+                          .attr("data-validation")
+                          .replace(/'/g, "\"");
+
         let validation = JSON.parse(rawRule);
-        let value = this._getValue($(validationElements[i]));
 
+        let value = this._getValue(validationElement);
+
+        let currentValidation = [];
         for (let j = 0; j < validations.length; j++) {
-          messages.push(validations[j](validation, errors, value))
+          currentValidation.push(validations[j](validation, errors, value));
+          //messages.push(validations[j](validation, errors, value))
         }
-
-        let hasError = messages.some(c => c.length);
+        messages = messages.concat(currentValidation)
+        let hasError = currentValidation.some(c => c.length);
         if (!hasError) continue;
 
-        let message = messages.filter(c => c.length).join();
-        this._appendErrorIndicator($(validationElements[i]), message);
+        let message = currentValidation.filter(c => c.length).join();
 
-        this._clearErrorsOnFocus($(validationElements[i]));
+        this._appendErrorIndicator(validationElement, message);
+
+        this._clearErrorsOnFocus(validationElement);
 
       }
 
@@ -424,5 +498,5 @@ export default class BaseValidateMixin extends Vue {
     }
   }
 
-  
+
 }

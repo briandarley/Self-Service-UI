@@ -1,17 +1,26 @@
-import Vue from "vue"
-import { Component,Watch } from "vue-property-decorator";
-import {CountUp} from 'countup.js';
+import {
+  BaseValidateMixin
+} from "./../../../../../components/mixins/index";
+import {
+  Component,
+  Watch
+} from "vue-property-decorator";
+import {
+  CountUp
+} from 'countup.js';
 @Component({
-    name: 'audience-criteria',
-    dependencies: ['$','moment','toastService','spinnerService','MassMailService','ScreenReaderAnnouncerService'],
-    props: ['value']
-  })
+  name: 'audience-criteria',
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'MassMailService', 'ScreenReaderAnnouncerService'],
+  props: ['value']
+})
 
-export default class AudienceCriteria extends Vue {
+export default class AudienceCriteria extends BaseValidateMixin {
+  audienceCheckResult = "";
+  validationErrors = [];
   model = {
     targetPopulation: "",
-    employeeCriteria: ""
-    
+    employeeCriteria: "",
+    targetEmployee: "",
   }
   onyen = "";
   audienceSizeModel = {};
@@ -20,97 +29,157 @@ export default class AudienceCriteria extends Vue {
   checkUserSuccess = null;
   showEmployeeCriteria = false;
 
-  checkIsValid(){
+  checkIsValid() {
+
+  }
+
+
+
+  @Watch('model', {
+    immediate: false,
+    deep: true
+  })
+  onModelChanged(newValue) {
+    this.$emit('input', newValue);
+  }
+  @Watch('value', {
+    immediate: true,
+    deep: true
+  })
+  onValueChanged(newValue) {
+    this.model = newValue;
+
+    if(this.model.id){
+//this.calculateAudience();
+    }
     
   }
 
-  
-
-  @Watch('model', {immediate:false, deep: true})
-  onModelChanged(newValue)
-  {
-    this.$emit('input', newValue);
-  }
-  @Watch('value', {immediate: true, deep: true})
-  onValueChanged(newValue){
-    this.model = newValue;
-  }
-
-
-
-
 
   async checkUser() {
-    this.checkUserSuccess = false;
-    if (!this.targetPerson) {
-      return;
-    }
-    let person = {};
     try {
-      person = await this.audienceCriteriaService.checkIfUserExists(this.targetPerson);
-    } catch (e) {
-      return;
-    }
-
-
-    switch (this.model.targetPopulation) {
-      case "STUDENTS":
-        this.checkUserSuccess = person.student;
-        break;
-      case "EMPLOYEES":
-        this.checkUserSuccess = person.employee;
-        break;
-      case "EMPLOYEES_STUDENTS":
-        this.checkUserSuccess = person.student || person.employee;
-        break;
-    }
-
-
-
-    if (this.model.employeeCriteria === "DDD") {
-      this.checkUserSuccess = this.checkUserSuccess && person.ddd;
-    }
-
-    if (this.model.priority === "Informational") {
-      this.checkUserSuccess = this.checkUserSuccess && person.massemailallowed;
-    }
-
-    if (person && !this.checkUserSuccess) {
-      this.inializeMessageDialog("messageDialog",
-        "Person Found",
-        "Person found but the person indicated does not meet the criteria selected");
-      this.dialogService.show();
-
+      this.validationErrors = [];
+      this.spinnerService.show();
       this.checkUserSuccess = false;
+
+      if (!this.onyen) {
+        this.toastService.error("Invalid Onyen entered");
+        return;
+      }
+      let person = {};
+      person = await this.MassMailService.checkIfUserExists(this.onyen);
+      if (person.status === false) {
+        this.toastService.error("Could not locate user");
+        return;
+      }
+      let targetPopulation = "";
+      switch (this.model.targetPopulation) {
+        case "STUDENTS":
+          this.checkUserSuccess = person.student;
+          targetPopulation = "Students";
+          break;
+        case "EMPLOYEES":
+          this.checkUserSuccess = person.employee;
+          targetPopulation = "Employees";
+          break;
+        case "FACULTY":
+          this.checkUserSuccess = person.faculty;
+          targetPopulation = "Faculty";
+          break;
+        case "EMPLOYEES_STUDENTS":
+          this.checkUserSuccess = person.student || person.employee;
+          targetPopulation = "Employees and Students";
+          break;
+      }
+
+      if(!this.checkUserSuccess){
+        this.validationErrors.push(`Population ${targetPopulation}, user does not meet this criteria`);
+      }
+
+
+      if (this.model.targetEmployee === "DDD") {
+        this.checkUserSuccess = this.checkUserSuccess && person.dddEntry;
+        if(!person.dddEntry)
+        {
+          this.validationErrors.push(`DDD criteria selected, user does not meet this criteria`);
+        }
+      }
+
+      if (this.model.priority === "Informational") {
+        this.checkUserSuccess = this.checkUserSuccess && person.massEmailAllowed;
+        if(!person.massEmailAllowed)
+        {
+          this.validationErrors.push(`Campaign type is 'Informational', however; entered user has MassEmail flag set to false`);
+        }
+      }
+
+      if (person && !this.checkUserSuccess) {
+        this.audienceCheckResult = "Person found but the person does not meet the criteria specified";
+        this.$refs.confirmCheckUser.show();
+        this.checkUserSuccess = false;
+        return;
+      }
+      else if (person) {
+        this.toastService.success("Verified user within selected audience");
+        return;
+      }
+
+
+    } catch (e) {
+      window.console.log(e);
+      this.toastService.error('Failed to retrieve user');
+    } finally {
+      this.spinnerService.hide();
     }
 
 
 
+  }
+
+
+  closeConfirmCheckUser(){
+    this.$refs.confirmCheckUser.hide();
   }
 
   clearCheckUserStatus() {
     this.checkUserSuccess = null;
   }
+  async targetPopulationChanged() {
+    this.model.targetEmployee = "";
+    await this.calculateAudience();
+  }
+
+  async employeeCriteriaChanged() {
+    await this.calculateAudience();
+  }
+
   async calculateAudience() {
-    
-    this.showEmployeeCriteria = this._showEmployeeCriteria();
     this.audienceSize = 0;
-    if (this.model.employeeCriteria === "DDD") {
+    this.showEmployeeCriteria = this._showEmployeeCriteria();
+
+    if (this.model.targetEmployee === "DDD") {
       this.audienceSize = await this._getCalculatedDddAudienceCount();
     } else {
       this.audienceSize = await this._getCalculatedTargetAudienceCount();
     }
 
     if (this.model.targetPopulation === "STUDENTS") {
-      this.model.employeeCriteria = "";
+      this.model.targetEmployee = "";
     }
 
 
+    this._beginCounterAnnimation();
+
+
+  }
+
+  _beginCounterAnnimation() {
     const easingFn = function (t, b, c, d) {
       const ts = (t /= d) * t;
       const tc = ts * t;
       return b + c * (tc + -3 * ts + 3 * t);
     };
+
     const options = {
       useEasing: true,
       easingFn: easingFn,
@@ -126,8 +195,6 @@ export default class AudienceCriteria extends Vue {
     } else {
       window.console.error(couter.error);
     }
-
-
   }
 
   async _getCalculatedTargetAudienceCount() {
@@ -189,7 +256,7 @@ export default class AudienceCriteria extends Vue {
 
     const $ = this.$;
     this.audienceSize = 0;
-    if (this.model.employeeCriteria === "DDD") {
+    if (this.model.targetEmployee === "DDD") {
       this.audienceSize = await this._getCalculatedDddAudienceCount();
     } else {
       this.audienceSize = await this._getCalculatedTargetAudienceCount();
@@ -211,5 +278,10 @@ export default class AudienceCriteria extends Vue {
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Audience Criteria");
 
   }
-}
 
+  isValid(){
+    let errors = this.validate(this.$refs.submitForm); 
+    if(!errors || !errors.length) return true;
+    return false;
+  }
+}

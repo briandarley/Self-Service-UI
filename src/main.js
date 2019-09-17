@@ -31,6 +31,9 @@ new Vue({
 
     
     async getRoutes() {
+      if(!this.routeSources){
+        return;
+      }
       let evaluatedRoute = null;
       try {
         router.beforeEach((to, from, next) => {
@@ -83,6 +86,7 @@ new Vue({
     },
     
     async getNestedChildRoutes(route) {
+      if(!this.routeSources) return;
       let children = this.routeSources.filter(c => c.parentRouteId === route.id && c.nestedRouting);
       
       for (let i = 0; i < children.length; i++) {
@@ -134,7 +138,7 @@ new Vue({
        newRoute.children = childRoutes;
 
 
-       if (newRoute.children.length) {
+       if (newRoute.children && newRoute.children.length) {
          newRoute.name = "";
         
        }
@@ -154,6 +158,7 @@ new Vue({
   },
   watch: {
     async $route(to) {
+      
       const duoAuthService = injector.get("DuoAuthService");
       
       let duoEnabled = await duoAuthService.duoRequired();

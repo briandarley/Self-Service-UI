@@ -1,0 +1,14 @@
+.one-column,.two-column{
+    ul, ul li{
+        list-style: none;
+        line-height: 3em;
+    }
+
+    .label{
+        font-weight: 900;
+        display: inline-block;
+        width:220px;
+        text-align: right;
+        margin-right: 15px;
+    }
+}

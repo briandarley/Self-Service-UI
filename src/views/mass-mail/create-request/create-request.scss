@@ -1,207 +1,86 @@
-.create-request {
-    
-    .card.card-icon{
-        min-height: 600px;
-        form > .border{
-            min-height: 600px;
+.one-column {
+    margin-top:20px;
+    display:flex;
+    justify-content: center;
+    .form-group{
+        
+        .label-info{
+            display:grid;
+            grid-template-columns: 330px 150px;
+        }
+        .form-inline {
+            display:grid;
+            
+            grid-template-columns: 400px 50px;
+            .pop-over-content{
+                margin-left: 10px;
+            }
+            input,select{
+                width: 100% !important;
+                
+            }
+            .twitter-typeahead{
+                display:block;
+                width: 100%;
+            }
         }
     }
-    .one-column {
-        width: 650px;
+}
+
+.one-column-email {
+    margin-top:20px;
+
+    .form-group{
+        margin:auto;
         margin-left: auto;
-        margin-right: auto;
-
-        .form-field {
-
-            .form-group {
-                display: grid;
-                grid-template-columns: 200px 500px;
-                grid-template-rows: 1fr;
-                grid-column-gap: 10px;
-
-                label {
-                    text-align: right;
-                    display: block;
-                    align-self: center;
-                    margin-top: 15px;
-                    height: 100%;
-                }
-
-                input {
-                    //display: inline;
-                }
-
-                .standard-text {
-                    width: 350px;
-
-                    .twitter-typeahead {
-                        width: 90%;
-                        display: block;
-
-                        input {
-                            width: 100%;
-                        }
-                    }
-
-                    input,
-                    select {
-                        width: 90%;
-                        
-
-                    }
-                }
-
-                .validation-error {
-                    grid-column: 2;
-                }
-
-                .pop-over-content {
-                    display: inline-block;
-                    margin-left: 10px;
-
-                }
-
-                .pop-over-content.col-pos-2 {
-                    display: block;
-                    margin-left: 0;
-                    grid-column: 2;
-
-                }
-
-                .validation-error {
-                    grid-column: 2;
-                    grid-row: 2;
-                }
-            }
-
+        margin-right:auto;
+        width:480px;
+        .label-info{
+            display:grid;
+            grid-template-columns: 330px 150px;
         }
-    }
-
-    .two-column {
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-around;
-
-        .form-field {
-            .form-group {
-                display: grid;
-                grid-template-columns: 110px 300px;
-                grid-column-gap: 10px;
-
-                label {
-                    text-align: right;
-                }
-
-                input {
-                    display: inline;
-                }
-
-                .validation-error {
-                    grid-column: 2;
-                }
-
-                &.date-picker {
-                    >div {
-                        width: 200px;
-                    }
-                }
+        .form-inline {
+            display:grid;
+            grid-template-columns: 350px 50px 20px;
+            justify-items: stretch;
+            .pop-over-content{
+                margin-left: 10px;
             }
-
-        }
-    }
-
-    .one-column-text-area {
-        margin: 30px;
-
-        .label-pop-over-grp {
-            label {
-                float: left;
-                margin-right: 10px;
+            input,select{
+                 width: 100% !important;
             }
-        }
-    }
-
-    .submit {
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-between;
-
-    }
-
-    .fade-enter-active,
-    .fade-leave-active {
-      transition: opacity 1.5s;
-
-        &.container {
-            display: block;
-            //position: static;
-        }
-    }
-
-    .fade-enter,
-    .fade-leave-to
-
-    /* .fade-leave-active below version 2.1.8 */
-        {
-            &.container {
-                position: absolute;
-                 //display: none;
-            }
-        opacity: 0;
-    }
-
-
-    
-
-@media only screen and (max-width: 600px) {
-   
-  
-  
-  
-  
-}
-@media only screen and (max-width: 900px) {
-    .step-navigation,.input-group-addon,.pop-over-content {display: none !important;}
-    
-    min-width: 600px;   
-    .one-column, .two-column,.one-column-text-area {
-        width: 100%;
-        
-        margin-left: 10px;
-        margin-right: 10px;
-        .form-field {
-            .form-group {
+            .twitter-typeahead{
                 display:block;
-                
-
-                label {
-                    display:inline-block;
-                    //text-align: right;
-                }
+                width: 100%;
             }
         }
     }
 }
 
-/* between 1200 and 600 */
-@media only screen and (max-width: 1200px) and (min-width: 600px) {
-    min-width: 600px;   
-    .one-column, .two-column,.one-column-text-area {
-        display:block;
-        margin-left: 10px;
+.two-column {
+    margin-top:20px;
+    display:flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
         
-        .form-field {
-            .form-group {
-                display:block;
-                
 
-                label {
-                    display:inline-block;
-                    //text-align: right;
-                }
-            }
-        }
+    .validation-error{
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding:0;
     }
-  }
+    
+}
 
+
+.date-picker{
+    display:flex !important;
+    flex-direction: column;
+    width:400px;
+}
+
+.submit{
+    margin-top:20px;
+    display:flex;
+    justify-content: space-between;
 }

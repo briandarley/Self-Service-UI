@@ -18,6 +18,8 @@ function RouteSourcesService(httpHandlerService) {
 
           let handler = await httpHandlerService.get(10000);
           
+          if(handler == null) return;
+
           let routeData = await handler.get('routes');
 
           this._routeData = routeData.data.map(c => {
@@ -90,6 +92,7 @@ function RouteSourcesService(httpHandlerService) {
     async getFlattenedMenu() {
 
       let result = await this.getRouteMenu({cached:false});
+      if( result == null) return null;
       //get first record where parentMenuRouteId is null (this is the parent of all)
       let homeRoute = result.filter(c => c.parentRouteId == null)[0];
 
@@ -111,11 +114,12 @@ function RouteSourcesService(httpHandlerService) {
 
         const handler = await httpHandlerService.get();
         let model = JSON.parse(JSON.stringify(route));
-        model.roles = model.roles.join();
+        
         model.parentMenuRouteId = model.parentRouteId;
         
         if(Array.isArray(route.roles)) 
         {
+          
           model.roles = route.roles.join(",");
         }
         

@@ -1,0 +1,14 @@
+.check-audience{
+    border: 1px solid $carolina-blue;
+    margin:30px;
+    
+}
+.input-w-btn{
+    .form-inline {
+        display:grid;
+        grid-template-columns: 300px 100px 50px !important;
+    }
+    input{
+        width: 90%;
+    }       
+}

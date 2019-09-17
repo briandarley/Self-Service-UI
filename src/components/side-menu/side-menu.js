@@ -194,7 +194,8 @@ export default class SideMenu extends Vue {
     let allRoutes = await this.RouteSourcesService.getAllMenuItems({
       exlcudeWildCard: true
     });
-
+    if(allRoutes == null) return;
+    
     let routeDefinition = this.$route.meta.routeDefinition;
 
     let parentRoute = allRoutes.find(

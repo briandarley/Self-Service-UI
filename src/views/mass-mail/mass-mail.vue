@@ -49,7 +49,11 @@
               <router-link :to="{name: 'create-request'}">Create Request</router-link>from the menu on the left.
             </p>
           </div>
-         <form @submit.prevent.prevent v-if="activeCampaigns && activeCampaigns.length" role="form">
+          <form
+            @submit.prevent.prevent
+            v-if="activeCampaigns && activeCampaigns.length"
+            role="form"
+          >
             <div class="select-list">
               <span
                 class="strong"
@@ -86,6 +90,8 @@
               Create New Request
             </router-link>
           </div>
+
+          
         </div>
       </div>
     </div>

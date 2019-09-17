@@ -1,6 +1,6 @@
 <template>
   <div class="user-alias-result">
-    <criteria :aliasDomains="aliasDomains" @search="onSearch"></criteria>
+    <criteria id="alias-list-criteria" :aliasDomains="aliasDomains" @search="onSearch"></criteria>
 
 
     <div class="d-flex mt-3" style="justify-content:space-between">

@@ -56,11 +56,13 @@
             <div class="col">{{mfaAccountStatus.pid}}</div>
             <div class="col">{{mfaAccountStatus.displayName}}</div>
             <div class="col text-center fa-2x">
+
               <i
                 class="fa fa-check text-primary"
                 v-if="mfaAccountStatus.mfaEnabled"
                 aria-hidden="true"
               ></i>
+              
               <i class="fa fa-times-circle-o text-warning" aria-hidden="true" v-else></i>
             </div>
             <div class="col text-center" v-if="mfaExemptBeginDate">{{mfaExemptBeginDate}}</div>

@@ -125,6 +125,7 @@ export default class RouteManagement extends Vue {
 
   async _searchSingleEntity() {
     let allRoutes = await this.RouteSourcesService.getAllMenuItems();
+    if(allRoutes == null) return null;
     allRoutes = JSON.parse(JSON.stringify(allRoutes));
     let routeList = this._getParentRoutes(allRoutes);
 

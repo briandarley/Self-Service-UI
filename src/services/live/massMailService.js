@@ -1,13 +1,13 @@
 import injector from 'vue-inject';
 
-function MassMailService(httpHandlerService) {
+function MassMailService(httpHandlerService, commonExtensions) {
     return {
         async getCurrentMassMailByUser() {
             try {
 
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.get(`/massmail/campaigns/saved`);
+                let response = await handler.get(`/massmail/campaigns/my-saved-campaigns`);
 
                 return response.data.entities;
 
@@ -80,8 +80,83 @@ function MassMailService(httpHandlerService) {
                 throw e;
             }
 
+        },
+        async getMassMailRecord(id) {
+            try {
+                const handler = await httpHandlerService.get(60000);
+
+                let response = await handler.get(`/massmail/campaigns?id=${id}`);
+
+                return response.data;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async checkIfUserExists(onyen) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.get(`/MassMail/create-request/audience-criteria/users/${onyen}`);
+
+                return response.data;
+            } catch (error) {
+                if (error.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw error;
+            }
+        },
+        async save(model) {
+            if (!model.id) {
+                model.id = await this._addNewCampaign(model);
+            } else {
+                await this._updateNewCampaign(model);
+            }
+            return model;
+        },
+        async _addNewCampaign(model) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.post(`/massmail/campaigns`, model);
+
+                return response.data;
+
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
+        async _updateNewCampaign(model) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                await handler.put(`/massmail/campaigns/${model.id}`, model);
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
         }
+
+
     }
 }
 
-injector.service('MassMailService', ["httpHandlerService"], MassMailService);
+injector.service('MassMailService', ["httpHandlerService", "CommonExtensions"], MassMailService);

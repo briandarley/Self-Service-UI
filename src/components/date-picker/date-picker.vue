@@ -1,8 +1,8 @@
 <template>
-  <div class="form-group date-picker">
+  <div class="date-picker">
     <label :for="id" v-if="label">{{label}}</label>
     
-    <div>
+    <div class="calendar-control">
       <input
         :id="id"
         type="text"

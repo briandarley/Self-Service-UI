@@ -15,30 +15,45 @@ export default class MassMail extends Vue {
   seletedMassMail = "";
 
   async mounted() {
-    this.spinnerService.show();
+    
     this.toastService.set(this);
+    await this.loadSavedCampaigns()
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Landing");
+
+  }
+
+  async loadSavedCampaigns() { 
+    
     try {
+      this.spinnerService.show();
+
       let pagedResponse = await this.MassMailService.getCurrentMassMailByUser();
       this.activeCampaigns = pagedResponse;
+    
     } catch (e) {
       window.console.log(e);
+    
       this.toastService.error("Failed to retrieve existing campaigns for user");
     } finally {
       this.spinnerService.hide();
     }
-    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Landing");
 
   }
 
   deleteMassMail() {
     this.$refs.confirmDelete.show();
   }
+
   async editMassMail() {
     this.$router.push(`/create-request/${this.seletedMassMail}`);
   }
+
   async removeEntityClick() {
     try {
       await this.MassMailService.removeMassMailCampaign(this.seletedMassMail);
+      this.seletedMassMail = "";
+      this.toastService.success("Successfully Removed Mass Mail");
+      await this.loadSavedCampaigns();
 
 
     } catch (e) {
@@ -51,7 +66,10 @@ export default class MassMail extends Vue {
 
 
   }
+
   removeEntityCancelClick() {
     this.$refs.confirmDelete.hide();
   }
+
+  
 }

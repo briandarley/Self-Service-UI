@@ -9,6 +9,10 @@ function httpHandlerService(axios, configReaderService, userService) {
             const serviceEndpoint = await configReaderService.getConfigurationSetting("serviceEndpoint")
             
             const user = await userService.get();
+            if(user == null)
+            {
+                return null;
+            }
             // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             const instance = axios.create({
 

@@ -5,7 +5,7 @@ import { Component, Watch } from "vue-property-decorator";
 
 @Component({
     name: 'basic-information',
-    dependencies: ['$','moment','toastService','spinnerService','MassMailService','ScreenReaderAnnouncerService'],
+    dependencies: ['$','toastService','spinnerService','MassMailService','ScreenReaderAnnouncerService'],
     props: ['value']
   })
 
@@ -13,15 +13,16 @@ export default class BasicInformation extends BaseValidateMixin {
   
   campaignId = null;
   defaultMailAddress = "no_reply@email.unc.edu";
-
-  model = {
-    sendFrom: "",
-    expirationDate: null,
-    sendDate: null,
-    replyTo: "",
-    subject: "",
-    sponsoringUniversity: ""
-  }
+  model ={};
+  // model = {
+  //   sendFrom: "",
+  //   expirationDate: null,
+  //   sendDate: null,
+  //   replyTo: "",
+  //   subject: "",
+  //   sponsoringUniversity: "",
+  //   priority: ""
+  // }
   @Watch('model', {immediate:false, deep: true})
   onModelChanged(newValue)
   {
@@ -35,8 +36,10 @@ export default class BasicInformation extends BaseValidateMixin {
     this.toastService.set(this);
     this.campaignId = this.$route.params.id;
     await this.loadDepartments();
+    
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Basic Information");
   }
+  
   
   
   async loadDepartments() {
@@ -52,6 +55,7 @@ export default class BasicInformation extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+
   async getSchoolsDepartmentsLike(query, _, asyncResults) {
 
     try {
@@ -90,7 +94,8 @@ export default class BasicInformation extends BaseValidateMixin {
     }
 
   }
-  onSponsorChanged(value){
+
+  onSponsorChanged(value) {
     this.model.sponsoringUniversity = value;
   }
 
@@ -115,11 +120,11 @@ export default class BasicInformation extends BaseValidateMixin {
 
   }
 
-
-  isValid(){
-    
-    if(!this.validate(this.$refs.submitForm) || !this.validate(this.$refs.submitForm).length) return true;
+  isValid() {
+    let errors = this.validate(this.$refs.submitForm); 
+    if(!errors || !errors.length) return true;
     return false;
   }
+  
 }
 

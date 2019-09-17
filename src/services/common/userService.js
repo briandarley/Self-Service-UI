@@ -98,6 +98,7 @@ function UserService(configReaderService, localStorageService, routerService) {
                 if (!this._user) {
                     localStorageService.set('current-path', routerService.router.history.current.path);
                     this.login();
+                    return null;
                 }
 
                 this.expireDate = new Date(this._user.expires_at * 1000);
