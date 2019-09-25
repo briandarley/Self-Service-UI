@@ -4,7 +4,7 @@
     <div class="side-menu" :class="{'hide-side-menu': !showSideMenu}" role="menu">
       <div class="side-menu-pager">
         <ul :class="{'reduce-text': tree.length > 2}">
-          <li v-for="(item, index) in tree" v-bind:key="item.id">
+          <li v-for="item in tree" v-bind:key="item.id">
             <router-link :to="{path: '/'+ item.route}" role="navigation">{{item.title}}</router-link>
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
           </li>
@@ -15,7 +15,7 @@
       <transition-group class="nav" name="fly_in" tag="ul">
         <li
           class="nav-item"
-          v-for="(item, index) in routes"
+          v-for="item  in routes"
           :key="item.id"
           :class="{'active': isMenuActive(item), 'has-children': hasChildren(item)}"
           role="menuitem"

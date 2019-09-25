@@ -31,6 +31,8 @@ export default class CreateRequest extends BaseValidateMixin {
   notifiedSaved = false;
   currentView = "BASIC_INFORMATION";
   model = {};
+  unmodifiedModel = {};
+  userId = "";
 
   _resetModel() {
 
@@ -80,25 +82,10 @@ export default class CreateRequest extends BaseValidateMixin {
     if (this.isNew) {
       return "BASIC_INFORMATION";
     }
-
+    return "";
 
   }
 
-  get allowCancel() {
-
-    if (this.isNew) return false;
-
-    return (async () => {
-      let user = await this.UserService.get();
-      let userId = user.profile.sub
-
-      if (this.model.author.toUpperCase() != userId.toUpperCase()) {
-        return false;
-      }
-
-      return true;
-    });
-  }
 
   navClick(value) {
     this.currentView = value;
@@ -112,9 +99,19 @@ export default class CreateRequest extends BaseValidateMixin {
 
     this.toastService.set(this);
 
+    await this.getUser();
+
     this._resetModel();
 
-    this.loadCampain();
+    let response = await this.loadCampain();
+
+    
+    if (!response) {
+      this.$router.push({
+        name: "massmail"
+      });
+    }
+
 
 
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Create Request");
@@ -133,6 +130,7 @@ export default class CreateRequest extends BaseValidateMixin {
   }
 
   async navigateNext(skipSave) {
+
     if (!this.isValid()) {
       this.toastService.error("Form invalid")
       return;
@@ -145,7 +143,9 @@ export default class CreateRequest extends BaseValidateMixin {
 
     let nextNav = this.getNextNav();
 
-    if (!nextNav) return;
+    if (!nextNav) {
+      return;
+    }
 
     if (!skipSave) {
       let response = await this.save();
@@ -153,8 +153,7 @@ export default class CreateRequest extends BaseValidateMixin {
       if (response) {
         this.currentView = nextNav;
       }
-    }
-    else{
+    } else {
       this.currentView = nextNav;
     }
   }
@@ -166,6 +165,10 @@ export default class CreateRequest extends BaseValidateMixin {
     this.currentView = previousNav;
   }
 
+  async getUser() {
+    let user = await this.UserService.get();
+    this.userId = user.profile.sub
+  }
 
   cancelSubmit() {
     this.$refs.confirmSubmit.hide();
@@ -187,7 +190,7 @@ export default class CreateRequest extends BaseValidateMixin {
           name: "massmail"
         });
 
-       
+
       }, 500);
 
     } catch (e) {
@@ -208,16 +211,31 @@ export default class CreateRequest extends BaseValidateMixin {
   //confirmSubmit cancelSubmit confirmSubmit
   async save(status) {
     try {
-      this.spinnerService.show();
 
+      if (!this.allowedSave()) {
+        return;
+      }
+      
+      this.spinnerService.show();
+      
+      //Ask if the user wishes to submit the request for review
       if (status) {
         if (this.model.campaignStatus.status == "SAVED" && status == "CREATED") {
           this.$refs.confirmSubmit.show();
           return;
         }
       }
-
+      if(this.unmodifiedModel === JSON.stringify(this.model)){
+        return true;
+      }
+      
       let response = await this.MassMailService.save(this.model);
+      
+      if(response.status == false){
+        this.toastService.error(response.error);
+        return;
+      }
+      this.unmodifiedModel = JSON.stringify(this.model);
 
       //Avoid too many anoying notifications
       if (!this.notifiedSaved) {
@@ -225,7 +243,7 @@ export default class CreateRequest extends BaseValidateMixin {
         this.notifiedSaved = true;
       }
 
-
+      
       return response;
     } catch (e) {
       this.confirmedSave = false;
@@ -236,22 +254,56 @@ export default class CreateRequest extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+
   @Watch("$route.params.id")
-  onIdChanged() {
-    this.loadCampain();
+  async onIdChanged() {
+
+    let response = await this.loadCampain();
+
+
+    if (!response) {
+      this.$router.push({
+        name: "massmail"
+      });
+    }
+
   }
 
   async loadCampain() {
     try {
       this.spinnerService.show();
-
-      if (this.$route.params.id) {
-
-        let campaign = await this.MassMailService.getMassMailRecord(this.$route.params.id);
-        this.model = campaign;
-        this.notifiedSaved = true;
-
+      if (!this.$route.params.id) {
+        return true;
       }
+
+
+      this.model = {};
+      let request = await this.MassMailService.getMassMailRecord(this.$route.params.id, true);
+
+      if (request.status === false) {
+        this.toastService.error(`Failed to retrieve campaign with given id ${this.$route.params.id}`)
+        return false;
+      }
+
+      let model = request[0];
+
+      if (Array.isArray(model.comments)) {
+        let initialComments = model.comments.filter(c => c.commentTypeCode === "INITIAL_AUTH_COMMENT");
+        if (initialComments.length) {
+          model.comments = initialComments[0].comment;
+        }
+      }
+      
+      if(model.content)
+      {
+        model.content = model.content.content;
+      }
+      this.unmodifiedModel = JSON.stringify(model);
+      this.model = model;
+      this.notifiedSaved = true;
+
+      return true;
+
 
     } catch (e) {
       window.console.log(e);
@@ -298,7 +350,7 @@ export default class CreateRequest extends BaseValidateMixin {
       this._resetModel();
 
       this.$router.push({
-        name: "create-request"
+        name: "massmail"
       })
 
 
@@ -317,7 +369,42 @@ export default class CreateRequest extends BaseValidateMixin {
   }
 
   get allowSubmit() {
-    return this.$refs.stepMessageSummary.isValid();
+
+    if (!this.$refs.stepMessageSummary.isValid()) {
+      return false;
+    }
+
+    return (this.model.campaignStatus.status === "SAVED");
+  }
+
+
+  get allowCancel() {
+    //this.model.campaignStatus.status
+    if (this.isNew) return false;
+    if (!this.model.author) return false;
+
+    if (this.userId.toUpperCase() != this.model.author.toUpperCase()) {
+      return false;
+    }
+
+    return this.model.campaignStatus.status === "SAVED";
+    
+  }
+
+
+  allowedSave() {
+    if (!this.model.id) return true;
+    let editableStatuses = ["SAVED", "CREATED"]
+
+    return editableStatuses.indexOf(this.model.campaignStatus.status) > -1;
+
+    //"DENIED"
+    //APPROVED
+    //CANCELED
+    //SAVED
+    //DONE
+    //ARCHIVED
+    //NOTIFIED
 
   }
 

@@ -22,11 +22,11 @@ module.exports = {
           `
       },
       sass: {
+        includePaths: ['./node_modules', './node_modules/@material'],
         data: `
             @import "static/scss/variables.scss";
             @import "static/scss/_chartist-settings.scss";
             @import "~vue-toastr/src/vue-toastr.scss";
-            
             //@import "node_modules/bootstrap/scss/bootstrap.scss";
             
 

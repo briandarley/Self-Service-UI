@@ -29,9 +29,9 @@ new Vue({
 
   methods: {
 
-    
+
     async getRoutes() {
-      if(!this.routeSources){
+      if (!this.routeSources) {
         return;
       }
       let evaluatedRoute = null;
@@ -65,9 +65,9 @@ new Vue({
         this.routeSources.forEach(async route => {
           evaluatedRoute = route;
           await this.createAndAppendRoute(route, this.loadView(route));
-          
+
         });
-        
+
 
 
       } catch (err) {
@@ -84,11 +84,11 @@ new Vue({
         }
       }
     },
-    
+
     async getNestedChildRoutes(route) {
-      if(!this.routeSources) return;
+      if (!this.routeSources) return;
       let children = this.routeSources.filter(c => c.parentRouteId === route.id && c.nestedRouting);
-      
+
       for (let i = 0; i < children.length; i++) {
         let childComponent = await import("./views/" + children[i].component);
         children[i].component = childComponent.default;
@@ -103,9 +103,9 @@ new Vue({
       });
       if (response.length) {
         response.push({
-          
+
           path: route.route,
-          name: route.name 
+          name: route.name
         })
         response.reverse()
       }
@@ -116,8 +116,7 @@ new Vue({
     },
     async createAndAppendRoute(route, view) {
       //mass-mail/create-request/steps/basic-information/basic-information.vue
-      if(route.nestedRouting)
-      {
+      if (route.nestedRouting) {
         return;
       }
       let newRoute = {
@@ -133,15 +132,15 @@ new Vue({
         }
       };
 
-       let childRoutes = await this.getNestedChildRoutes(route);
+      let childRoutes = await this.getNestedChildRoutes(route);
 
-       newRoute.children = childRoutes;
+      newRoute.children = childRoutes;
 
 
-       if (newRoute.children && newRoute.children.length) {
-         newRoute.name = "";
-        
-       }
+      if (newRoute.children && newRoute.children.length) {
+        newRoute.name = "";
+
+      }
 
 
 
@@ -152,17 +151,18 @@ new Vue({
       if (!link.resolved.matched.length) {
         router.addRoutes([newRoute]);
       }
-      
+
 
     }
+    
   },
   watch: {
     async $route(to) {
-      
+
       const duoAuthService = injector.get("DuoAuthService");
-      
+
       let duoEnabled = await duoAuthService.duoRequired();
-      
+
       if (duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {
           let localStorageService = injector.get("localStorageService");
@@ -178,40 +178,12 @@ new Vue({
         }
 
       }
-      
+
       this.currentRoute = to.name;
     }
   },
   async created() {
-    //var userService = injector.get("UserService");
-    //await  userService.get()
-    //let referer = window.document.referrer;
-    //let userService = injector.get("UserService");  
-    //let user = await userService.get();
-    
-    //https://sso-test.isis.unc.edu/idp/profile/SAML2/Redirect/SSO?execution=e1s1
-    //  if(referer.indexOf("call-back") > -1){
-    //    //todo, add browser close event handler to log user out
-    //     window.onbeforeunload = async function(){
-    //     await userService.logout();
-    //     return false;
-    //   }
-      
-    //  }
-    // window.addEventListener('beforeunload', async function(event) {
-    //   let userService = injector.get("UserService");
-    //   await userService.logout();
-    //   return true;
-    // });
-    // window.addEventListener('unload', async function(event) {
-    //   let userService = injector.get("UserService");
-    //   await userService.logout();
-    //   return true;
-    // });
-
-    
-
-    
+   
     let service = injector.get("RouteSourcesService");
     this.routeSources = await service.getRouteMenu();
 
@@ -233,6 +205,8 @@ new Vue({
 
 
 
-  //render: h => h(App)
+
+
+//render: h => h(App)
 
 }).$mount("#app");

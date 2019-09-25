@@ -6,3 +6,4 @@ require("./toEnabledDisabled");
 require("./toPrimaryDesignation");
 require("./toEmail");
 require("./splitString");
+require("./formatSendingCriteria");

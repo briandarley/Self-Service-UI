@@ -28,14 +28,14 @@
               <li>
                 Review the
                 <a
-                  href="https://help.unc.edu/help/mass-email-requirements/"
+                  href="https://help.unc.edu/sp?id=kb_article&sys_id=0d1695d5dba77b401fb6ef070596194a"
                   target="_blank"
                 >Mass Email Requirements</a> for information about how the system works.
               </li>
               <li>
                 Details on human subject research requirements, recycling old messages, and other questions can be found in the
                 <a
-                  href="https://help.unc.edu/help/mass-e-mail-frequently-asked-questions/"
+                  href="https://help.unc.edu/sp?id=kb_article&sys_id=0d1695d5dba77b401fb6ef070596194a"
                   target="_blank"
                 >Mass Email FAQ.</a>
               </li>
@@ -54,30 +54,46 @@
             v-if="activeCampaigns && activeCampaigns.length"
             role="form"
           >
-            <div class="select-list">
-              <span
-                class="strong"
-              >Select from the drop-down to edit an existing MassMail previously entered.</span>
+            <div class="alert alert-info">
+              <div class="info">
+                <i class="fa fa-info-circle"></i>
+              </div>
               <div>
-                <select class="form-control" v-model="seletedMassMail">
-                  <option disabled value>Select an Existing MassMail to edit</option>
-                  <option
-                    v-for="item in activeCampaigns"
-                    :key="item.id"
-                    :value="item.id"
-                  >{{item.id}} - {{item.subject}}</option>
-                </select>
-                <div class="group-btns">
-                  <button
-                    class="btn btn-primary"
-                    @click="editMassMail"
-                    :disabled="!seletedMassMail"
-                  >Go</button>
-                  <button
-                    class="btn btn-danger"
-                    @click="deleteMassMail"
-                    :disabled="!seletedMassMail"
-                  >Delete</button>
+                <p
+                  
+                >The system has detected unfinished MassMail campaigns. Select from the list to continue editing.</p>
+                
+                <p>Note: Unfinished campaigns may periodically be removed after a period of time</p>
+              </div>
+            </div>
+            <div class="1select-list">
+              
+              <div class="form-group">
+                <label
+                  for="seletedMassMail"
+                  class="strong"
+                >Select from the drop-down to edit an existing MassMail previously entered.</label>
+                <div class="form-inline">
+                  <select class="form-control w-75" v-model="seletedMassMail" id="seletedMassMail">
+                    <option disabled value>Select an Existing MassMail to edit</option>
+                    <option
+                      v-for="item in activeCampaigns"
+                      :key="item.id"
+                      :value="item.id"
+                    >{{item.id}} - {{item.subject}}</option>
+                  </select>
+                  <div class="group-btns">
+                    <button
+                      class="btn btn-primary"
+                      @click="editMassMail"
+                      :disabled="!seletedMassMail"
+                    >Go</button>
+                    <button
+                      class="btn btn-danger"
+                      @click="deleteMassMail"
+                      :disabled="!seletedMassMail"
+                    >Delete</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -90,8 +106,6 @@
               Create New Request
             </router-link>
           </div>
-
-          
         </div>
       </div>
     </div>

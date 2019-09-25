@@ -1,0 +1,39 @@
+.campaign-history {
+    text-align: left;
+    display: block !important;
+    border: 1px solid $gray-500;
+
+    h4 {
+        text-align: left;
+    }
+
+    .row-header {
+        display: flex;
+        justify-content: space-around;
+        >div{
+            text-align: left;
+            flex:1;
+            &:nth-of-type(1){
+                padding-left: 20px;
+                flex:1;
+            }
+
+        }
+    }
+
+    .grid-record {
+        display: flex;
+        justify-content: space-around;
+        div{
+            flex:1;
+            text-align: left;
+            &:nth-of-type(1){
+                padding-left: 20px;
+                flex:1
+            }
+        }
+        &:nth-last-of-type(even) {
+            background: $white;
+        }
+    }
+}

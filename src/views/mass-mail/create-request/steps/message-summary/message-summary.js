@@ -64,8 +64,13 @@ export default class MessageSummary extends BaseValidateMixin {
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Message Summary");
   }
 
-  
+  showPreview(){
+    this.$refs.confirmPreview.show();
+  }
 
+  closePreview(){
+    this.$refs.confirmPreview.hide();
+  }
   isValid() {
     let errors = [];
 

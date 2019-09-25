@@ -1,0 +1,47 @@
+
+.result-grid .dropdown-menu a i{
+    display: block;
+    position: static;
+}
+.result-grid .dropdown-menu a span {
+    display: inline-block;
+    position: static;
+    text-indent: 0%; 
+    text-align: left;
+    overflow: auto;
+}
+
+
+.dropdown-toggle{
+    cursor: pointer;
+}
+ .dropdown-menu{
+     width:300px;
+     margin:0;
+ }
+.dropdown-menu a{
+    display:flex;
+    cursor: pointer;
+    
+    >*{
+        flex:1;
+        cursor: pointer;
+    }
+    i{
+        align-self: center;
+        
+        
+    }
+    >a {
+        cursor: pointer;
+    }
+    > span{
+    flex:4;    
+        
+    }
+}
+
+
+
+
+

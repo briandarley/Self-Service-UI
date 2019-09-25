@@ -45,7 +45,7 @@ export default class DatePicker extends Vue {
     if (dt.isValid()) {
       this.value = dt.format("MM/DD/YYYY");
     } else if (newValue) {
-      console.log(`Date ${newValue} is not a valid date`)
+      throw `Date ${newValue} is not a valid date`;
     }
 
 

@@ -34,7 +34,7 @@ export default class MessageContents extends BaseValidateMixin {
   loadEditor() {
     return new Promise((resolve) => {
       setTimeout(() => {
-          this.ckEditorInstance = CKEDITOR.replace('editor1',
+          this.ckEditorInstance = window.CKEDITOR.replace('editor1',
             {
               height: '25em'
               //Remove plugins for this iteration
@@ -54,11 +54,11 @@ export default class MessageContents extends BaseValidateMixin {
 
   beforeDestroy() {
     this.ckEditorInstance.removeAllListeners();
-    CKEDITOR.remove(this.ckEditorInstance);
+    window.CKEDITOR.remove(this.ckEditorInstance);
   }
 
   addDefaultImageHandlingTest() {
-    CKEDITOR.replace('editor1',
+    window.CKEDITOR.replace('editor1',
       {
         //Remove plugins for this iteration
         //extraPlugins: 'uploadimage',
@@ -72,8 +72,8 @@ export default class MessageContents extends BaseValidateMixin {
   }
 
   addCkEditorEventHandling() {
-    CKEDITOR.instances.editor1.on('change', this.onTextChanged);
-    CKEDITOR.instances.editor1.on('fileUploadRequest', this.onFileUploadRequest);
+    window.CKEDITOR.instances.editor1.on('change', this.onTextChanged);
+    window.CKEDITOR.instances.editor1.on('fileUploadRequest', this.onFileUploadRequest);
   }
   
 

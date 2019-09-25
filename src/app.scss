@@ -11,14 +11,13 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/v4-shims.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
-
 @import "chartist/dist/scss/chartist.scss";
 
-.modal-backdrop {
+// @import "@material/list/mdc-list";
+// @import "@material/menu-surface/mdc-menu-surface";
+// @import "@material/menu/mdc-menu";
+// @import "@material/select/mdc-select";
 
-  z-index: -1;
-
-}
 
 
 body {

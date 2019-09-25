@@ -1,14 +1,24 @@
-.one-column,.two-column{
-    ul, ul li{
+.one-column,
+.two-column {
+
+    ul,
+    ul li {
         list-style: none;
         line-height: 3em;
     }
 
-    .label{
+    .label {
         font-weight: 900;
         display: inline-block;
-        width:220px;
+        width: 220px;
         text-align: right;
         margin-right: 15px;
     }
+}
+
+.message-preview {
+    width: 640px;
+    margin:auto;
+    border: 1px solid lighten($carolina-blue, 40%);
+    overflow: hidden;
 }

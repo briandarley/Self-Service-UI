@@ -14,15 +14,15 @@ export default class Office365Groups extends Vue {
   links = [];
   data = [{
       title: "Sensitive Data Policy",
-      href: "https://help.unc.edu/help/what-is-sensitive-data/"
+      href: "https://help.unc.edu/sp?id=kb_article&sys_id=f6a7b357db43b308227afe2139961930"
     },
     {
       title: "IT Policies",
-      href: "https://its.unc.edu/about-us/how-we-operate/"
+      href: "https://unc.policystat.com/policy/6875241/latest/"
     },
     {
       title: "OneDrive Documentation",
-      href: "https://help.unc.edu/help/office-365-user-guide/"
+      href: "https://help.unc.edu/sp?id=kb_article&sys_id=80ec3b79db2bfb8070551ffa6896192f"
     },
     {
       title: "Course Groups (For Faculty)",

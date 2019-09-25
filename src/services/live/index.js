@@ -11,3 +11,4 @@ import './dataAnalyticsService';
 import './duoAuthService';
 import './administrationService';
 import './ScreenReaderAnnouncerService';
+import './massMailResponseTemplates';

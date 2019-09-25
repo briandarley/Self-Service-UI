@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-pane container" v-bind:class="{active: isActive}">
+  <div class="tab-pane" v-bind:class="{active: isActive}">
     <slot></slot>
   </div>
 </template>
