@@ -15,7 +15,7 @@ export default function approvalStatusText(entity) {
 
   const dt = new Date(entity.expirationDate);
 
-  if (moment().isAfter(dt)) {
+  if (moment().startOf('day').isAfter(dt)) {
     return `<div class="text-danger">Expired</div>`;
   }
 

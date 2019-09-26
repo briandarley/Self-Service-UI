@@ -66,8 +66,8 @@
             v-model="criteria.priority"
           >
             <option value="ALL">All</option>
-            <option value="FORMAL">Formal</option>
-            <option value="INFORMAL">Informal</option>
+            <option value="FORMAL NOTICE">Formal</option>
+            <option value="INFORMATIONAL">Informal</option>
           </select>
         </div>
       </div>
