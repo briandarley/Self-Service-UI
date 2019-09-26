@@ -38,7 +38,7 @@
                   
             />
           </div>
-          <div class="submit text-right">
+          <div class="submit">
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
