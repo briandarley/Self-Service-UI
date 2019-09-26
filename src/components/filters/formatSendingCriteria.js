@@ -1,7 +1,7 @@
 import Vue from "vue"
 
 
-export default function formatSendingCriteria(value) {
+export default function formatSendingCriteria(value,abreviated) {
   switch (value) {
     case "STUDENTS":
       return "Students";
@@ -10,6 +10,10 @@ export default function formatSendingCriteria(value) {
     case "FACULTY":
       return "Faculty";
     case "EMPLOYEES_STUDENTS":
+        if(abreviated)
+        {
+          return 'Employee/Student';
+        }
       return "Employees and Students";
   }
 

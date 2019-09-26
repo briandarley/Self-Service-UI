@@ -37,7 +37,7 @@ export default class ActionMenu extends Vue {
     if(this.entity.campaignStatus.status === "APPROVED") return false;
 
     
-    let isSameOrAfter = moment(new Date(this.entity.sendDate)).isSameOrAfter(moment(), 'day')
+    let isSameOrAfter = moment(new Date(this.entity.expirationDate)).isSameOrAfter(moment(), 'day')
     return isSameOrAfter;
 
   }

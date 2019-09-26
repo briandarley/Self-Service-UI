@@ -8,46 +8,8 @@
         <h3>View Request</h3>
       </div>
       <div class="card-body">
-        <div class="border border-primary">
-          <div class="bg bg-primary text-white p-2">Search Criteria</div>
-          <div class="m-2">
-            <div class="form-group">
-              <label for="campaign-status">Campaign Status</label>
-              <select
-                name="campaign-status"
-                id="campaign-status"
-                class="form-control"
-                v-model="criteria.status"
-              >
-                <option value="PENDING">Pending Approval (All)</option>
-                <option value="PENDING_STUDENTS">Pending Approval for Students</option>
-                <option value="PENDING_EMPLOYEES">Pending Approval for Employees</option>
-                <option value="EXPIRED">Expired</option>
-                <option value="CANCELED">Canceled</option>
-                <option value="DENIED">Denied</option>
-                <option value="ALL">All</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="txt-filter">Filter</label>
-              <input
-                type="text"
-                class="form-control"
-                id="txt-filter"
-                placeholder="Onyen, Subject, Campaign Id"
-                v-select-all
-                v-on:keyup.13="search()"
-                v-model="criteria.filterText"
-              />
-            </div>
-
-            <div class="sumbit text-right">
-              <button class="btn btn-primary mr-1" @click="search()">Search</button>
-              <button class="btn btn-secondary" @click="clearCriteria()">Clear</button>
-            </div>
-          </div>
-        </div>
-
+        <search-criteria @search="search" @clear="clear" :criteria="criteria"></search-criteria>
+        
         <div class="d-flex mt-5" style="justify-content:space-between">
           <h3 class="text-primary">Total Campaigns {{pagedResponse.totalRecords | formatNumber}}</h3>
           <pager
@@ -65,6 +27,7 @@
             <div>Id</div>
             <div>Author</div>
             <div>Send Date</div>
+            <div>Exp Date</div>
             <div>Population</div>
             <div>Priority</div>
             <div class="control">Action</div>
@@ -75,7 +38,8 @@
                 <div>{{item.id}}</div>
                 <div>{{item.author}}</div>
                 <div>{{item.sendDate | formatDate}}</div>
-                <div>{{item.targetPopulation | formatSendingCriteria}}</div>
+                <div>{{item.expirationDate | formatDate}}</div>
+                <div>{{item.targetPopulation | formatSendingCriteria(true)}}</div>
                 <div>{{item.priority}}</div>
                 <div>
                   <div>
@@ -87,7 +51,8 @@
                 </div>
               </div>
               <div class="campaign-status">
-                <div v-html="approvalStatusText(item)"></div>
+                <div v-html="$options.filters.approvalStatusText(item)">
+                </div>
               </div>
               <div class="campaign-subject">{{item.subject}}</div>
               <div class="control-options">
@@ -130,22 +95,11 @@
       </div>
     </confirm-dialog>
 
-    <confirm-dialog id="confirmCampaignAction" ref="confirmCampaignAction" width="900">
-      <div slot="modal-title" class="text-white">{{messageAction.title}}</div>
-      <div slot="modal-body">
-        <textarea
-          name="campaignActionMessage"
-          id="campaignActionMessage"
-          class="form-control"
-          rows="10"
-          v-model="messageAction.message"
-        ></textarea>
-      </div>
-      <div slot="modal-footer">
-        <button class="btn btn-primary" @click="doActionRequest()">Send Request</button>
-        <button class="btn btn-secondary" @click="closeConfirmCampaignAction()">Cancel</button>
-      </div>
-    </confirm-dialog>
+    
+    <campaign-communications 
+           ref="campaignCommunications"
+           @cancel="onHideCommunication" 
+           @confirm="onConfirmCommunication"></campaign-communications>
   </div>
 </template>
 <script src="./view-request.js"></script>

@@ -33,7 +33,7 @@ export default class DatePicker extends Vue {
       return;
     }
     let dt = null;
-    if(newValue instanceof Date){
+    if (newValue instanceof Date) {
       dt = moment(newValue);
     } else if (newValue.match(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)) {
       dt = moment(newValue, "MM/DD/YYYY");
@@ -59,7 +59,16 @@ export default class DatePicker extends Vue {
 
     let date = new Date();
     date.setDate(date.getDate());
-    let minDate = date;
+    let minDate = null;
+
+    if (this.minDate) {
+      if (this.minDate === "today") {
+        minDate = date;
+      } else {
+        minDate = this.minDate;
+      }
+    }
+
 
     let model = {
       opens: 'right',
@@ -81,6 +90,7 @@ export default class DatePicker extends Vue {
       });
   }
   _attachDatePickerBehaviour() {
+
     const $ = this.$;
     const moment = this.moment;
 
@@ -89,9 +99,15 @@ export default class DatePicker extends Vue {
 
     let date = new Date();
     date.setDate(date.getDate());
-    let minDate = date;
+    let minDate = null;
 
-
+    if (this.minDate) {
+      if (this.minDate === "today") {
+        minDate = date;
+      } else {
+        minDate = this.minDate;
+      }
+    }
 
 
     let dateModel = {
@@ -165,7 +181,12 @@ export default class DatePicker extends Vue {
     const moment = this.moment;
     let date = new Date();
     date.setDate(date.getDate());
-    let minDate = date;
+    let minDate = null;
+    if(this.minDate)
+    {
+      minDate = this.minDate;
+    }
+
 
 
     if (this.minDate) {

@@ -37,8 +37,8 @@ export default class ApprovalActions extends Vue {
     if(this.isCanceled) return false;
     
     const moment = this.moment;
-
-    let isSameOrAfter = moment(new Date(this.entity.sendDate)).isSameOrAfter(moment(), 'day')
+    
+    let isSameOrAfter = moment(new Date(this.entity.expirationDate)).isSameOrAfter(moment(), 'day')
     return isSameOrAfter;
 
   }
