@@ -1,0 +1,38 @@
+.search-criteria {
+    .row-1 {
+        display:flex;
+        justify-content: stretch;
+        >div {
+            flex:1;
+        }
+        
+        .expirary-criteria {
+            padding-left: 10px;
+            display:flex;
+            justify-content: space-evenly;
+            
+            >div{
+                flex:1;
+            }
+        }
+    }
+
+    .row-2{
+        display:flex;
+        justify-content: stretch;
+        >div {
+            flex:1;
+        }
+        
+        .priority-criteria{
+            padding-left: 10px;
+        }
+    }
+
+    .row-3{
+        .filter-criteria{}
+    }
+
+
+
+}
