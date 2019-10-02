@@ -2,7 +2,7 @@
     "serviceEndpoint": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
     "serviceEndpoint1": "http://localhost:13003/v1/",
     "listmanager": {
-      "lyris_list_base_path": "http://listtstapp1.ad.unc.edu/"
+      "lyris_list_base_path": "http://listtest.adtest.unc.edu/"
     },
     "security": {
         "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
