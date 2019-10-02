@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="submit p-3">
-          <div class="text-right d-flex-grow-1">
+          <div class="text-right">
             <button class="btn btn-primary mr-1" @click="addUserToGroup()">Add to Group</button>
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
