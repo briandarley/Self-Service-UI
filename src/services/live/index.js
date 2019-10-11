@@ -12,3 +12,4 @@ import './duoAuthService';
 import './administrationService';
 import './ScreenReaderAnnouncerService';
 import './massMailResponseTemplates';
+import './signalRService';

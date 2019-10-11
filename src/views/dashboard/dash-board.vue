@@ -13,6 +13,10 @@
         <ad-lock-widget></ad-lock-widget>
         <bearer-token-widget></bearer-token-widget>
         <environment-widget></environment-widget>
+
+
+
+        <!-- <button class="btn btn-primary" @click="test()">Test</button> -->
       </div>
     </div>
   </div>

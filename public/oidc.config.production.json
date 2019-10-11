@@ -1,5 +1,6 @@
 {
     "serviceEndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
+    "signalREndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/",
     "listmanager": {
       "lyris_list_base_path": "https://lists.unc.edu/"
     },

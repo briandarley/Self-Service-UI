@@ -10,11 +10,10 @@
       <div class="card-body">
         <form @submit.prevent.prevent role="form" ref="submitForm">
           <div class="form-group">
-            
-             <div class="label-info">
-                  <label for="searchField">Search Provision/Initiate Provision</label>
-                  <span class="required">Required</span>
-                </div>
+            <div class="label-info">
+              <label for="searchField">Search Provision/Initiate Provision</label>
+              <span class="required">Required</span>
+            </div>
             <input
               type="text"
               class="form-control"
@@ -25,6 +24,7 @@
               data-validation="{'required': 'true', 'message': 'Search field required'}"
               ref="searchField"
               v-on:keyup.13="search()"
+              autocomplete="off"
             />
           </div>
           <div class="text-right my-3">
@@ -32,7 +32,6 @@
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
         </form>
-        
 
         <transition name="fade">
           <div v-if="provisionData">
@@ -104,6 +103,8 @@
                 </div>
               </div>
             </div>
+
+            <dual-role-assignment :provisionInfo="provisionData" :onyen="provisionData.onyen"></dual-role-assignment>
           </div>
         </transition>
 

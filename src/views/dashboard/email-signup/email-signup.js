@@ -5,68 +5,34 @@ import {
   mixins,
   BaseValidateMixin
 } from "../../../components/mixins/index";
-
+import DualRoleAssignment from './dual-role-assignment.vue'
 @Component({
   name: 'email-signup',
-  dependencies: ['$', 'moment', 'spinnerService', 'toastService', 'ProvisionsService', 'UserProfileService', 'UserService','ScreenReaderAnnouncerService']
+  dependencies: ['$', 'moment', 'spinnerService', 'toastService', 'ProvisionsService', 'UserProfileService', 'UserService','ScreenReaderAnnouncerService'],
+  components: {DualRoleAssignment}
 })
 export default class EmailSignup extends BaseValidateMixin {
   showProgress = false;
   userId = null;
-  provisionInfo = {};
-  userLdapProfile = {};
-  hospitalProfile = null;
-  dualAccountProfile = null;
-  selectedPrimaryDesignation = 0;
+  provisionInfo = null;
+  userLdapProfile = null;
+  
   viewLoaded = false;
   model = {
     mail: ""
 
   }
-  get hasPrimaryAccountSelected() {
-    if (!this.hasValidLdapRecord || !this.isProvisionRecord || !this.dualAccountProfile) {
-      return false;
-    }
-    return this.dualAccountProfile.primaryDesignation > 0;
-
-  }
-  get primaryAccountDisplayName() {
-    if (!this.hasPrimaryAccountSelected) {
-      return "None";
-    }
-    switch (this.dualAccountProfile.primaryDesignation) {
-      case 0:
-        return "None (Designation 0)";
-      case 1:
-        return "UNC (Designation 1)"
-      case 2:
-        return "UNC Health Care (Designation 2)"
-      case 3:
-        return "Dual Account, Both UNC and UNC Health Care (Designation 3)"
-    }
-  }
-  get isDualAccountEligible() {
-    if (!this.isProvisionRecord) {
-      return false;
-    }
-    //user must have a dualrole record prior, otherwise the user isn't allowed to choose
-    if (!this.dualAccountProfile) return false;
-    if (this.dualAccountProfile.status === false) return false;
-    return (this.hospitalProfile && this.hospitalProfile.status !== false)
-  }
+  
+  
+  
   get isProvisionRecord() {
+    
     if (!this.hasValidLdapRecord) return false;
     if (!this.provisionInfo) return false;
     if (this.provisionInfo.status === false) return false;
     return true;
   }
-  get hasHospitalAccount() {
-
-    if (!this.hasValidLdapRecord) return false;
-    if (this.hospitalProfile === null) return false;
-    if (this.hospitalProfile.status === false) return false
-    return true;
-  }
+  
   get isMailboxCreated() {
 
     if (!this.provisionInfo) return false;
@@ -74,18 +40,17 @@ export default class EmailSignup extends BaseValidateMixin {
  }
 
   get hasValidLdapRecord() {
+    if(!this.userLdapProfile) return false;
     return this.userLdapProfile.status !== false;
   }
   get isNewRequest() {
-
+    if(!this.provisionInfo) return false;
     if (this.userLdapProfile.status === false) return false;
     //record wasn't created int he provision table
     return (this.provisionInfo.status === false);
   }
 
-  get showInEligible(){
-    return !this.isNewRequest && this.hasValidLdapRecord && !this.isDualAccountEligible && this.hasHospitalAccount;
-  }
+
 
   clear() {
     this.model.mail = "";
@@ -113,7 +78,7 @@ export default class EmailSignup extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
-  async updateDualRoleStatus(){
+  async updateDualRoleStatus() {
     this.spinnerService.show();
     try {
       await this.UserProfileService.updateMimsPrimaryDesignation(this.userId, this.selectedPrimaryDesignation);
@@ -138,14 +103,7 @@ export default class EmailSignup extends BaseValidateMixin {
     }
 
   }
-  setPrimaryDesignation() {
-    this.selectedPrimaryDesignation = 0;
-    if (!this.isDualAccountEligible) return;
-    if (this.dualAccountProfile.primaryDesignation <= 2) {
-      this.selectedPrimaryDesignation = this.dualAccountProfile.primaryDesignation;
-    }
-  }
-
+  
   async setUserId() {
     let user = await this.UserService.get();
     this.userId = user.profile.sub
@@ -162,7 +120,7 @@ export default class EmailSignup extends BaseValidateMixin {
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("E-mail signup");
 
   }
-  async loadProvisionProfile(){
+  async loadProvisionProfile() {
     this.spinnerService.show();
 
     
@@ -173,18 +131,16 @@ export default class EmailSignup extends BaseValidateMixin {
         
       let values = await Promise.all([
         this.ProvisionsService.getProvisionRecord(this.userId),
-        this.UserProfileService.getLdapUserProfile(this.userId),
-        this.UserProfileService.getMimsHospitalProfile(this.userId),
-        this.UserProfileService.getMimsPrimaryDesignation(this.userId)
+        this.UserProfileService.getLdapUserProfile(this.userId)
+        
       ])
 
 
       this.provisionInfo = values[0];
       this.userLdapProfile = values[1];
-      this.hospitalProfile = values[2];
-      this.dualAccountProfile = values[3];
+      
       this.setDestinationMail();
-      this.setPrimaryDesignation();
+      
 
 
     } catch (e) {
@@ -194,5 +150,9 @@ export default class EmailSignup extends BaseValidateMixin {
       this.spinnerService.hide();
       this.viewLoaded = true;
     }
+  }
+
+  onUpdatedDualRoleStatus(){
+    
   }
 }

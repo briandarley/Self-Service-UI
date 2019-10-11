@@ -4,6 +4,7 @@ import {
 } from "../../../../components/mixins/index";
 
 import { Component } from "vue-property-decorator";
+import DualRoleAssignment from '../../../dashboard/email-signup/dual-role-assignment.vue';
 
 @Component({
     name: 'provisioning',
@@ -15,7 +16,8 @@ import { Component } from "vue-property-decorator";
     "ExchangeToolsService",
     "UserService",
     "ValidationService",
-    "ScreenReaderAnnouncerService"]   
+    "ScreenReaderAnnouncerService"]   ,
+    components: { DualRoleAssignment}
     
   })
 
@@ -89,9 +91,10 @@ export default class Provisioning extends BaseValidateMixin {
       let provisionData = await this.ExchangeToolsService.getProvisionHistory(
         this.filter
       );
-
+      
       if (provisionData.status === false) {
         let userLdap = await this.ExchangeToolsService.getUserLdap(this.filter);
+        
         if (userLdap && userLdap.status === false) {
           this.toastService.error("Failed to retrive LDAP record for user");
           this.noLdap = true;
@@ -120,7 +123,7 @@ export default class Provisioning extends BaseValidateMixin {
   populateEmails() {
     this.emailResponse = [];
     
-    if (this.userLdap.mail && typeof(this.userLdap.mail) == string) {
+    if (this.userLdap.mail && typeof(this.userLdap.mail) === "string") {
       this.emailResponse.push(this.userLdap.mail);
     } else if (this.userLdap.uncEmail && this.userLdap.uncEmail.length > 0) {
       this.emailResponse = this.emailResponse.concat(this.userLdap.uncEmail);
