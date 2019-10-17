@@ -2,7 +2,6 @@ import {
   Component
 } from "vue-property-decorator";
 import {
-  mixins,
   BaseValidateMixin
 } from "../../../components/mixins/index";
 import DualRoleAssignment from './dual-role-assignment.vue'

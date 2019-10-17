@@ -33,7 +33,7 @@ export default class ViewRequest extends Vue {
   criteria = {
     pageSize: 5,
     index: 0,
-    status: "ALL",
+    status: "PENDING",
     population: "ALL",
     filterText: "",
     expireDateFrom: null,
@@ -219,7 +219,7 @@ export default class ViewRequest extends Vue {
     this.criteria = {
       pageSize: 5,
       index: 0,
-      status: "ALL",
+      status: "PENDING",
       population: "ALL",
       filterText: "",
       expireDateFrom: null,
