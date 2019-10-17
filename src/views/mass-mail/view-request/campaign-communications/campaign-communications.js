@@ -32,7 +32,11 @@ export default class CampaignCommunications extends Vue {
   }
 
   hide() {
-    this.$refs.confirmCampaignAction.hide();
+    if(this.$refs.confirmCampaignActionDialog)
+    {
+      this.$refs.confirmCampaignActionDialog.hide();
+    }
+    
     this.$emit("cancel");
     this.reset();
   }
@@ -85,7 +89,7 @@ export default class CampaignCommunications extends Vue {
       subject: subject,
       messageType: "APPROVED_FOR_SEND_NOW"
     })
-    this.$refs.confirmCampaignAction.show();
+    this.$refs.confirmCampaignActionDialog.show();
   }
 
   _showApprovalCampaignDialog(campaignId, subject, population) {
@@ -109,7 +113,7 @@ export default class CampaignCommunications extends Vue {
       messageType: action,
       populationType: population
     })
-    this.$refs.confirmCampaignAction.show();
+    this.$refs.confirmCampaignActionDialog.show();
   }
 
   _showDenialCampaignDialog(campaignId, subject, population) {
@@ -133,7 +137,7 @@ export default class CampaignCommunications extends Vue {
       messageType: action,
       populationType: population
     })
-    this.$refs.confirmCampaignAction.show();
+    this.$refs.confirmCampaignActionDialog.show();
   }
 
   _showContactCampaignDialog(campaignId, subject) {
@@ -146,7 +150,7 @@ export default class CampaignCommunications extends Vue {
       subject: subject,
       messageType: 'COMMENT'
     })
-    this.$refs.confirmCampaignAction.show();
+    this.$refs.confirmCampaignActionDialog.show();
   }
 
   _showCancelCampaignDialog(campaignId, subject) {
@@ -159,6 +163,6 @@ export default class CampaignCommunications extends Vue {
       subject: subject,
       messageType: 'CANCEL'
     })
-    this.$refs.confirmCampaignAction.show();
+    this.$refs.confirmCampaignActionDialog.show();
   }
 }

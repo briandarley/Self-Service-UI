@@ -13,7 +13,7 @@ import "./filters/index";;
 
 @Component({
   name: 'view-request',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ScreenReaderAnnouncerService', 'MassMailService', 'UserService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ScreenReaderAnnouncerService', 'MassMailService', 'UserService', 'SignalRService', 'EventBus'],
   components: {
     ActionMenu,
     ApprovalActions,
@@ -42,6 +42,24 @@ export default class ViewRequest extends Vue {
   };
   readOnlyModel = {};
 
+
+  onCampaignStatusUpdate(model) {
+    
+    console.log(model);
+    let msg = `Campaign ${model.id} status was updated to ${model.campaignStatus.status}, updated by ${model.campaignStatus.changeUser}`;
+    this.toastService.success( msg)
+    console.log( msg);
+
+    if (!this.entities) return;
+
+    for (let i = 0; i < this.pagedResponse.entities.length; i++) {
+      if (this.pagedResponse.entities[i].id == model.id) {
+        this.pagedResponse.entities[i] = model;
+        break;
+      }
+    }
+    this.pagedResponse = JSON.parse(JSON.stringify(this.pagedResponse));
+  }
 
 
   async indexChanged(index) {
@@ -75,6 +93,10 @@ export default class ViewRequest extends Vue {
 
       });
     }, 1000);
+
+    await this.SignalRService.setupConnection();
+
+    this.EventBus.attachEvent('massmail-campaign-status-update', this.onCampaignStatusUpdate)
   }
 
 
@@ -110,8 +132,9 @@ export default class ViewRequest extends Vue {
 
   async onConfirmCommunication(messageAction) {
     try {
+      
       this.spinnerService.show();
-
+      
       let response = await this.MassMailService.addAction(messageAction);
 
       if (response.status === false) {
@@ -149,17 +172,18 @@ export default class ViewRequest extends Vue {
       this.toastService.success("Successfully updated campaign status");
 
       await this.search();
+
     } catch (e) {
       window.console.log(e);
       this.toastService.error('Failed to retrieve record');
     } finally {
-      this.$refs.confirmCampaignAction.hide();
+      
       this.spinnerService.hide();
     }
   }
 
   onHideCommunication() {
-    this.$refs.campaignCommunications.hide()
+    //this.$refs.campaignCommunications.hide()
   }
 
 
@@ -232,7 +256,7 @@ export default class ViewRequest extends Vue {
   async search() {
     try {
       this.spinnerService.show();
-      
+
       this.pagedResponse = await this.MassMailService.getMassMailRecords(this.criteria);
 
     } catch (e) {

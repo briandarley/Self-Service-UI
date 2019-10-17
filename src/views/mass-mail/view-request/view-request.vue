@@ -8,6 +8,7 @@
         <h3>View Request</h3>
       </div>
       <div class="card-body">
+        
         <search-criteria @search="search" @clear="clear" :criteria="criteria"></search-criteria>
         
         <div class="d-flex mt-5" style="justify-content:space-between">

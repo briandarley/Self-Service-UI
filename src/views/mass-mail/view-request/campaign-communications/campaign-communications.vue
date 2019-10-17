@@ -1,6 +1,6 @@
 <template>
   
-    <confirm-dialog id="confirmCampaignAction" ref="confirmCampaignAction" width="900">
+    <confirm-dialog id="confirmCampaignActionDialog" ref="confirmCampaignActionDialog" width="900">
       <div slot="modal-title" class="text-white">{{messageAction.title}}</div>
       <div slot="modal-body">
         <textarea

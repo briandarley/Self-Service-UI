@@ -15,6 +15,7 @@
               <option value="PENDING">Pending Approval (All)</option>
               <option value="PENDING_STUDENTS">Pending Approval for Students</option>
               <option value="PENDING_EMPLOYEES">Pending Approval for Employees</option>
+              <option value="APPROVED">Approved</option>
               <option value="EXPIRED">Expired</option>
               <option value="CANCELED">Canceled</option>
               <option value="DENIED">Denied</option>
