@@ -5,11 +5,13 @@ import {
   Component,
   Watch
 } from "vue-property-decorator";
+import TestMessages from './test-messages/test-messages.vue';
 
 
 @Component({
   name: 'message-summary',
   dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ScreenReaderAnnouncerService'],
+  components: { TestMessages},
   props: ['value'],
   filters: {
     formatSender(value) {

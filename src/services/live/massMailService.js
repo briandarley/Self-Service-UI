@@ -211,11 +211,11 @@ function MassMailService(httpHandlerService, commonExtensions) {
             try {
 
                 let entity = JSON.parse(JSON.stringify(model));
-                
+
                 delete entity.id;
-                
+
                 const handler = await httpHandlerService.get();
-                
+
                 await handler.put(`/massmail/campaign-status/${model.campaignId}`, model);
 
                 return true;
@@ -232,12 +232,12 @@ function MassMailService(httpHandlerService, commonExtensions) {
         async addAction(model) {
             try {
                 const handler = await httpHandlerService.get();
-                
+
                 let entity = JSON.parse(JSON.stringify(model));
                 entity.campaignId = model.id;
-                
+
                 delete entity.id;
-                
+
 
                 await handler.post(`/massmail/campaign-actions/${model.id}`, entity);
 
@@ -255,7 +255,7 @@ function MassMailService(httpHandlerService, commonExtensions) {
         async addComment(model) {
             try {
                 const handler = await httpHandlerService.get();
-                
+
                 await handler.post(`/massmail/campaign-comments/${model.campaignId}`, model);
 
                 return true;
@@ -284,11 +284,11 @@ function MassMailService(httpHandlerService, commonExtensions) {
                 }
                 throw error;
             }
-        }, 
+        },
         async cloneCampaign(campaignId) {
             try {
                 const handler = await httpHandlerService.get();
-                
+
                 let response = await handler.post(`/massmail/campaigns/${campaignId}/clone`);
 
                 return response.data;
@@ -302,8 +302,63 @@ function MassMailService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
+        async addFavoriteReviewer(email) {
+            try {
+                const handler = await httpHandlerService.get();
 
+                await handler.post(`/massmail/favorite-reviewers/${email}`);
 
+                return true;
+            } catch (e) {
+                throw e;
+            }
+        },
+        async deleteFavoriteReviewer(email) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                await handler.delete(`/massmail/favorite-reviewers/${email}`);
+
+                return true;
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false,
+                        message: "Not Found"
+                    };
+                }
+                throw e;
+            }
+        },
+        async getFavoriteReviewers() {
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.get(`/MassMail/favorite-reviewers`);
+
+                return response.data;
+            } catch (error) {
+                if (error.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw error;
+            }
+        },
+        async sendTestCampaign(campaignId, recipients) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                await handler.post(`/massmail/send-test-message/${campaignId}`,recipients);
+
+                return true;
+            } catch (e) {
+                throw e;
+            }
+
+          
+        }
 
     }
 }
