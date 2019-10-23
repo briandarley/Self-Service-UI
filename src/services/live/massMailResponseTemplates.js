@@ -53,7 +53,7 @@ UNC Mass E-mail approvers.
 
             return `Hello,
 
-The following message has been approved for delivery to employees on ${dt} Id: ${model.id} Subject: [${model.subject}].
+The following message has been approved for delivery to ${model.populationType} on ${dt} Id: ${model.id} Subject: [${model.subject}].
 
 You will receive another message once the message has been sent.  
 

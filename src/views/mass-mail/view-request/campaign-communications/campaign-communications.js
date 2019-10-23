@@ -93,13 +93,15 @@ export default class CampaignCommunications extends Vue {
   }
 
   _showApprovalCampaignDialog(campaignId, subject, population) {
-    this.messageAction.title = `Deny ${population} for campaign Id ${campaignId}`;
+    this.messageAction.title = `Approve ${population} for campaign Id ${campaignId}`;
 
     let action = "";
+    let populationType = "employees";
     if (population == "employee") {
       action = "APPROVED_EMPLOYEES";
     } else {
       action = "APPROVED_STUDENTS";
+      populationType = "students";
     }
 
     this.messageAction.actionCode = action;
@@ -111,7 +113,7 @@ export default class CampaignCommunications extends Vue {
       id: campaignId,
       subject: subject,
       messageType: action,
-      populationType: population
+      populationType: populationType
     })
     this.$refs.confirmCampaignActionDialog.show();
   }
@@ -120,10 +122,13 @@ export default class CampaignCommunications extends Vue {
     this.messageAction.title = `Deny ${population} for campaign Id ${campaignId}`;
 
     let action = "";
+    let populationType = "employees";
+
     if (population == "employee") {
       action = "DENIED_EMPLOYEES";
     } else {
       action = "DENIED_STUDENTS";
+      populationType = "students";
     }
 
     this.messageAction.actionCode = action;
@@ -135,7 +140,7 @@ export default class CampaignCommunications extends Vue {
       id: campaignId,
       subject: subject,
       messageType: action,
-      populationType: population
+      populationType: populationType
     })
     this.$refs.confirmCampaignActionDialog.show();
   }

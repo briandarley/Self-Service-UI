@@ -8,9 +8,8 @@
         <h3>View Request</h3>
       </div>
       <div class="card-body">
-        
         <search-criteria @search="search" @clear="clear" :criteria="criteria"></search-criteria>
-        
+
         <div class="d-flex mt-5" style="justify-content:space-between">
           <h3 class="text-primary">Total Campaigns {{pagedResponse.totalRecords | formatNumber}}</h3>
           <pager
@@ -20,7 +19,6 @@
             v-on:indexChanged="indexChanged"
           ></pager>
         </div>
-
 
         <!--Trigger-->
         <div class="search-result">
@@ -52,8 +50,16 @@
                 </div>
               </div>
               <div class="campaign-status">
-                <div v-html="$options.filters.approvalStatusText(item)">
-                </div>
+                <div v-html="$options.filters.approvalStatusText(item)"></div>
+              </div>
+              <div class="progress hidden" :id="'progessbar_' + item.id">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="75"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
               </div>
               <div class="campaign-subject">{{item.subject}}</div>
               <div class="control-options">
@@ -82,7 +88,6 @@
             v-on:indexChanged="indexChanged"
           ></pager>
         </div>
-
       </div>
     </div>
 
@@ -96,11 +101,11 @@
       </div>
     </confirm-dialog>
 
-    
-    <campaign-communications 
-           ref="campaignCommunications"
-           @cancel="onHideCommunication" 
-           @confirm="onConfirmCommunication"></campaign-communications>
+    <campaign-communications
+      ref="campaignCommunications"
+      @cancel="onHideCommunication"
+      @confirm="onConfirmCommunication"
+    ></campaign-communications>
   </div>
 </template>
 <script src="./view-request.js"></script>

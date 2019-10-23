@@ -22,6 +22,10 @@ function SignalRService(configReaderService,eventBus) {
                 this._connection.on("MassMailCampaignActionUpdate", update => {
                     eventBus.emit('massmail-campaign-status-update', update);
                 });
+                this._connection.on("NotifyCampaignBatchProcessUpdate", update => {
+                    eventBus.emit('massmail-campaign-mail-batch-update', update);
+                });
+                
 
                 await this._connection.start()
                     .catch(e => console.error(e.toString()));

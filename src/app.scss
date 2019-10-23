@@ -35,6 +35,9 @@ input::placeholder {
   color: $gray-500 !important;
 }
 
+.hidden{
+  display:none;
+}
 .app {
   /*hack to get dialog behavior correct*/
   position: relative;

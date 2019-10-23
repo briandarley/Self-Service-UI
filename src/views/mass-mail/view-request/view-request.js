@@ -20,7 +20,7 @@ import "./filters/index";;
     ViewHistory,
     ReadOnlyView,
     CampaignCommunications,
-    SearchCriteria
+    SearchCriteria    
   }
 
 
@@ -45,10 +45,10 @@ export default class ViewRequest extends Vue {
 
   onCampaignStatusUpdate(model) {
     
-    console.log(model);
+
     let msg = `Campaign ${model.id} status was updated to ${model.campaignStatus.status}, updated by ${model.campaignStatus.changeUser}`;
     this.toastService.success( msg)
-    console.log( msg);
+
 
     if (!this.entities) return;
 
@@ -61,6 +61,21 @@ export default class ViewRequest extends Vue {
     this.pagedResponse = JSON.parse(JSON.stringify(this.pagedResponse));
   }
 
+  onMailBatchUpdate(model) {
+    let campaignId = model.campaignId;
+    let pagedResponse = model.pagedResponse;
+    let currentPage =  pagedResponse.index + 1; 
+    let totalPages = Math.ceil( pagedResponse.totalRecords/ pagedResponse.pageSize);
+    const $ = this.$;
+
+    let progress = Math.round((currentPage/totalPages) * 100, 2);
+    
+    $(`#progessbar_${campaignId}`).removeClass("hidden");
+    let progressBar = $(`#progessbar_${campaignId} > .progress-bar`);
+    $( progressBar).width( progress + "%");
+    
+
+  }
 
   async indexChanged(index) {
     this.criteria.index = index;
@@ -75,6 +90,15 @@ export default class ViewRequest extends Vue {
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail View Request");
 
 
+    const $ = this.$;
+    
+    this.addDropDownBehavior();
+    await this.SignalRService.setupConnection();
+
+    this.EventBus.attachEvent('massmail-campaign-status-update', this.onCampaignStatusUpdate)
+    this.EventBus.attachEvent('massmail-campaign-mail-batch-update', this.onMailBatchUpdate)
+  }
+  addDropDownBehavior(){
     const $ = this.$;
     setTimeout(() => {
       $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function (event) {
@@ -93,12 +117,7 @@ export default class ViewRequest extends Vue {
 
       });
     }, 1000);
-
-    await this.SignalRService.setupConnection();
-
-    this.EventBus.attachEvent('massmail-campaign-status-update', this.onCampaignStatusUpdate)
   }
-
 
   async onAction(args) {
     switch (args.action) {

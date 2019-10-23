@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,GAAG,AAAA,cAAc,CAAC;EACd,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,aAAa;CAUjC;;AAdD,AAMI,GAND,AAAA,cAAc,CAMb,GAAG,CAAC;EACA,UAAU,EAAE,MAAM;EAClB,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;EACT,IAAI,EAAE,CAAC;CACV",
-    "sources": [
-        "dual-role-assignment.scss"
-    ],
-    "names": [],
-    "file": "dual-role-assignment.css"
-}
