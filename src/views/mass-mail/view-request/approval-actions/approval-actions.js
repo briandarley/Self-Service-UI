@@ -27,6 +27,17 @@ MASSMAIL_APPROVER
   async mounted() {
     this.toastService.set(this);
   }
+  
+  get isDone(){
+    if(this.entity.campaignStatus == null) return true;
+
+    if(this.entity.campaignStatus.status === "CANCELED") return true;
+    if(this.entity.campaignStatus.status === "EXPIRED") return true;
+    if(this.entity.campaignStatus.status === "DONE") return true;
+    if(this.entity.campaignStatus.status.indexOf("ARCHIVED") > -1) return true;
+
+    return false;
+  }
 
   get isCanceled(){
     if(this.entity.campaignStatus == null) return true;
@@ -60,7 +71,9 @@ MASSMAIL_APPROVER
     const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
 
     if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
-    return !this.hasApprovals && !this.isCanceled
+
+    return !this.isCanceled && !this.isDone;
+    //return !this.hasApprovals && !this.isCanceled
 
 
   }
