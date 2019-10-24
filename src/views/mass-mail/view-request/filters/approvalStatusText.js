@@ -9,6 +9,7 @@ export default function approvalStatusText(entity) {
   if (!entity.campaignStatus) return `<div class="text-danger">Invalid State</div>`;
   if (entity.campaignStatus.canceledDate) return `<div class="text-danger">Request Canceled</div>`;
   if (entity.campaignStatus.deniedDate) return `<div class="text-danger">Request Denied</div>`;
+  if (entity.campaignStatus.status === "DONE") return `<div class="text-success">Campaign Delivered</div>`;
   if (entity.campaignStatus.approvedDate) return `<div class="text-success">Request Approved</div>`;
   if (entity.campaignStatus.approvedDate) return `<div class="text-success">Request Approved</div>`;
 

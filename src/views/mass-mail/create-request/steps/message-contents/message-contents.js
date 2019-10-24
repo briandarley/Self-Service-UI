@@ -36,7 +36,9 @@ export default class MessageContents extends BaseValidateMixin {
       setTimeout(() => {
           this.ckEditorInstance = window.CKEDITOR.replace('editor1',
             {
-              height: '25em'
+              height: '25em',
+              //allowedContent - allow for inline styles etc
+              allowedContent : true
               //Remove plugins for this iteration
               //extraPlugins: 'divarea,uploadimage',
               //imageUploadUrl: '/uploader/upload.php?type=Images'

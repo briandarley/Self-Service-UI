@@ -19,6 +19,7 @@
               <option value="EXPIRED">Expired</option>
               <option value="CANCELED">Canceled</option>
               <option value="DENIED">Denied</option>
+              <option value="DONE">Done</option>
               <option value="ALL">All</option>
             </select>
           </div>

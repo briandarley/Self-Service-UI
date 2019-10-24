@@ -49,6 +49,7 @@
                   </div>
                 </div>
               </div>
+              <div class="campaign-subject">{{item.subject}}</div>
               <div class="campaign-status">
                 <div v-html="$options.filters.approvalStatusText(item)"></div>
               </div>
@@ -61,7 +62,7 @@
                   aria-valuemax="100"
                 ></div>
               </div>
-              <div class="campaign-subject">{{item.subject}}</div>
+              
               <div class="control-options">
                 <button class="button btn btn-sm btn-primary" @click="viewReadOnlyView(item)">
                   <i class="material-icons">search</i>
