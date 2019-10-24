@@ -22,7 +22,7 @@
           <i class="material-icons">file_copy</i>
           <span>Copy</span>
         </a>
-        <a class="dropdown-item text-primary" @click.prevent="action('contact')">
+        <a class="dropdown-item text-primary" @click.prevent="action('contact')" v-if="showContactAuthor">
           <i class="material-icons">email</i>
           <span>Contact Author</span>
         </a>

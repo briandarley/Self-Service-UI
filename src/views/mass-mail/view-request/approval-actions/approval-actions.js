@@ -49,13 +49,17 @@ MASSMAIL_APPROVER
 
   }
   get dropDownEnabled(){
-    if(!this.UserService.isInRole("MASSMAIL_APPROVER") && !this.UserService.isInRole("MASSMAIL_ADMIN")) return false;
+    const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
+    
+    if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
     return !this.isCanceled && !this.isApproved
 
   }
 
   get showSendNow(){
-    if(!this.UserService.isInRole("MASSMAIL_APPROVER") && !this.UserService.isInRole("MASSMAIL_ADMIN")) return false;
+    const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
+
+    if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
     return !this.hasApprovals && !this.isCanceled
 
 
@@ -73,6 +77,7 @@ MASSMAIL_APPROVER
   }
 
   get showEmployeeApproval() {
+    
     if(!this.UserService.isInRole("MASSMAIL_EMPLOYEE_APPROVER")) return false;
     if (!this.isActive) return false;
     if(this.entity.campaignStatus.status.indexOf("DENIED") > -1) return false;

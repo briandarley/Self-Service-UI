@@ -8,6 +8,10 @@ function UserService(configReaderService, localStorageService, routerService) {
         _user: null,
         _mgr: null,
         _logoutTimeOut: null,
+        getUserName(){
+            if(!this._user) return null;
+            return this._user.profile.name
+        },
         isInRole(role) {
             
             if (!this._user) {
@@ -96,6 +100,7 @@ function UserService(configReaderService, localStorageService, routerService) {
             
             this._mgr.clearStaleState();
         },
+
         async get() {
             try {
                 await this._initializeManager();

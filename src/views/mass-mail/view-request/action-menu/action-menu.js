@@ -5,7 +5,7 @@ import {
 
 @Component({
   name: 'action-menu',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService','UserService'],
   props: ['id', 'entity']
 })
 
@@ -20,7 +20,7 @@ export default class ActionMenu extends Vue {
   }
 
 
-  get isCanceled(){
+  get isCanceled() {
     if(this.entity.campaignStatus == null) return true;
 
     if(this.entity.campaignStatus.status === "CANCELED") return true;
@@ -40,6 +40,11 @@ export default class ActionMenu extends Vue {
     let isSameOrAfter = moment(new Date(this.entity.expirationDate)).isSameOrAfter(moment(), 'day')
     return isSameOrAfter;
 
+  }
+
+  get showContactAuthor(){
+    //don't show contact author option if the user is the author
+    return this.UserService.getUserName() !== this.entity.author;
   }
 
   action(method) {
