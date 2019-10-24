@@ -9,6 +9,7 @@ function UserService(configReaderService, localStorageService, routerService) {
         _mgr: null,
         _logoutTimeOut: null,
         isInRole(role) {
+            
             if (!this._user) {
                 return false;
             }
@@ -37,14 +38,21 @@ function UserService(configReaderService, localStorageService, routerService) {
 
             switch (role.toUpperCase()) {
                 case "ADMIN":
-                    return userRoles.some(c => c === "ITS_IdM Users")
+                    return userRoles.some(c => c === "ITS_IDM USERS")
                 case "HELP_DESK":
-                    return userRoles.some(c => c === "ITS_IdM Users") ||
-                        userRoles.some(c => c === "ITS_WSP-Access-HelpdeskUsers") ||
-                        userRoles.some(c => c === "ITS_WSP-Access-HelpdeskPostmasters") ||
-                        userRoles.some(c => c === "ITS_WSP-Access-HelpdeskManagers");
-
-
+                    return userRoles.some(c => c === "ITS_IDM USERS") ||
+                        userRoles.some(c => c === "ITS_WSP-ACCESS-HELPDESKUSERS") ||
+                        userRoles.some(c => c === "ITS_WSP-ACCESS-HELPDESKPOSTMASTERS") ||
+                        userRoles.some(c => c === "ITS_WSP-ACCESS-HELPDESKMANAGERS");
+                case "MASSMAIL_ADMIN": 
+                    return userRoles.some(c => c === "ITS_WSP-ACCESS-MASSMAIL-ADMINISTRATORS");
+                case "MASSMAIL_STUDENT_APPROVER": 
+                    return userRoles.some(c => c === "ITS_WSP-ACCESS-MASSMAIL-APPROVERS_STUDENTS");
+                case "MASSMAIL_EMPLOYEE_APPROVER": 
+                    return userRoles.some(c => c === "ITS_WSP-ACCESS-MASSMAIL-APPROVERS_EMPLOYEES");
+                case "MASSMAIL_APPROVER": 
+                    return userRoles.some(c => c === "ITS_WSP-ACCESS-MASSMAIL-APPROVER");
+                    
             }
 
 

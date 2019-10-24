@@ -3,7 +3,7 @@
     <button
       type="button"
       class="btn btn-default"
-      :class="{'disabled': isCanceled || isApproved, 'dropdown-toggle': !isCanceled && !isApproved}"
+      :class="{'disabled': !dropDownEnabled, 'dropdown-toggle': dropDownEnabled}"
       aria-haspopup="true"
       aria-expanded="false"
       data-toggle="dropdown"
@@ -15,7 +15,7 @@
       <a
         class="dropdown-item text-primary"
         @click.prevent="sendNow()"
-        v-if="!hasApprovals && !isCanceled"
+        v-if="showSendNow"
       >
         <i class="material-icons">send</i>
         <span>Send Now</span>

@@ -5,14 +5,20 @@ import {
 
 @Component({
   name: 'approval-actions',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService','UserService'],
   props: ['id', 'entity']
 })
 
 export default class ApprovalActions extends Vue {
   mainDropDownVisible = false;
   currentElement = '';
-
+/*
+Mass Mail Roles
+MASSMAIL_ADMIN
+MASSMAIL_STUDENT_APPROVER
+MASSMAIL_EMPLOYEE_APPROVER
+MASSMAIL_APPROVER
+*/
   get elmId() {
     if (!this.entity) return "ac_not_set";
     return `approval_menu_${this.entity.id}`;
@@ -42,8 +48,20 @@ export default class ApprovalActions extends Vue {
     return isSameOrAfter;
 
   }
+  get dropDownEnabled(){
+    if(!this.UserService.isInRole("MASSMAIL_APPROVER") && !this.UserService.isInRole("MASSMAIL_ADMIN")) return false;
+    return !this.isCanceled && !this.isApproved
 
+  }
+
+  get showSendNow(){
+    if(!this.UserService.isInRole("MASSMAIL_APPROVER") && !this.UserService.isInRole("MASSMAIL_ADMIN")) return false;
+    return !this.hasApprovals && !this.isCanceled
+
+
+  }
   get showStudentApproval() {
+    if(!this.UserService.isInRole("MASSMAIL_STUDENT_APPROVER")) return false;
     if (!this.isActive) return false;
     if(this.entity.campaignStatus.status.indexOf("DENIED") > -1) return false;
     if(this.entity.campaignStatus.status.indexOf("APPROVED_STUDENTS") > -1) return false;
@@ -55,6 +73,7 @@ export default class ApprovalActions extends Vue {
   }
 
   get showEmployeeApproval() {
+    if(!this.UserService.isInRole("MASSMAIL_EMPLOYEE_APPROVER")) return false;
     if (!this.isActive) return false;
     if(this.entity.campaignStatus.status.indexOf("DENIED") > -1) return false;
     if(this.entity.campaignStatus.status.indexOf("APPROVED_EMPLOYEES") > -1) return false;
