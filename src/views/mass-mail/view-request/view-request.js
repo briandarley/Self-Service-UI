@@ -151,7 +151,6 @@ export default class ViewRequest extends Vue {
 
   async onConfirmCommunication(messageAction) {
     try {
-      
       this.spinnerService.show();
       
       let response = await this.MassMailService.addAction(messageAction);

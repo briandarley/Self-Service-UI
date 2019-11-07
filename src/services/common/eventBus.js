@@ -15,6 +15,7 @@ function EventBus() {
   return {
     _eventBus: null,
     attachEvent(event, fn){
+      this.getBus().$off(event);
       this.getBus().$on(event, fn);
     },
     emit(event, args){

@@ -63,7 +63,7 @@ MASSMAIL_APPROVER
     const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
     
     if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
-    return !this.isCanceled && !this.isApproved
+    return !this.isCanceled && this.showSendNow
 
   }
 

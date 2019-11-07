@@ -56,7 +56,6 @@ export default class ChildRouteInfo extends Vue {
   }
 
   async onRouteDeleted(){
-    debugger;
     this.$emit('routeDeleted')
   }
   

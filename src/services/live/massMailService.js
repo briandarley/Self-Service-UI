@@ -209,11 +209,6 @@ function MassMailService(httpHandlerService, commonExtensions) {
         },
         async updateStatus(model) {
             try {
-
-                let entity = JSON.parse(JSON.stringify(model));
-
-                delete entity.id;
-
                 const handler = await httpHandlerService.get();
 
                 await handler.put(`/massmail/campaign-status/${model.campaignId}`, model);
