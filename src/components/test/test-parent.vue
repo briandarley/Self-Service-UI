@@ -18,8 +18,7 @@ export default class MyParent extends Vue {
 
   childchanged(arg1, arg2){
     
-    window.console.log(arg1);
-    window.console.log(arg2);
+    
   }
 
 

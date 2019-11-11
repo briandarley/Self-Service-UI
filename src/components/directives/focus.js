@@ -5,7 +5,6 @@ export default function focus() {
     update: function(el) {
       
       setTimeout(() => {
-        //console.log("setting....")
         el.focus();
       }, 500);
     

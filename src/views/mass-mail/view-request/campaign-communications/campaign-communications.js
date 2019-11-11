@@ -66,8 +66,8 @@ export default class CampaignCommunications extends Vue {
         break;
       default:
         this.toastService.error("Failed to identify action " + model.action);
-        window.console.log("Action Not Registered")
-        window.console.log(args);
+        window.console.warn("Action Not Registered")
+        window.console.warn(args);
         break;
     }
   }

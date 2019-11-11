@@ -68,9 +68,6 @@ export default class BasicInformation extends BaseValidateMixin {
           } ).map(c => c.name);
             //return  includes;
 
-          //console.log(filteredRecords);
-          //console.log(departments);
-
           result(
             asyncResults(
               filteredRecords

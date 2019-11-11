@@ -23,12 +23,12 @@
         <!--Trigger-->
         <div class="search-result">
           <div class="bg-primary text-white row-header">
-            <div>Id</div>
-            <div>Author</div>
-            <div>Send Date</div>
-            <div>Exp Date</div>
-            <div>Population</div>
-            <div>Priority</div>
+            <div><a href="#" @click.prevent="sort('id')">ID</a></div>
+            <div><a href="#" @click.prevent="sort('author')">Author</a></div>
+            <div><a href="#" @click.prevent="sort('sendDate')">Send Date</a></div>
+            <div><a href="#" @click.prevent="sort('expirationDate')">Exp Date</a></div>
+            <div><a href="#" @click.prevent="sort('targetPopulation')">Population</a></div>
+            <div><a href="#" @click.prevent="sort('priority')">Priority</a></div>
             <div class="control">Action</div>
           </div>
           <div class="results">

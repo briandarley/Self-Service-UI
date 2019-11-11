@@ -16,9 +16,8 @@ testClick(){
 }
  @Watch('childVal', {immediate: true})
  onChildValChanged(){
-   //console.log(newValue);
-   //this.childVal = newValue;
-   window.console.log(this.$parent.parentVal);
+      //this.childVal = newValue;
+   //window.console.log(this.$parent.parentVal);
    //this.$emit('childchanged', newValue)
  }
   

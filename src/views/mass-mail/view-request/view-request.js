@@ -20,14 +20,15 @@ import "./filters/index";;
     ViewHistory,
     ReadOnlyView,
     CampaignCommunications,
-    SearchCriteria    
+    SearchCriteria
   }
 
 
 })
 
 export default class ViewRequest extends Vue {
-
+  _currentCol = "id";
+  _currentSortDir = 1;
   pagedResponse = {};
   entities = [];
   criteria = {
@@ -44,10 +45,10 @@ export default class ViewRequest extends Vue {
 
 
   onCampaignStatusUpdate(model) {
-    
+
 
     let msg = `Campaign ${model.id} status was updated to ${model.campaignStatus.status}, updated by ${model.campaignStatus.changeUser}`;
-    this.toastService.success( msg)
+    this.toastService.success(msg)
 
 
     if (!this.entities) return;
@@ -64,16 +65,16 @@ export default class ViewRequest extends Vue {
   onMailBatchUpdate(model) {
     let campaignId = model.campaignId;
     let pagedResponse = model.pagedResponse;
-    let currentPage =  pagedResponse.index + 1; 
-    let totalPages = Math.ceil( pagedResponse.totalRecords/ pagedResponse.pageSize);
+    let currentPage = pagedResponse.index + 1;
+    let totalPages = Math.ceil(pagedResponse.totalRecords / pagedResponse.pageSize);
     const $ = this.$;
 
-    let progress = Math.round((currentPage/totalPages) * 100, 2);
-    
+    let progress = Math.round((currentPage / totalPages) * 100, 2);
+
     $(`#progessbar_${campaignId}`).removeClass("hidden");
     let progressBar = $(`#progessbar_${campaignId} > .progress-bar`);
-    $( progressBar).width( progress + "%");
-    
+    $(progressBar).width(progress + "%");
+
 
   }
 
@@ -91,14 +92,15 @@ export default class ViewRequest extends Vue {
 
 
     const $ = this.$;
-    
+
     this.addDropDownBehavior();
     await this.SignalRService.setupConnection();
 
     this.EventBus.attachEvent('massmail-campaign-status-update', this.onCampaignStatusUpdate)
     this.EventBus.attachEvent('massmail-campaign-mail-batch-update', this.onMailBatchUpdate)
   }
-  addDropDownBehavior(){
+
+  addDropDownBehavior() {
     const $ = this.$;
     setTimeout(() => {
       $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function (event) {
@@ -142,8 +144,8 @@ export default class ViewRequest extends Vue {
 
         break;
       default:
-        window.console.log("Action Not Registered")
-        window.console.log(args);
+        window.console.warn("Action Not Registered")
+        window.console.warn(args);
         break;
     }
   }
@@ -152,7 +154,7 @@ export default class ViewRequest extends Vue {
   async onConfirmCommunication(messageAction) {
     try {
       this.spinnerService.show();
-      
+
       let response = await this.MassMailService.addAction(messageAction);
 
       if (response.status === false) {
@@ -195,7 +197,7 @@ export default class ViewRequest extends Vue {
       window.console.log(e);
       this.toastService.error('Failed to retrieve record');
     } finally {
-      
+
       this.spinnerService.hide();
     }
   }
@@ -267,14 +269,15 @@ export default class ViewRequest extends Vue {
       expireDateFrom: null,
       expireDateThru: null,
       priority: "ALL",
-
+      sort: this._currentCol,
+      listSortDirection: this._currentSortDir
     };
   }
 
   async search() {
     try {
       this.spinnerService.show();
-
+      
       this.pagedResponse = await this.MassMailService.getMassMailRecords(this.criteria);
 
     } catch (e) {
@@ -291,6 +294,23 @@ export default class ViewRequest extends Vue {
     await this.search();
   }
 
+  async sort(column) {
+
+    if (this._currentCol === column) {
+      this._currentSortDir *= -1;
+    } else {
+      this._currentSortDir = 1;
+    }
+    this._currentCol = column;
+
+    this.criteria.index = 0;
+    this.criteria.sort = this._currentCol;
+    this.criteria.listSortDirection = this._currentSortDir;
+    await this.search();
+
+
+
+  }
 
 
 }

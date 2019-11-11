@@ -51,12 +51,10 @@ export default class TypeAhead extends Vue {
       }
     )
       .bind("typeahead:select", (event, suggestion) => {
-        //console.log(suggestion)
         event.target.value = suggestion;
         that.val = suggestion;
       })
       .bind("typeahead:change", (event, suggestion) => {
-        //console.log(suggestion)
         event.target.value = suggestion;
         that.val = suggestion;
       })

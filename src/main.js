@@ -71,8 +71,8 @@ new Vue({
 
 
       } catch (err) {
-        window.console.log(`Evaluated Route: ${evaluatedRoute}`)
-        window.console.log(err);
+        window.console.warn(`Evaluated Route: ${evaluatedRoute}`)
+        window.console.error(err);
       }
     },
     loadView(view) {

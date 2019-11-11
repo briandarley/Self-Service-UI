@@ -34,8 +34,7 @@ export default class DualRoleAssignment extends Vue {
       this.spinnerService.show();
       
       this.dualAccountProfile = await this.UserProfileService.getMimsPrimaryDesignation(this.onyen)
-      console.log(this.dualAccountProfile );
-      
+            
     } catch (e) {
       window.console.log(e);
       this.toastService.error('Failed to load Dual Account profile');

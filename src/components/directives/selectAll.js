@@ -9,7 +9,6 @@ export default function selectAll() {
         this.select() 
       
       });
-      //console.log("Select all on focus inserted");
       el.focus();
     }
   }

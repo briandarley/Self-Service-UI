@@ -173,11 +173,6 @@ export default class Groups extends Vue {
 
 
   async removeMember(groupEntity, member) {
-      window.console.log(groupEntity.samAccountName);
-      window.console.log(member.samAccountName);
-
-      window.console.log(this.records);
-
       groupEntity.detail.members = groupEntity.detail.members.filter(c=> c.samAccountName !==member.samAccountName) ;
       //item.detail.members
   }
