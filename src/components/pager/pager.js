@@ -25,9 +25,11 @@ export default class Pager extends Vue {
   get isLessThanMax() {
     
     let totalPages = Math.floor(this.totalRecords / this.criteria.pageSize);
-    let btnCount = parseInt(this.btnCount);
-    return (this.pageInfo.index + btnCount + 1) < totalPages;
-    //return ((this.pageInfo.index + 1) * this.criteria.pageSize) < totalPages
+    //let btnCount = parseInt(this.btnCount);
+
+    return (this.pageInfo.index + 1) < totalPages;
+    //return (this.pageInfo.index + btnCount + 1) <= totalPages;
+    
   }
   get nextDisabled() {
     let totalPages = Math.ceil(this.totalRecords / this.criteria.pageSize);
@@ -44,16 +46,14 @@ export default class Pager extends Vue {
       index: 0
     };
     if (!newValue) return;
-
-
     this.pageInfo = {
       pageSize: newValue.pageSize,
       index: newValue.index
     }
-
     this.populateButtonCount();
-
   }
+
+
   @Watch("totalRecords", {
     immediate: false
   })
