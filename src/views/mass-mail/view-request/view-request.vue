@@ -68,10 +68,15 @@
                   <i class="material-icons">search</i>
                   <span>View</span>
                 </button>
-                <button class="button btn btn-sm btn-secondary" @click="toggleShowHistory(item)">
+                <button class="button btn btn-sm btn-light" @click="toggleShowHistory(item)">
                   <i class="material-icons">history</i>
                   <span>History</span>
                 </button>
+                <button class="button btn btn-sm btn-secondary" @click="viewShowVerify(item)" v-if="showVerify(item)">
+                  <i class="material-icons">verified_user</i>
+                  <span>Verify</span>
+                </button>
+                
               </div>
               <transition name="fade">
                 <view-history :campaignId="item.id" v-if="item.showHistory"></view-history>
@@ -99,6 +104,15 @@
       </div>
       <div slot="modal-footer">
         <button class="btn btn-primary" @click="closeConfirmViewReadOnly()">Close</button>
+      </div>
+    </confirm-dialog>
+    <confirm-dialog id="confirmVerify" ref="confirmVerify" width="800">
+      <div slot="modal-title" class="text-white">Verify Receipt : Id {{readOnlyModel.id}}</div>
+      <div slot="modal-body">
+        <confirm-verify :campaign="readOnlyModel"></confirm-verify>
+      </div>
+      <div slot="modal-footer">
+        <button class="btn btn-primary" @click="closeConfirmVerify()">Close</button>
       </div>
     </confirm-dialog>
 

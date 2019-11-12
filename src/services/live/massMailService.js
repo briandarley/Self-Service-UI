@@ -345,16 +345,29 @@ function MassMailService(httpHandlerService, commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
 
-                await handler.post(`/massmail/send-test-message/${campaignId}`,recipients);
+                await handler.post(`/massmail/send-test-message/${campaignId}`, recipients);
 
                 return true;
             } catch (e) {
                 throw e;
             }
 
-          
-        }
 
+        },
+        async verifyCampaignReceipt(campaignId, onyen) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.get(`/massmail/campaigns/${campaignId}/recipients/${onyen}/verify-receipt`);
+
+                return response.data;
+            } catch (e) {
+                return false;
+
+            }
+
+
+        }
     }
 }
 

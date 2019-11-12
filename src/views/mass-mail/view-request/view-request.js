@@ -6,6 +6,7 @@ import ActionMenu from "./action-menu/action-menu.vue"
 import ApprovalActions from "./approval-actions/approval-actions.vue";
 import ViewHistory from "./view-history/view-history.vue";
 import ReadOnlyView from "./read-only-view/read-only-view.vue";
+import ConfirmVerify from "./confirm-verify/confirm-verify.vue";
 import CampaignCommunications from "./campaign-communications/campaign-communications.vue";
 import SearchCriteria from "./search-criteria/search-criteria.vue";
 
@@ -20,7 +21,8 @@ import "./filters/index";;
     ViewHistory,
     ReadOnlyView,
     CampaignCommunications,
-    SearchCriteria
+    SearchCriteria,
+    ConfirmVerify
   }
 
 
@@ -238,6 +240,7 @@ export default class ViewRequest extends Vue {
     this.pagedResponse.entities.forEach(elm => {
       if (elm.id != entity.id) {
         elm.showHistory = false;
+        elm.showVerify = false;
       }
     });
 
@@ -247,7 +250,15 @@ export default class ViewRequest extends Vue {
 
 
   }
-
+  showVerify(entity){
+    return entity.campaignStatus.mailProcessDate;
+    console.log(entity);
+    return true;
+  }
+  viewShowVerify(entity) {
+    this.readOnlyModel = entity;
+    this.$refs.confirmVerify.show();
+  }
   viewReadOnlyView(entity) {
     this.readOnlyModel = entity;
     this.$refs.confirmViewReadOnly.show();
@@ -255,6 +266,10 @@ export default class ViewRequest extends Vue {
 
   closeConfirmViewReadOnly() {
     this.$refs.confirmViewReadOnly.hide();
+  }
+
+  closeConfirmVerify(){
+    this.$refs.confirmVerify.hide();
   }
 
 
