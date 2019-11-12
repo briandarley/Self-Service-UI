@@ -251,9 +251,11 @@ export default class ViewRequest extends Vue {
 
   }
   showVerify(entity){
+    const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
+    if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
+    
     return entity.campaignStatus.mailProcessDate;
-    console.log(entity);
-    return true;
+    
   }
   viewShowVerify(entity) {
     this.readOnlyModel = entity;
