@@ -393,18 +393,18 @@ export default class CreateRequest extends BaseValidateMixin {
 
 
   allowedSave() {
+    
     if (!this.model.id) return true;
-    let editableStatuses = ["SAVED", "CREATED"]
+    let editableStatuses = ["SAVED", "CREATED","NOTIFIED","DENIED_EMPLOYEES", "DENIED_STUDENTS"]
+    let response = editableStatuses.indexOf(this.model.campaignStatus.status) > -1;
+    if(["DENIED_EMPLOYEES", "DENIED_STUDENTS"].indexOf(this.model.campaignStatus.status) > -1)
+    {
+      this.model.campaignStatus.status = 'SAVED';
+    }
 
-    return editableStatuses.indexOf(this.model.campaignStatus.status) > -1;
 
-    //"DENIED"
-    //APPROVED
-    //CANCELED
-    //SAVED
-    //DONE
-    //ARCHIVED
-    //NOTIFIED
+    return  response;
+  
 
   }
 
