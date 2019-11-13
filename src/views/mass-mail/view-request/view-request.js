@@ -157,6 +157,7 @@ export default class ViewRequest extends Vue {
     try {
       this.spinnerService.show();
 
+      
       let response = await this.MassMailService.addAction(messageAction);
 
       if (response.status === false) {
@@ -253,7 +254,7 @@ export default class ViewRequest extends Vue {
   showVerify(entity){
     const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
     if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
-    
+
     return entity.campaignStatus.mailProcessDate;
     
   }
