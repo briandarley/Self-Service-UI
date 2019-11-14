@@ -211,7 +211,7 @@ export default class CreateRequest extends BaseValidateMixin {
   //confirmSubmit cancelSubmit confirmSubmit
   async save(status) {
     try {
-
+      
       if (!this.allowedSave()) {
         return;
       }
@@ -292,6 +292,8 @@ export default class CreateRequest extends BaseValidateMixin {
         if (initialComments.length) {
           model.comments = initialComments[0].comment;
         }
+      } else{
+        model.comments = "";
       }
       
       if(model.content)
