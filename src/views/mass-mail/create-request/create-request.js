@@ -220,11 +220,15 @@ export default class CreateRequest extends BaseValidateMixin {
       
       //Ask if the user wishes to submit the request for review
       if (status) {
+        if(this.model.targetPopulation === "TESTING_ONLY"){
+          return;
+        }
         if (this.model.campaignStatus.status == "SAVED" && status == "CREATED") {
           this.$refs.confirmSubmit.show();
           return;
         }
       }
+
       if(this.unmodifiedModel === JSON.stringify(this.model)){
         return true;
       }
@@ -375,7 +379,7 @@ export default class CreateRequest extends BaseValidateMixin {
     if (!this.$refs.stepMessageSummary.isValid()) {
       return false;
     }
-
+    if(this.model.targetPopulation === "TESTING_ONLY") return false;
     return (this.model.campaignStatus.status === "SAVED");
   }
 

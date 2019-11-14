@@ -29,6 +29,8 @@ import TestMessages from './test-messages/test-messages.vue';
           return "Faculty";
         case "EMPLOYEES_STUDENTS":
           return "Employees and Students";
+          case "TESTING_ONLY": 
+          return "Testing Only"
       }
       
     },
