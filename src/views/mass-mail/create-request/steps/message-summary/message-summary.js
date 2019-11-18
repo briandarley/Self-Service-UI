@@ -11,7 +11,9 @@ import TestMessages from './test-messages/test-messages.vue';
 @Component({
   name: 'message-summary',
   dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ScreenReaderAnnouncerService'],
-  components: { TestMessages},
+  components: {
+    TestMessages
+  },
   props: ['value'],
   filters: {
     formatSender(value) {
@@ -29,13 +31,13 @@ import TestMessages from './test-messages/test-messages.vue';
           return "Faculty";
         case "EMPLOYEES_STUDENTS":
           return "Employees and Students";
-          case "TESTING_ONLY": 
+        case "TESTING_ONLY":
           return "Testing Only"
       }
-      
+
     },
     formatEmployeeCriteria(value) {
-      if(value){
+      if (value) {
         return "/ " + value;
       }
       return "";
@@ -68,11 +70,11 @@ export default class MessageSummary extends BaseValidateMixin {
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Message Summary");
   }
 
-  showPreview(){
+  showPreview() {
     this.$refs.confirmPreview.show();
   }
 
-  closePreview(){
+  closePreview() {
     this.$refs.confirmPreview.hide();
   }
   isValid() {
