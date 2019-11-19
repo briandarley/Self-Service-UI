@@ -1,6 +1,7 @@
 import Vue from "vue"
 import {
-  Component
+  Component,
+  Watch
 } from "vue-property-decorator";
 
 @Component({
@@ -13,6 +14,13 @@ import {
 
 export default class ViewHistory extends Vue {
   entities = [];
+
+  @Watch('campaignId', {immediate:false})
+  async onCampaignIdChanged(){
+    await this.loadHistory();
+  }
+
+  
 
   async loadHistory() {
     try {
@@ -34,7 +42,7 @@ export default class ViewHistory extends Vue {
 
   async mounted() {
     this.toastService.set(this);
-    await this.loadHistory();
+    //await this.loadHistory();
   }
 
 }

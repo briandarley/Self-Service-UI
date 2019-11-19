@@ -238,16 +238,20 @@ export default class ViewRequest extends Vue {
   }
 
   toggleShowHistory(entity) {
-    this.pagedResponse.entities.forEach(elm => {
-      if (elm.id != entity.id) {
-        elm.showHistory = false;
-        elm.showVerify = false;
-      }
-    });
+    this.readOnlyModel = entity;
+    this.$refs.confirmViewHistory.show();
 
-    entity.showHistory = !entity.showHistory;
 
-    this.pagedResponse.entities = JSON.parse(JSON.stringify(this.pagedResponse.entities));
+    // this.pagedResponse.entities.forEach(elm => {
+    //   if (elm.id != entity.id) {
+    //     elm.showHistory = false;
+    //     elm.showVerify = false;
+    //   }
+    // });
+
+    // entity.showHistory = !entity.showHistory;
+
+    // this.pagedResponse.entities = JSON.parse(JSON.stringify(this.pagedResponse.entities));
 
 
   }
@@ -266,11 +270,13 @@ export default class ViewRequest extends Vue {
     this.readOnlyModel = entity;
     this.$refs.confirmViewReadOnly.show();
   }
-
+  
   closeConfirmViewReadOnly() {
     this.$refs.confirmViewReadOnly.hide();
   }
-
+  closeConfirmViewHistory(){
+    this.$refs.confirmViewHistory.hide();
+  }
   closeConfirmVerify(){
     this.$refs.confirmVerify.hide();
   }

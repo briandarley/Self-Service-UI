@@ -1,6 +1,5 @@
 <template>
   <div class="campaign-history section results" >
-    <h4>Campaign History : {{campaignId}}</h4>                                                       
     <div class="bg-secondary text-white row-header">                                          
     <div>
       Create Date

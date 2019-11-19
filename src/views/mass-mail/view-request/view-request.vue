@@ -33,6 +33,7 @@
           </div>
           <div class="results">
             <div class="result-grid" v-for="item in pagedResponse.entities" :key="item.id">
+              
               <div class="campaign-info">
                 <div>{{item.id}}</div>
                 <div>{{item.author}}</div>
@@ -98,12 +99,21 @@
     </div>
 
     <confirm-dialog id="confirmViewReadOnly" ref="confirmViewReadOnly" width="800">
-      <div slot="modal-title" class="text-white">View Read Only : Id {{readOnlyModel.id}}</div>
+      <div slot="modal-title" class="text-white">View Read Only : Campaign Id {{readOnlyModel.id}}</div>
       <div slot="modal-body">
         <read-only-view :campaign="readOnlyModel"></read-only-view>
       </div>
       <div slot="modal-footer">
         <button class="btn btn-primary" @click="closeConfirmViewReadOnly()">Close</button>
+      </div>
+    </confirm-dialog>
+    <confirm-dialog id="confirmViewHistory" ref="confirmViewHistory" width="800">
+      <div slot="modal-title" class="text-white">History : Campaign Id {{readOnlyModel.id}}</div>
+      <div slot="modal-body">
+        <view-history :campaignId="readOnlyModel.id"></view-history>
+      </div>
+      <div slot="modal-footer">
+        <button class="btn btn-primary" @click="closeConfirmViewHistory()">Close</button>
       </div>
     </confirm-dialog>
     <confirm-dialog id="confirmVerify" ref="confirmVerify" width="800">
