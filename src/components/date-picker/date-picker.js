@@ -25,7 +25,7 @@ export default class DatePicker extends Vue {
     immediate: true
   })
   onSelectedDateChange(newValue) {
-
+    
     let moment = this.moment;
 
     if (!newValue) {
@@ -120,16 +120,17 @@ export default class DatePicker extends Vue {
 
     $(`#${this.id}`).datepicker(dateModel)
       .on('change', e => {
-
-        if (!/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/.test(e.target.value)) {
+        
+        if (!/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/.test(e.target.value)) {
           return;
         }
 
-        let isValid = moment(e.target.value, 'MM/DD/YYYY', true).isValid();
+        let isValid = moment(e.target.value, ['MM/DD/YYYY', 'M/D/YYYY'], true).isValid();
+        
 
 
         if (isValid && minDate) {
-          isValid = moment(e.target.value, 'MM/DD/YYYY').isSameOrAfter(moment(minDate, 'MM/DD/YYYY').startOf('day'))
+          isValid = moment(e.target.value, ['MM/DD/YYYY', 'M/D/YYYY']).isSameOrAfter(moment(minDate, ['MM/DD/YYYY', 'M/D/YYYY']).startOf('day'))
 
         }
 
@@ -140,6 +141,7 @@ export default class DatePicker extends Vue {
           //Required because the desired syntax is ':selected-date.sync' 
           //this syntax makes consuming the component simpler where the consumer doesn't have to trap the event explicitly.
           this.$emit('update:selectedDate', e.target.value);
+          this.$emit('date-changed', e.target.value);
           this.value = e.target.value;
         }
 

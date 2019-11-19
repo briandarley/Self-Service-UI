@@ -5,7 +5,7 @@ import { Component, Watch } from "vue-property-decorator";
 
 @Component({
     name: 'basic-information',
-    dependencies: ['$','toastService','spinnerService','MassMailService','ScreenReaderAnnouncerService'],
+    dependencies: ['$','moment','toastService','spinnerService','MassMailService','ScreenReaderAnnouncerService'],
     props: ['value']
   })
 
@@ -40,7 +40,15 @@ export default class BasicInformation extends BaseValidateMixin {
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Basic Information");
   }
   
-  
+  onSendDateChanged(value){
+    const moment = this.moment;
+    let sendDate =  moment(value, ['MM/DD/YYYY', 'M/D/YYYY']).add(3, 'day');
+    
+    if(sendDate.isSameOrAfter(this.model.expirationDate))
+    {
+      this.model.expirationDate = sendDate.format("MM/DD/YYYY")
+    }
+  }
   
   async loadDepartments() {
     try {

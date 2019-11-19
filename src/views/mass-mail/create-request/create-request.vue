@@ -62,11 +62,19 @@
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 <span class="ml-3">Previous Step</span>
               </button>
-              <button
-                class="btn btn-danger"
+              <div>
+                <button
+                class="btn btn-danger mr-2"
                 @click="cancelRequest()"
                 v-if="allowCancel"
+
               >Cancel Request</button>
+              <button
+                class="btn btn-primary"
+                @click="save()"
+                v-if="allowCancel"
+              >Save</button>
+              </div>
               <button
                 @click="navigateNext()"
                 class="btn btn-primary"

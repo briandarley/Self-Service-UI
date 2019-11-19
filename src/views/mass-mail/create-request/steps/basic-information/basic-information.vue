@@ -20,6 +20,7 @@
             id="dtSendDate"
             v-validate="'required'"
             data-validation="{'name': 'Send Date Required','required': true}"
+            @date-changed="onSendDateChanged"
           ></date-picker>
         </div>
 
@@ -138,8 +139,25 @@
             <label for="subject">Sponsoring University</label>
             <span class="required mr-5">Required</span>
           </div>
-
-          <div class="form-inline">
+            <div class="form-inline">
+            <input
+              type="text"
+              id="sponsoringUniversity"
+              ref="sponsoringUniversity"
+              class="form-control"
+              v-model="model.sponsoringUniversity"
+              v-validate="'required'"
+              placeholder="School or Department Name"
+              autocomplete="off"
+              v-select-all
+              data-validation="{'name': 'Sponsor', 'error': 'Sponsoring University/Department Required','required': true}"
+            />
+            <pop-over
+              title="Sponsor"
+              data-content="Name of the UNC department, unit, or recognized student organization that is sponsoring this mass email message."
+            ></pop-over>
+          </div>
+          <!-- <div class="form-inline">
             <type-ahead
               :id="'sponsoringUniversity'"
               :placeHolder="'School or Department Name'"
@@ -147,13 +165,13 @@
               ref="sponsoringUniversity"
               @change="onSponsorChanged"
               :service="getSchoolsDepartmentsLike"
-              data-validation="{'name': 'Sponsor', 'error': 'Sponsoring Universitry/Department Required','required': true}"
+              data-validation="{'name': 'Sponsor', 'error': 'Sponsoring University/Department Required','required': true}"
             ></type-ahead>
             <pop-over
               title="Sponsor"
               data-content="Name of the UNC department, unit, or recognized student organiztion that is sponsoring this mass email message."
             ></pop-over>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- Priority -->
