@@ -166,6 +166,10 @@ function MassMailService(httpHandlerService, commonExtensions) {
             }
         },
         async save(model) {
+            if(model.comments && Array.isArray(model.comments))
+            {
+                model.comments = model.comments[0];
+            }
             if (!model.id) {
                 model.id = await this._addNewCampaign(model);
             } else {
