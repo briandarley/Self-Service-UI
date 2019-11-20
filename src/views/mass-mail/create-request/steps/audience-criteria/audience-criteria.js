@@ -146,6 +146,11 @@ export default class AudienceCriteria extends BaseValidateMixin {
   }
   async targetPopulationChanged() {
     this.model.targetEmployee = "";
+    if(this.model.targetPopulation === "EMPLOYEES_STUDENTS")
+    {
+      this.model.targetEmployee = "All Employees"
+    }
+    
     await this.calculateAudience();
   }
 
@@ -232,7 +237,6 @@ export default class AudienceCriteria extends BaseValidateMixin {
   _showEmployeeCriteria() {
     switch (this.model.targetPopulation) {
       case "EMPLOYEES":
-      case "EMPLOYEES_STUDENTS":
         return true;
       default:
         return false;

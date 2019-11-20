@@ -63,6 +63,25 @@ export default class MessageSummary extends BaseValidateMixin {
   })
   onValueChanged(newValue) {
     this.model = newValue;
+    const $ = this.$;
+    
+    if (this.model) {
+      let html = $(this.model.content);
+      let images = html.find("img");
+
+      //if images are greater than 600, the preview will crop the image, 
+      //set image to 100% if that happens
+      images.each((index, img) => {
+        
+        if($(img).width() > 600){
+          $(img).width("100%");
+        }
+        
+      });
+      this.model.content = html.get().map(function(v){return v.outerHTML}).join('');
+      
+    }
+
   }
 
   async mounted() {
