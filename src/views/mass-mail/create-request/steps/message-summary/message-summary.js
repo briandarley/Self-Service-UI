@@ -73,7 +73,7 @@ export default class MessageSummary extends BaseValidateMixin {
       //set image to 100% if that happens
       images.each((index, img) => {
         
-        if($(img).width() > 600){
+        if($(img).width() >= 600){
           $(img).width("100%");
         }
         
