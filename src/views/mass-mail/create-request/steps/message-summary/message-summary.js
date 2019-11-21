@@ -71,7 +71,7 @@ export default class MessageSummary extends BaseValidateMixin {
 
       //if images are greater than 600, the preview will crop the image, 
       //set image to 100% if that happens
-      images.each((index, img) => {
+      images.each((_, img) => {
         
         if($(img).width() >= 600){
           $(img).width("100%");

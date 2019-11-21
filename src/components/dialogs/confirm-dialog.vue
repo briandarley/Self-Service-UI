@@ -7,9 +7,13 @@
             <h5 class="modal-title">
               <slot name="modal-title"></slot>
             </h5>
-            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <!-- <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button> -->
+            <button type="button" class="close text-white" @click="hide()" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
+            
           </div>
           <div class="modal-body">
             <slot name="modal-body"></slot>

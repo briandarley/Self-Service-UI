@@ -32,9 +32,38 @@ export default class ReadOnlyView extends Vue {
 
     this.model = newValue;
     if(newValue == null) return;
+
+    this.formatContent();
+
     await this.getComments();
   }
 
+  formatContent(){
+    const $ = this.$;
+    if (this.model && this.model.content) {
+      
+      let html = $(this.model.content.content);
+      let images = html.find("img");
+
+      //if images are greater than 600, the preview will crop the image, 
+      //set image to 100% if that happens
+      images.each((_, img) => {
+        let width = $(img).width() || img.width;
+        if(width >= 600){
+          $(img).width("100%");
+        }
+        width = width || img.width;
+        
+        if((width/600)*100 > 60){
+          $(img).css('margin-left', 'auto');
+          $(img).css('margin-right', 'auto');
+        }
+        
+      });
+      this.model.content.content = html.get().map(function(v){return v.outerHTML}).join('');
+      
+    }
+  }
   async mounted() {
     this.toastService.set(this);
   }

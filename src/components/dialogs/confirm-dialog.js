@@ -13,8 +13,9 @@ export default class ConfirmDialog extends Vue {
     const $ = this.$;
     
     
-    $(`#${this.id}`).modal('hide') 
-    .appendTo(this.$el);
+    $(`#${this.id}`)
+      .modal('hide') 
+      .appendTo(this.$el);
 
     /* Optional?
 $("#myModal").removeClass("in");
