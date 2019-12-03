@@ -67,7 +67,7 @@
               type="text"
               class="form-control"
               id="txt-filter"
-              placeholder="Onyen, Subject, Campaign Id"
+              placeholder="Application, Message Content, Level, Auth User"
               v-select-all
               v-on:keyup.13="search()"
               v-model="criteria.filterText"
