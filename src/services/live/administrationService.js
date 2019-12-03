@@ -1,6 +1,6 @@
 import injector from 'vue-inject';
 
-function AdministrationService(httpHandlerService, routeSourcesService) {
+function AdministrationService(httpHandlerService, routeSourcesService,commonExtensions) {
     return {
         async getRoutes(criteria) {
             try {
@@ -23,7 +23,7 @@ function AdministrationService(httpHandlerService, routeSourcesService) {
                 throw e;
             }
         },
-        async getGroupMembers(samAccountName){
+        async getGroupMembers(samAccountName) {
             try {
 
                 const handler = await httpHandlerService.get();
@@ -43,7 +43,7 @@ function AdministrationService(httpHandlerService, routeSourcesService) {
 
           
         },
-        async removeGroupMember(groupName, samAccountName){
+        async removeGroupMember(groupName, samAccountName) {
             try {
 
                 const handler = await httpHandlerService.get();
@@ -61,7 +61,7 @@ function AdministrationService(httpHandlerService, routeSourcesService) {
                 throw e;
             }
         },
-        async addGroupMember(groupName, samAccountName){
+        async addGroupMember(groupName, samAccountName) {
             try {
 
                 const handler = await httpHandlerService.get();
@@ -78,8 +78,31 @@ function AdministrationService(httpHandlerService, routeSourcesService) {
                 }
                 throw e;
             }
+        },
+        
+        async getLoggingEntries(criteria) {
+            try {
+                const handler = await httpHandlerService.get();
+                let queryParams = commonExtensions.convertToQueryParams(criteria);
+
+                let uri = `/administrations/logging?${queryParams}`;
+
+                let response = await handler.get(uri);
+
+                let pagedResponse = response.data;
+
+                return pagedResponse;
+
+            } catch (e) {
+                if (e.message.includes("404") || e.message.includes("401")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
         }
     }
 }
 
-injector.service('AdministrationService', ["httpHandlerService","RouteSourcesService"], AdministrationService);
+injector.service('AdministrationService', ["httpHandlerService","RouteSourcesService","CommonExtensions"], AdministrationService);

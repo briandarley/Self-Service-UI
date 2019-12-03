@@ -241,19 +241,6 @@ export default class ViewRequest extends Vue {
     this.readOnlyModel = entity;
     this.$refs.confirmViewHistory.show();
 
-
-    // this.pagedResponse.entities.forEach(elm => {
-    //   if (elm.id != entity.id) {
-    //     elm.showHistory = false;
-    //     elm.showVerify = false;
-    //   }
-    // });
-
-    // entity.showHistory = !entity.showHistory;
-
-    // this.pagedResponse.entities = JSON.parse(JSON.stringify(this.pagedResponse.entities));
-
-
   }
   showVerify(entity){
     const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
