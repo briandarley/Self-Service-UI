@@ -95,6 +95,7 @@
             v-on:indexChanged="indexChanged"
           ></pager>
         </div>
+        
       </div>
     </div>
 

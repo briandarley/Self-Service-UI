@@ -93,7 +93,10 @@ export default class App extends Vue {
 
 
   }
-
+  sideBarCollapsed = false;
+  toggleMenu(){
+this.sideBarCollapsed = !this.sideBarCollapsed;
+  }
 
 
 }

@@ -1,11 +1,10 @@
-
-
 .reduce-text {
   font-size: .8em;
 }
+
 .side-menu {
   /* god damn ie */
-  -ms-grid-column:1;
+  -ms-grid-column: 1;
   //full screen minus top header minus footer
   //height: calc(100vh - 175px - 75px);
   box-sizing: border-box;
@@ -73,7 +72,8 @@
       border-radius: 3px;
       cursor: pointer;
 
-      a,a:visited {
+      a,
+      a:visited {
         text-align: center;
         display: flex;
         flex-direction: row;
@@ -97,7 +97,7 @@
             margin-right: 0px;
           }
 
-          
+
         }
 
         span {
@@ -109,24 +109,25 @@
 
       &:hover {
         background: $gray-300;
-        
+
       }
-      
+
       &.active {
         background: $carolina-blue;
         box-shadow: 0 2px 5px #333;
-        
-        a,a:visited {
+
+        a,
+        a:visited {
           color: $white;
         }
       }
 
-      :focus{
+      :focus {
         border: 1px solid $athletics-navy;
         position: relative;
         overflow: hidden;
-        margin-top:-1px;
-      } 
+        margin-top: -1px;
+      }
 
       &:last-of-type {
         margin-bottom: 0px;
@@ -135,30 +136,91 @@
   }
 }
 
+.main-app-section-collapsed {
+  .side-menu-pager{
+    display:none;
+  }
+  .side-menu {
+      padding-top:40px !important;
+      
+      
+    .nav {
+      .nav-item {
+        padding: 0;
+        a {
+          padding: 0;
+
+          span {
+            display: none;
+          }
+          i{margin:0;}
+          i:nth-of-type(2){
+            display:none;
+          }
+        }
+
+        
+      }
+
+    }
+  }
+
+}
 
 /* https://www.w3schools.com/css/css_rwd_mediaqueries.asp */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .hide-side-menu{
+  .hide-side-menu {
     display: none;
   }
-  .side-menu{
-    
+
+  .side-menu {
+
     box-shadow: none;
-    border:1px solid $carolina-blue;
+    border: 1px solid $carolina-blue;
     position: absolute;
     background: $white;
-    width:100%;
+    width: 100%;
     width: 300px;
-    height:100vh;
+    height: 100vh;
     height: calc(100vh - 175px - 75px);
-    
-    right:0;
+
+    right: 0;
   }
+
+  .main-app-section-collapsed {
+    .side-menu-pager{
+       display:block;
+    }
+    .side-menu {
+      margin-top:auto;
+      .nav {
+        .nav-item {
+          
+          a {
+            padding: 0.5rem 1rem;
+  
+            span {
+              display: block;
+            }
+            i{margin:0 10px 0 0;}
+            i:nth-of-type(2){
+              display:flex;
+              margin:0;
+            }
+          }
+  
+          
+        }
+  
+      }
+    }
+  
+  }
+
+
 
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-
-}
+@media only screen and (min-width: 600px) {}

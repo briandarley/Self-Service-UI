@@ -8,13 +8,15 @@ import SimpleBar from 'simplebar';
 
 @Component({
   name: "side-menu",
-  dependencies: ["$", "RouteSourcesService", "EventBus"]
+  dependencies: ["$", "RouteSourcesService", "EventBus"],
+  props: ['collapsed']
 
 })
 export default class SideMenu extends Vue {
   routes = [];
   currentRoute = null;
   showSideMenu = true;
+  simpleBar = null;
 
   tree = [];
 
@@ -118,6 +120,21 @@ export default class SideMenu extends Vue {
 
     return routes;
   }
+  @Watch("collapsed")
+  onCollapsedChanged(newValue){
+    if(!this.simpleBar){
+      return;
+    }
+   
+    this.simpleBar.recalculate();
+    // this.simpleBar.hideScrollbars();
+    // this.simpleBar.unMount();
+
+   
+    
+    
+
+  }
 
   @Watch("$route", {
     immediate: false
@@ -149,6 +166,7 @@ export default class SideMenu extends Vue {
     }
     return this.$route.meta.routeDefinition.id === menuItem.id;
   }
+
   hasChildren(menuItem) {
     if (!this.$route.meta.routeDefinition) {
       if (menuItem.name === "home") return false;
@@ -162,19 +180,22 @@ export default class SideMenu extends Vue {
 
     return menuItem.children && menuItem.children.length;
   }
+
   async mounted() {
     const $ = this.$;
 
-    new SimpleBar($('.side-menu')[0], {
+    this.simpleBar = new SimpleBar($('.side-menu')[0], {
       autoHide: false,
       classNames: {
         scrollbar: 'sb-scrollbar',
       }
     });
+
     this.EventBus.attachEvent("toggle-side-menu", this.attachToggleSideMenu);
 
 
   }
+
   attachToggleSideMenu() {
     this.showSideMenu = !this.showSideMenu;
   }
@@ -236,4 +257,6 @@ export default class SideMenu extends Vue {
 
 
   }
+
+ 
 }

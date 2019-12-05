@@ -13,11 +13,6 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 @import "chartist/dist/scss/chartist.scss";
 
-// @import "@material/list/mdc-list";
-// @import "@material/menu-surface/mdc-menu-surface";
-// @import "@material/menu/mdc-menu";
-// @import "@material/select/mdc-select";
-
 body {
   font-family: 'Roboto', sans-serif;
   font-display: auto;
@@ -100,6 +95,17 @@ input::placeholder {
       height: calc(100vh - 100px - 75px);
 
     }
+  }
+
+  .main-app-section-collapsed{
+    -ms-grid-columns: 60px 1fr;
+    grid-template-columns: 60px 1fr;
+
+    .side-menu{
+      margin-top:0;
+    }
+
+
   }
 
 }
@@ -524,6 +530,10 @@ input::placeholder {
 
     .site-footer {
       display: none;
+    }
+
+    .toggle-menu-btn{
+      display:none;
     }
   }
 }
