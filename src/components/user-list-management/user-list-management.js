@@ -4,11 +4,11 @@ import Spinner from '@/components/spinner/spinner.vue';
 
 @Component({
   name: 'user-list-management',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService'],
   components: {
     Spinner
   },
-  props: ['group', 'headerLabels','autoLoadEntities']
+  props: ['group', 'headerLabels','autoLoadEntities', 'service']
 })
 
 export default class UserListManagement extends Vue {
@@ -39,7 +39,7 @@ export default class UserListManagement extends Vue {
     try {
       this.showSpinner();
 
-      await this.ExchangeToolsService.removeMember(this.group, samAccountName);
+      await this.service.removeMember(this.group, samAccountName);
       this.entities = this.entities.filter(c => c.samAccountName !== samAccountName);
       this.toastService.success("Successfully removed entity");
       this.$emit('entityRemoved', samAccountName);
@@ -81,7 +81,7 @@ export default class UserListManagement extends Vue {
     };
 
 
-    return this.ExchangeToolsService
+    return this.service
       .getAllDistributionGroupEntities(groupEntity.samAccountName)
       .then(c => {
         this.lookupEntityModel.totalMembers = c.members.length;
@@ -108,7 +108,7 @@ export default class UserListManagement extends Vue {
     let list = [];
     for(let i = 0; i <  users.length; i++)
     {
-      await this.ExchangeToolsService.addGroupMember(this.group, users[i]);
+      await this.service.addGroupMember(this.group, users[i]);
       list.push({samAccountName:users[i]});
     }
     for(let i = 0; i< list.length; i++){
@@ -147,8 +147,8 @@ export default class UserListManagement extends Vue {
 
       this.spinnerService.show();
       let responses = await Promise.all([
-        this.ExchangeToolsService.getExchangeUser(userId),
-        this.ExchangeToolsService.getDistributionGroups({
+        this.service.getExchangeUser(userId),
+        this.service.getDistributionGroups({
           filterText: userId
         })
       ]);
@@ -205,9 +205,9 @@ export default class UserListManagement extends Vue {
       this.showSpinner();
 
       if (!recursive) {
-        await this.ExchangeToolsService.addGroupMember(this.group, entity.samAccountName);
+        await this.service.addGroupMember(this.group, entity.samAccountName);
       } else {
-        await this.ExchangeToolsService.addGroupMember(this.group, entity.samAccountName, recursive);
+        await this.service.addGroupMember(this.group, entity.samAccountName, recursive);
       }
 
     } catch (e) {
@@ -225,7 +225,7 @@ export default class UserListManagement extends Vue {
       //then if recursive, iterate through entire groop
       if (this.lookupEntityModel.type === 'group' && this.lookupEntityModel.recursive) {
         
-        let distributionGroupMembers = await this.ExchangeToolsService.getAllDistributionGroupEntities(this.lookupEntityModel.samAccountName, this.lookupEntityModel.recursive)
+        let distributionGroupMembers = await this.service.getAllDistributionGroupEntities(this.lookupEntityModel.samAccountName, this.lookupEntityModel.recursive)
         let members = distributionGroupMembers.members;
         
         await this.addMemberToGroup(this.lookupEntityModel, this.lookupEntityModel.recursive);
@@ -285,7 +285,7 @@ export default class UserListManagement extends Vue {
     if(this.autoLoadEntities){
       try{
         this.showSpinner();
-        this.entities = await this.ExchangeToolsService.getDistributionGroupMembers(this.group);
+        this.entities = await this.service.getDistributionGroupMembers(this.group);
         this.entities.map(c=> {
             if(!c.id)
             {

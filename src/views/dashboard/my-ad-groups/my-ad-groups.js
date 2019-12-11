@@ -38,7 +38,26 @@ export default class MyAdGroups extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.loadMyAdGroups();
+    await this.search();
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("My Active Directory Groups");
   }
+
+  criteria = {
+    filterText: ''
+  };
+  async search() {
+    this.$refs.groupManagment.loadEntities();
+  }
+
+  
+
+  async clear() {
+    this.criteria = {
+      filterText: '',
+      managedBy: ''
+    }
+    this.$refs.groupManagment.clear();
+  }
+ 
   
 }

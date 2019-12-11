@@ -22,7 +22,7 @@ import "simplebar/dist/simplebar.css";
 })
 export default class App extends Vue {
   currentRoute;
-  
+
 
   @Watch("$route", {
     immediate: false
@@ -51,7 +51,7 @@ export default class App extends Vue {
   onAnnouncePageLoad(page) {
     let announcer = window.document.getElementById("announcer");
     announcer.innerHTML = `${page} has loaded`;
-    setTimeout(()=> {
+    setTimeout(() => {
       this.onAnnounceClear();
     }, 500);
   }
@@ -59,7 +59,7 @@ export default class App extends Vue {
     let announcer = window.document.getElementById("announcer");
     announcer.innerHTML = message;
 
-    setTimeout(()=> {
+    setTimeout(() => {
       this.onAnnounceClear();
     }, 500);
 
@@ -94,8 +94,8 @@ export default class App extends Vue {
 
   }
   sideBarCollapsed = false;
-  toggleMenu(){
-this.sideBarCollapsed = !this.sideBarCollapsed;
+  toggleMenu() {
+    this.sideBarCollapsed = !this.sideBarCollapsed;
   }
 
 

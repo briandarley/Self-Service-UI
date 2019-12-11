@@ -16,7 +16,7 @@ export {default as VueRouter} from "vue-router";
 import PopOver from './popover/popover.vue'
 import RouteInfo from '../views/administration/route-management/route-info/route-info.vue';
 import ChildRouteInfo from '../views/administration/route-management/child-route-info/child-route-info.vue';
-
+import GroupManagement from './group-management/group-management.vue';
 
 
 
@@ -33,3 +33,4 @@ Vue.component("manager-list-management",  ManagerListManagement);
 Vue.component("route-info",  RouteInfo);
 Vue.component("child-route-info",  ChildRouteInfo);
 Vue.component("pop-over",  PopOver);
+Vue.component("group-management",  GroupManagement);

@@ -14,10 +14,7 @@
               <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
-              <p>
-                The accounts listed have been identified by AD as being locked. A Window's Event was triggered and this event was submitted to Splunk.
-                We attempt to retrieve the machine name whenever possible but there are times when this value is not available.
-              </p>
+              
               <p>Use the search field below to locate a desired record using Onyen</p>
             </div>
           </div>
@@ -47,80 +44,20 @@
             />
           </div>
 
-          <div class="submit text-right" :class="{'mb-4': !records.length}">
+          <div class="submit text-right" >
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
-          <div v-if="records.length > 0">
-            <div class="container mt-5 mb-4">
-              <div class="d-flex" style="justify-content:space-between">
-                <h3 class="text-primary">Total {{records.length | formatNumber}}</h3>
-              </div>
-              <!-- Header Cols -->
-              <div class="bg-primary text-white row-header">
-                <div class="col">
-                  <span>Name</span>
-                </div>
-                <div class="col">
-                  <span>Create Date</span>
-                </div>
-                <div class="col"></div>
-              </div>
-              <!-- Header Cols -->
 
-              <!-- Record Results -->
-              <div class>
-                <div class="result-grid" v-for="(item, index) in records" v-bind:key="index">
-                  <div class="record">
-                    <div class="record-info">
-                      <div class="col">{{item.displayName}}</div>
-                      <div class="col">{{item.whenCreated | formatDate}}</div>
-                      <div class="col">
-                        <a href="#" @click.prevent="toggleUsers(item)">
-                          <i
-                            class="fa fa-angle-double-down more-info"
-                            :class="{expanded: item.showUsers, collapsed: item.showUsers === false}"
-                          ></i> Members
-                        </a>
-                      </div>
-                    </div>
 
-                    <transition name="expand">
-                      <div class="group-users" v-if="item.showUsers">
-                        <tabbed-control tabs="Members,Managers">
-                          <tabbed-item slot="tab_0">
-                            <user-list-management
-                              ref="groupUsers"
-                              :group="item.samAccountName"
-                              autoLoadEntities="true"
-                              @controlLoaded="onGroupUserListLoaded(item)"
-                            ></user-list-management>
-                          </tabbed-item>
-                          <tabbed-item slot="tab_1">
-                            <manager-list-management
-                              ref="groupManagers"
-                              :group="item.samAccountName"
-                              autoLoadEntities="true"
-                              @controlLoaded="onManagerListLoaded(item)"
-                            ></manager-list-management>
-                          </tabbed-item>
-                        </tabbed-control>
-                      </div>
-                    </transition>
-                  </div>
-                </div>
-              </div>
-              <!-- Record Results -->
-            </div>
-          </div>
-          <div v-if="!records.length && performedSearch">
-            <div class="alert alert-warning">
-              <div class="info">
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-              </div>
-              <p class="my-4 pb-3">The search results returned no records.</p>
-            </div>
-          </div>
+          <group-management 
+            :criteria="criteria"
+            :service="ExchangeToolsService" 
+            requireCriteria="true"
+            ref="groupManagment"></group-management>
+
+
+          
         </div>
       </div>
     </div>

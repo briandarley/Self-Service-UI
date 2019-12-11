@@ -4,11 +4,11 @@ import Spinner from '@/components/spinner/spinner.vue';
 
 @Component({
     name: 'manager-list-management',
-    dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService'],
+    dependencies: ['$', 'moment', 'toastService', 'spinnerService'],
     components: {
       Spinner
     },
-    props: ['group', 'headerLabels','autoLoadEntities']
+    props: ['group', 'headerLabels','autoLoadEntities', 'service']
     
   })
 export default class ManagerListManagement extends Vue {
@@ -47,7 +47,7 @@ export default class ManagerListManagement extends Vue {
 
       this.showSpinner();
       
-      await this.ExchangeToolsService.removeGroupManager(this.group, samAccountName);
+      await this.service.removeGroupManager(this.group, samAccountName);
       this.entities = this.entities.filter(c => c.samAccountName !== samAccountName);
       this.toastService.success("Successfully removed entity");
       this.$emit('entityRemoved', samAccountName);
@@ -89,7 +89,7 @@ export default class ManagerListManagement extends Vue {
     try {
 
       this.spinnerService.show();
-      let responses = await Promise.all([this.ExchangeToolsService.getExchangeUser(userId)]);
+      let responses = await Promise.all([this.service.getExchangeUser(userId)]);
 
       let exchangeUserEntity = responses[0];
       
@@ -133,7 +133,7 @@ export default class ManagerListManagement extends Vue {
         return;
       }
       
-      await this.ExchangeToolsService.addGroupManager(this.group, this.lookupEntityModel.samAccountName);
+      await this.service.addGroupManager(this.group, this.lookupEntityModel.samAccountName);
       this.entities.push(this.lookupEntityModel);
 
       this.toastService.success("Successfully added entity to group");
@@ -172,7 +172,7 @@ export default class ManagerListManagement extends Vue {
     if(this.autoLoadEntities){
       this.showSpinner();
       try{
-        this.entities = await this.ExchangeToolsService.getDistributionGroupManagers(this.group);
+        this.entities = await this.service.getDistributionGroupManagers(this.group);
 
 
         this.entities.map(c=> {
