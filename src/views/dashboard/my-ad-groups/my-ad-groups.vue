@@ -17,7 +17,7 @@
                 </div>
                 <div class="ml-4">
                   <p>The groups listed are groups in which you are identified as being a member of.</p>
-                <p >View All AD groups in which you are a member of</p>
+                
                 </div>
               </div>
 
@@ -43,7 +43,8 @@
                 </div>
                 <div class="ml-4">
                   <p>Groups listed here are identified as groups which you are listed as a manager of</p>
-                  <p>Use the search field below to locate a desired record using Onyen</p>
+                  <p>Use the search field below to filter the list of groups.</p>
+                  <p></p>
                 </div>
               </div>
 

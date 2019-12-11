@@ -71,4 +71,4 @@
   </div>
 </template>
 <script src="./group-management.js"></script>
-<style lang="scss" src="./group-management.scss" scoped></style>
+<style lang="scss" src="./group-management.scss" ></style>
