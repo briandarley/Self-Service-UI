@@ -13,8 +13,8 @@
             <i class="fa fa-info-circle"></i>
           </div>
           <div>
-            <p>This tool show listing of all provisioned mail accounts in the University.</p>
-            <p>This tool also will show provisioned records that may have failed upon initial provisioning request.</p>
+            <p>This tool shows listings of all provisioned mail accounts at the University.</p>
+            <p>This tool also will show provisioned records that may have failed upon the initial provisioning request.</p>
             <p>Use this tool to view the history of provisioned records as well as re-provision accounts.</p>
             
           </div>
