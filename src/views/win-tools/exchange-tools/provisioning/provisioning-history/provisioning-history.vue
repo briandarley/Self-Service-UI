@@ -8,10 +8,20 @@
         <h3>Provisioning History</h3>
       </div>
       <div class="card-body">
+        <div class="alert alert-info">
+          <div class="info">
+            <i class="fa fa-info-circle"></i>
+          </div>
+          <div>
+            <p>This tool show listing of all provisioned mail accounts in the University.</p>
+            <p>This tool also will show provisioned records that may have failed upon initial provisioning request.</p>
+            <p>Use this tool to view the history of provisioned records as well as re-provision accounts.</p>
+            
+          </div>
+        </div>
+
         <search-criteria @search="search" @clear="clear" :criteria="criteria"></search-criteria>
         <div class="d-flex mt-5" style="justify-content:space-between">
-          
-
           <h3 class="text-primary">Total Records {{pagedResponse.totalRecords | formatNumber}}</h3>
           <pager
             :criteria="criteria"
