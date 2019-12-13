@@ -76,6 +76,25 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
+        async updateProvisionRecord(model){
+            try {
+                const handler = await httpHandlerService.get();
+
+                await handler.put(`wintools/exchange-tools/provisions/${model.onyen}`, model);
+
+                return {
+                    status: true
+                };
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
         async getAdUser(userId) {
             try {
                 const handler = await httpHandlerService.get();
@@ -670,24 +689,6 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        // async getAvailableDomains() {
-        //     try {
-        //         const handler = await httpHandlerService.get();
-
-        //         let response = await handler.get(`/WinTools/systems/available-domains`);
-
-        //         return response.data;
-        //     } catch (e) {
-        //         if (e.message.includes("404")) {
-        //             return {
-        //                 status: false
-        //             };
-        //         }
-        //         throw e;
-        //     }
-        // },
-
-        //
         async getAliasManagers(criteria) {
             try {
                 const handler = await httpHandlerService.get();
