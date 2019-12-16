@@ -36,7 +36,7 @@ export default class MessageContents extends BaseValidateMixin {
     return new Promise((resolve) => {
       
       
-      window.CKEDITOR.plugins.addExternal('font', '/ckeditor/plugins/font/', 'plugin.js' );
+      //window.CKEDITOR.plugins.addExternal('font', '/ckeditor/plugins/font/', 'plugin.js' );
 
       setTimeout(() => {
         
@@ -49,7 +49,7 @@ export default class MessageContents extends BaseValidateMixin {
               height: '25em',
               //allowedContent - allow for inline styles etc
               allowedContent : true,
-              extraPlugins: 'font',
+              //extraPlugins: 'font',
               //Remove plugins for this iteration
               //extraPlugins: 'divarea,uploadimage',
               
