@@ -7,10 +7,11 @@ import {
 } from "vue-property-decorator";
 window.CKEDITOR_BASEPATH = '//cdn.ckeditor.com/4.12.1/full-all/';
 require('ckeditor/ckeditor');
+//http://cdn.ckeditor.com/
 
 @Component({
     name: 'message-contents',
-    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService'],
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService','axios'],
     props: ['value']
   })
 
@@ -33,14 +34,25 @@ export default class MessageContents extends BaseValidateMixin {
 
   loadEditor() {
     return new Promise((resolve) => {
+      
+      
+      window.CKEDITOR.plugins.addExternal('font', '/ckeditor/plugins/font/', 'plugin.js' );
+
       setTimeout(() => {
+        
+        
+        
+
+
           this.ckEditorInstance = window.CKEDITOR.replace('editor1',
             {
               height: '25em',
               //allowedContent - allow for inline styles etc
-              allowedContent : true
+              allowedContent : true,
+              extraPlugins: 'font',
               //Remove plugins for this iteration
               //extraPlugins: 'divarea,uploadimage',
+              
               //imageUploadUrl: '/uploader/upload.php?type=Images'
             });
 
@@ -81,6 +93,9 @@ export default class MessageContents extends BaseValidateMixin {
 
   async mounted() { 
     this.toastService.set(this);
+    // var plugin =await  this.axios.get('ckeditor/plugins/font/plugin.js');
+    //   console.log(plugin);
+
     this.loadEditor().then(() => {
       this.addCkEditorEventHandling();
     });
