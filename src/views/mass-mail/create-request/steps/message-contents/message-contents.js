@@ -11,7 +11,7 @@ require('ckeditor/ckeditor');
 
 @Component({
     name: 'message-contents',
-    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService','axios'],
+    dependencies: ['$','moment','toastService','spinnerService','ScreenReaderAnnouncerService','ConfigReaderService'],
     props: ['value']
   })
 
@@ -21,7 +21,7 @@ export default class MessageContents extends BaseValidateMixin {
     content : ''
   }
   ckEditorInstance = null;
-  
+  pluginBasePath = "";
   @Watch('model', {immediate:false, deep: true})
   onModelChanged(newValue)
   {
@@ -35,8 +35,7 @@ export default class MessageContents extends BaseValidateMixin {
   loadEditor() {
     return new Promise((resolve) => {
       
-      
-      //window.CKEDITOR.plugins.addExternal('font', '/ckeditor/plugins/font/', 'plugin.js' );
+      window.CKEDITOR.plugins.addExternal('font', `${this.pluginBasePath}/font/`, 'plugin.js' );
 
       setTimeout(() => {
         
@@ -49,7 +48,7 @@ export default class MessageContents extends BaseValidateMixin {
               height: '25em',
               //allowedContent - allow for inline styles etc
               allowedContent : true,
-              //extraPlugins: 'font',
+              extraPlugins: 'font',
               //Remove plugins for this iteration
               //extraPlugins: 'divarea,uploadimage',
               
@@ -93,8 +92,8 @@ export default class MessageContents extends BaseValidateMixin {
 
   async mounted() { 
     this.toastService.set(this);
-    // var plugin =await  this.axios.get('ckeditor/plugins/font/plugin.js');
-    //   console.log(plugin);
+    this.pluginBasePath  = await this.ConfigReaderService.getConfigurationSetting("ckeditorPlugins");
+    
 
     this.loadEditor().then(() => {
       this.addCkEditorEventHandling();
