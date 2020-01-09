@@ -310,7 +310,7 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
 .result-grid {
   line-height: 40px;
   border: 1px solid $gray-100;
-
+  display:flex;
   &:nth-child(even) {
     background: $gray-100;
   }

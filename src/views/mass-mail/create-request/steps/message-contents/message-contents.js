@@ -39,10 +39,6 @@ export default class MessageContents extends BaseValidateMixin {
 
       setTimeout(() => {
         
-        
-        
-
-
           this.ckEditorInstance = window.CKEDITOR.replace('editor1',
             {
               height: '25em',
