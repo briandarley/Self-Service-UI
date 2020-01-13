@@ -538,6 +538,23 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
+        async getContact(id) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.get(`/WinTools/exchange-tools/ad-tools/contacts/${id}`);
+
+                return response.data;
+
+            } catch (e) {
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
         async getExchangeUser(id) {
             try {
                 const handler = await httpHandlerService.get();

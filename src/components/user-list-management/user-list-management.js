@@ -40,7 +40,7 @@ export default class UserListManagement extends Vue {
       this.showSpinner();
 
       await this.service.removeMember(this.group, samAccountName);
-      this.entities = this.entities.filter(c => c.samAccountName !== samAccountName);
+      this.entities = this.entities.filter(c => c.samAccountName !== samAccountName && c.name !== samAccountName);
       this.toastService.success("Successfully removed entity");
       this.$emit('entityRemoved', samAccountName);
       
@@ -148,13 +148,13 @@ export default class UserListManagement extends Vue {
       this.spinnerService.show();
       let responses = await Promise.all([
         this.service.getExchangeUser(userId),
-        this.service.getDistributionGroups({
-          filterText: userId
-        })
+        this.service.getContact(userId),
+        this.service.getDistributionGroups({filterText: userId})
       ]);
 
       let exchangeUserEntity = responses[0];
-      let groupEntity = responses[1];
+      let contactEntity = responses[1];
+      let groupEntity = responses[2];
 
 
       if (exchangeUserEntity.status !== false) {
@@ -167,7 +167,18 @@ export default class UserListManagement extends Vue {
           distinguishedName: exchangeUserEntity.distinguishedName
         };
         this.showDialog();
-      } else if (groupEntity.status !== false && groupEntity.length > 0) {
+      } 
+      if (contactEntity.status !== false) {
+        this.lookupEntityModel = {
+          name: contactEntity.name,
+          type: 'contact',
+          displayName: contactEntity.displayName,
+          email: contactEntity.mail,
+          distinguishedName: contactEntity.distinguishedName
+        };
+        this.showDialog();
+      }
+      else if (groupEntity.status !== false && groupEntity.length > 0) {
         if (groupEntity.length == 1) {
           this.selectedGroup = groupEntity[0];
           this.isGroup = true;
@@ -184,7 +195,9 @@ export default class UserListManagement extends Vue {
 
       }
 
-      if (exchangeUserEntity.status === false && (groupEntity.status === false || groupEntity.length === 0)) {
+      var successSearch = (exchangeUserEntity.status === false && contactEntity.status === false);
+
+      if (successSearch && (groupEntity.status === false || groupEntity.length === 0)) {
         this.toastService.error(`Failed to retrieve entity information for entity '${userId}'`)
         return;
       }
@@ -205,9 +218,13 @@ export default class UserListManagement extends Vue {
       this.showSpinner();
 
       if (!recursive) {
-        await this.service.addGroupMember(this.group, entity.samAccountName);
+      
+        await this.service.addGroupMember(this.group, entity.samAccountName || entity.name);
+      
       } else {
-        await this.service.addGroupMember(this.group, entity.samAccountName, recursive);
+      
+        await this.service.addGroupMember(this.group, entity.samAccountName || entity.name, recursive);
+
       }
 
     } catch (e) {
@@ -247,6 +264,7 @@ export default class UserListManagement extends Vue {
         return;
       }
       this.addMemberToGroup(this.lookupEntityModel);
+
       this.entities.push(this.lookupEntityModel);
 
       this.toastService.success("Successfully added entity to group");
