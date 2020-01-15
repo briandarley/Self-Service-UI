@@ -1,0 +1,29 @@
+.radio-buttons {
+  padding: 0;
+  margin-top: 20px;
+}
+
+.radio-buttons ul, .radio-buttons li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.radio-buttons ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.radio-buttons li {
+  display: inline-block;
+}
+
+.radio-buttons li :first-of-type {
+  margin-right: 20px;
+}
+/*# sourceMappingURL=create-list.css.map */

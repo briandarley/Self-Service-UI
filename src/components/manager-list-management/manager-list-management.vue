@@ -9,16 +9,6 @@
           <div class="col">Canonical Name</div>
           <div class="col"></div>
         </div>
-        <div class="result-grid row" v-for="(item, index) in entities" :key="index">
-          <div class="col">{{item.samAccountName}}</div>
-          <div class="col">{{item.id}}</div>
-          <div class="col">
-            <a href="#" @click.prevent="removeEntity(item.samAccountName)">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>
-              <span>remove</span>
-            </a>
-          </div>
-        </div>
         <div class="container">
           <div class="add-member">
            <form @submit.prevent.prevent class="form-group form-inline" role="form">
@@ -40,6 +30,17 @@
             </form>
           </div>
         </div>
+        <div class="result-grid row" v-for="(item, index) in entities" :key="index">
+          <div class="col">{{item.samAccountName}}</div>
+          <div class="col">{{item.id}}</div>
+          <div class="col">
+            <a href="#" @click.prevent="removeEntity(item.samAccountName)">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+              <span>remove</span>
+            </a>
+          </div>
+        </div>
+        
       </div>
     </div>
     <confirm-dialog id="confirmAddManager" ref="confirmAddManager" width="800">

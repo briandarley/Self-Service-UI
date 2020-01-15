@@ -1,0 +1,146 @@
+.hidden {
+  display: none;
+}
+
+.list-metrics {
+  margin: 0 0 30px;
+}
+
+.list-metrics .list-metrics-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.list-metrics .list-metrics-data div label,
+.list-metrics .list-metrics-data div span {
+  display: block;
+}
+
+.list-metrics .list-metrics-data div label {
+  font-weight: bold;
+}
+
+.row-filter .filter-edit-col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.row-filter div {
+  padding: 0;
+}
+
+.member-list .cmds-result {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.member-list .cmds-result button {
+  margin-right: 10px;
+}
+
+.member-list .cmds-result button:last-of-type {
+  margin-right: 0;
+}
+
+.member-list .cmds-result button i {
+  margin-right: 5px;
+}
+
+.member-list .edit-col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.member-list .edit-col > div:first-of-type {
+  text-align: center;
+  width: 30px;
+}
+
+.member-list .edit-col .edit-links {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.member-list .edit-col .edit-links a {
+  margin-right: 20px;
+}
+
+.member-list .edit-col .edit-links a span {
+  position: absolute;
+  display: block;
+  text-indent: -9999px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.member-list .edit-col .edit-links > a:last-of-type {
+  margin-right: 0;
+}
+
+.member-list .edit-col .edit-links .hold-status span {
+  display: inline-block;
+  text-align: right;
+}
+
+.check-buttons {
+  margin: 10px 0;
+}
+
+.check-buttons input {
+  width: 30px;
+}
+
+.table-info {
+  background: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.table-info label, .table-info .label {
+  -ms-flex-preferred-size: 33%;
+      flex-basis: 33%;
+}
+
+.table-info a span {
+  position: absolute;
+  display: block;
+  text-indent: -9999px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.icon-mark span {
+  position: absolute;
+  display: block;
+  text-indent: -9999px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.tabbed-control,
+.tab-content {
+  min-height: 175px !important;
+}
+/*# sourceMappingURL=edit-list.css.map */
