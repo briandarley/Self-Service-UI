@@ -23,7 +23,7 @@ import DualRoleAssignment from '../../../dashboard/email-signup/dual-role-assign
 
 export default class Provisioning extends BaseValidateMixin {
   filter = "";
-  provisionData = null;
+  provisionData = {};
   userLdap = null;
   noLdap = false;
   enterEmailResponse = false;
@@ -140,12 +140,14 @@ export default class Provisioning extends BaseValidateMixin {
     this.enterEmailResponse = false;
     this.emailEntry = "";
   }
+
   clear() {
     this.filter = "";
     this.emailResponse = [];
 
     this.clearBaseFields();
   }
+
   addEmail() {
     if (!this.ValidationService.isValidEmail(this.emailEntry)) {
       this.toastService.error("Invalid e-mail address");
@@ -159,5 +161,42 @@ export default class Provisioning extends BaseValidateMixin {
     this.emailEntry = "";
     this.toastService.success("E-mail successfully added");
   }
+  closeConfirmAction(){
+    this.$refs.confirmAction.hide();
+  }
+  confimReprovisionAccount() {
+    
+    this.$refs.confirmAction.show();
+  }
+
+  async reprovisionAccount() {
+    try {
+      this.spinnerService.show();
+
+      this.provisionData.status = 'Submitted';
+
+      let respose = await this.ExchangeToolsService.updateProvisionRecord(this.provisionData)
+
+      if (respose.status) {
+        this.toastService.success("Successfully updated provisioning record");
+        
+        await this.search();
+      } else {
+        this.toastService.error("Failed to update provisioning record, not found");
+        
+        
+      }
+      this.closeConfirmAction();
+
+
+    } catch (e) {
+      window.console.log(e);
+      this.toastService.error('Failed to update provisioning');
+    } finally {
+      this.spinnerService.hide();
+    }
+
+  }
+
 }
 

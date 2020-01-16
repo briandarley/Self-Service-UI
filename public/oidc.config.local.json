@@ -1,8 +1,8 @@
 {
-    "serviceEndpoint1": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
-    "serviceEndpoint": "http://localhost:13003/v1/",
-    "signalREndpoint1": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
-    "signalREndpoint": "http://localhost:13003/",
+    "serviceEndpoint": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
+    "serviceEndpoint1": "http://localhost:13003/v1/",
+    "signalREndpoint": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
+    "signalREndpoint1": "http://localhost:13003/",
     "ckeditorPlugins" : "/ckeditor/plugins",
     "listmanager": {
       "lyris_list_base_path": "http://listtest.adtest.unc.edu/"
@@ -16,9 +16,9 @@
         "redirect_uri": "http://localhost:8080/call-back.html",
         "response_type": "id_token token",
         "scope": "openid profile self-service-business",
-        "post_logout_redirect_uri": "https://its-idmtst-web.adtest.unc.edu/Shibboleth.sso/Logout?return=https://sso.unc.edu/idp/logout.jsp"
-
-        
+        "post_logout_redirect_uri": "https://its-idmtst-web.adtest.unc.edu/Shibboleth.sso/Logout?return=https://sso.unc.edu/idp/logout.jsp",
+        "REMOVED_silent_redirect_uri": "http://localhost:8080/silent-refresh.html",
+        "REMOVED_automaticSilentRenew": true
       },
 
       "security1": {

@@ -34,7 +34,7 @@
         </form>
 
         <transition name="fade">
-          <div v-if="provisionData">
+          <div v-if="provisionData.status">
             <div
               class="provision-history"
               v-if="provisionData.status == 'Notified' || provisionData.status == 'Completed'"
@@ -78,6 +78,10 @@
               <div>
                 <span class="strong">Submitted By</span>
                 <span>{{provisionData.submittedBy}}</span>
+              </div>
+
+              <div class="submit">
+                <button class="btn btn-primary" @click="confimReprovisionAccount()">Reprovision</button>
               </div>
             </div>
             <div v-else>
@@ -195,6 +199,19 @@
         </div>
       </div>
     </div>
+    <confirm-dialog id="confirmAction" ref="confirmAction" width="800">
+      <div
+        slot="modal-title"
+        class="text-white"
+      >Confirm Re-Provision : Onyen {{provisionData.onyen}}</div>
+      <div slot="modal-body">
+        <p>Would you like to reprovision mailbox for account {{provisionData.onyen}} at this time?</p>
+      </div>
+      <div slot="modal-footer">
+        <button class="btn btn-primary" @click="reprovisionAccount()">Confirm</button>
+        <button class="btn btn-secondary" @click="closeConfirmAction()">Close</button>
+      </div>
+    </confirm-dialog>
   </div>
 </template>
 <script src="./provisioning.js"></script>
