@@ -12,7 +12,9 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
 @import "chartist/dist/scss/chartist.scss";
-
+.main:focus{
+  border: 1px solid red;
+}
 body {
   font-family: 'Roboto', sans-serif;
   font-display: auto;

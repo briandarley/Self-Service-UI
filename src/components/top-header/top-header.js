@@ -15,16 +15,19 @@ export default class TopHeader extends Vue {
     this.name =  user.profile.preferred_username;
   }
   
-  async signOut(){
+  async signOut() {
       await this.UserService.logout();
   }
-
   
-  showSideMenu(){
+  showSideMenu() {
     this.EventBus.emit("toggle-side-menu");
-    
-   
   }
+
+  setMainFocus() {
+    const $ = this.$;
+    $(".toggle-menu-btn").focus();
+  }
+
 }
 
 

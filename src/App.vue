@@ -6,7 +6,7 @@
     <div class="main-app-section" :class="{'main-app-section-collapsed': sideBarCollapsed}">
       <side-menu :collapsed="sideBarCollapsed"></side-menu> 
       
-      <div class="app-section" role="main">
+      <div class="app-section" role="main" >
         <button class="btn btn-primary ml-2 mt-2 toggle-menu-btn" @click="toggleMenu()">
             <i class="fa fa-bars"></i> 
             <span class="ml-2">

@@ -127,12 +127,6 @@ export default class SideMenu extends Vue {
     }
    
     this.simpleBar.recalculate();
-    // this.simpleBar.hideScrollbars();
-    // this.simpleBar.unMount();
-
-   
-    
-    
 
   }
 

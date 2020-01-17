@@ -28,9 +28,17 @@ export default class App extends Vue {
     immediate: false
   })
   onRouteChanged() {
-    //newValue, oldValue
+    const $ = this.$;
+    
     this.spinnerService.hide();
     this.$refs.mainSpinner.hideSpinner();
+    $("body").focus();
+    //$(".skip-main").focus();
+
+    // setTimeout(()=> {
+    //   this.toastService.success("Switching focus");
+    //   $(".top-header").focus();
+    // }, 1000);
   }
   mounted() {
     let $ = this.$;

@@ -4,6 +4,33 @@
     /* god damn ie */
     -ms-grid-row: 1;
 
+
+    a.skip-main {
+        left: -999px;
+        position: absolute;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        z-index: -999;
+    }
+
+    a.skip-main:focus, a.skip-main:active {
+        color: #000;
+        background-color: #fff;
+        left: 100px;
+        top: 20px;
+        width: 150px;
+        height: auto;
+        overflow: auto;
+        margin: 10px 5%;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        font-size: 1.2em;
+        z-index: 999;
+    }
+
     .logo {
 
         flex-basis: $col1-lg-width;
