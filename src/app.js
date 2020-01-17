@@ -32,7 +32,7 @@ export default class App extends Vue {
     
     this.spinnerService.hide();
     this.$refs.mainSpinner.hideSpinner();
-    $("body").focus();
+    //$("body").focus();
     //$(".skip-main").focus();
 
     // setTimeout(()=> {
