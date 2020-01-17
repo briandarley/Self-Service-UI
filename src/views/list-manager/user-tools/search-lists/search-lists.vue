@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">image_search</i>
         </div>
-        <h3>Search Lists</h3>
+        <h1>Search Lists</h1>
       </div>
       <div class="card-body">
         <form @submit.prevent.prevent class="container" role="form" ref="searchForm">

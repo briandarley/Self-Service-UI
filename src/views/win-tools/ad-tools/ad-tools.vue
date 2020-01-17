@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fa-project-diagram" aria-hidden="true"></i>
         </div>
-        <h3>AD Tools</h3>
+        <h1>AD Tools</h1>
       </div>
       <div class="card-body">
         <div class="border border-primary">

@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fas fa-user-lock" aria-hidden="true"></i>
         </div>
-        <h3>Account Lockouts</h3>
+        <h1>Account Lockouts</h1>
       </div>
       <div class="card-body">
         <div class="container">

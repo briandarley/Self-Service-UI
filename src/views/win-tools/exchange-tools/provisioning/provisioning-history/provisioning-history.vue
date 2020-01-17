@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">email</i>
         </div>
-        <h3>Provisioning History</h3>
+        <h1>Provisioning History</h1>
       </div>
       <div class="card-body">
         <div class="alert alert-info">

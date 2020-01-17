@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">check_circle</i>
         </div>
-        <h3>Check Subscriptions</h3>
+        <h1>Check Subscriptions</h1>
       </div>
       <div class="card-body" v-if="this.userSubscriptions.length > 0">
         <div class="container">

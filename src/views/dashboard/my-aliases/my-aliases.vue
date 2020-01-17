@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fa-user-circle-o" aria-hidden="true"></i>
         </div>
-        <h3>My Aliases</h3>
+        <h1>My Aliases</h1>
       </div>
       <div class="card-body">
         <div class="my-aliases border border-primary mb-3" v-if="successfullyLoaded">

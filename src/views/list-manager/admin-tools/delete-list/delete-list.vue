@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="far fa-trash-alt" aria-hidden="true"></i>
         </div>
-        <h3>Delete List</h3>
+        <h1>Delete List</h1>
       </div>
       <div class="card-body">
         <div class="container" v-if="!adminList.length">

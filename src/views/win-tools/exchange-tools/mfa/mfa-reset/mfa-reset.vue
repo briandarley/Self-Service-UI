@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">undo</i>
         </div>
-        <h3>MFA Reset</h3>
+        <h1>MFA Reset</h1>
       </div>
       <div class="card-body">
         <div class="container">

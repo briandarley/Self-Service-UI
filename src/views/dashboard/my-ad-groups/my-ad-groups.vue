@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">group_work</i>
         </div>
-        <h3>My AD Groups</h3>
+        <h1>My AD Groups</h1>
       </div>
       <div class="card-body">
         <div class="container">

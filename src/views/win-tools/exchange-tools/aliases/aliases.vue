@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fa-user-circle-o" aria-hidden="true"></i>
         </div>
-        <h3>Aliases</h3>
+        <h1>Aliases</h1>
       </div>
       <div class="card-body">
         <div class="alert alert-info">

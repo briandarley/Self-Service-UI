@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fas fa-mail-bulk" aria-hidden="true"></i>
         </div>
-        <h3>Shared Mailbox</h3>
+        <h1>Shared Mailbox</h1>
       </div>
       <div class="card-body">
         <div class="border border-primary">

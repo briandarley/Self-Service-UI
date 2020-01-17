@@ -11,8 +11,9 @@
 <body>
 
   <script type="text/javascript">
-    new Oidc.UserManager().signinSilentCallback()
-      .then()
+    var manager = new Oidc.UserManager()
+    manager.signinSilentCallback()
+      
       .catch(function (e) {
         console.error(e);
       });

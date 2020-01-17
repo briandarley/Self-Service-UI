@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons">search</i>
         </div>
-        <h3>View Request</h3>
+        <h1>View Request</h1>
       </div>
       <div class="card-body">
         <search-criteria @search="search" @clear="clear" :criteria="criteria"></search-criteria>

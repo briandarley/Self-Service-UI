@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fa-history"></i>
         </div>
-        <h3>Log Viewer</h3>
+        <h1>Log Viewer</h1>
       </div>
       <div class="card-body">
         <search-criteria @search="search" @clear="clear" :criteria="criteria"></search-criteria>

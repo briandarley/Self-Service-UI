@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fa-cubes" aria-hidden="true"></i>
         </div>
-        <h3>Organizational Units</h3>
+        <h1>Organizational Units</h1>
       </div>
       <div class="card-body">
         <div class="container">

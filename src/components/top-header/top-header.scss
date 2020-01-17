@@ -46,10 +46,11 @@
             align-self: flex-end;
 
 
-            h1,
-            h2,
-            h3 {
+            .h1,
+            .h2,
+            .h3 {
                 color: $athletics-navy;
+                display: block;
                 text-align: right;
                 margin-right: 10px;
                 margin: 10px 10px;
@@ -59,15 +60,15 @@
 
             }
 
-            h1 {
+            .h1 {
                 font-size: 1.3em;
             }
 
-            h2 {
+            .h2 {
                 font-size: 1em;
             }
 
-            h3 {
+            .h3 {
                 font-size: .8em;
                 line-height: 12px;
             }
@@ -93,12 +94,12 @@
         .site-title {
             .title-content {
                     a,
-                    h2,
-                    h3 {
+                    .h2,
+                    .h3 {
                         display:none;
                     }
 
-                    h1 {
+                    .h1 {
                         font-size: 2em;
                     }
                 
@@ -118,8 +119,8 @@
 
         .site-title {
             a,
-            h2,
-            h3 {
+            .h2,
+            .h3 {
                 display: block;
             }
 

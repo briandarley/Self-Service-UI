@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">group</i>
         </div>
-        <h3>Office365 Groups</h3>
+        <h1>Office365 Groups</h1>
       </div>
       <div class="card-body">
         <div class="border border-primary">

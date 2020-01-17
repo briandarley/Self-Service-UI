@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fas fa-skull-crossbones" aria-hidden="true"></i>
         </div>
-        <h3>Compromised Accounts</h3>
+        <h1>Compromised Accounts</h1>
       </div>
       <div class="card-body">
         <form @submit.prevent.prevent class="container" role="form" ref="submitForm">

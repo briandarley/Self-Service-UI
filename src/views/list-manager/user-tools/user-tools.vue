@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fa-user-cog" aria-hidden="true"></i>
         </div>
-        <h3>User Tools</h3>
+        <h1>User Tools</h1>
       </div>
       <div class="card-body">
         <transition-group tag="ul" name="fly_in">

@@ -66,12 +66,14 @@ function UserService(configReaderService, localStorageService, routerService) {
         async _initializeManager() {
             try {
                 if (!this._mgr) {
-
-
-
-                    const address = await configReaderService.getConfigurationSetting("security");
+                   const address = await configReaderService.getConfigurationSetting("security");
 
                     this._mgr = new Oidc.UserManager(address);
+
+                    this._mgr.events.addAccessTokenExpiring(() => {
+
+                        debugger;
+                    });
                 }
             } catch (e) {
                 console.log(e);

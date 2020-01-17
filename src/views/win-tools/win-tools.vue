@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fa-windows" aria-hidden="true"></i>
         </div>
-        <h3>Win Tools</h3>
+        <h1>Win Tools</h1>
       </div>
       <div class="card-body">
         <div class="border border-primary">

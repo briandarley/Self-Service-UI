@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">dashboard</i>
         </div>
-        <h3>Dashboard</h3>
+        <h1>Dashboard</h1>
       </div>
       <div class="card-body dashboard-widgets">
         <gal-sync-widget></gal-sync-widget>

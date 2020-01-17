@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fas fa-digital-tachograph" aria-hidden="true"></i>
         </div>
-        <h3>Provision Status</h3>
+        <h1>Provision Status</h1>
       </div>
       <div class="card-body">
         <div class="container">

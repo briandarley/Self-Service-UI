@@ -17,8 +17,9 @@
         "response_type": "id_token token",
         "scope": "openid profile self-service-business",
         "post_logout_redirect_uri": "https://its-idmtst-web.adtest.unc.edu/Shibboleth.sso/Logout?return=https://sso.unc.edu/idp/logout.jsp",
-        "REMOVED_silent_redirect_uri": "http://localhost:8080/silent-refresh.html",
-        "REMOVED_automaticSilentRenew": true
+        "REMOVE_silent_redirect_uri": "http://localhost:8080/silent-refresh.html",
+        "automaticSilentRenew": false,
+        "revokeAccessTokenOnSignout": true
       },
 
       "security1": {

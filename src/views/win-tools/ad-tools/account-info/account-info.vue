@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fab fa-linode" aria-hidden="true"></i>
         </div>
-        <h3>Account Info</h3>
+        <h1>Account Info</h1>
       </div>
       <div class="card-body">
         <form @submit.prevent.prevent role="form" ref="searchForm">

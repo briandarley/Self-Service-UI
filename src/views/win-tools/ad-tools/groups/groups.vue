@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fas fa-object-group" aria-hidden="true"></i>
         </div>
-        <h3>Active Directory Groups</h3>
+        <h1>Active Directory Groups</h1>
       </div>
       <div class="card-body">
         <div class="container">

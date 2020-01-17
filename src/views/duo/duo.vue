@@ -5,7 +5,7 @@
            <div class="icon bg-primary text-white"> 
              <i class="material-icons" aria-hidden="true">lock</i> 
             </div>                                     
-            <h3>DUO MFA Required</h3>
+            <h1>DUO MFA Required</h1>
        </div>                                         
        <div class="card-body">              
           <div class="alert alert-info">

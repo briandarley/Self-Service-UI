@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fas fa-mail-bulk" aria-hidden="true"></i>
         </div>
-        <h3>Systems Tools</h3>
+        <h1>Systems Tools</h1>
       </div>
       <div class="card-body">
         <div class="border border-primary">

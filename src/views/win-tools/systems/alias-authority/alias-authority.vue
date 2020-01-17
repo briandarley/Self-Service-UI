@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="far fa-id-card" aria-hidden="true"></i>
         </div>
-        <h3>Alias Authority</h3>
+        <h1>Alias Authority</h1>
       </div>
       <div class="card-body">
         <div class="alert alert-info">

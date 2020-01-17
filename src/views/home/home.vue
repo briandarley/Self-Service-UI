@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">home</i>
         </div>
-        <h3>Self Service Home</h3>
+        <h1>Self Service Home</h1>
       </div>
       <div class="card-body">
         <div class="border border-primary">

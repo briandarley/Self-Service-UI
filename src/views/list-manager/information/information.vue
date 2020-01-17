@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fa-question-circle" aria-hidden="true"></i>
         </div>
-        <h3>Lyris Information</h3>
+        <h1>Lyris Information</h1>
       </div>
       <div class="card-body">
         <transition-group tag="ul" name="fly_in">

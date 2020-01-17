@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">verified_user</i>
         </div>
-        <h3>MFA</h3>
+        <h1>MFA</h1>
       </div>
       <div class="card-body">
         <div class="border border-primary">

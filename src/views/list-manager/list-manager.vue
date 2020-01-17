@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">list_alt</i>
         </div>
-        <h3>List Manager</h3>
+        <h1>List Manager</h1>
       </div>
       <div class="card-body">
         <div class="alert alert-info">

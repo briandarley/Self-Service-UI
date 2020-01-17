@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">contact_mail</i>
         </div>
-        <h3>Resource Mailbox</h3>
+        <h1>Resource Mailbox</h1>
       </div>
       <div class="card-body">
         <div class="border border-primary">

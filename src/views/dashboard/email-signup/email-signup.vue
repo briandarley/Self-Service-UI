@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">email</i>
         </div>
-        <h3>Email Sign-Up</h3>
+        <h1>Email Sign-Up</h1>
       </div>
       <div class="card-body" v-if="viewLoaded">
         <div class="container">

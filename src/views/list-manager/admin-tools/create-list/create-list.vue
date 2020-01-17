@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">create</i>
         </div>
-        <h3>Create List</h3>
+        <h1>Create List</h1>
       </div>
       <div class="card-body">
         <div class="container">

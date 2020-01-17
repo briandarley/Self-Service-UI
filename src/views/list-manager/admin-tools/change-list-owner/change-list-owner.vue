@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="far fa-address-book" aria-hidden="true"></i>
         </div>
-        <h3>Change List Owner</h3>
+        <h1>Change List Owner</h1>
       </div>
       <div class="card-body">
         <div class="container">

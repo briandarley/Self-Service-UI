@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fas fa-network-wired" aria-hidden="true"></i>
         </div>
-        <h3>Route Management</h3>
+        <h1>Route Management</h1>
       </div>
       <div class="card-body">
         <div class="container">

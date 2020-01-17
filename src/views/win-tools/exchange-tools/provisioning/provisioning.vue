@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">email</i>
         </div>
-        <h3>Provisioning</h3>
+        <h1>Provisioning</h1>
       </div>
       <div class="card-body">
         <form @submit.prevent.prevent role="form" ref="submitForm">

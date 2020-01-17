@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fa-sign-in-alt" aria-hidden="true"></i>
         </div>
-        <h3>Lyris Log In</h3>
+        <h1>Lyris Log In</h1>
       </div>
       <div class="card-body">
         <transition-group tag="ul" name="fly_in" >

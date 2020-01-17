@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fa-toolbox" aria-hidden="true"></i>
         </div>
-        <h3>Admin Tools</h3>
+        <h1>Admin Tools</h1>
       </div>
       <div class="card-body">
         <div class="user-actions" role="menu">

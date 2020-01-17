@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">ballot</i>
         </div>
-        <h3>Resources</h3>
+        <h1>Resources</h1>
       </div>
       <div class="card-body">
         <div class="alert alert-info">

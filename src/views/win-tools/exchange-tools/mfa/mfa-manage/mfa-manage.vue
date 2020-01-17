@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">supervised_user_circle</i>
         </div>
-        <h3>MFA Management</h3>
+        <h1>MFA Management</h1>
       </div>
       <div class="card-body">
         <div class="container">

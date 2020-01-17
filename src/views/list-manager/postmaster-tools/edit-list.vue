@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fa-tools" aria-hidden="true"></i>
         </div>
-        <h3>Edit List - {{listName}}</h3>
+        <h1>Edit List - {{listName}}</h1>
       </div>
       <div class="card-body">
         <!-- List Metrics -->

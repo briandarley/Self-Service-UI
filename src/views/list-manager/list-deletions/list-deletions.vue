@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">view_agenda</i>
         </div>
-        <h3>List Deletions</h3>
+        <h1>List Deletions</h1>
       </div>
       <div class="card-body">
         <div class="form-group">

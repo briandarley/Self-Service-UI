@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="fa fas fas fa-users-cog"></i>
         </div>
-        <h3>Administration</h3>
+        <h1>Administration</h1>
       </div>
       <div class="card-body">
         <div class="container">

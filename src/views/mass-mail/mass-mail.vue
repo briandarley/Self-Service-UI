@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">contact_mail</i>
         </div>
-        <h3>Mass Mail</h3>
+        <h1>Mass Mail</h1>
       </div>
       <div class="card-body">
         <div class="container">

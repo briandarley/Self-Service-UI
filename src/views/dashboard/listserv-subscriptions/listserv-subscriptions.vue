@@ -5,7 +5,7 @@
         <div class="icon bg-primary text-white">
           <i class="material-icons" aria-hidden="true">subscriptions</i>
         </div>
-        <h3>My Lyris Subscriptions</h3>
+        <h1>My Lyris Subscriptions</h1>
       </div>
 
       <div class="card-body">
