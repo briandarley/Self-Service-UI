@@ -329,19 +329,11 @@ export default class CreateRequest extends BaseValidateMixin {
 
 
     if (response) {
-      /*
       this.$router.push({
         name: "create-request",
         params: {
           id: response.id
         }
-      })
-      */
-     //Todo why won't the above work in UAT, it works in test!!???
-      this.$router.push({
-        path: `create-request/${response.id}`
-        
-        
       })
       this.navigateNext(true);
 

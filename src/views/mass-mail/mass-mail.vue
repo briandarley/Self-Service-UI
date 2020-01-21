@@ -46,8 +46,7 @@
           <div>
             <p>
               To begin, choose
-              <!--<router-link :to="{name: 'create-request'}">Create Request</router-link>from the menu on the left.-->
-              <router-link :to="{path: '/create-request'}">Create Request</router-link>from the menu on the left.
+              <router-link :to="{name: 'create-request'}">Create Request</router-link>from the menu on the left.
             </p>
           </div>
           <form
@@ -100,9 +99,8 @@
             </div>
           </form>
           <div class="text-right">
-            <!-- Todo - Why does name: 'create-request' not work in UAT, works in test???-->
-            <router-link :to="{path: '/create-request'}" class="btn btn-primary ico">
-             <span class>
+            <router-link :to="{name: 'create-request'}" class="btn btn-primary ico">
+              <span class>
                 <i data-v-0fe20b93 class="fa fa-newspaper-o" aria-hidden="true"></i>
               </span>
               Create New Request
