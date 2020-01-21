@@ -99,7 +99,7 @@
             </div>
           </form>
           <div class="text-right">
-            <router-link :to="{name: 'create-request'}" class="btn btn-primary ico">
+            <router-link :to="{name: '/create-request'}" class="btn btn-primary ico">
               <span class>
                 <i data-v-0fe20b93 class="fa fa-newspaper-o" aria-hidden="true"></i>
               </span>
