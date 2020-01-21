@@ -63,6 +63,7 @@ new Vue({
 
 
         this.routeSources.forEach(async route => {
+
           evaluatedRoute = route;
           await this.createAndAppendRoute(route, this.loadView(route));
 
@@ -115,10 +116,12 @@ new Vue({
       return response;
     },
     async createAndAppendRoute(route, view) {
-      //mass-mail/create-request/steps/basic-information/basic-information.vue
+      
       if (route.nestedRouting) {
         return;
       }
+      
+
       let newRoute = {
         path: route.route === "/" ? "" : `/${route.route}`,
         component: view,
@@ -142,7 +145,9 @@ new Vue({
 
       }
 
-
+      // if (route.name === "create-request") {
+      //   debugger;
+      // }
 
       let link = router.resolve({
         name: newRoute.name
@@ -154,7 +159,7 @@ new Vue({
 
 
     }
-    
+
   },
   watch: {
     async $route(to) {
@@ -183,7 +188,7 @@ new Vue({
     }
   },
   async created() {
-   
+
     let service = injector.get("RouteSourcesService");
     this.routeSources = await service.getRouteMenu();
 
@@ -207,6 +212,6 @@ new Vue({
 
 
 
-//render: h => h(App)
+  //render: h => h(App)
 
 }).$mount("#app");

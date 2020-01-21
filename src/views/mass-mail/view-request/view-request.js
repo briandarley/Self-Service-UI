@@ -127,11 +127,14 @@ export default class ViewRequest extends Vue {
     switch (args.action) {
 
       case "edit":
+        // this.$router.push({
+        //   name: "create-request",
+        //   params: {
+        //     id: args.entity.id
+        //   }
+        // });
         this.$router.push({
-          name: "create-request",
-          params: {
-            id: args.entity.id
-          }
+          path: `/create-request/${args.entity.id}`,
         });
         break;
       case "copy":
