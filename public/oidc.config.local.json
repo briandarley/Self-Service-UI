@@ -8,10 +8,10 @@
     "listmanager": {
       "lyris_list_base_path": "http://listtest.adtest.unc.edu/"
     },
-    "security1": {
-        "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
-        "authority2": "http://localhost:5000",
-        "authority3": "https://localhost:44334",
+    "security": {
+        "authority5": "https://its-idmtst-web.adtest.unc.edu/identityserver",
+        "authority1": "http://localhost:5000",
+        "authority": "https://localhost:44334",
         "authority4": "https://its-idmtst-web.adtest.unc.edu/identityserver4",
         "client_id": "self-service-client",
         "redirect_uri": "http://localhost:8080/call-back.html",
@@ -23,7 +23,7 @@
         "revokeAccessTokenOnSignout": true
       },
 
-      "security": {
+      "security1": {
         "authority": "https://its-idmuat-web.ad.unc.edu/identityserver",
         "client_id": "self-service-client",
         "redirect_uri": "http://localhost:8080/call-back.html",
