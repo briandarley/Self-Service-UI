@@ -6,8 +6,8 @@
       "lyris_list_base_path": "https://lists.unc.edu/"
     },
     "security": {
-      "authority": "https://its-idmprd-web0.ad.unc.edu/identityserver",
-      "authority1": "https://selfservice.unc.edu/identityserver",
+      "authority1": "https://its-idmprd-web0.ad.unc.edu/identityserver",
+      "authority": "https://selfservice.unc.edu/identityserver",
       "client_id": "self-service-client",
       "redirect_uri": "https://selfservice.unc.edu/client/self-service/call-back.html",
       "response_type": "id_token token",
