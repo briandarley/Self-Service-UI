@@ -233,6 +233,7 @@ export default class EditList extends Vue {
   }
 
   sort(column) {
+    
     this.spinnerService.show()
     if (this._currentCol === column) {
       this._currentSortDir *= -1;
@@ -244,7 +245,7 @@ export default class EditList extends Vue {
 
     switch (column) {
       case "fullName":
-        this.members.sort((a, b) => {
+        this.filteredMembers.sort((a, b) => {
           if (a.fullName.toLowerCase() > b.fullName.toLowerCase())
             return this._currentSortDir;
           if (a.fullName.toLowerCase() < b.fullName.toLowerCase())
@@ -253,7 +254,7 @@ export default class EditList extends Vue {
         });
         break;
       case "email":
-        this.members.sort((a, b) => {
+        this.filteredMembers.sort((a, b) => {
           if (a.emailAddress.toLowerCase() > b.emailAddress.toLowerCase())
             return this._currentSortDir;
           if (a.emailAddress.toLowerCase() < b.emailAddress.toLowerCase())
@@ -262,13 +263,16 @@ export default class EditList extends Vue {
         });
         break;
       case "admin":
-        this.members.sort((a, b) => {
+        this.filteredMembers.sort((a, b) => {
           if (a.isListAdmin < b.isListAdmin) return this._currentSortDir;
           if (a.isListAdmin > b.isListAdmin) return this._currentSortDir * -1;
           return 0;
         });
         break;
     }
+
+    this.filteredMembers =JSON.parse(JSON.stringify(this.filteredMembers));
+
     this.spinnerService.hide();
   }
 

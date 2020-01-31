@@ -29,11 +29,11 @@
               <!-- <pm-tools-search></pm-tools-search> -->
               <div>
                 <div class="form-group">
-                  <label class="strong" for="list_name">List Name</label>
+                  <label class="strong" for="list_name" id="lblListNameSearch">List Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="List Name like"
+                    placeholder="Search lists using like expression"
                     name="list_name"
                     id="list_name"
                     v-focus
@@ -41,6 +41,7 @@
                     autocomplete="off"
                     v-model="listName"
                     v-on:keyup.13="search()"
+                    aria-label="Search lists by name, a value required"
                   />
                 </div>
                 <div class="submit text-right">
@@ -69,34 +70,35 @@
                     </div>
                   </transition>
 
-                  <div v-if="listNameSearchData.length">
-                    <div class="row bg-primary text-white row-header">
-                      <div class="col-2">Site Name</div>
-                      <div class="col-3">List Name</div>
-                      <div class="col-4">Description</div>
-                      <div class="col-3">Max Members</div>
+                  <div v-if="listNameSearchData.length" role="table">
+                    <div class="row bg-primary text-white row-header" role="rowheader">
+                      <div class="col-2" role="heading">Site Name</div>
+                      <div class="col-3" role="heading">List Name</div>
+                      <div class="col-4" role="heading">Description</div>
+                      <div class="col-3" role="heading">Max Members</div>
                     </div>
                     <div
                       class="result-grid row"
                       v-for="item in listNameSearchData"
                       v-bind:key="item.listName"
+                      role="row"
                     >
-                      <div class="col-2">{{item.siteName}}</div>
-                      <div class="col-3">{{item.listName}}</div>
-                      <div class="col-4">{{item.description}}</div>
-                      <div class="col-1">{{item.maxMembers}}</div>
-                      <div class="col-2 edit-col text-right">
+                      <div role="cell" class="col-2">{{item.siteName}}</div>
+                      <div role="cell" class="col-3">{{item.listName}}</div>
+                      <div role="cell" class="col-4">{{item.description}}</div>
+                      <div role="cell" class="col-1">{{item.maxMembers}}</div>
+                      <div role="cell" class="col-2 edit-col text-right">
                         <router-link
-                          tag="div"
                           :to="{name: 'pm-tools-edit', params: {listName: item.listName}}"
+                          
                           title="edit list"
                         >
-                          <a href="#">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                          </a>
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          <span class="hide-text">Edit List {{item.listName}}</span>
                         </router-link>
-                        <a href="#" @click.prevent="deleteList(item)" title="delete list">
+                        <a href="#" @click.prevent="deleteList(item)" title="delete list" >
                           <i class="fa fa-trash-o" aria-hidden="true"></i>
+                          <span class="hide-text">Delete List {{item.listName}}</span>
                         </a>
                       </div>
                     </div>
@@ -130,7 +132,7 @@
                   <input
                     type="email"
                     class="form-control"
-                    placeholder="Subscriber E-mail"
+                    placeholder="Search lists by subscriber e-mail"
                     name="email"
                     id="email"
                     v-focus
@@ -138,6 +140,7 @@
                     autocomplete="off"
                     v-model="emailAddress"
                     v-on:keyup.13="searchByEmail()"
+                    aria-label="Search lists by email, a value required"
                   />
                 </div>
                 <div class="text-right mb-5">
@@ -295,89 +298,5 @@ export default class PostmasterTools extends BaseListServePostMasterSearchMixin 
   }
 }
 </script>
-<style lang="scss" >
-.tab-content {
-  //min-height: 700px;
-}
-.search-result {
-  // min-height: 500px;
-}
-.search-control {
-  border-top: 1px solid $carolina-blue;
-  margin-top: 20px;
-  padding-top: 20px;
-}
-.result-grid {
-  line-height: 40px;
-  border: 1px solid $gray-100;
-  display:flex;
-  &:nth-child(even) {
-    background: $gray-100;
-  }
-}
-.subscribers-by-email:nth-of-type(odd) {
-  background: $white;
-}
+<style lang="scss" src="./postmaster-tools.scss" scoped></style>
 
-ul.search-links,
-ul.search-links li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-ul.search-links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: space-around;
-  justify-content: center;
-  border: 1px solid $carolina-blue;
-  background: lighten($carolina-blue, 40%);
-  padding: 10px;
-}
-ul.search-links li {
-  height: 30px;
-  width: 230px;
-  margin: 0 15px;
-  text-align: center;
-
-  a {
-    text-decoration: underline;
-
-    &.selected {
-      font-weight: bold;
-    }
-
-    i {
-      margin-left: -15px;
-      line-height: 25px;
-      position: absolute;
-    }
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.search-control .fade-enter-active,
-.search-control .fade-leave-active {
-  position: absolute;
-}
-.form-group {
-  position: relative;
-}
-.controls button:first-of-type {
-  margin-right: 10px;
-}
-.edit-col {
-  display: flex;
-  justify-content: flex-end;
-  a {
-    margin-right: 20px;
-  }
-  > a:first-of-type {
-    margin-right: 0;
-  }
-}
-</style>

@@ -17,6 +17,7 @@
               Note: Open and Closed mailing lists have a subscriber cap of 250 members. For details on this policy visit the
               <a
                 href="https://help.unc.edu/sp?id=kb_article&sys_id=1cf79a2cdb47b7c0227afe2139961957"
+                aria-label="Visit FAQ Listserv Subscribers – FAQ Collection"
               >FAQ</a>
             </p>
           </div>
@@ -25,6 +26,7 @@
             Your list will be created upon submission. For information on the different list types, see the
             <a
               href="https://help.unc.edu/sp?id=kb_article&sys_id=aa4688d0db037380227afe21399619ba"
+              aria-label="Visit FAQ Listserv Administrators – FAQ Collection"
             >FAQ</a>
           </p>
           <p class="text-danger">

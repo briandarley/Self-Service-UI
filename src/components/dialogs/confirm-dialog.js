@@ -43,6 +43,12 @@ $("#myModal").hide();
       $(`#${this.id} .modal-dialog`).css("max-width", `500px`);
     }
 
+  
+    setTimeout(() => {
+      $(`#${this.id} .modal-dialog button`).focus();  
+    }, 1050);
+  
+
   }
 
 

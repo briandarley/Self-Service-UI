@@ -47,7 +47,7 @@
         <input type="text" class="form-control" id="description" v-model="model.description" />
       </div>
       <div class="form-group">
-        <label class="d-inline-block mr-3">Type of List</label>
+        <label class="d-inline-block mr-3" aria-label="Type of List">Type of List</label>
         <ul
           class="d-inline-block radio-buttons"
           data-validation="{'name': 'Type of List','required': true,'message':'Invalid','model': 'mailingType'}"
@@ -62,6 +62,7 @@
               name="mailing-type"
               v-model="model.mailingType"
               checked
+              aria-label="Type of List Closed"
             />
             <label for="mailing-type-closed">Closed</label>
           </li>
@@ -72,6 +73,7 @@
               value="open"
               name="mailing-type"
               v-model="model.mailingType"
+              aria-label="Type of List Open"
             />
             <label for="mailing-type-open">Open</label>
           </li>

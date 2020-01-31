@@ -46,6 +46,10 @@ label,
 input::placeholder {
   color: $gray-500 !important;
 }
+.alert.alert-warning
+{
+  color: darken($color: #ffce99, $amount: 70%)
+}
 
 .hidden{
   display:none;
@@ -359,6 +363,13 @@ input::placeholder {
   opacity: 0;
 }
 .result-grid a span {
+  position: absolute;
+  display: block;
+  text-indent: -9999px;
+  text-align: left;
+  overflow: hidden;
+}
+.hide-text{
   position: absolute;
   display: block;
   text-indent: -9999px;

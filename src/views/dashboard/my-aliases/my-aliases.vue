@@ -100,7 +100,7 @@
                   <a
                     href="#"
                     @click.prevent="removeAlias(item)"
-                    :aria-label="'remove alias' + item.email"
+                    :aria-label="'remove alias ' + item.email"
                   >
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     remove

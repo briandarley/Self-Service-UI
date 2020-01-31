@@ -3,8 +3,8 @@
 }
 
 .list-metrics {
-  
-  
+
+
   margin: 0 0 30px;
 
   .list-metrics-data {
@@ -23,19 +23,68 @@
 }
 
 
-.row-filter {
-  .filter-edit-col {
-    display: flex;
-  }
-
-  select {}
-
-  div {
-    padding: 0;
-  }
-}
 
 .member-list {
+  .row-header,.result-grid {
+    display: flex;
+
+    .col {
+      flex-basis: 250px;
+      flex-grow: 0;
+      line-height: 30px;
+      padding: 0 10px;
+      margin: 0;
+      text-decoration: none;
+    }
+
+    .col:nth-of-type(1) {
+      flex-basis: 356px;
+    }
+
+    .col:nth-of-type(2) {
+      flex-basis: 356px;
+    }
+
+    .col:nth-of-type(3),
+    .col:nth-of-type(4) {
+      flex-basis: 175px;
+      text-align: left;
+
+    }
+
+    label {
+      color: $white;
+    }
+  }
+
+
+  .row-filter {
+    .filter-edit-col {
+      display: flex;
+    }
+    div {
+      padding: 0;
+    }
+  }
+
+
+  .result-grid{
+    .col:nth-of-type(3) {
+      text-align: center;
+    }
+    .col:nth-of-type(4) {
+      display:flex;
+      flex-grow: 1;
+      
+      a{
+        flex:1;
+        text-align: center;
+      }
+      
+      
+    }
+  }
+
   .cmds-result {
     display: flex;
     justify-content: space-between;
@@ -55,9 +104,8 @@
     }
   }
 
-  // .result-grid:nth-of-type(odd) {
-  //   background: $gray-100;
-  // }
+
+  
 
   .edit-col {
     display: flex;
@@ -114,7 +162,8 @@
   display: flex;
   flex-wrap: wrap;
 
-  label, .label {
+  label,
+  .label {
     flex-basis: 33%;
   }
 
@@ -125,7 +174,15 @@
     text-align: left;
     overflow: hidden;
   }
+  .extra-commands{
+    margin:10px 0;
+    flex: 100%;
 
+    text-align: right;
+    .btn:first-of-type{
+      margin-right:10px;
+    }
+  }
 }
 
 .icon-mark span {

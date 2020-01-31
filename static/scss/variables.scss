@@ -49,8 +49,8 @@ $carolina-blue: #318ecc !default;
 $link-blue: #007FAE !default;
 $link-blue: black !default;
 $athletics-navy: #13294B !default;
-$coral: #FF7F50 !default;
-
+// $coral: #FF7F50 !default;
+$coral: #ffce99 !default;
 
 $colors: () !default;
 $colors: map-merge(( "blue": $blue, "indigo": $indigo, "purple": $purple, "pink": $pink, "red": $red, "orange": $orange, "yellow": $yellow, "green": $green, "teal": $teal, "cyan": $cyan, "white": $white, "carolina-blue": $carolina-blue, "athletics-navy": $athletics-navy, "link-blue": $link-blue, "gray": $gray-600, "gray-dark": $gray-800 ), $colors);

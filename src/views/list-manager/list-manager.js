@@ -33,11 +33,7 @@ export default class ListManager extends BaseValidateMixin {
       this.$refs.confirmMigration.show();
       this.localStorageService.sessionSet('list-manager:showMessage', true);
 
-      const $ = this.$;
-      setTimeout(() => {
-        $("#confirmMigration .modal-dialog button").focus();  
-      }, 1050);
-    
+     
       
     }
 

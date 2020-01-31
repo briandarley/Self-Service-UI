@@ -29,30 +29,13 @@
                 Visibility:
                 <span>{{data.visibility}}</span>
               </span>
-              <span class="label">
-                Max Members:
-                <span v-if="data.maxMembers === 0">
-                  Unlimited
-                  <a
-                    href="#"
-                    v-on:click.prevent="toggleSubsciberCap()"
-                    title="Set Subscirber Cap"
-                  >
-                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                    <span>Set Subscriber Cap</span>
-                  </a>
-                </span>
-                <span v-else>
-                  {{data.maxMembers}}
-                  <a
-                    href="#"
-                    v-on:click.prevent="toggleSubsciberCap()"
-                    title="Remove Subscirber Cap"
-                  >
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    <span>Remove Subscriber Cap</span>
-                  </a>
-                </span>
+              <span class="label">Max Members:
+<span v-if="data.maxMembers === 0">
+Unlimited
+</span>
+<span v-else>
+ {{data.maxMembers}}
+</span>
               </span>
               <span class="label">
                 Max Msg Number:
@@ -62,32 +45,36 @@
                 Max Msg Size:
                 <span>{{data.maxMessageSize}}</span>
               </span>
-              <span class="label">
-                Disabled:
-                <span v-if="data.disabled">
-                  Disabled
-                  <a href="#" v-on:click.prevent="toggleListEnable()" title="Enable List">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    <span>Enable List</span>
-                  </a>
-                </span>
-                <span v-else>
-                  Enabled
-                  <a href="#" v-on:click.prevent="toggleListEnable()" title="Disable List">
-                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                    <span>Disable List</span>
-                  </a>
-                </span>
-              </span>
+
+              <div class="extra-commands">
+                <button class="btn btn-sm btn-primary" @click="toggleSubsciberCap()">
+                  <span v-if="data.maxMembers === 0">
+                    <i class="fa fa-minus-circle mr-1" aria-hidden="true"></i>
+                    Set Subscriber Cap
+                  </span>
+                  <span v-else>
+                    <i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>
+                    Remove Subscriber Cap
+                  </span>
+                </button>
+                <button class="btn btn-sm btn-primary" @click="toggleListEnable()">
+                  <span v-if="data.disabled">
+                    <i class="fa fa-minus-circle mr-1" aria-hidden="true"></i>
+                    Enable List
+                  </span>
+                  <span v-else>
+                    <i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>
+                    Disable List
+                  </span>
+                </button>
+              </div>
             </div>
           </tabbed-item>
           <tabbed-item slot="tab_1">
             <div class="list-metrics">
               <div class="text-primary" v-if="retrievingMetrics">retrieving list metrics...</div>
               <div v-if="!retrievingMetrics && metrics">
-                <h5 class="text-primary">
-                  List Metrics for: {{metrics.listName}}
-                </h5>
+                <h5 class="text-primary">List Metrics for: {{metrics.listName}}</h5>
                 <div class="list-metrics-data">
                   <div>
                     <label>Create Date</label>
@@ -151,88 +138,91 @@
             v-if="totalRecords > 100"
           ></pager>
           <!-- Pager -->
+          <div role="table">
+            <!-- Header Cols /Sort -->
+            <div class="row bg-primary text-white row-header" role="rowheader">
+              <div class="col" role="rowheader">
+                <label for="filter-fullname" class="p-0 m-0">
+                  <a href="#" @click.prevent="sort('fullName')">Full Name</a>
+                </label>
+              </div>
+              <div class="col" role="rowheader">
+                <label for="filter-email" class="p-0 m-0">
+                  <a href="#" @click.prevent="sort('email')">E-mail</a>
+                </label>
+              </div>
+              <div class="col" role="rowheader">
+                <label for="filter-admin" class="p-0 m-0">
+                  <a href="#" @click.prevent="sort('admin')">Is Admin</a>
+                </label>
+              </div>
+              <div class="col" role="rowheader">
+                <label for="filter-hold-status">Hold Status</label>
+              </div>
+            </div>
+            <!-- Header Cols /Sort -->
 
-          <!-- Header Cols /Sort -->
-          <div class="row bg-primary text-white row-header">
-            <div class="col">
-              <label for="filter-fullname" class="p-0 m-0">
-                <a href="#" @click.prevent="sort('fullName')">Full Name</a>
-              </label>
+            <!-- Column Filters -->
+            <div class="row row-filter" role="tableheader">
+              <div class="col" role="rowheader">
+                <input
+                  autocomplete="off"
+                  type="text"
+                  class="form-control"
+                  v-select-all
+                  v-model="filter.fullName"
+                  placeholder="filter full name"
+                  id="filter-fullname"
+                />
+              </div>
+              <div class="col" role="rowheader">
+                <input
+                  autocomplete="off"
+                  type="text"
+                  class="form-control"
+                  v-select-all
+                  v-model="filter.email"
+                  placeholder="filter e-mail"
+                  id="filter-email"
+                />
+              </div>
+              <div class="col filter-edit-col" role="rowheader">
+                <select id="filter-admin" class="form-control" v-model="filter.isAdmin">
+                  <option value>All</option>
+                  <option value="isadmin">Is Admn</option>
+                </select>
+                <select id="filter-hold-status" class="form-control" v-model="filter.holdStatus">
+                  <option value>All</option>
+                  <option value="held">Hold</option>
+                  <option value="normal">Unhold</option>
+                </select>
+              </div>
             </div>
-            <div class="col">
-              <label for="filter-email" class="p-0 m-0">
-              <a href="#" @click.prevent="sort('email')">E-mail</a>
-              </label>
-            </div>
-            <div class="col">
-              <label for="filter-admin" class="p-0 m-0">
-              <a href="#" @click.prevent="sort('admin')">Is Admin</a>
-              </label>
-            </div>
-            <div class="">
-              <label for="filter-hold-status" class="hidden">Hold Status</label>
-            </div>
-          </div>
-          <!-- Header Cols /Sort -->
+            <!-- Column Filters -->
 
-          <!-- Column Filters -->
-          <div class="row row-filter">
-            <div class="col">
-              <input
-                autocomplete="off"
-                type="text"
-                class="form-control"
-                v-select-all
-                v-model="filter.fullName"
-                placeholder="filter full name"
-                id="filter-fullname"
-              />
-            </div>
-            <div class="col">
-              <input
-                autocomplete="off"
-                type="text"
-                class="form-control"
-                v-select-all
-                v-model="filter.email"
-                placeholder="filter e-mail"
-                id="filter-email"
-              />
-            </div>
-            <div class="col filter-edit-col">
-              <select id="filter-admin" class="form-control" v-model="filter.isAdmin" >
-                <option value>All</option>
-                <option value="isadmin">Is Admn</option>
-              </select>
-              <select id="filter-hold-status" class="form-control" v-model="filter.holdStatus">
-                <option value>All</option>
-                <option value="held">Hold</option>
-                <option value="normal">Unhold</option>
-              </select>
-            </div>
-          </div>
-          <!-- Column Filters -->
-
-          <!-- Record Results -->
-          <transition-group name="list">
-            <div
-              class="result-grid row"
-              v-for="item in filteredMembers"
-              v-bind:key="item.emailAddress"
-            >
-              <div class="col">{{item.fullName}}</div>
-              <div class="col">{{item.emailAddress}}</div>
-              <div class="col edit-col">
-                <div class="icon-mark">
-                  <i class="fa fa-check" v-if="item.isListAdmin" aria-hidden="true"></i>
-                  <span>List Admin</span>
+            <!-- Record Results -->
+            <transition-group name="list">
+              <div
+                class="result-grid row"
+                v-for="item in filteredMembers"
+                v-bind:key="item.emailAddress"
+                role="row"
+              >
+                <div class="col" role="cell">{{item.fullName}}</div>
+                <div class="col" role="cell">{{item.emailAddress}}</div>
+                <div class="col" role="cell">
+                  <div class="icon-mark">
+                    <i class="fa fa-check" v-if="item.isListAdmin" aria-hidden="true"></i>
+                    <span>List Admin</span>
+                  </div>
                 </div>
-                <div class="edit-links">
+                <div class="col" role="cell">
                   <a
                     href="#"
                     @click.prevent="toggleHold(item)"
                     class="hold-status"
                     title="toggle hold status"
+                    :aria-label="item.memberType == 'held' ? 'Unhold member ' + item.fullName : 'Hold member ' + item.fullName"
                   >
                     <div v-if="item.memberType == 'held'">
                       <i class="fa fa-lock" aria-hidden="true"></i>
@@ -243,19 +233,29 @@
                       <span>Unlock</span>
                     </div>
                   </a>
-                  <a href="#" @click.prevent="clickUpdateMember(item)" title="edit">
+                  <a
+                    href="#"
+                    @click.prevent="clickUpdateMember(item)"
+                    title="edit"
+                    :aria-label="'Edit member ' + item.fullName + ' properties'"
+                  >
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    <span>Edit List</span>
+                    <span>Edit Member</span>
                   </a>
-                  <a href="#" @click.prevent="removeMember(item)" title="remove">
+                  <a
+                    href="#"
+                    @click.prevent="removeMember(item)"
+                    title="remove"
+                    :aria-label="'Remove member ' + item.fullName + ' from list'"
+                  >
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    <span>Remove List</span>
+                    <span>Remove Member</span>
                   </a>
                 </div>
               </div>
-            </div>
-          </transition-group>
-          <!-- Record Results -->
+            </transition-group>
+            <!-- Record Results -->
+          </div>
         </div>
       </div>
     </div>
