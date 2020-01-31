@@ -1,22 +1,20 @@
 <template>
-  <div class="modal-container">
-    <div :id="id" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-container" >
+    <div :id="id" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalTitle modalContent">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header bg-primary">
             <h5 class="modal-title">
-              <slot name="modal-title"></slot>
+              <slot name="modal-title" id="modalTitle"></slot>
             </h5>
-            <!-- <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button> -->
+            
             <button type="button" class="close text-white" @click="hide()" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             
           </div>
           <div class="modal-body">
-            <slot name="modal-body"></slot>
+            <slot name="modal-body" id="modalContent"></slot>
           </div>
           <div class="modal-footer">
             <slot name="modal-footer"></slot>

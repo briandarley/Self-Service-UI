@@ -24,7 +24,8 @@
         color: #fff;
       }
     }
-    &:hover{
+    
+    &:hover, &:active, &:focus-within{
       background: $carolina-blue;
     }
     &.disabled{

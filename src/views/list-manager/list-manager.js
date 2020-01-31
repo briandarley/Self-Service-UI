@@ -25,9 +25,20 @@ export default class ListManager extends BaseValidateMixin {
     this.basePath = listmanagerSettings.lyris_list_base_path;
 
 
+
+
+    
+
     if (!this.localStorageService.sessionGet('list-manager:showMessage')) {
       this.$refs.confirmMigration.show();
       this.localStorageService.sessionSet('list-manager:showMessage', true);
+
+      const $ = this.$;
+      setTimeout(() => {
+        $("#confirmMigration .modal-dialog button").focus();  
+      }, 1050);
+    
+      
     }
 
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Lyris List Manager");

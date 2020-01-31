@@ -1,7 +1,9 @@
 <template>
   <div class="card widget" role="grid" title="E-mail provision counts for given week">
     <spinner allow-service-update="false" ref="spinner"></spinner>
-    <div class="card-header bg-primary text-white ct-chart provisions-today"></div>
+    <div class="card-header bg-primary text-white ct-chart provisions-today">
+       <h4 class="hide">Email Provision Requests</h4>
+    </div>
     <div class="card-body">
       <div class="widget-nav">
         <div class="col">
@@ -10,7 +12,7 @@
             <span>Previous Week</span>
           </a>
         </div>
-        <div class="col">Email Provisions for Week of {{provisionsDate | formatDate}}</div>
+        <div class="col"><span>Email Provisions for Week of {{provisionsDate | formatDate}}</span></div>
         <div class="col">
           <a
             href="#"

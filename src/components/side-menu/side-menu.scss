@@ -39,7 +39,7 @@
       display: flex;
       color: $carolina-blue;
 
-      a {
+      nav {
         text-decoration: underline;
         font-weight: bold;
       }
@@ -72,8 +72,8 @@
       border-radius: 3px;
       cursor: pointer;
 
-      a,
-      a:visited {
+      nav,
+      nav:visited {
         text-align: center;
         display: flex;
         flex-direction: row;
@@ -116,8 +116,8 @@
         background: $carolina-blue;
         box-shadow: 0 2px 5px #333;
 
-        a,
-        a:visited {
+        nav,
+        nav:visited {
           color: $white;
         }
       }
@@ -147,7 +147,7 @@
     .nav {
       .nav-item {
         padding: 0;
-        a {
+        nav {
           padding: 0;
 
           span {
@@ -197,7 +197,7 @@
       .nav {
         .nav-item {
           
-          a {
+          nav {
             padding: 0.5rem 1rem;
   
             span {

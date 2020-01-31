@@ -213,7 +213,8 @@ export default class MyAliases extends BaseValidateMixin {
     
     let errors = this.validate(this.$refs.submitForm);
     if (errors.length) {
-      this.toastService.error("Validation Failed");
+
+      this.toastService.error(`Validation Failed, ${errors.join(",")}`);
       return false;
     }
     if (!this.newAlias) {

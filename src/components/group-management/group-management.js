@@ -14,8 +14,8 @@ export default class GroupManagement extends Vue {
   entities = [];
   performedSearch = false;
   lookupEntityModel = null;
-  
-  async loadEntities() {
+  //criteria is passed from parent
+  async loadEntities(criteria) {
     
     if (!this.service) {
       throw 'Service is required'
@@ -33,20 +33,25 @@ export default class GroupManagement extends Vue {
       }
     }
 
-    await this.getRecords();
+    await this.getRecords(criteria);
 
 
   }
 
-  async getRecords() {
+  async getRecords(criteria) {
     this.spinnerService.show();
     try {
       this.lookupEntityModel = null;
       this.entities = await this.service.getDistributionGroups(this.criteria);
 
-      if (this.entities.length === 0) {
+      if (this.entities.length === 0 && !criteria) {
         this.toastService.warn("No records found matching criteria");
       }
+      else if(this.entities.length === 0 && criteria && criteria.initialLoad)
+      {
+        this.toastService.warn("Attempted to load 'My Groups', but you have no groups to manage");
+      }
+
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to retrieve records")

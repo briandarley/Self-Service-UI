@@ -10,7 +10,9 @@
       <div class="card-body" v-if="viewLoaded">
         <div class="container">
           <div class="border border-primary pb-3">
-            <div class="bg bg-primary text-white p-2">Mailbox Status</div>
+            <div class="bg bg-primary">
+              <h2 class="text-white p-2">Mailbox Status</h2>
+            </div>
             <!-- Failed to load, missing LDAP/AD record -->
             <div class="container" v-if="!hasValidLdapRecord">
               <div class="alert alert-danger">
@@ -23,21 +25,23 @@
                 </p>
               </div>
             </div>
+            
             <!-- New request -->
             <form @submit.prevent.prevent class="container" v-if="isNewRequest" role="form" ref="submitForm">
               <div autocomplete="off">
                 <p
-                  class="text-info"
+                  
                 >Please provide an existing email address for account {{userId}} to receive a notification when your UNC email request is complete.</p>
                 <div class="form-group" :class="{'not-empty': model.mail.length}">
-                  <label for="email" class="animated-label">Notification E-Mail Address</label>
+                  <label for="email" class="animated-label" id="lblNewRequest">Notification E-Mail Address</label>
                   <input
                     type="text"
                     class="form-control"
                     data-validation="{'name': 'Notification E-Mail','type':'email', 'minLength': 10}"
                     id="email"
                     ref="email"
-                    placeholder="Email for notification upon completion"
+                    placeholder="Existing email to receive notification"
+                    aria-labelledby="lblNewRequest"
                     v-model="model.mail"
                     v-select-all
                     v-focus

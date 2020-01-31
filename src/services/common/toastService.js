@@ -17,7 +17,7 @@ function toastService(ScreenReaderAnnouncerService) {
     },
     success(msg) {
       this.module.$root.$refs.toastr.s("success", msg);
-      ScreenReaderAnnouncerService.sendAnnouncement(`Opperation Successful, ${msg}`)
+      ScreenReaderAnnouncerService.sendAnnouncement(`Operation Successful, ${msg}`)
       setTimeout(()=> {
         ScreenReaderAnnouncerService.clear();
       },500)
@@ -31,7 +31,7 @@ function toastService(ScreenReaderAnnouncerService) {
     },
     error(msg) {
       this.module.$root.$refs.toastr.e("error", msg);
-      ScreenReaderAnnouncerService.sendAnnouncement(`Opperation Failed, ${msg}`)
+      ScreenReaderAnnouncerService.sendAnnouncement(`Operation Failed, ${msg}`)
       setTimeout(()=> {
         ScreenReaderAnnouncerService.clear();
       },500)

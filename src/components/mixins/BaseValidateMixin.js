@@ -196,13 +196,14 @@ export default class BaseValidateMixin extends Vue {
     //if (!validation.minLength && !validation.maxLength) {
     if (!value || !value.length || value === "false") {
       message = "value required";
-
-      if (validation.name) {
-        message = validation.name + ' ' + message
-      }
+      let name = validation.name || "";
+      name = name + " ";
+      // if (validation.name) {
+      //   message = name + message
+      // }
 
       if (validation.message) message = validation.message;
-      errors.push(validation.name + " " + message);
+      errors.push(name + message);
     }
     //}
 
@@ -470,7 +471,11 @@ export default class BaseValidateMixin extends Vue {
                           .replace(/'/g, "\"");
 
         let validation = JSON.parse(rawRule);
-
+        
+        // if(!validation.name)
+        // {
+        //   validation.name = $(validationElement)[0].name || $(validationElement)[0].id;
+        // }
         let value = this._getValue(validationElement);
 
         let currentValidation = [];

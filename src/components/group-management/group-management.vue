@@ -1,27 +1,27 @@
 <template>
-  <div class="container mt-5 mb-4">
+  <div class="container mt-5 mb-4" role="table">
     <div class="d-flex" style="justify-content:space-between">
       <h3 class="text-primary">Total {{entities.length | formatNumber}}</h3>
     </div>
     <!-- Header Cols -->
-    <div class="bg-primary text-white row-header">
-      <div class="col">
+    <div class="bg-primary text-white row-header" role="row">
+      <div class="col" role="columnheader">
         <span>Name</span>
       </div>
-      <div class="col">
+      <div class="col" role="columnheader">
         <span>Create Date</span>
       </div>
-      <div class="col"></div>
+      <div class="col" role="columnheader"></div>
     </div>
 
     <!-- Record Results -->
-    <div class>
-      <div class="result-grid" v-for="(item, index) in entities" v-bind:key="index">
+    <div role="rowgroup">
+      <div class="result-grid" v-for="(item, index) in entities" v-bind:key="index" role="row">
         <div class="record">
           <div class="record-info">
-            <div class="col">{{item.displayName}}</div>
-            <div class="col">{{item.whenCreated | formatDate}}</div>
-            <div class="col">
+            <div class="col" role="cell">{{item.displayName}}</div>
+            <div class="col" role="cell">{{item.whenCreated | formatDate}}</div>
+            <div class="col" role="cell">
               <a href="#" @click.prevent="toggleUsers(item)">
                 <i
                   class="fa fa-angle-double-down more-info"

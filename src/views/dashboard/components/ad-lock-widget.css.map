@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAEQ,WAFG,CACP,GAAG,AACE,YAAa,CAAA,CAAC,EAAE;EACb,IAAI,EAAE,CAAC;CACV",
-    "sources": [
-        "ad-lock-widget.scss"
-    ],
-    "names": [],
-    "file": "ad-lock-widget.css"
-}

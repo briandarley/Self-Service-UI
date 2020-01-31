@@ -21,6 +21,21 @@ body {
   /*hack to get dialog behavior correct*/
   position: relative;
   z-index: -1;
+  color: $gray-900;
+}
+/*
+Normal links should be bold to stand out
+*/
+a{
+  font-weight: bold;
+}
+
+
+/*
+Links within grids shouldn't have any styling
+*/
+.results a{
+  font-weight: normal;
 }
 
 label,
@@ -265,6 +280,8 @@ input::placeholder {
 
   &:nth-of-type(even) {
     background: $gray-100;
+    border-top: 1px solid $gray-200;
+    border-bottom: 1px solid $gray-200;
   }
 }
 
@@ -294,7 +311,7 @@ input::placeholder {
     flex: 1fr;
     padding-left: 15px;
     padding: 0 15px;
-    color: $gray-700;
+    color: $gray-900;
 
   }
 }
@@ -348,6 +365,8 @@ input::placeholder {
   text-align: left;
   overflow: hidden;
 }
+
+
 
 
 .list-scrollbar {

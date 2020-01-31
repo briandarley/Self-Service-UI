@@ -30,69 +30,87 @@
               </div>
             </div>
           </div>
-          <div class="email-alias-list" v-if="emailAddresses && emailAddresses.length">
-            <div class="header">
-              <div class="col">Email</div>
-              <div class="col">Action</div>
-            </div>
-            <div class="email-alias" v-for="(item, index) in emailAddresses" :key="index">
-              <div>{{item.email}}</div>
-
-              <div v-if="!item.originalPrimary">
-                <a href="#" @click.prevent="setPrimaryAlias(item)" class="mr-2">
-                  <i class="fa fa-save" aria-hidden="true"></i>
-                  set primary
-                </a>
-                <a href="#" @click.prevent="removeAlias(item)">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                  remove
-                </a>
-              </div>
-              <div v-else>
-                <span class="text-primary text-left" v-if="item.originalPrimary">(Primary)</span>
-              </div>
-            </div>
-
+          <div v-if="emailAddresses && emailAddresses.length">
             <!-- Add New Alias -->
-            <form @submit.prevent.prevent class="add-new-alias" v-if="showAddAlias" role="form" ref="submitForm">
-              <h4>Add New Alias</h4>
-              <div class="col form-group">
-                <div class="label-info">
-                  <label for="newAlias">New Alias (E-mail prefix)</label>
-                  <span class="required">Required</span>
+            <form @submit.prevent.prevent v-if="showAddAlias" role="form" ref="submitForm">
+              <div class="border border-primary">
+                <div class="bg bg-primary">
+                  <h2 class="text-white p-2">Add New Alias</h2>
                 </div>
-                <input
-                  type="text"
-                  id="newAlias"
-                  class="form-control"
-                  placeholder="email alias"
-                  v-model="model.mailPrefix"
-                  data-validation="{'name': 'E-mail alias (prefix)','required': 'true'}"
-                  ref="newAlias"
-                  v-select-all
-                />
-              </div>
-              <div class="col form-group">
-                <div class="input-group-append">
-                  <span class="input-group-text">@</span>
-                </div>
-              </div>
-              <div class="col form-group">
-                <div class="label-info">
-                  <label for="select-domain">Domain</label>
-                  <span class="required">Required</span>
-                </div>
-                
-                <select class="form-control" v-model="model.domain" id="select-domain">
-                  <option v-for="item in allowedDomains" :key="item" :value="item">{{item}}</option>
-                </select>
-              </div>
+                <div class="add-new-alias">
+                  <div class="col form-group">
+                    <div class="label-info">
+                      <label for="newAlias" id="lblNewAlias">New Alias (E-mail prefix)</label>
+                      <span class="required" id="spnNewAliasReq">Required</span>
+                    </div>
+                    <input
+                      type="text"
+                      id="newAlias"
+                      class="form-control"
+                      placeholder="email alias"
+                      aria-labelledby="lblNewAlias spnNewAliasReq"
+                      v-model="model.mailPrefix"
+                      data-validation="{'name': 'E-mail alias (prefix)','required': 'true'}"
+                      ref="newAlias"
+                      v-select-all
+                    />
+                  </div>
+                  <div class="col form-group">
+                    <div class="input-group-append">
+                      <span class="input-group-text">@</span>
+                    </div>
+                  </div>
+                  <div class="col form-group">
+                    <div class="label-info">
+                      <label for="select-domain">Domain</label>
+                      <span class="required">Required</span>
+                    </div>
 
-              <div class="submit">
-                <button class="btn btn-primary" @click="addAlias">Add Alias</button>
+                    <select class="form-control" v-model="model.domain" id="select-domain">
+                      <option v-for="item in allowedDomains" :key="item" :value="item">{{item}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="submit">
+                  <button class="btn btn-primary" @click="addAlias">Add Alias</button>
+                </div>
               </div>
             </form>
             <!-- End Add New Alias -->
+            <h4 class="text-primary ml-3">Currently Assigned Aliases</h4>
+            <div class="results" role="table" aria-label="Currently Assigned Aliases">
+              
+              <div role="row" class="header">
+                <div class="col" role="columnheader" aria-sort="none">Email</div>
+                <div class="col" role="columnheader" aria-sort="none">Action</div>
+              </div>
+              <div class="result-grid" v-for="(item, index) in emailAddresses" :key="index" role="row">
+                <div role="cell">{{item.email}}</div>
+
+                <div v-if="!item.originalPrimary" role="cell">
+                  <a
+                    href="#"
+                    @click.prevent="setPrimaryAlias(item)"
+                    class="mr-2"
+                    :aria-label="'set ' + item.email + ' as primary alias'"
+                  >
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                    set primary
+                  </a>
+                  <a
+                    href="#"
+                    @click.prevent="removeAlias(item)"
+                    :aria-label="'remove alias' + item.email"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    remove
+                  </a>
+                </div>
+                <div role="cell" v-else>
+                  <span class="text-primary text-left" v-if="item.originalPrimary">(Primary)</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div v-else>

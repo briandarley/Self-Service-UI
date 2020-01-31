@@ -22,15 +22,15 @@
               </div>
 
               <div class="section">
-                <div class="container mb-3" v-if="entities.length">
+                <div class="container mb-3" v-if="entities.length" role="table">
                   <h3 class="text-primary">Total {{entities.length | formatNumber}}</h3>
 
-                  <div class="bg-primary text-white row-header">
-                    <div class="col">Group Name</div>
+                  <div class="bg-primary text-white row-header" role="row">
+                    <div class="col" row="columnheader">Group Name</div>
                   </div>
-                  <div class="list-container">
-                    <div class="result-grid" v-for="item in entities" v-bind:key="item">
-                      <div class="col">{{item}}</div>
+                  <div class="list-container" role="rowgroup">
+                    <div class="result-grid" v-for="item in entities" v-bind:key="item" role="row">
+                      <div class="col" row="cell">{{item}}</div>
                     </div>
                   </div>
                 </div>

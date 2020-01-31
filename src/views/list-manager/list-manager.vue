@@ -13,9 +13,9 @@
             <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <div>
-            <h5
-              class="strong"
-            >Welcome to the University of North Carolina at Chapel Hill List Server</h5>
+            <h2
+              class="h5 strong"
+            >Welcome to the University of North Carolina at Chapel Hill List Server</h2>
             <p>If you know the name of a list you would like to jump directly to, enter it below. Otherwise, if you are a member or administrator of multiple lists, you can view all your lists by selecting one of the links after clicking "Log In".</p>
           </div>
         </div>
@@ -25,13 +25,17 @@
             <div class="card-body">
               <div class="form-group">
                 <div class="label-info">
-                  <label for="searchField">Visit or Manage a Single List</label>
-                  <span class="required">Required</span>
+                  <label
+                    for="searchField"
+                    id="lblSearchField"
+                    aria-label="required"
+                  >Visit or Manage a Single List by Entering List Name</label>
+                  <span class="required" id="spnRequired">Required</span>
                 </div>
 
                 <input
                   type="text"
-                  id="list-name"
+                  id="searchField"
                   class="form-control"
                   placeholder="Enter List Name"
                   v-focus
@@ -41,6 +45,8 @@
                   data-validation="{'required': 'true', 'message': 'List Name Required'}"
                   autocomplete="off"
                   v-select-all
+                  aria-required="true"
+                  aria-labelledby="lblSearchField spnRequired"
                 />
               </div>
 
@@ -87,7 +93,9 @@
     </div>
 
     <confirm-dialog id="confirmMigration" ref="confirmMigration" width="850">
-      <div slot="modal-title" class="text-white">Coming Soon</div>
+      <div slot="modal-title" class="text-white">
+        <h2 class="h4">Coming Soon</h2>
+      </div>
       <div slot="modal-body">
         <div class="alert">
           <div class="info text-warning">

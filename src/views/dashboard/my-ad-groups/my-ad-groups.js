@@ -46,7 +46,7 @@ export default class MyAdGroups extends Vue {
     filterText: ''
   };
   async search() {
-    this.$refs.groupManagment.loadEntities();
+    this.$refs.groupManagment.loadEntities({initialLoad: true});
   }
 
   

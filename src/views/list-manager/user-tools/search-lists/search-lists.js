@@ -25,7 +25,7 @@ export default class SearchLists extends BaseValidateMixin {
     
     let errors = this.validate(this.$refs.searchForm);
     if (errors.length) {
-      this.toastService.error("Validation Failed");
+      this.toastService.error(`Validation Failed, ${errors.join(',')} `);
       return false;
     }
 

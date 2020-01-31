@@ -1,7 +1,9 @@
 <template>
   <div class="card widget">
     <spinner allow-service-update="false" ref="spinner"></spinner>
-    <div class="card-header bg-danger text-white ct-chart ad-lockouts-today"></div>
+    <div class="card-header bg-danger text-white ct-chart ad-lockouts-today">
+      <h4 class="hide">AD Lock Outs</h4>
+    </div>
     <div class="card-body">
       <div class="widget-nav">
         <div class="col">

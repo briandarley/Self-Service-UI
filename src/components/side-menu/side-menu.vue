@@ -22,6 +22,7 @@
           role="menuitem"
         >
           <router-link
+            tag="nav"
             :to="{path: '/'+ item.route}"
             v-if="!item.redirect"
             class="nav-link"

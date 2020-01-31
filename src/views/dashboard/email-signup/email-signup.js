@@ -66,13 +66,13 @@ export default class EmailSignup extends BaseValidateMixin {
     this.spinnerService.show();
     try {
       await this.ProvisionsService.submitNewProvisionRequest(this.userId, this.model);
-      this.toastService.success("Successfully submitted provision request.");
+      this.toastService.success("Successfully submitted email provision request.");
       
       await this.loadProvisionProfile();
 
     } catch (e) {
       window.console.log(e);
-      this.toastService.error("Failed to submit provisioning request")
+      this.toastService.error("Failed to submit email provisioning request")
     } finally {
       this.spinnerService.hide();
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="card widget bearer-token-widget">
     <div class="card-header bg-primary text-white ct-chart provisions-today">
-      <p>Bearer Token</p>
+      <h4>Bearer Token</h4>
     </div>
     <div class="card-body text-center">
       <p>Auth Time: {{authTime}}</p>
