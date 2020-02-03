@@ -29,13 +29,10 @@
                 Visibility:
                 <span>{{data.visibility}}</span>
               </span>
-              <span class="label">Max Members:
-<span v-if="data.maxMembers === 0">
-Unlimited
-</span>
-<span v-else>
- {{data.maxMembers}}
-</span>
+              <span class="label">
+                Max Members:
+                <span v-if="data.maxMembers === 0">Unlimited</span>
+                <span v-else>{{data.maxMembers}}</span>
               </span>
               <span class="label">
                 Max Msg Number:

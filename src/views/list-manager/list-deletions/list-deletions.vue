@@ -14,11 +14,11 @@
             type="text"
             class="form-control"
             id="listName"
-            placeholder="List Name like"
+            placeholder="Enter partial list name to retrieve lists containing entered value"
             v-select-all
             v-model="listName"
             v-on:keyup.13="search()"
-          >
+          />
         </div>
         <div class="submit text-right mb-3">
           <button class="btn btn-primary mr-1" @click="search()">Search</button>
@@ -38,96 +38,103 @@
             ></pager>
           </div>
           <!-- Header Cols -->
-          <div class="row bg-primary text-white row-header list-deletions-header">
-            <div class="col col-name">
-              <span>List Name</span>
+          <div role="table">
+            <div class="row bg-primary text-white row-header list-deletions-header" role="rowheader">
+              <div class="col col-name" role="columnheader" aria-sort="none">
+                <span>List Name</span>
+              </div>
+              <div class="col col-date" role="columnheader" aria-sort="none">
+                <span>Create Date</span>
+              </div>
+              <div class="col col-date" role="columnheader" aria-sort="none">
+                <span>Delete Date</span>
+              </div>
+              <div class="col col-date" role="columnheader" aria-sort="none">
+                <span>Last Logged</span>
+              </div>
+              <div class="col col-number" role="columnheader" aria-sort="none">
+                <span>Subscribers</span>
+              </div>
             </div>
-            <div class="col col-date">
-              <span>Create Date</span>
-            </div>
-            <div class="col col-date">
-              <span>Delete Date</span>
-            </div>
-            <div class="col col-date">
-              <span>Last Logged</span>
-            </div>
-            <div class="col col-number">
-              <span>Subscribers</span>
-            </div>
-          </div>
-          <!-- Header Cols -->
+            <!-- Header Cols -->
 
-          <!-- Record Results -->
+            <!-- Record Results -->
 
-          <div
-            class="result-grid row list-deletions-rows"
-            v-for="item in deletionList.entities"
-            v-bind:key="item.listName"
-          >
-            <div class="col col-name">{{item.listName}}</div>
-            <div class="col col-date">{{item.createDate | formatDate}}</div>
-            <div class="col col-date">{{item.deleteDate | formatDate}}</div>
-            <div class="col col-date">{{item.lastLogged | formatDate}}</div>
-            <div class="col col-number">
-              <span>{{item.subscriberCount | formatNumber}}</span>
-              <a href="#" @click.prevent="toggleSubscribers(item)">
-                <i
-                  class="fa fa-angle-double-down more-info"
-                  :class="{expanded: item.expanded, collapsed: item.expanded === false}"
-                ></i>
-                <span v-if="item.expanded">collapse</span>
-                <span v-else>expand</span>
-              </a>
-            </div>
+            <div
+              class="result-grid row list-deletions-rows"
+              v-for="item in deletionList.entities"
+              v-bind:key="item.listName"
+              role="row"
+            >
+              <div class="col col-name" role="cell">{{item.listName}}</div>
+              <div class="col col-date" role="cell">{{item.createDate | formatDate}}</div>
+              <div class="col col-date" role="cell">{{item.deleteDate | formatDate}}</div>
+              <div class="col col-date" role="cell">{{item.lastLogged | formatDate}}</div>
+              <div class="col col-number" role="cell">
+                <span>{{item.subscriberCount | formatNumber}}</span>
+                <a href="#" @click.prevent="toggleSubscribers(item)" :aria-label="item.expanded ? 'Clapse Section to hide subscriber data' : 'Expand Section to reveal subscriber data'">
+                  <i
+                    class="fa fa-angle-double-down more-info"
+                    :class="{expanded: item.expanded, collapsed: item.expanded === false}"
+                  ></i>
+                  <span v-if="item.expanded">collapse</span>
+                  <span v-else>expand</span>
+                </a>
+              </div>
 
-            <div class="subscriber-dump">
-              <transition name="expand">
-                <div class="subscriber-dump-data" v-if="item.expanded">
-                  <div class v-if="item.subscriberLoading">
-                    <p>Subscriber data loading...</p>
-                  </div>
-                  <div v-else>
-                    <div v-if="item.subscriberDump">
-                      <div class="container">
-                        <div class="row bg-secondary text-white row-header border border-secondary">
-                          <div class="col">Subscriber E-mail</div>
-                          <div class="col">Full Name</div>
-                          <div class="col">List Admin</div>
-                          <div class="col col-last">
-                            <span>Modified Date</span>
-                            <span>
-                              <a
-                                class="text-white"
-                                title="download csv"
-                                href="#"
-                                @click.prevent="downloadCsv(item)"
-                              >
-                                <i class="fas fa-file-csv" aria-hidden="true"></i>
-                              </a>
-                            </span>
+              <div class="subscriber-dump">
+                <transition name="expand">
+                  <div class="subscriber-dump-data" v-if="item.expanded">
+                    <div class v-if="item.subscriberLoading">
+                      <p>Subscriber data loading...</p>
+                    </div>
+                    <div v-else>
+                      <div v-if="item.subscriberDump">
+                        <div class="container" role="table">
+                          <div
+                            class="row bg-secondary text-white row-header border border-secondary" role="rowheader"
+                          >
+                            <div class="col" role="columnheader" aria-sort="none">Subscriber E-mail</div>
+                            <div class="col" role="columnheader" aria-sort="none">Full Name</div>
+                            <div class="col" role="columnheader" aria-sort="none">List Admin</div>
+                            <div class="col col-last" role="columnheader" aria-sort="none">
+                              <span>Modified Date</span>
+                              <span>
+                                <a
+                                  class="text-white"
+                                  title="download csv"
+                                  href="#"
+                                  @click.prevent="downloadCsv(item)"
+                                  aria-label="Download CSV file"
+                                >
+                                  <i class="fas fa-file-csv" aria-hidden="true"></i>
+                                </a>
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div class="container result-grid sdd-grid border border-secondary">
-                        <div
-                          class="row"
-                          v-for="dumpItem in item.subscriberDump"
-                          :key="dumpItem.subscriberEmail"
-                        >
-                          <div class="col">{{dumpItem.subscriberEmail}}</div>
-                          <div class="col">{{dumpItem.subscriberFullName}}</div>
-                          <div class="col">{{dumpItem.isListAdmin}}</div>
-                          <div class="col">{{dumpItem.modifiedDate | formatDate}}</div>
+                        <div class="container result-grid sdd-grid border border-secondary" role="rowgroup">
+                          <div
+                            class="row"
+                            v-for="dumpItem in item.subscriberDump"
+                            :key="dumpItem.subscriberEmail"
+                            role="row"
+
+                          >
+                            <div class="col" role="cell">{{dumpItem.subscriberEmail}}</div>
+                            <div class="col" role="cell">{{dumpItem.subscriberFullName}}</div>
+                            <div class="col" role="cell">{{dumpItem.isListAdmin}}</div>
+                            <div class="col" role="cell">{{dumpItem.modifiedDate | formatDate}}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </transition>
+                </transition>
+              </div>
             </div>
           </div>
-
           <!-- Record Results -->
         </div>
 
