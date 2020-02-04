@@ -23,8 +23,8 @@
         <form @submit.prevent.prevent class="form-group" role="form" ref="searchForm">
           <div class="form-group">
             <div class="label-info">
-              <label for="onyen">User Id</label>
-              <span class="required">Required</span>
+              <label for="onyen" id="lblUserId" aria-label="User I D">User Id</label>
+              <span class="required" id="spnUserIdRequired">Required</span>
             </div>
             <input
               type="text"
@@ -37,6 +37,7 @@
               ref="searchField"
               autocomplete="off"
               v-on:keyup.13="search()"
+              aria-labelledby="lblUserId spnUserIdRequired"
             />
           </div>
           <div class="submit text-right">
@@ -63,21 +64,22 @@
             </button>
           </div>
           <!-- Alias List -->
-          <div class="container">
-            <div class="row bg-primary text-white row-header">
-              <div class="col-1">Alias</div>
-              <div class="col-2 text-center">Is Primary</div>
-              <div class="col-3"></div>
+          <div class="container" role="table">
+            <div class="row bg-primary text-white row-header" role="rowheader">
+              <div role="columnheader" class="col-1">Alias</div>
+              <div role="columnheader" class="col-2 text-center">Is Primary</div>
+              <div role="columnheader" class="col-3"></div>
             </div>
             <div
               class="result-grid row"
               v-for="(item, index) in emailAddresses"
               v-bind:key="item.email"
+              role="row"
             >
-              <div class="col-1">
+              <div class="col-1" role="cell">
                 <label :for="'alias-selection' + index">{{item.email}}</label>
               </div>
-              <div class="col-2 radio-buttons text-center">
+              <div class="col-2 radio-buttons text-center"  role="cell">
                 <input
                   type="radio"
                   name="primary"
@@ -90,13 +92,14 @@
                 />
               </div>
 
-              <div class="col-3 text-right">
+              <div class="col-3 text-right"  role="cell">
                 <a
                   href="#"
                   @click.prevent="confrimDeleteEntity(item)"
                   title="delete alias"
                   :disabled="!item.valid"
                   :class="{'text-disabled': !item.valid}"
+                  :aria-label="'Confirm Delete alias ' + item.email"
                 >
                   <i class="fa fa-trash-o"></i>
                 </a>

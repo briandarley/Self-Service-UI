@@ -14,7 +14,6 @@
               <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div>
-              
               <p>Use the search field below to locate a desired record using Onyen</p>
             </div>
           </div>

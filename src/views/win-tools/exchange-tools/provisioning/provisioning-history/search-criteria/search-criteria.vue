@@ -11,11 +11,13 @@
               id="provision-status"
               class="form-control"
               v-model="criteria.status"
+              aria-labelledby="campaign-status"
+              role="listbox"
             >
               <option value="">All</option>
-              <option value="Processing">Processing</option>
-              <option value="Failed">Failed</option>
-              <option value="Completed">Completed</option>
+              <option value="Processing" aria-label="Processing">Processing</option>
+              <option value="Failed" aria-label="Failed">Failed</option>
+              <option value="Completed" aria-label="Completed">Completed</option>
               
             </select>
           </div>
@@ -27,16 +29,17 @@
       <div class="row-2">
         <div class="filter-criteria">
           <div class="form-group">
-            <label for="txt-filter">Filter</label>
+            <label for="txt-filter" id="lblFilterTxt">Filter (Search previously provisioned records)</label>
             <input
               type="text"
               class="form-control"
               id="txt-filter"
-              placeholder="Onyen, Id"
+              placeholder="Search previously provisioned accounts by user Onyen or provision ID"
               v-select-all
               v-on:keyup.13="search()"
               v-model="criteria.filterText"
               autocomplete="off"
+              aria-labelledby="lblFilterTxt"
             />
           </div>
         </div>

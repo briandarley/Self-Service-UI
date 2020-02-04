@@ -1,7 +1,9 @@
 .provision-history {
+
+  .provision-record-detail{
     display: flex;
     justify-content: space-around;
-    border: 1px solid $carolina-blue;
+    
     flex-wrap: wrap;
     padding: 20px;
     div {
@@ -16,6 +18,8 @@
         margin: 0;
       }
     }
+  }
+    
   }
   
   .input-controls {

@@ -19,7 +19,7 @@
               placeholder="name, domain, onyen, etc.. "
               v-model="filter"
               v-on:keyup.13="search()"
-            >
+            />
           </div>
           <div class="submit text-right">
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
@@ -27,30 +27,35 @@
           </div>
 
           <transition name="fade">
-            <div class="results" v-if="records">
-              <div class="bg-primary text-white row-header">
-                <div class="col">
+            <div class="results" v-if="records" role="table">
+              <div class="bg-primary text-white row-header" role="rowheader">
+                <div role="columnheader" class="col">
                   <a href="#" @click.prevent="sort('name')">OU Name</a>
                 </div>
-                <div class="col">
+                <div role="columnheader" class="col">
                   <a href="#" @click.prevent="sort('domain')">Domain</a>
                 </div>
-                <div class="col">
+                <div role="columnheader" class="col">
                   <a href="#" @click.prevent="sort('onyen')">Onyen</a>
                 </div>
-                <div class="col">
+                <div role="columnheader" class="col">
                   <a href="#" @click.prevent="sort('department')">Department</a>
                 </div>
               </div>
               <div class="result-grid list-container">
-                <div class="entity-info" v-for="(item, index) in records" :key="index">
-                  <div class="row org-info">
-                    <div class="col">{{item.name}}</div>
-                    <div class="col">{{item.domain}}</div>
-                    <div class="col">{{item.onyen}}</div>
-                    <div class="col">{{item.department}}</div>
+                <div
+                  class="entity-info"
+                  v-for="(item, index) in records"
+                  :key="index"
+                  role="rowgroup"
+                >
+                  <div class="row org-info" role="row">
+                    <div role="cell" class="col">{{item.name}}</div>
+                    <div role="cell" class="col">{{item.domain}}</div>
+                    <div role="cell" class="col">{{item.onyen}}</div>
+                    <div role="cell" class="col">{{item.department}}</div>
                   </div>
-                  <div class="row contact-info">
+                  <div class="row contact-info" role="row">
                     <ul>
                       <li>
                         <span class="strong">Name:</span>
@@ -99,7 +104,9 @@ export default class OrganizationalUnits extends Vue {
   async mounted() {
     this.toastService.set(this);
     await this.initializeRecords();
-    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Active Directory - Organizational Units");
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
+      "Win Tools - Active Directory - Organizational Units"
+    );
   }
   async search() {
     //let records = JSON.parse(JSON.stringify(this.records));
@@ -124,8 +131,6 @@ export default class OrganizationalUnits extends Vue {
 
       return val;
     });
-
-   
   }
   clear() {
     this.filter = "";
@@ -192,11 +197,15 @@ export default class OrganizationalUnits extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+.results{
+  border: 1px solid $carolina-blue;
+  margin-top:20px;
+}
 .row {
   margin: auto;
 }
 .row-header {
-  margin-top: 20px;
+  
   display: flex;
   .col {
     flex: 1;
@@ -229,13 +238,30 @@ export default class OrganizationalUnits extends Vue {
   .col:nth-of-type(4) {
     flex: 2;
   }
+  
+}
+
+.result-grid {
+  line-height: 40px;
+  
+
+  &:nth-of-type(odd) {
+    border:none;  
+  }
+  &:nth-of-type(even) {
+    background: $gray-100;
+    border:none;  
+  }
+}
+.entity-info:nth-of-type(odd) {
+  border:none;
 }
 .entity-info:nth-of-type(even) {
   background: $white;
+  border:none;
+  border-top: 2px solid $gray-200;
+  border-bottom: 2px solid $gray-200;
+
+
 }
-
-
-
-
-
 </style>

@@ -179,8 +179,14 @@ input::placeholder {
     &:checked {
       background-color: $gray-500;
     }
-    &:active,&:focus  {
+    &:active,& {
       border: 1px solid $carolina-blue;
+      
+    }
+    &:focus  {
+      border: 1px solid $carolina-blue;
+      background: $carolina-blue;
+      color: $white;
     }
   }
 

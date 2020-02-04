@@ -262,11 +262,11 @@ export default class ResourceMailbox extends BaseValidateMixin {
     }
   
     onGroupRetrieveFailed(groupId) {
-      this.toastService.error(`Failed to retrieve group with id ${groupId}`)
+      this.toastService.error(`Failed to retrieve group with ID ${groupId}`)
     }
     
     onGroupManagerRetrieveFailed(groupId){
-      this.toastService.error(`Failed to retrieve group managers with id ${groupId}`)
+      this.toastService.error(`Failed to retrieve group managers with ID ${groupId}`)
     }
     
 }

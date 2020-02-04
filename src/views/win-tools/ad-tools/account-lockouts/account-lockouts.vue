@@ -49,35 +49,38 @@
                   v-on:indexChanged="indexChanged"
                 ></pager>
               </div>
+              <div role="table">
               <!-- Header Cols -->
-              <div class="bg-primary text-white row-header">
-                <div class="col">
+              <div class="bg-primary text-white row-header" role="rowheader">
+                <div class="col" role="columnheader">
                   <span>Account</span>
                 </div>
-                <div class="col">
+                <div class="col" role="columnheader">
                   <span>Machine</span>
                 </div>
-                <div class="col">
+                <div class="col" role="columnheader">
                   <span>Time</span>
                 </div>
               </div>
               <!-- Header Cols -->
 
               <!-- Record Results -->
-              <div class="list-container">
+              <div class="list-container" role="rowgroup">
                 <div
                   class="result-grid"
                   v-for="(item, index) in pagedRecords.entities"
                   v-bind:key="index"
+                  
                 >
-                  <div>
-                    <div class="col">{{item.uid}}</div>
-                    <div class="col">{{item.computer}}</div>
-                    <div class="col">{{item.submittedDate | formatDateTime}}</div>
+                  <div role="row">
+                    <div role="cell" class="col">{{item.uid}}</div>
+                    <div role="cell" class="col">{{item.computer}}</div>
+                    <div role="cell" class="col">{{item.submittedDate | formatDateTime}}</div>
                   </div>
                 </div>
               </div>
               <!-- Record Results -->
+              </div>
             </div>
 
             <pager

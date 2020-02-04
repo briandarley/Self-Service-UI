@@ -46,7 +46,7 @@
               <input
                 type="text"
                 class="form-control"
-                name="friendly-name"
+                id="friendly-name"
                 placeholder="Friendly Name"
                 ref="friendlyName"
                 data-validation="{'name': 'Friendly Name','message':'Friendly name is required', 'required':true}"
@@ -58,7 +58,7 @@
               <input
                 type="text"
                 class="form-control"
-                name="mailbox-name"
+                id="mailbox-name"
                 placeholder="Short Name"
                 v-model="model.name"
                 data-validation="{'name': 'Short Name','message':'Invalid, can contain only alpha numeric characters with no spaces', 'maxLength': 23,'regex': '^[-a-zA-Z0-9]+$'}"
@@ -95,32 +95,36 @@
           <!-- Group Definition Fields/Lookup -->
 
           <div class="container" v-if="showAddMembers">
-            <h3 class="text-primary">Members</h3>
-            <!-- Add Group Members -->
-            <user-list-management
-              ref="groupMembers"
-              :group="groupId"
-              @controlLoaded="onMemberListLoaded"
-              @groupRetrieveFailed="onGroupRetrieveFailed"
-            ></user-list-management>
-
-            <!-- Add Group Members -->
-
-            <!-- Add Group Managers -->
-            <div class="section add-entity mt-3">
-              <h3 class="text-primary">Managers</h3>
-
-              <manager-list-management
-                ref="groupManagers"
+            <section class="border border-primary p-2">
+              <h3 class="text-primary">Members</h3>
+              <!-- Add Group Members -->
+              <user-list-management
+                ref="groupMembers"
                 :group="groupId"
-                @controlLoaded="onManagerListLoaded"
-                @groupRetrieveFailed="onGroupManagerRetrieveFailed"
-              ></manager-list-management>
-            </div>
-            <!-- Add Group Managers -->
+                @controlLoaded="onMemberListLoaded"
+                @groupRetrieveFailed="onGroupRetrieveFailed"
+                :service="ExchangeToolsService"
+              ></user-list-management>
+
+              <!-- Add Group Members -->
+
+              <!-- Add Group Managers -->
+              <div class="section add-entity mt-3">
+                <h3 class="text-primary">Managers</h3>
+
+                <manager-list-management
+                  ref="groupManagers"
+                  :group="groupId"
+                  @controlLoaded="onManagerListLoaded"
+                  @groupRetrieveFailed="onGroupManagerRetrieveFailed"
+                  :service="ExchangeToolsService"
+                ></manager-list-management>
+              </div> 
+              <!-- Add Group Managers -->
+            </section>  
           </div>
-        </div>
-      </div>
+        </div>   
+      </div> 
     </div>
   </div>
 </template>

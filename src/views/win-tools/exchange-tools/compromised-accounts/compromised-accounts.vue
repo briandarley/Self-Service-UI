@@ -11,8 +11,8 @@
         <form @submit.prevent.prevent class="container" role="form" ref="submitForm">
           <div class="form-group">
             <div class="label-info">
-              <label for="searchField">User Id</label>
-              <span class="required">Required</span>
+              <label for="searchField" id="lblUserId" aria-label="User I D">User Id</label>
+              <span class="required" id="spnUserIdRequired">Required</span>
             </div>
             
             <input
@@ -26,6 +26,7 @@
               data-validation="{'required': 'true'}"
               ref="searchField"
               autocomplete="off"
+              aria-labelledby="lblUserId spnUserIdRequired"
             />
           </div>
           <div class="submit text-right">
@@ -33,26 +34,26 @@
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
         </form>
-        <div class="list-container" v-if="compromisedAccounts && compromisedAccounts.length > 0">
-          <div class="bg-primary text-white row-header">
-            <div class="col">Display Name</div>
-            <div class="col">OWA Enabled</div>
-            <div class="col">POP Enabled</div>
-            <div class="col">IMAP Enabled</div>
-            <div class="col">MAPI Enabled</div>
-            <div class="col">Enabled</div>
+        <div class="list-container" v-if="compromisedAccounts && compromisedAccounts.length > 0" role="table">
+          <div class="bg-primary text-white row-header" role="rowheader">
+            <div role="columnheader" class="col">Display Name</div>
+            <div role="columnheader" class="col">OWA Enabled</div>
+            <div role="columnheader" class="col">POP Enabled</div>
+            <div role="columnheader" class="col">IMAP Enabled</div>
+            <div role="columnheader" class="col">MAPI Enabled</div>
+            <div role="columnheader" class="col">Enabled</div>
           </div>
-          <div class="result-grid" v-for="(item, index) in compromisedAccounts" v-bind:key="index">
-            <div class="result-cols">
-              <div class="col">{{item.displayName}}</div>
-              <div class="col">{{item.owaEnabled}}</div>
-              <div class="col">{{item.popEnabled}}</div>
-              <div class="col">{{item.imapEnabled}}</div>
-              <div class="col">{{item.mapiEnabled}}</div>
-              <div class="col">{{item.isEnabled}}</div>
+          <div class="result-grid" v-for="(item, index) in compromisedAccounts" v-bind:key="index" role="rowgroup">
+            <div class="result-cols" role="row">
+              <div row="cell" class="col">{{item.displayName}}</div>
+              <div row="cell" class="col">{{item.owaEnabled}}</div>
+              <div row="cell" class="col">{{item.popEnabled}}</div>
+              <div row="cell" class="col">{{item.imapEnabled}}</div>
+              <div row="cell" class="col">{{item.mapiEnabled}}</div>
+              <div row="cell" class="col">{{item.isEnabled}}</div>
             </div>
-            <div class="e-mail">
-              <div>{{item.primarySmtpAddress}}</div>
+            <div class="e-mail" role="role">
+              <div role="cell">{{item.primarySmtpAddress}}</div>
             </div>
           </div>
         </div>

@@ -12,15 +12,17 @@
         <div class="container">
           <div class="add-member">
            <form @submit.prevent.prevent class="form-group form-inline" role="form">
-              <label for="entityId">Entity Id</label>
+              <label for="userEntityId">Entity Id</label>
               <input
                 type="text"
-                id="entityId"
+                id="userEntityId"
                 class="form-control input-xl"
                 placeholder="onyen, pid, email"
                 v-model="userId"
                 v-select-all
                 v-on:keyup.13="onLookupMember()"
+                aria-label="Enter Onion, PID, or Email to find and add users to the selected group"
+                autocomplete="off"
               >
 
               <div class="submit">

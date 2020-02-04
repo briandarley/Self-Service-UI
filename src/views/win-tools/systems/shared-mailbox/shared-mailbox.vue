@@ -17,12 +17,19 @@
               <p>Create a Shared Mailbox, its full-access group and populate group with members.</p>
               <p>Shared mailboxes are usually for correspondence and have calendars built in, just like personal mailboxes.</p>
               <p>If the shared mailbox with the provided name already exists in the system you will have the option to manage it from this view.</p>
+              <p><strong>NOTE:</strong> Creation of Shared Mailbox can take a while to process. Please wait for confirmation before proceeding.</p>
             </div>
           </div>
           <!-- Group Definition Fields/Lookup -->
-          <form @submit.prevent.prevent class="container" role="form" ref="submitForm">
+          <form
+            @submit.prevent.prevent
+            class="container"
+            role="form"
+            ref="submitForm"
+            autocomplete="off"
+          >
             <div class="form-group">
-              <label for="select-department">Departmental Unit Abbreviation (ie. ITS, DSA, FPG)</label>
+              <label for="select-department">Departmental Unit Abbreviation (i.e. ITS, DSA, FPG)</label>
               <select
                 name="select-department"
                 id="select-department"
@@ -58,6 +65,7 @@
                 type="text"
                 class="form-control"
                 name="mailbox-name"
+                id="mailbox-name"
                 placeholder="Short Name"
                 v-model="model.name"
                 data-validation="{'name': 'Short Name','message':'Invalid, can contain only alpha numeric characters with no spaces', 'maxLength': 23,'regex': '^[-a-zA-Z0-9]+$'}"
@@ -98,6 +106,7 @@
                 title="refresh"
                 @click.prevent="create"
                 v-if="showAddMembers"
+                aria-label="Refresh Members and Managers lists"
               >
                 <i class="fa fa-refresh" aria-hidden="true"></i>
               </a>
@@ -105,34 +114,40 @@
           </form>
 
           <!-- Group Definition Fields/Lookup -->
+         
+            <div class="container" v-if="showAddMembers">
+               <section class="border border-primary p-2">
+            
+              <!-- Add Group Members -->
+              <div class="section add-entity">
+                <h3 class="text-primary">Members</h3>
 
-          <div class="container" v-if="showAddMembers">
-            <!-- Add Group Members -->
-            <div class="section add-entity">
-              <h3 class="text-primary">Members</h3>
+                <user-list-management
+                  ref="groupMembers"
+                  :group="groupId"
+                  @controlLoaded="onMemberListLoaded"
+                  @groupRetrieveFailed="onGroupRetrieveFailed"
+                  :service="ExchangeToolsService"
+                ></user-list-management>
+              </div>
+              <!-- Add Group Members -->
 
-              <user-list-management
-                ref="groupMembers"
-                :group="groupId"
-                @controlLoaded="onMemberListLoaded"
-                @groupRetrieveFailed="onGroupRetrieveFailed"
-              ></user-list-management>
+              <!-- Add Group Managers -->
+              <div class="section add-entity mt-3">
+                <h3 class="text-primary">Managers</h3>
+
+                <manager-list-management
+                  ref="groupManagers"
+                  :group="groupId"
+                  @controlLoaded="onManagerListLoaded"
+                  @groupRetrieveFailed="onGroupManagerRetrieveFailed"
+                  :service="ExchangeToolsService"
+                ></manager-list-management>
+              </div>
+              <!-- Add Group Managers -->
+              </section>
             </div>
-            <!-- Add Group Members -->
-
-            <!-- Add Group Managers -->
-            <div class="section add-entity mt-3">
-              <h3 class="text-primary">Managers</h3>
-
-              <manager-list-management
-                ref="groupManagers"
-                :group="groupId"
-                @controlLoaded="onManagerListLoaded"
-                @groupRetrieveFailed="onGroupManagerRetrieveFailed"
-              ></manager-list-management>
-            </div>
-            <!-- Add Group Managers -->
-          </div>
+          
         </div>
       </div>
     </div>

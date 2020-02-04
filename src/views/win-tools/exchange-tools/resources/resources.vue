@@ -41,14 +41,15 @@
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
         </form>
-
-        <div class="bg-primary text-white row-header" v-if="resources.length">
-          <div class="col">Resource Name</div>
-        </div>
-        <div class="list-container" v-if="resources.length">
-          <div class="result-grid" v-for="(item, index) in resources" :key="index">
-            <div class="col">
-              <a :href="'https://outlook.unc.edu/owa/' + item" target="_blank">{{item}}</a>
+        <div role="table">
+          <div class="bg-primary text-white row-header" v-if="resources.length" role="rowheader">
+            <div class="col" role="columnheader">Resource Name</div>
+          </div>
+          <div class="list-container" v-if="resources.length" role="rowgroup">
+            <div class="result-grid" v-for="(item, index) in resources" :key="index" role="row">
+              <div class="col" role="cell">
+                <a :href="'https://outlook.unc.edu/owa/' + item" target="_blank" :aria-label="'Navigate to Outlook Web Access Resource ' + item">{{item}}</a>
+              </div>
             </div>
           </div>
         </div>

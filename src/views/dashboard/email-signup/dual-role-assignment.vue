@@ -20,35 +20,39 @@
     <form @submit.prevent.prevent class="p-3 pb=0" role="form" v-if="!showInEligible">
       <h4 class="text-primary">Choose Primary Mailbox Designation</h4>
 
-      <div class="radio-buttons mx-5 mt-2 mb-4">
-        <div class="form-group">
+      <div class="radio-buttons mx-5 mt-2 mb-4" role="radiogroup" >
+        <div class="form-group" role="radio" :aria-checked="selectedPrimaryDesignation == 0? true:false">
           <input
             type="radio"
             id="priary-designation-none"
             value="0"
-            name="priary-designation"
             v-model="selectedPrimaryDesignation"
             disabled="disabled"
+            tabindex="-1"
           />
           <label for="priary-designation-none">None</label>
         </div>
-        <div class="form-group">
+        <div class="form-group" role="radio" :aria-checked="selectedPrimaryDesignation == 1? true:false">
           <input
             type="radio"
             id="priary-designation-unc"
             value="1"
             name="priary-designation"
             v-model="selectedPrimaryDesignation"
+            :tabindex="(selectedPrimaryDesignation == 1 || selectedPrimaryDesignation == 0) ?  0: -1"
+            
           />
           <label for="priary-designation-unc">UNC</label>
         </div>
-        <div class="form-group">
+        <div class="form-group" role="radio" :aria-checked="selectedPrimaryDesignation == 2? true:false">
           <input
             type="radio"
             id="priary-designation-unc-health"
             value="2"
             name="priary-designation"
             v-model="selectedPrimaryDesignation"
+            :tabindex="selectedPrimaryDesignation == 2 ?  0: -1"
+            
           />
           <label for="priary-designation-unc-health">UNC Health Care</label>
         </div>

@@ -6,7 +6,7 @@ import {
 
 @Component({
   name: 'account-lockouts',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','ScreenReaderAnnouncerService'],
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService', 'ScreenReaderAnnouncerService'],
 
 
 })
@@ -28,9 +28,10 @@ export default class AccountLockouts extends Vue {
   async getRecords() {
     this.spinnerService.show();
     try {
-
-
       this.pagedRecords = await this.ExchangeToolsService.getSplunk(this.criteria);
+      if (this.pagedRecords.totalRecords === 0) {
+        this.toastService.error("No records found matching entered criteria");
+      }
 
     } catch (e) {
       window.console.log(e);

@@ -22,7 +22,7 @@
             <div class="col" role="cell">{{item.displayName}}</div>
             <div class="col" role="cell">{{item.whenCreated | formatDate}}</div>
             <div class="col" role="cell">
-              <a href="#" @click.prevent="toggleUsers(item)">
+              <a href="#" @click.prevent="toggleUsers(item)" :aria-label="!item.showUsers? 'Click to expand group members': 'Click to collapse group members' ">
                 <i
                   class="fa fa-angle-double-down more-info"
                   :class="{expanded: item.showUsers, collapsed: item.showUsers === false}"

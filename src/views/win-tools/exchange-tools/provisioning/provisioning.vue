@@ -39,49 +39,70 @@
               class="provision-history"
               v-if="provisionData.status == 'Notified' || provisionData.status == 'Completed'"
             >
-              <div>
-                <span class="strong">Job Type</span>
-                <span>{{provisionData.jobType}}</span>
-              </div>
-              <div>
-                <span class="strong">Mailbox Type</span>
-                <span>{{provisionData.mailboxType}}</span>
-              </div>
-              <div>
-                <span class="strong">Submitted</span>
-                <span
-                  v-if="provisionData.submittedDate"
-                >{{provisionData.submittedDate | formatDate}}</span>
-              </div>
-              <div>
-                <span class="strong">Created</span>
-                <span v-if="provisionData.createdDate">{{provisionData.createdDate | formatDate}}</span>
-              </div>
-              <div>
-                <span class="strong">Notified</span>
-                <span v-if="provisionData.notifiedDate">{{provisionData.notifiedDate | formatDate}}</span>
-              </div>
-              <div>
-                <span class="strong">Completed</span>
-                <span
-                  v-if="provisionData.completedDate"
-                >{{provisionData.completedDate | formatDate}}</span>
-              </div>
-              <div>
-                <span class="strong">Status</span>
-                <span>{{provisionData.status}}</span>
-              </div>
-              <div>
-                <span class="strong">Status Detail</span>
-                <span>{{provisionData.statusDetail}}</span>
-              </div>
-              <div>
-                <span class="strong">Submitted By</span>
-                <span>{{provisionData.submittedBy}}</span>
+              <div class="alert alert-info">
+                <div class="info">
+                  <i class="fa fa-info-circle"></i>
+                </div>
+                <div>
+                  <p>
+                    The provisioning information presented indicates provisioning status and when a confirmation email was sent.
+                    The below status field indicates the final provisioning status of the account. Status Detail indicates the last step of the provisioning process completed. 
+                    </p>
+                    <p>
+                      In some circumstances it may become necessary to reprovision a person's Office 365 account. Use the button 'Reprovision' to reinitialize the provisioning process for the entered user. 
+                    </p>
+
+                
+                </div>
               </div>
 
-              <div class="submit">
-                <button class="btn btn-primary" @click="confimReprovisionAccount()">Reprovision</button>
+              <div class="provision-record-detail">
+                <div>
+                  <span class="strong">Job Type</span>
+                  <span>{{provisionData.jobType}}</span>
+                </div>
+                <div>
+                  <span class="strong">Mailbox Type</span>
+                  <span>{{provisionData.mailboxType}}</span>
+                </div>
+                <div>
+                  <span class="strong">Submitted</span>
+                  <span
+                    v-if="provisionData.submittedDate"
+                  >{{provisionData.submittedDate | formatDate}}</span>
+                </div>
+                <div>
+                  <span class="strong">Created</span>
+                  <span v-if="provisionData.createdDate">{{provisionData.createdDate | formatDate}}</span>
+                </div>
+                <div>
+                  <span class="strong">Notified</span>
+                  <span
+                    v-if="provisionData.notifiedDate"
+                  >{{provisionData.notifiedDate | formatDate}}</span>
+                </div>
+                <div>
+                  <span class="strong">Completed</span>
+                  <span
+                    v-if="provisionData.completedDate"
+                  >{{provisionData.completedDate | formatDate}}</span>
+                </div>
+                <div>
+                  <span class="strong">Status</span>
+                  <span>{{provisionData.status}}</span>
+                </div>
+                <div>
+                  <span class="strong">Status Detail</span>
+                  <span>{{provisionData.statusDetail}}</span>
+                </div>
+                <div>
+                  <span class="strong">Submitted By</span>
+                  <span>{{provisionData.submittedBy}}</span>
+                </div>
+
+                <div class="submit">
+                  <button class="btn btn-primary" @click="confimReprovisionAccount()">Reprovision</button>
+                </div>
               </div>
             </div>
             <div v-else>
@@ -120,7 +141,7 @@
                   <div class="info">
                     <i class="fa fa-question-circle" aria-hidden="true"></i>
                   </div>
-                  <div>
+                  <div id="request-new-provision-notice">
                     <p>User {{userLdap.displayName}}, Onyen {{userLdap.uid}}, PID {{userLdap.pid}} does not have an e-mail provisioned.</p>
                     <p
                       class="strong"

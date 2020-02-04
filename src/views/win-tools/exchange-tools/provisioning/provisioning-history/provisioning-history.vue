@@ -21,7 +21,7 @@
         </div>
 
         <search-criteria @search="search" @clear="clear" :criteria="criteria"></search-criteria>
-        <div class="d-flex mt-5" style="justify-content:space-between">
+        <div class="d-flex mt-5" style="justify-content:space-between" >
           <h3 class="text-primary">Total Records {{pagedResponse.totalRecords | formatNumber}}</h3>
           <pager
             :criteria="criteria"
@@ -31,44 +31,45 @@
           ></pager>
         </div>
 
-        <div class="search-result">
-          <div class="bg-primary text-white row-header">
-            <div>
-              <a href="#" @click.prevent="sort('id')">Id</a>
+        <div class="search-result" role="table">
+          <div class="bg-primary text-white row-header" role="rowheader">
+            <div role="columnheader">
+              <a href="#" @click.prevent="sort('id')" >Id</a>
             </div>
-            <div>
+            <div role="columnheader">
               <a href="#" @click.prevent="sort('onyen')">Onyen</a>
             </div>
 
-            <div>
+            <div role="columnheader">
               <a href="#" @click.prevent="sort('createdDate')">Created</a>
             </div>
-            <div>
+            <div role="columnheader">
               <a href="#" @click.prevent="sort('status')">Status</a>
             </div>
-            <div>
+            <div role="columnheader">
               <a href="#" @click.prevent="sort('statusDetail')">Detail</a>
             </div>
-            <div>
+            <div role="columnheader">
               <a href="#" @click.prevent="sort('submittedBy')">Submitted By</a>
             </div>
 
-            <div class="control">Action</div>
+            <div class="control"  role="columnheader">Action</div>
           </div>
-          <div class="results">
-            <div class="result-grid" v-for="item in pagedResponse.entities" :key="item.id">
+          <div class="results" role="rowgroup">
+            <div class="result-grid" v-for="item in pagedResponse.entities" :key="item.id" role="row">
               <div class="provision-detail">
-                <div>{{item.id}}</div>
-                <div>{{item.onyen}}</div>
-                <div>{{item.createdDate | formatDate}}</div>
-                <div>{{item.status}}</div>
-                <div>{{item.statusDetail}}</div>
-                <div>{{item.submittedBy}}</div>
-
-                <div>
+                <div role="cell">{{item.id}}</div>
+                <div role="cell">{{item.onyen}}</div>
+                <div role="cell">{{item.createdDate | formatDate}}</div>
+                <div role="cell">{{item.status}}</div>
+                <div role="cell">{{item.statusDetail}}</div>
+                <div role="cell">{{item.submittedBy}}</div>
+ 
+                <div role="cell">
                   <a
                     href="#"
-                    tabindex="-1"
+                    
+                    :aria-label="'Reprovision account ' + item.onyen"
                     @click.prevent="confimReprovisionAccount(item)"
                   >Re-Provision</a>
                 </div>

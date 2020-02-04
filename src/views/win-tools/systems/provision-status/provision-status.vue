@@ -22,12 +22,13 @@
             <div class="m-2">
               <div class>
                 <div class="form-group form-inline d-flex">
-                  <label for="txtOnyen">Onyen</label>
+                  <label for="txtOnyen" >Onyen</label>
                   <input
                     id="txtOnyen"
                     type="text"
                     class="form-control flex-grow-1"
                     placeholder="Onyen"
+                    aria-label="Onion"
                     v-model="criteria.onyen"
                   />
                 </div>
@@ -94,26 +95,27 @@
             ></pager>
           </div>
 
-          <div class="container border border-primary mt-1">
-            <div class="row bg-primary text-white row-header">
-              <div class="col">Onyen</div>
-              <div class="col">Status</div>
-              <div class="col">Submit Dt</div>
-              <div class="col">Create Dt</div>
-              <div class="col">Requestor</div>
-              <div class="col"></div>
+          <div class="container border border-primary mt-1" role="table">
+            <div class="row bg-primary text-white row-header" role="rowheader">
+              <div class="col" role="columnheader" aria-label="Onion">Onyen</div>
+              <div class="col" role="columnheader" aria-label="Status">Status</div>
+              <div class="col" role="columnheader" aria-label="Submit Date">Submit Dt</div>
+              <div class="col" role="columnheader" aria-label="Create Date">Create Dt</div>
+              <div class="col" role="columnheader" aria-label="Requestor">Requestor</div>
+              <div class="col" role="columnheader"></div>
             </div>
             <div
               class="result-grid row"
               v-for="item in provisionRecords.entities"
               v-bind:key="item.listName"
+              role="row"
             >
-              <div class="col">{{item.onyen}}</div>
-              <div class="col">{{item.status}}</div>
-              <div class="col">{{item.submittedDate | formatDate}}</div>
-              <div class="col">{{item.createdDate | formatDate}}</div>
-              <div class="col">{{item.submittedBy}}</div>
-              <div class="col"></div>
+              <div class="col" role="cell">{{item.onyen}}</div>
+              <div class="col" role="cell">{{item.status}}</div>
+              <div class="col" role="cell">{{item.submittedDate | formatDate}}</div>
+              <div class="col" role="cell">{{item.createdDate | formatDate}}</div>
+              <div class="col" role="cell">{{item.submittedBy}}</div>
+              <div class="col" role="cell"></div>
             </div>
           </div>
 

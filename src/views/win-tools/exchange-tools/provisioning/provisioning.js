@@ -40,7 +40,7 @@ export default class Provisioning extends BaseValidateMixin {
   }
 
   get showNewProvision() {
-    if (this.provisionData == null && this.userLdap !== null) {
+    if (this.provisionData.status === false && this.userLdap !== null) {
       return true;
     }
     return false;
@@ -76,7 +76,7 @@ export default class Provisioning extends BaseValidateMixin {
 
     let errors = this.validate(this.$refs.submitForm);
     if (errors.length) {
-      this.toastService.error("Validation Failed");
+      this.toastService.error(`Validation Failed, ${errors.join(",")}`);
       return false;
     }
 
@@ -92,21 +92,30 @@ export default class Provisioning extends BaseValidateMixin {
         this.filter
       );
       
+      if(!provisionData){
+        provisionData = {};
+      }
+      this.provisionData = provisionData; 
+
       if (provisionData.status === false) {
+        
         let userLdap = await this.ExchangeToolsService.getUserLdap(this.filter);
         
+
         if (userLdap && userLdap.status === false) {
-          this.toastService.error("Failed to retrive LDAP record for user");
+          this.toastService.error("Failed to retrive LDAP record for user, user not found");
           this.noLdap = true;
           return;
         } else if (userLdap) {
           this.userLdap = userLdap;
           //populate the list of responses
           this.populateEmails();
+          const $ = this.$;
+          var htmlMessage = $("#request-new-provision-notice").html();
+          
+          this.ScreenReaderAnnouncerService.sendAnnouncement(htmlMessage);
         }
-      } else {
-        this.provisionData = provisionData;
-      }
+      } 
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to retrieve provision history");
@@ -134,7 +143,7 @@ export default class Provisioning extends BaseValidateMixin {
   }
 
   clearBaseFields() {
-    this.provisionData = null;
+    this.provisionData = {};
     this.userLdap = null;
     this.noLdap = false;
     this.enterEmailResponse = false;
