@@ -44,7 +44,7 @@ export default class MessageContents extends BaseValidateMixin {
               height: '25em',
               //allowedContent - allow for inline styles etc
               allowedContent : true,
-              extraPlugins: 'font',
+              extraPlugins: 'font,image2',
               //Remove plugins for this iteration
               //extraPlugins: 'divarea,uploadimage',
               
