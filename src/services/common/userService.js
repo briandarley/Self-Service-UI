@@ -69,10 +69,11 @@ function UserService(configReaderService, localStorageService, routerService) {
                    const address = await configReaderService.getConfigurationSetting("security");
 
                     this._mgr = new Oidc.UserManager(address);
-
+                    
+                    //Todo: If expiring do we need to do anything? redirect to shib?
                     this._mgr.events.addAccessTokenExpiring(() => {
 
-                        debugger;
+                        
                     });
                 }
             } catch (e) {

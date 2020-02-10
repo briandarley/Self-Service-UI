@@ -20,6 +20,12 @@ export default class SideMenu extends Vue {
 
   tree = [];
 
+  navigateTo($element){
+    const $ = this.$;
+    $($element).find("nav").click();
+    //$element.find("nav").click()
+}
+
   async _getRouteInfo() {
     if (!this.currentRoute.meta.routeDefinition) return null;
 
@@ -121,7 +127,7 @@ export default class SideMenu extends Vue {
     return routes;
   }
   @Watch("collapsed")
-  onCollapsedChanged(newValue){
+  onCollapsedChanged(newValue) {
     if(!this.simpleBar){
       return;
     }

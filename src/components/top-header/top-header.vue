@@ -1,6 +1,6 @@
 <template>
   <div class="top-header" role="banner">
-    <a href="#" class="skip-main" @click.prevent="setMainFocus()" tabindex="0" >Skip Navigation</a>
+    <a href="#" class="skip-main" @click.prevent="setMainFocus()"  >Skip Navigation</a>
     <div class="logo"></div>
     <div class="site-title">
       <div class="title-content">

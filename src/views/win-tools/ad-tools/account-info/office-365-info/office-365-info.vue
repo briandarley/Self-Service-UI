@@ -1,7 +1,7 @@
 <template>
    <div class="pb-100" v-if="data">
     <div class="account-details">
-      <h4 class="text-secondary">General Information</h4>
+      <h2 class="text-secondary">General Information</h2>
       <div>
         <span class="label">Primary SMTP</span>
         <span>{{data.primarySmtpAddress}}</span>

@@ -1,7 +1,7 @@
 <template>
   <div class="pb-100" v-if="data">
     <div class="account-details">
-      <h4 class="text-secondary">Dual Role Info</h4>
+      <h2 class="text-secondary">Dual Role Info</h2>
       <div>
         <span class="label">Is Dual Account</span>
         <span v-if="data.dualRoleUser">{{data.dualRoleUser.primaryDesignation > 0 | toYesNo}}</span>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="account-details mt-4" v-if="data.userDetail">
-      <h4 class="text-secondary">General Information</h4>
+      <h2 class="text-secondary">General Information</h2>
       <div>
         <span class="label">Onyen</span>
         <span>{{data.userDetail.samAccountName}}</span>
@@ -61,7 +61,7 @@
       </div>
     </div>
     <div class="account-details mt-4" v-if="data.userDetail">
-      <h4 class="text-secondary">AD Account Status</h4>
+      <h2 class="text-secondary">AD Account Status</h2>
       <div>
         <span class="label">Created</span>
         <span>{{data.userDetail.whenCreated | formatDateTime}}</span>

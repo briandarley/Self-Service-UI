@@ -12,9 +12,11 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
 @import "chartist/dist/scss/chartist.scss";
-.main:focus{
+
+.main:focus {
   border: 1px solid red;
 }
+
 body {
   font-family: 'Roboto', sans-serif;
   font-display: auto;
@@ -23,10 +25,11 @@ body {
   z-index: -1;
   color: $gray-900;
 }
+
 /*
 Normal links should be bold to stand out
 */
-a{
+a {
   font-weight: bold;
 }
 
@@ -34,7 +37,7 @@ a{
 /*
 Links within grids shouldn't have any styling
 */
-.results a{
+.results a {
   font-weight: normal;
 }
 
@@ -46,14 +49,25 @@ label,
 input::placeholder {
   color: $gray-500 !important;
 }
-.alert.alert-warning
-{
+
+.alert.alert-warning {
   color: darken($color: #ffce99, $amount: 70%)
 }
 
-.hidden{
-  display:none;
+// .btn.btn-primary,
+// .nav-item.active
+// .nav-item.active .nav-link,
+// nav.nav-link.router-link-exact-active,
+// .btn.btn-outline-primary:hover 
+// {
+//   background-color: darken($color: $carolina-blue, $amount: 8%);
+// }
+
+
+.hidden {
+  display: none;
 }
+
 .app {
   /*hack to get dialog behavior correct*/
   position: relative;
@@ -118,20 +132,21 @@ input::placeholder {
     }
   }
 
-  .main-app-section-collapsed{
+  .main-app-section-collapsed {
     -ms-grid-columns: 60px 1fr;
     grid-template-columns: 60px 1fr;
 
-    .side-menu{
-      margin-top:0;
-      
+    .side-menu {
+      margin-top: 0;
+
     }
 
 
   }
 
 }
-.screen-reader-hide{
+
+.screen-reader-hide {
   position: absolute;
   text-indent: -9999px;
 }
@@ -152,7 +167,7 @@ input::placeholder {
     position: relative;
     background-color: $gray-500;
     color: $black;
-    
+
     top: 10px;
     height: 30px;
     width: 30px;
@@ -179,11 +194,14 @@ input::placeholder {
     &:checked {
       background-color: $gray-500;
     }
-    &:active,& {
+
+    &:active,
+    & {
       border: 1px solid $carolina-blue;
-      
+
     }
-    &:focus  {
+
+    &:focus {
       border: 1px solid $carolina-blue;
       background: $carolina-blue;
       color: $white;
@@ -220,7 +238,7 @@ input::placeholder {
     grid-template-columns: 100px 1fr;
 
     h1 {
-     font-size: 1.75em;
+      font-size: 1.75em;
 
     }
   }
@@ -247,10 +265,12 @@ input::placeholder {
     border: 0;
   }
 }
-.label-info{
-  display:flex;
+
+.label-info {
+  display: flex;
   justify-content: space-between;
-  .required{
+
+  .required {
     color: $red;
   }
 }
@@ -278,7 +298,8 @@ input::placeholder {
 .row-header {
   line-height: 40px;
 
-  a,a:visited {
+  a,
+  a:visited {
     color: $white;
     text-decoration: underline;
   }
@@ -295,7 +316,7 @@ input::placeholder {
   }
 }
 
-.list-container{
+.list-container {
   border: 1px solid $carolina-blue;
 }
 
@@ -368,6 +389,7 @@ input::placeholder {
   height: 0;
   opacity: 0;
 }
+
 .result-grid a span {
   position: absolute;
   display: block;
@@ -375,7 +397,8 @@ input::placeholder {
   text-align: left;
   overflow: hidden;
 }
-.hide-text{
+
+.hide-text {
   position: absolute;
   display: block;
   text-indent: -9999px;
@@ -423,14 +446,16 @@ input::placeholder {
 
 
 
-.sb-scrollbar,.slim-scrollbar {
+.sb-scrollbar,
+.slim-scrollbar {
   position: absolute;
   right: 2px;
   width: 7px;
   min-height: 10px;
 }
 
-.sb-scrollbar:before, .slim-scrollbar:before {
+.sb-scrollbar:before,
+.slim-scrollbar:before {
   position: absolute;
   content: "";
   background: #000;
@@ -442,24 +467,28 @@ input::placeholder {
 
 }
 
-.simplebar-track .sb-scrollbar.simplebar-visible:before,.simplebar-track .slim-scrollbar.simplebar-visible:before {
+.simplebar-track .sb-scrollbar.simplebar-visible:before,
+.simplebar-track .slim-scrollbar.simplebar-visible:before {
   /* When hovered, remove all transitions from drag handle */
   opacity: 0.5;
   transition: opacity 0s linear;
 }
 
-.simplebar-track.simplebar-vertical .sb-scrollbar:before,.simplebar-track.simplebar-vertical .slim-scrollbar:before {
+.simplebar-track.simplebar-vertical .sb-scrollbar:before,
+.simplebar-track.simplebar-vertical .slim-scrollbar:before {
   top: 2px;
   bottom: 2px;
 }
 
-.simplebar-track.simplebar-horizontal .sb-scrollbar:before,.simplebar-track.simplebar-horizontal .slim-scrollbar:before {
+.simplebar-track.simplebar-horizontal .sb-scrollbar:before,
+.simplebar-track.simplebar-horizontal .slim-scrollbar:before {
   height: 100%;
   left: 2px;
   right: 2px;
 }
 
-.simplebar-track.simplebar-horizontal .sb-scrollbar,.simplebar-track.simplebar-horizontal .slim-scrollbar {
+.simplebar-track.simplebar-horizontal .sb-scrollbar,
+.simplebar-track.simplebar-horizontal .slim-scrollbar {
   right: auto;
   left: 0;
   top: 2px;
@@ -519,6 +548,7 @@ input::placeholder {
 
 .fade-enter,
 .fade-leave-to
+
 /* .fade-leave-active below version 2.1.8 */
   {
   opacity: 0;
@@ -570,8 +600,8 @@ input::placeholder {
       display: none;
     }
 
-    .toggle-menu-btn{
-      display:none;
+    .toggle-menu-btn {
+      display: none;
     }
   }
 }

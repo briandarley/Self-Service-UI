@@ -18,7 +18,7 @@
       </div>
     </div>
     <form @submit.prevent.prevent class="p-3 pb=0" role="form" v-if="!showInEligible">
-      <h4 class="text-primary">Choose Primary Mailbox Designation</h4>
+      <h2 class="text-primary">Choose Primary Mailbox Designation</h2>
 
       <div class="radio-buttons mx-5 mt-2 mb-4" role="radiogroup" >
         <div class="form-group" role="radio" :aria-checked="selectedPrimaryDesignation == 0? true:false">

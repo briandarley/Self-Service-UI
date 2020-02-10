@@ -1,7 +1,7 @@
 <template>
   <div class="card widget">
     <div class="card-header bg-primary text-white ct-chart provisions-today">
-      <h4>Environment</h4>
+      <h2>Environment</h2>
     </div>
     <div class="container environment-data">
       <div>

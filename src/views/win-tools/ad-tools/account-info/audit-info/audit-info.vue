@@ -1,9 +1,9 @@
 <template>
   <div class="audit-view pb-100"  v-if="data">
     <div class="account-details">
-      <h4 class="text-secondary">
+      <h2 class="text-secondary">
         General Info
-      </h4>
+      </h2>
       <div>
         <span class="label">Department Number(s)</span>
         <span>{{data.departmentNumber}}</span>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="yes-no-fields">
-      <h4 class="text-secondary">AD</h4>
+      <h2 class="text-secondary">AD</h2>
       <div>
         <span class="label">Is Ad Account Enabled</span>
         <span>{{data.isAdAccountEnabled | toYesNo}}</span>
@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="yes-no-fields">
-      <h4 class="text-secondary">Affiliations</h4>
+      <h2 class="text-secondary">Affiliations</h2>
       <div>
         <span class="label">GA Affiliated</span>
         <span>{{data.gaAffiliated | toYesNo }}</span>
@@ -106,7 +106,7 @@
     </div>
 
     <div class="yes-no-fields">
-      <h4 class="text-secondary">Hipaa</h4>
+      <h2 class="text-secondary">Hipaa</h2>
       <div>
         <span class="label">Hipaa Flagged Dept</span>
         <span>{{data.hipaaFlaggedDept | toYesNo}}</span>

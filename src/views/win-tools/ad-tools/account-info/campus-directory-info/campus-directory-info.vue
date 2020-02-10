@@ -1,7 +1,7 @@
 <template>
   <div class="pb-100" v-if="data">
     <div class="account-details">
-      <h4 class="text-secondary">General Information</h4>
+      <h2 class="text-secondary">General Information</h2>
       <div>
         <span class="label">Name</span>
         <span>{{data.name}}</span>
@@ -62,7 +62,7 @@
       
     </div>
 <div class="account-details mt-4">
-  <h4 class="text-secondary">Academic Information</h4>
+  <h2 class="text-secondary">Academic Information</h2>
 <div>
         <span class="label">Academic Group</span>
         <span v-if="data.academicGroup">{{data.academicGroup}}</span>
@@ -75,7 +75,7 @@
       </div>
 </div>
 <div class="account-details mt-4">
-  <h4 class="text-secondary">Faculty/Staff Information</h4>
+  <h2 class="text-secondary">Faculty/Staff Information</h2>
 <div>
         <span class="label">Employee Type</span>
         <div class="list-items" v-if="data.employeeType && data.employeeType.length">

@@ -5,10 +5,10 @@
         <div class="pl-3">Create Mass Mail - Audience Criteria</div>
       </div>
       <div class="m-3">
-        <h4 class="text-primary">
+        <h2 class="text-primary">
           Audience Size:
           <span id="targetAudience"></span>
-        </h4>
+        </h2>
       </div>
       <!-- E-mail target population -->
       <div class="one-column">

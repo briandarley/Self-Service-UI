@@ -5,7 +5,7 @@
     title="The next expected network sync with Azure AD">
     <spinner allow-service-update="false" ref="spinner"></spinner>
     <div class="card-header bg-primary text-white">
-      <h4>Next GAL Sync</h4>
+      <h2>Next GAL Sync</h2>
     </div>
     <div class="card-body display-gal-sync">
       <p class="text-primary">{{nextGalSync}}</p>

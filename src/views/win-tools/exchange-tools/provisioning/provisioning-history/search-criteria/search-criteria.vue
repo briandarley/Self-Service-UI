@@ -5,13 +5,12 @@
       <div class="row-1">
         <div class="campaign-criteria">
           <div class="form-group">
-            <label for="campaign-status">Provision Status</label>
+            <label for="provision-status">Provision Status</label>
             <select
               name="provision-status"
               id="provision-status"
               class="form-control"
               v-model="criteria.status"
-              aria-labelledby="campaign-status"
               role="listbox"
             >
               <option value="">All</option>

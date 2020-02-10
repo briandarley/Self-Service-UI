@@ -77,7 +77,7 @@
               </div>
             </form>
             <!-- End Add New Alias -->
-            <h4 class="text-primary ml-3">Currently Assigned Aliases</h4>
+            <h2 class="text-primary ml-3">Currently Assigned Aliases</h2>
             <div class="results" role="table" aria-label="Currently Assigned Aliases">
               
               <div role="row" class="header">

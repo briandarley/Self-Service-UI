@@ -2,7 +2,7 @@
   <div class="card widget" role="grid" title="E-mail provision counts for given week">
     <spinner allow-service-update="false" ref="spinner"></spinner>
     <div class="card-header bg-primary text-white ct-chart provisions-today">
-       <h4 class="hide">Email Provision Requests</h4>
+       <h2 class="hide">Email Provision Requests</h2>
     </div>
     <div class="card-body">
       <div class="widget-nav">
