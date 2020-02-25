@@ -26,7 +26,7 @@
               <span>{{model.subject}}</span>
             </li>
             <li>
-              <span>Sponsoring University</span>
+              <span>Sponsoring Office</span>
               <span>{{model.sponsoringUniversity}}</span>
             </li>
             <li>

@@ -136,7 +136,7 @@
       <div class="one-column">
         <div class="form-group">
           <div class="label-info mr-1">
-            <label for="subject">Sponsoring University</label>
+            <label for="subject">Sponsoring Office</label>
             <span class="required mr-5">Required</span>
           </div>
             <div class="form-inline">

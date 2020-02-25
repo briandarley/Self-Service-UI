@@ -109,7 +109,7 @@ export default class MessageSummary extends BaseValidateMixin {
       errors.push("Expiration Date required");
     }
     if (!this.model.sponsoringUniversity) {
-      errors.push("Sponsoring University required");
+      errors.push("Sponsoring Office required");
     }
     if (!this.model.priority) {
       errors.push("Priority required");
