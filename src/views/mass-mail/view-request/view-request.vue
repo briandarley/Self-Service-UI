@@ -11,7 +11,7 @@
         <search-criteria @search="search" @clear="clear" :criteria="criteria"></search-criteria>
 
         <div class="d-flex mt-5" style="justify-content:space-between">
-          <h3 class="text-primary">Total Campaigns {{pagedResponse.totalRecords | formatNumber}}</h3>
+          <h3 class="text-primary">Total Emails {{pagedResponse.totalRecords | formatNumber}}</h3>
           <pager
             :criteria="criteria"
             btn-count="5"
