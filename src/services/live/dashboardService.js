@@ -184,7 +184,8 @@ function DashboardService(moment, httpHandlerService, commonExtensions) {
       try {
           const handler = await httpHandlerService.get();
 
-          await handler.delete(`distribution-groups/${groupId}/members/${memberId}`);
+          //await handler.delete(`distribution-groups/${groupId}/members/${memberId}`);
+          await handler.delete(`dashboard/my-ad-groups/${groupId}/members/${memberId}`);
 
       } catch (e) {
           if (e.message.includes("404")) {
