@@ -150,7 +150,7 @@
               placeholder="School or Department Name"
               autocomplete="off"
               v-select-all
-              data-validation="{'name': 'Sponsor', 'error': 'Sponsoring University/Department Required','required': true}"
+              data-validation="{'name': 'Sponsor', 'error': 'Sponsoring Office/Department Required','required': true}"
             />
             <pop-over
               title="Sponsor"
