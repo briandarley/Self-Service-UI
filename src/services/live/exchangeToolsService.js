@@ -76,7 +76,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async updateProvisionRecord(model){
+        async updateProvisionRecord(model) {
             try {
                 const handler = await httpHandlerService.get();
 

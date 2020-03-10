@@ -115,7 +115,7 @@ function DashboardService(moment, httpHandlerService, commonExtensions) {
       try {
         const handler = await httpHandlerService.get();
 
-        let response = await handler.get(`WinTools/exchange-tools/ad-tools/exchange-users/${id}`);
+        let response = await handler.get(`dashboard/ad-tools/exchange-users/${id}`);
 
         return response.data;
 
@@ -239,7 +239,7 @@ function DashboardService(moment, httpHandlerService, commonExtensions) {
       try {
           const handler = await httpHandlerService.get();
 
-          let response = await handler.get(`/WinTools/exchange-tools/ad-tools/contacts/${id}`);
+          let response = await handler.get(`/dashboard/ad-tools/contacts/${id}`);
 
           return response.data;
 

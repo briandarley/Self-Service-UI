@@ -14,7 +14,7 @@ function DuoAuthService(httpHandlerService,localStorageService) {
             try {
                 const handler = await httpHandlerService.get();
                 let response = await handler.get(`duo/signed-request`);
-                //expect {hostAddress : string, signedRequest: string}
+
 
                 return response.data;
 
