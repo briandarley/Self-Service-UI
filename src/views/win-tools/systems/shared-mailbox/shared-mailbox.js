@@ -10,7 +10,7 @@ import {
 
 @Component({
   name: 'shared-mailbox',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService','ScreenReaderAnnouncerService']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ExchangeToolsService', 'ScreenReaderAnnouncerService']
 
 })
 export default class SharedMailbox extends BaseValidateMixin {
@@ -47,7 +47,7 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
     return entity.name;
   }
- 
+
   async loadOrganizationalUnits() {
     this.spinnerService.show();
     try {
@@ -211,7 +211,7 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
   }
 
-  
+
   async create() {
     this.showAddMembers = false;
     let errors = this.validate(this.$refs.submitForm);
@@ -251,6 +251,12 @@ export default class SharedMailbox extends BaseValidateMixin {
 
         break;
       case "ORPHANED_OBJECT":
+        
+        if (this.persistedModel.group && this.persistedModel.group.status === undefined && this.persistedModel.mailbox.status === false) {
+          await this.createSharedMailbox();
+          return;
+        }
+        
         this.toastService.error("Either the mailbox or distribution group failed to create");
 
         break;
@@ -271,7 +277,7 @@ export default class SharedMailbox extends BaseValidateMixin {
 
   }
   //Notfication when control is loaded
-  async onManagerListLoaded(){
+  async onManagerListLoaded() {
     if (this.showAddMembers && this.persistedModel.managers.length) {
       await this.$refs.groupManagers.populateEntities(this.persistedModel);
     }
@@ -280,11 +286,11 @@ export default class SharedMailbox extends BaseValidateMixin {
   onGroupRetrieveFailed(groupId) {
     this.toastService.error(`Failed to retrieve group with id ${groupId}`)
   }
-  
+
   onGroupManagerRetrieveFailed(groupId) {
     this.toastService.error(`Failed to retrieve group managers with id ${groupId}`)
   }
-  
+
   clear() {
     this.persistedModel = {};
 
@@ -296,5 +302,5 @@ export default class SharedMailbox extends BaseValidateMixin {
     }
   }
 
-            
+
 }
