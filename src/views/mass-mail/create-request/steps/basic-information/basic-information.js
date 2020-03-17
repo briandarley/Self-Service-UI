@@ -30,6 +30,17 @@ export default class BasicInformation extends BaseValidateMixin {
   }
   @Watch('value', {immediate: true, deep: true})
   onValueChanged(newValue){
+
+    if(Array.isArray(newValue.comments)){
+      let initialComment = newValue.comments.find(c=> c.commentTypeCode === "INITIAL_AUTH_COMMENT");
+      if(initialComment)
+      {
+        newValue.comments =   initialComment;
+      }
+      else{
+        newValue.comments = "";
+      }
+    }
     this.model = newValue;
   }
   async mounted() {
