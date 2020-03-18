@@ -221,7 +221,7 @@ export default class SharedMailbox extends BaseValidateMixin {
       this.toastService.error(errors.join("<br/>"));
       return;
     }
-
+    this.toastService.success("Performing integrity check to see if shared mailbox exists");
     let status = await this.performIntegrityCheck();
 
     switch (status) {
@@ -230,16 +230,15 @@ export default class SharedMailbox extends BaseValidateMixin {
         return;
 
       case "DOES_NOT_EXIST":
-
+        this.toastService.success("Creating shared mailbox...");
         await this.createSharedMailbox();
-
-        status = await this.performIntegrityCheck();
-
-        if (status !== "SHARED_MAILBOX_EXISTS") {
-          //Failed to retrieve newly created shared mailbox
-          this.toastService.error("Failed to created shared mailbox");
-          return;
-        }
+        
+        //status = await this.performIntegrityCheck();
+        // if (status !== "SHARED_MAILBOX_EXISTS") {
+        //   //Failed to retrieve newly created shared mailbox
+        //   this.toastService.error("Failed to created shared mailbox");
+        //   return;
+        // }
 
         this.showAddMembers = true;
         break;
