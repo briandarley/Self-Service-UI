@@ -46,7 +46,7 @@
           <div>
             <p>
               To begin, choose
-              <router-link :to="{name: 'create-request'}">Create Request</router-link>from the menu on the left.
+              <router-link :to="{name: 'create-request'}">Create Request</router-link> from the menu on the left.
             </p>
           </div>
           <form
