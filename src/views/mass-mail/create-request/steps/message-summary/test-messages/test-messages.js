@@ -89,7 +89,8 @@ export default class TestMessages extends Vue {
 
     await this.addFavoriteReviewer(this.email);
     this.entities.push({
-      email: this.email
+      email: this.email,
+      checked: true
     });
 
     this.clear();
