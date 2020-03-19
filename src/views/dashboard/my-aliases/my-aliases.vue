@@ -101,6 +101,7 @@
                     href="#"
                     @click.prevent="removeAlias(item)"
                     :aria-label="'remove alias ' + item.email"
+                    v-if="allowRemove(item)"
                   >
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     remove

@@ -100,6 +100,7 @@
                   :disabled="!item.valid"
                   :class="{'text-disabled': !item.valid}"
                   :aria-label="'Confirm Delete alias ' + item.email"
+                   v-if="allowRemove(item)"
                 >
                   <i class="fa fa-trash-o"></i>
                 </a>

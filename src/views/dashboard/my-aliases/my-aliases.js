@@ -185,6 +185,15 @@ export default class MyAliases extends BaseValidateMixin {
     }
   }
 
+  allowRemove(alias) {
+    let email = alias.email.toUpperCase();
+    if(email.endsWith("@AD.UNC.EDU") || email.endsWith("@EMAIL.UNC.EDU"))
+    {
+      return false;
+    }
+    return true;
+  }
+
   async cancelPrimaryAlias() {
     this.userLdapProfile = null;
     this.userAdProfile = null;

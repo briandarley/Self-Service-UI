@@ -269,4 +269,13 @@ export default class Aliases extends BaseValidateMixin {
     this.newAliasPrefix = "";
     this.$refs.addEmailAliasDialog.hide();
   }
+
+  allowRemove(alias) {
+    let email = alias.email.toUpperCase();
+    if(email.endsWith("@AD.UNC.EDU") || email.endsWith("@EMAIL.UNC.EDU"))
+    {
+      return false;
+    }
+    return true;
+  }
 }
