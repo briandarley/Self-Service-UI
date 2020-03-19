@@ -19,9 +19,15 @@
           </div>
         </div>
         <div class="form-group" v-if="entities.length">
-          <label>Recipients</label>
+          
+          <div id="toggle-selection">
+            <span><input type="checkbox" aria-label="toggle all recipeints" @click="toggleAllRecipients()"></span>
+            
+            <span>Recipients</span>
+          </div>
           <ul>
             <li v-for="(item, index) in entities" :key="index">
+              <span><input type="checkbox" aria-label="toggle select" :checked="item.checked" v-model="item.checked"></span>
               <span>{{item.email}}</span>
               <span>
                 <a href="#" @click.prevent="deleteFavoriteReviewer(item.email)">remove</a>

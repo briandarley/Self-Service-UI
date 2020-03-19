@@ -18,6 +18,10 @@
                 class="strong"
               >Mass E-mail is a tool for requesting and distributing official UNC-Chapel Hill messages.</p>
               <p>This system provides support for mailing to predefined, broad sectors of the University community. Approved messages can be sent to all students, as well as to all employees. Some filtering is available to target specific subpopulations of recipients.</p>
+              <!-- 
+                User can update MassMail flag here 
+                https://account.itsapps.unc.edu/onyen/update
+               -->
             </div>
           </div>
 

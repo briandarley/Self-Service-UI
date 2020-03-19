@@ -12,6 +12,7 @@ import {
 export default class TestMessages extends Vue {
   entities = [];
   email = "";
+  allSelected = false;
   async mounted() {
 
     this.toastService.set(this);
@@ -31,6 +32,8 @@ export default class TestMessages extends Vue {
     try {
       this.spinnerService.show();
       var response = await this.MassMailService.getFavoriteReviewers();
+      response.forEach(entity => entity.checked = true);
+
       this.entities = response;
     } catch (e) {
       window.console.log(e);
@@ -95,7 +98,12 @@ export default class TestMessages extends Vue {
     try {
       this.spinnerService.show();
       
-      let recipients = this.entities.map(c=> c.email);
+      let recipients = this.entities.filter(c=> c.checked).map(c=> c.email);
+      
+      if(recipients.length === 0 ){
+        this.toastService.error("No recipients to send to");
+        return;
+      }
       
       await this.MassMailService.sendTestCampaign(this.$route.params.id, recipients);
 
@@ -109,5 +117,13 @@ export default class TestMessages extends Vue {
   }
   clear() {
     this.email = "";
+  }
+  toggleAllRecipients(){
+    this.allSelected = !this.allSelected;
+    this.entities.forEach(entity => {
+      entity.checked = this.allSelected;
+    });
+
+    this.entities = JSON.parse(JSON.stringify(this.entities));
   }
 }
