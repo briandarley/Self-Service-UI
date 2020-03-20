@@ -39,7 +39,7 @@
       display: flex;
       color: $carolina-blue;
 
-      nav {
+      nav,a {
         text-decoration: underline;
         font-weight: bold;
       }
@@ -73,7 +73,9 @@
       cursor: pointer;
 
       nav,
-      nav:visited {
+      nav:visited ,
+      a,
+      a:visited {
         text-align: center;
         display: flex;
         flex-direction: row;
@@ -147,7 +149,7 @@
     .nav {
       .nav-item {
         padding: 0;
-        nav {
+        nav,a {
           padding: 0;
 
           span {
@@ -197,7 +199,7 @@
       .nav {
         .nav-item {
           
-          nav {
+          nav,a {
             padding: 0.5rem 1rem;
   
             span {
