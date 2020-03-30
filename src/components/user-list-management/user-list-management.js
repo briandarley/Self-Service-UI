@@ -22,6 +22,7 @@ export default class UserListManagement extends Vue {
 
   //Called from parent controller
   async populateEntities(parentGroup){
+    
     this.lookupEntityModel = {
       name: parentGroup.group.name,
       samAccountName: parentGroup.group.samAccountName,
@@ -35,14 +36,14 @@ export default class UserListManagement extends Vue {
     this.entities = parentGroup.members;
   }
 
-  async removeEntity(samAccountName) {
+  async removeEntity(distinguishedName) {
     try {
       this.showSpinner();
 
-      await this.service.removeMember(this.group, samAccountName);
-      this.entities = this.entities.filter(c => c.samAccountName !== samAccountName && c.name !== samAccountName);
+      await this.service.removeMember(this.group, distinguishedName);
+      this.entities = this.entities.filter(c => c.id !== distinguishedName);
       this.toastService.success("Successfully removed entity");
-      this.$emit('entityRemoved', samAccountName);
+      this.$emit('entityRemoved', distinguishedName);
       
     } catch (e) {
       window.console.log(e);
@@ -304,6 +305,7 @@ export default class UserListManagement extends Vue {
       try{
         this.showSpinner();
         this.entities = await this.service.getDistributionGroupMembers(this.group);
+        console.log(this.entities );
         this.entities.map(c=> {
             if(!c.id)
             {

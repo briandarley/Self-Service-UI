@@ -82,7 +82,7 @@ export default class GroupManagement extends Vue {
     try {
 
       entity.detail = await this.service.getAllDistributionGroupEntities(entity.samAccountName);
-
+      
       entity.detail.members.sort((a, b) => {
         let item1 = a.samAccountName.toLowerCase();
         let item2 = b.samAccountName.toLowerCase();

@@ -1,8 +1,8 @@
 {
     "serviceEndpoint1": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
     "serviceEndpoint4": "https://its-idmuat-web.ad.unc.edu/Services/business.selfservice.api/v1/",
-    "serviceEndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
-    "serviceEndpoint3": "http://localhost:13003/v1/",
+    "serviceEndpoint3": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
+    "serviceEndpoint": "http://localhost:13003/v1/",
     "signalREndpoint": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
     "signalREndpoint1": "http://localhost:13003/",
     "ckeditorPlugins" : "/ckeditor/plugins",
@@ -23,7 +23,7 @@
         "automaticSilentRenew": false,
         "revokeAccessTokenOnSignout": true
       },
-      "security": { 
+      "security2": { 
         "authority": "https://selfservice.unc.edu/identityserver",
         "client_id": "self-service-client",
         "redirect_uri": "http://localhost:8080/call-back.html",
@@ -34,8 +34,8 @@
         "automaticSilentRenew": true,
         "revokeAccessTokenOnSignout": true
       },
-      "security2": {
-        "authority": "https://its-idmuat-web.unc.edu/identityserver",
+      "security": {
+        "authority": "https://its-idmuat-web.ad.unc.edu/identityserver",
         "client_id": "self-service-client",
         "redirect_uri": "http://localhost:8080/call-back.html",
         "response_type": "id_token token",

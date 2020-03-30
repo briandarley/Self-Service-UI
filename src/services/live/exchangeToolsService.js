@@ -572,11 +572,11 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async removeMember(groupId, memberId) {
+        async removeMember(groupId, distinguishedName) {
             try {
                 const handler = await httpHandlerService.get();
 
-                await handler.delete(`/WinTools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${memberId}`);
+                await handler.delete(`/WinTools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${distinguishedName}`);
 
             } catch (e) {
                 if (e.message.includes("404")) {

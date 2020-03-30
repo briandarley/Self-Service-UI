@@ -34,9 +34,11 @@
         </div>
         <div class="result-grid row" v-for="(item, index) in entities" :key="index">
           <div class="col">{{item.samAccountName || item.name}}</div>
-          <div class="col">{{item.id}}</div>
+          <div class="col">{{item.emailAddress}}</div>
+          <div class="col">{{item.displayName}}</div>
+          
           <div class="col">
-            <a href="#" @click.prevent="removeEntity(item.samAccountName || item.name)">
+            <a href="#" @click.prevent="removeEntity(item.id)">
               <i class="fa fa-trash-o" aria-hidden="true"></i>
               <span>remove</span>
             </a>
