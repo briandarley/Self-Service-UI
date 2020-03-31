@@ -60,51 +60,34 @@ export default function approvalStatusText(entity) {
   if (!entity.campaignStatus.hasEmployeePending() && !entity.campaignStatus.hasStudentPending()) {
     return statusText.join("")
   }
-  switch (entity.targetPopulation) {
-
-    case "STUDENTS":
-      if (entity.campaignStatus.hasStudentPending()) {
-        statusText.push(`
-        <div>
-          Pending for Students
-        </div>`);
-      }
-      break;
-    case "EMPLOYEES":
-      if (entity.campaignStatus.hasEmployeePending()) {
-
-        if (entity.targetEmployee === "DDD") {
-          statusText.push(`
-          <div>
-            Pending for Employees (DDD)
-          </div>`);
-        } else {
-          statusText.push(`
-          <div>
-            Pending for Employees
-          </div>
-        `);
-        }
-      }
-      break;
-
-    case "EMPLOYEES_STUDENTS":
+  if(entity.targetPopulation.includes("STUDENTS"))
+  {
+    if (entity.campaignStatus.hasStudentPending()) {
+      statusText.push(`
+      <div>
+        Pending for Students
+      </div>`);
+    }
+  }
+  if(entity.targetPopulation.includes("EMPLOYEES") || entity.targetPopulation.includes("AFFILIATES"))
+  {
+    if (entity.campaignStatus.hasEmployeePending()) {
 
       if (entity.targetEmployee === "DDD") {
         statusText.push(`
-          <div>
-            Pending for Employees (DDD)
-          </div>`);
+        <div>
+          Pending for Employees (DDD)
+        </div>`);
       } else {
         statusText.push(`
-          <div>
-            Pending for Students and Employees
-          </div>
-          `);
+        <div>
+          Pending for Employees
+        </div>
+      `);
       }
-      break;
-
+    }
   }
+  
   return statusText.join("")
 
 }

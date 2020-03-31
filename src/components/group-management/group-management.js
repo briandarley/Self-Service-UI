@@ -151,7 +151,7 @@ export default class GroupManagement extends Vue {
         this.ExchangeToolsService.getAllDistributionGroupEntities(groupEntity.samAccountName).then(c => {
           this.lookupEntityModel.totalMembers = c.members.length;
 
-        }).catch(e => {
+        }).catch(() => {
           this.lookupEntityModel.totalMembers = "failed to retrieve";
         })
 
@@ -190,7 +190,7 @@ export default class GroupManagement extends Vue {
     
   }
 
-  async onManagerListLoaded(entity) {
+  async onManagerListLoaded() {
     
     //getDistributionGroupManagers
     //getDistributionGroupMembers
@@ -198,7 +198,7 @@ export default class GroupManagement extends Vue {
     
   }
 
-  async onGroupUserListLoaded(entity) {
+  async onGroupUserListLoaded() {
 
   }
 }

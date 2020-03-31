@@ -1,5 +1,10 @@
 <template>
-  <form @submit.prevent.prevent class="container validation-form" autocomplete="off" ref="submitForm">
+  <form
+    @submit.prevent.prevent
+    class="container validation-form"
+    autocomplete="off"
+    ref="submitForm"
+  >
     <div class="border border-primary">
       <div class="bg-primary text-white row-header">
         <div class="pl-3">Create Mass Mail - Audience Criteria</div>
@@ -18,12 +23,78 @@
             <span class="required">Required</span>
           </div>
           <div class="form-inline">
+            <ul id="audience-selection">
+              <li>
+                <div class="check-buttons">
+                  <input
+                    type="checkbox"
+                    name="all-checkbox"
+                    id="all-checkbox"
+                    v-model="audienceList[0].checked"
+                    @click="toggleAll($event, 'all')"
+                  />
+                </div>
+                <label for="All-checkbox">All</label>
+              </li>
+              <li>
+                <div class="check-buttons">
+                  <input
+                    type="checkbox"
+                    name="employee-checkbox"
+                    id="employee-checkbox"
+                   v-model="audienceList[1].checked"
+                    @click="audienceChecked($event,'employee')"
+                  />
+                </div>
+                <label for="employee-checkbox">Employees</label>
+              </li>
+              <li>
+                <div class="check-buttons">
+                  <input
+                    type="checkbox"
+                    name="student-checkbox"
+                    id="student-checkbox"
+                   v-model="audienceList[2].checked"
+                    @click="audienceChecked($event, 'student')"
+                  />
+                </div>
+                <label for="student-checkbox">Students</label>
+              </li>
+              <li>
+                <div class="check-buttons">
+                  <input
+                    type="checkbox"
+                    name="affiliate-checkbox"
+                    id="affiliate-checkbox"
+                   v-model="audienceList[3].checked"
+                   
+                    @click="audienceChecked($event, 'affiliate')"
+                  />
+                </div>
+                <label for="student-checkbox">Affiliates</label>
+              </li>
+              <li>
+                <div class="check-buttons">
+                  <input
+                    type="checkbox"
+                    name="test-checkbox"
+                    id="test-checkbox"
+                    v-model="audienceList[4].checked"
+                       
+                     @click="clearAllAudiences($event, 'test')"              
+                  />
+                </div>
+                <label for="test-checkbox">Test Only</label>
+              </li>
+            </ul>
+          </div>
+          <!-- <div class="form-inline">
             <select
               id="targetPopulation"
               class="form-control"
               v-model="model.targetPopulation"
               @change="targetPopulationChanged()"
-               data-validation="{'name': 'Target Population','required': true}"
+              data-validation="{'name': 'Target Population','required': true}"
             >
               <option value="">--Select Target Population --</option>
               <option value="EMPLOYEES_STUDENTS">Employees and Students</option>
@@ -35,7 +106,7 @@
               title="E-mail Target Population"
               data-content="Select the appropriate target population."
             ></pop-over>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- Employee Criteria -->
@@ -69,39 +140,47 @@
       </transition>
       <!-- Check Audience -->
       <transition name="fade">
-      <div class="check-audience" v-if="model.targetPopulation">
-        <div class="alert alert-info">
-          <div class="info">
-            <i class="fa fa-info-circle"></i>
+        <div class="check-audience" v-if="model.targetPopulation">
+          <div class="alert alert-info">
+            <div class="info">
+              <i class="fa fa-info-circle"></i>
+            </div>
+            <p class="ml-3">
+              Enter a user's onyen to verify if the person entered is found
+              within the population criteria selected.
+            </p>
           </div>
-          <p
-            class="ml-3"
-          >Enter a user's onyen to verify if the person entered is found within the population criteria selected.</p>
-        </div>
 
-        <div class="one-column input-w-btn">
-          <form @submit.prevent.prevent class="form-group" role="form" ref="checkAudienceForm">
-            <div class="label-info">
-              <label for="checkAudience">Check Audience</label>
-            </div>
-            <div class="form-inline">
-              <input
-                id="checkAudience"
-                type="text"
-                class="form-control"
-                placeholder="onyen"
-                v-model="onyen"
-                v-select-all
-              />
-              <button class="btn btn-primary" @click="checkUser()">Check</button>
-              <pop-over
-                title="Check Audience"
-                data-content="Use this to verify whether the person entered is a member of the selected audience."
-              ></pop-over>
-            </div>
-          </form>
+          <div class="one-column input-w-btn">
+            <form
+              @submit.prevent.prevent
+              class="form-group"
+              role="form"
+              ref="checkAudienceForm"
+            >
+              <div class="label-info">
+                <label for="checkAudience">Check Audience</label>
+              </div>
+              <div class="form-inline">
+                <input
+                  id="checkAudience"
+                  type="text"
+                  class="form-control"
+                  placeholder="onyen"
+                  v-model="onyen"
+                  v-select-all
+                />
+                <button class="btn btn-primary" @click="checkUser()">
+                  Check
+                </button>
+                <pop-over
+                  title="Check Audience"
+                  data-content="Use this to verify whether the person entered is a member of the selected audience."
+                ></pop-over>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
       </transition>
     </div>
 
@@ -113,16 +192,18 @@
             <i class="fa fa fa-exclamation-circle"></i>
           </div>
           <div>
-            <p>{{audienceCheckResult}}</p>
+            <p>{{ audienceCheckResult }}</p>
             <div>Validation Conflicts Occurred:</div>
             <ul>
-              <li v-for="item in validationErrors" :key="item">{{item}}</li>
+              <li v-for="item in validationErrors" :key="item">{{ item }}</li>
             </ul>
           </div>
         </div>
       </div>
       <div slot="modal-footer">
-        <button class="btn btn-primary" @click="closeConfirmCheckUser()">Close</button>
+        <button class="btn btn-primary" @click="closeConfirmCheckUser()">
+          Close
+        </button>
       </div>
     </confirm-dialog>
   </form>

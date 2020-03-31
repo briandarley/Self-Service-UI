@@ -89,13 +89,13 @@ export default class ReadOnlyView extends Vue {
 
   hasEmployeePopulation() {
     if (!this.model || !this.model.targetPopulation) return false;
-    return this.model.targetPopulation.indexOf("EMPLOYEE") > -1
+    return this.model.targetPopulation.indexOf("EMPLOYEES") > -1
 
   }
 
   hasStudentPopulation() {
     if (!this.model || !this.model.targetPopulation) return false;
-    return this.model.targetPopulation.indexOf("STUDENT") > -1
+    return this.model.targetPopulation.indexOf("STUDENTS") > -1
 
   }
 }

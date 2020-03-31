@@ -41,6 +41,7 @@
             <li>
               <span class="label">Sending Criteria</span>
               <span class="entity-value">
+                
                 {{model.targetPopulation | formatSendingCriteria}}
                 {{model.targetEmployee | formatEmployeeCriteria}}
               </span>

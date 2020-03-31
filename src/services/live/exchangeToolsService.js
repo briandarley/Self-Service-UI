@@ -772,7 +772,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                     return response;
                 }
 
-                return this._promise_getAliasDomains = new Promise(async (resolve,reject) => {
+                return this._promise_getAliasDomains = new Promise(async (resolve) => {
 
                     const handler = await httpHandlerService.get();
 

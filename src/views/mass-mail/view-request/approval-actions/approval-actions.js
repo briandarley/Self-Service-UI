@@ -83,9 +83,9 @@ MASSMAIL_APPROVER
     if(this.entity.campaignStatus.status.indexOf("DENIED") > -1) return false;
     if(this.entity.campaignStatus.status.indexOf("APPROVED_STUDENTS") > -1) return false;
     if(this.entity.campaignStatus.approvedStudentsDate != null) return false;
-        
-    let population = ["EMPLOYEES_STUDENTS", "STUDENTS"];
-    if (population.indexOf(this.entity.targetPopulation) > -1) return true;
+    
+    let populations = this.entity.targetPopulation.split(",");
+    if (populations.indexOf("STUDENTS") > -1) return true;
     return false;
   }
 
@@ -96,9 +96,10 @@ MASSMAIL_APPROVER
     if(this.entity.campaignStatus.status.indexOf("DENIED") > -1) return false;
     if(this.entity.campaignStatus.status.indexOf("APPROVED_EMPLOYEES") > -1) return false;
     if(this.entity.campaignStatus.approvedEmployeesDate != null) return false;
+    
+    let populations = this.entity.targetPopulation.split(",");
 
-    let population = ["EMPLOYEES_STUDENTS", "EMPLOYEES"];
-    if (population.indexOf(this.entity.targetPopulation) > -1) return true;
+    if (populations.indexOf("EMPLOYEES")> -1 || populations.indexOf("AFFILIATES")> -1) return true;
     return false;
   }
   get isApproved() {

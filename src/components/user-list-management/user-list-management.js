@@ -305,7 +305,7 @@ export default class UserListManagement extends Vue {
       try{
         this.showSpinner();
         this.entities = await this.service.getDistributionGroupMembers(this.group);
-        console.log(this.entities );
+
         this.entities.map(c=> {
             if(!c.id)
             {

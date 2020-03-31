@@ -8,6 +8,8 @@ import {
 import TestMessages from './test-messages/test-messages.vue';
 
 
+
+
 @Component({
   name: 'message-summary',
   dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ScreenReaderAnnouncerService'],
@@ -21,21 +23,7 @@ import TestMessages from './test-messages/test-messages.vue';
         return "no-reply@email.unc.edu";
       return value;
     },
-    formatSendingCriteria(value) {
-      switch (value) {
-        case "STUDENTS":
-          return "Students";
-        case "EMPLOYEES":
-          return "Employees";
-        case "FACULTY":
-          return "Faculty";
-        case "EMPLOYEES_STUDENTS":
-          return "Employees and Students";
-        case "TESTING_ONLY":
-          return "Testing Only"
-      }
-
-    },
+   
     formatEmployeeCriteria(value) {
       if (value) {
         return "/ " + value;
@@ -85,6 +73,7 @@ export default class MessageSummary extends BaseValidateMixin {
   }
 
   async mounted() {
+    
     this.toastService.set(this);
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Message Summary");
   }
@@ -118,9 +107,12 @@ export default class MessageSummary extends BaseValidateMixin {
       errors.push("Target population required");
     }
 
-    if (this.model.targetPopulation === "EMPLOYEES" || this.model.targetPopulation === "EMPLOYEES_STUDENTS") {
-      if (!this.model.targetEmployee) {
-        errors.push("Employee criteria required");
+    if (this.model.targetPopulation != null) {
+      if(this.model.targetPopulation.includes("EMPLOYEES"))
+      {
+        if (!this.model.targetEmployee) {
+          errors.push("Employee criteria required");
+        }
       }
 
 

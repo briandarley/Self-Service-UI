@@ -10,7 +10,7 @@ import ConfirmVerify from "./confirm-verify/confirm-verify.vue";
 import CampaignCommunications from "./campaign-communications/campaign-communications.vue";
 import SearchCriteria from "./search-criteria/search-criteria.vue";
 
-import "./filters/index";;
+import "./filters/index";
 
 @Component({
   name: 'view-request',
@@ -91,9 +91,6 @@ export default class ViewRequest extends Vue {
     await this.search();
 
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail View Request");
-
-
-    const $ = this.$;
 
     this.addDropDownBehavior();
     await this.SignalRService.setupConnection();
