@@ -313,8 +313,7 @@ export default class UserListManagement extends Vue {
     });
     list = list.filter(
       c =>
-        !newValue.emailAddress ||
-        c.emailAddress.toUpperCase().startsWith(newValue.emailAddress.toUpperCase())
+        !newValue.emailAddress || (c.emailAddress || "").toUpperCase().startsWith(newValue.emailAddress.toUpperCase())
     );
     list = list.filter(
       c =>
