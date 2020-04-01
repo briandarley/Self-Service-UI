@@ -4,11 +4,7 @@
     <div class="section add-entity mt-3">
       <spinner allowServiceUpdate="false" ref="spinnerMngrList" class="control-spinner"></spinner>
       <div class="container">
-        <div class="row bg-primary text-white row-header">
-          <div class="col">User</div>
-          <div class="col">Canonical Name</div>
-          <div class="col"></div>
-        </div>
+        
         <div class="container">
           <div class="add-member">
            <form @submit.prevent.prevent class="form-group form-inline" role="form">
@@ -29,6 +25,11 @@
               </div>
             </form>
           </div>
+        </div>
+        <div class="row bg-primary text-white row-header">
+          <div class="col">User</div>
+          <div class="col">Canonical Name</div>
+          <div class="col"></div>
         </div>
         <div class="result-grid row" v-for="(item, index) in entities" :key="index">
           <div class="col">{{item.samAccountName}}</div>
