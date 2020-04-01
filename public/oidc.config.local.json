@@ -1,10 +1,10 @@
 {
-  "serviceEndpoint1": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
+  "serviceEndpoint": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
   "serviceEndpoint4": "https://its-idmuat-web.ad.unc.edu/Services/business.selfservice.api/v1/",
   "serviceEndpoint3": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
-  "serviceEndpoint": "http://localhost:13003/v1/",
-  "signalREndpoint1": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
-  "signalREndpoint": "http://localhost:13003/",
+  "serviceEndpoint5": "http://localhost:13003/v1/",
+  "signalREndpoint": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
+  "signalREndpoint1": "http://localhost:13003/",
   "ckeditorPlugins": "/ckeditor/plugins",
   "listmanager": {
     "lyris_list_base_path": "http://listtest.adtest.unc.edu/"

@@ -88,25 +88,7 @@
               </li>
             </ul>
           </div>
-          <!-- <div class="form-inline">
-            <select
-              id="targetPopulation"
-              class="form-control"
-              v-model="model.targetPopulation"
-              @change="targetPopulationChanged()"
-              data-validation="{'name': 'Target Population','required': true}"
-            >
-              <option value="">--Select Target Population --</option>
-              <option value="EMPLOYEES_STUDENTS">Employees and Students</option>
-              <option value="EMPLOYEES">Employees</option>
-              <option value="STUDENTS">Students</option>
-              <option value="TESTING_ONLY">Testing Only</option>
-            </select>
-            <pop-over
-              title="E-mail Target Population"
-              data-content="Select the appropriate target population."
-            ></pop-over>
-          </div> -->
+         
         </div>
       </div>
       <!-- Employee Criteria -->
