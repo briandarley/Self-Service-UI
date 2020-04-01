@@ -91,14 +91,22 @@ function ListManagerService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    async getListByEmailFilter(email) {
+    async getListByEmailFilter(email,isAdmin) {
       try {
         const handler = await httpHandlerService.get();
-
-        let response = await handler.get(
-          `listmanager/lists?MemberEmailAddress=${email}`
-        );
-        return response.data;
+        if(isAdmin)
+        {
+          let response = await handler.get(
+            `listmanager/lists?MemberEmailAddress=${email}&isAdmin=${isAdmin}`
+          );
+          return response.data;
+        }
+        else{
+          let response = await handler.get(
+            `listmanager/lists?MemberEmailAddress=${email}`
+          );
+          return response.data;
+        }
       } catch (e) {
         if (e.message.includes("404")) {
           return [];
