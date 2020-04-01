@@ -40,7 +40,55 @@ export default class App extends Vue {
     //   $(".top-header").focus();
     // }, 1000);
   }
+
+  printWelcome(){
+    window.console.log(`
+    
+    
+    
+
+
+                                                                                                                                                                                                         
+                                                                                                                                                                                                         
+    UUUUUUUU     UUUUUUUUNNNNNNNN        NNNNNNNN        CCCCCCCCCCCCC                                                                                                         
+    U::::::U     U::::::UN:::::::N       N::::::N     CCC::::::::::::C                                                                                                         
+    U::::::U     U::::::UN::::::::N      N::::::N   CC:::::::::::::::C                                                                                                         
+    UU:::::U     U:::::UUN:::::::::N     N::::::N  C:::::CCCCCCCC::::C                                                                                                         
+     U:::::U     U:::::U N::::::::::N    N::::::N C:::::C       CCCCCC                                                                                                         
+     U:::::D     D:::::U N:::::::::::N   N::::::NC:::::C                                                                                                                       
+     U:::::D     D:::::U N:::::::N::::N  N::::::NC:::::C                                                                                                                       
+     U:::::D     D:::::U N::::::N N::::N N::::::NC:::::C                                                                                                                       
+     U:::::D     D:::::U N::::::N  N::::N:::::::NC:::::C                                                                                                                       
+     U:::::D     D:::::U N::::::N   N:::::::::::NC:::::C                                                                                                                       
+     U:::::D     D:::::U N::::::N    N::::::::::NC:::::C                                                                                                                       
+     U::::::U   U::::::U N::::::N     N:::::::::N C:::::C       CCCCCC                                                                                                         
+     U:::::::UUU:::::::U N::::::N      N::::::::N  C:::::CCCCCCCC::::C                                                                                                         
+      UU:::::::::::::UU  N::::::N       N:::::::N   CC:::::::::::::::C                                                                                                         
+        UU:::::::::UU    N::::::N        N::::::N     CCC::::::::::::C                                                                                                         
+          UUUUUUUUU      NNNNNNNN         NNNNNNN        CCCCCCCCCCCCC                                                                                                         
+    
+          
+
+
+
+
+
+
+
+
+
+
+
+
+          
+      Self Service                                                                                                                                                                               
+    
+    `)
+
+  }
+
   mounted() {
+    this.printWelcome();
     let $ = this.$;
     this.$refs.mainSpinner.showSpinner();
     let simple = new SimpleBar($(".app-section")[0], {
