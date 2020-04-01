@@ -75,8 +75,8 @@ export default class ListManager extends BaseValidateMixin {
         this.toastService.error("Could not locate Lyris List with given name");
         return;
       }
-      
-      window.open(this.basePath + 'read/?current_list=' + listName, "_blank");    
+      //https://lists.unc.edu/?current_list=sotlines
+      window.open(this.basePath + '/?current_list=' + listName, "_blank");    
 
     } catch (e) {
       window.console.log(e);
