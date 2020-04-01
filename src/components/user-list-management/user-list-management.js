@@ -308,10 +308,7 @@ export default class UserListManagement extends Vue {
     
     let list = this.originalList.filter(c => {
       return (
-        !newValue.user ||
-        c.samAccountName.toUpperCase().includes(newValue.user.toUpperCase()) ||
-        c.name.toUpperCase().includes(newValue.user.toUpperCase())
-
+        !newValue.user || (c.samAccountName || c.name).toUpperCase().includes(newValue.user.toUpperCase()) 
       );
     });
     list = list.filter(

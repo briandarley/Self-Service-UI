@@ -308,7 +308,9 @@ input::placeholder {
 
 .result-grid {
   line-height: 40px;
-
+  &:nth-of-type(odd) {
+    background: $white;
+  }
   &:nth-of-type(even) {
     background: $gray-100;
     border-top: 1px solid $gray-200;
