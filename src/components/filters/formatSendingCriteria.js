@@ -1,13 +1,14 @@
 import Vue from "vue";
 
 export default function formatSendingCriteria(value, abreviated) {
-  
-  if(value == null) return "";
+  if (value == null) return "";
   let all = value.includes("ALL");
   if (all) {
     value = value.substring(4);
   }
-
+  if (value == null || value == "") {
+    return "";
+  }
   let items = value.toLowerCase().split(",");
 
   for (let i = 0; i < items.length; i++) {

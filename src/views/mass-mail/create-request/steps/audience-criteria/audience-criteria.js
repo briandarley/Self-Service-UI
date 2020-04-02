@@ -294,8 +294,11 @@ export default class AudienceCriteria extends BaseValidateMixin {
   async initializeAudienceSize() {
     const $ = this.$;
     this.audienceList.forEach(item => {
-      if (this.model.targetPopulation.includes(item.value)) {
-        item.checked = true;
+      if(this.model.targetPopulation) 
+      {
+        if (this.model.targetPopulation.includes(item.value)) {
+          item.checked = true;
+        }
       }
     });
     this.audienceSize = 0;
