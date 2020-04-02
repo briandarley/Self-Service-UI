@@ -84,6 +84,7 @@ MASSMAIL_APPROVER
     if(this.entity.campaignStatus.status.indexOf("APPROVED_STUDENTS") > -1) return false;
     if(this.entity.campaignStatus.approvedStudentsDate != null) return false;
     
+    if(!this.entity.targetPopulation) return false;
     let populations = this.entity.targetPopulation.split(",");
     if (populations.indexOf("STUDENTS") > -1) return true;
     return false;
@@ -97,6 +98,7 @@ MASSMAIL_APPROVER
     if(this.entity.campaignStatus.status.indexOf("APPROVED_EMPLOYEES") > -1) return false;
     if(this.entity.campaignStatus.approvedEmployeesDate != null) return false;
     
+    if(!this.entity.targetPopulation) return false;
     let populations = this.entity.targetPopulation.split(",");
 
     if (populations.indexOf("EMPLOYEES")> -1 || populations.indexOf("AFFILIATES")> -1) return true;
