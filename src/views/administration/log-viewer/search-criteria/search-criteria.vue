@@ -1,5 +1,5 @@
 <template>
- <div class="border border-primary search-criteria">
+  <div class="border border-primary search-criteria">
     <div class="bg bg-primary text-white p-2">Search Criteria</div>
     <div class="m-2">
       <div class="row-1">
@@ -57,7 +57,6 @@
             </select>
           </div>
         </div>
-        
       </div>
       <div class="row-3">
         <div class="filter-criteria">
