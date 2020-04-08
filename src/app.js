@@ -28,8 +28,7 @@ export default class App extends Vue {
     immediate: false
   })
   onRouteChanged() {
-    const $ = this.$;
-    
+   
     this.spinnerService.hide();
     this.$refs.mainSpinner.hideSpinner();
     //$("body").focus();
@@ -79,7 +78,7 @@ export default class App extends Vue {
     this.printWelcome();
     let $ = this.$;
     this.$refs.mainSpinner.showSpinner();
-    let simple = new SimpleBar($(".app-section")[0], {
+    new SimpleBar($(".app-section")[0], {
       autoHide: false,
       height: "auto"
     });

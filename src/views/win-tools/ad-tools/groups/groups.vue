@@ -15,9 +15,15 @@
             </div>
             <div>
               <p>Use the search field below to locate a desired record using Onyen</p>
+              <p>Note only one field is required when searching for desired groups. You do not need to specify both fields when searching. 
+                Searching by group name utilizes like expressions. 
+                So entering 'test' will return 'ipsum_lorem_test', 'delorem_cdstest mailbox full access', 'its_foshizzletestdg.dg' for example.</p>
             </div>
           </div>
-
+  <div class="border border-primary search-criteria">
+    <div class="bg bg-primary text-white p-2">Search Criteria</div>
+    <div class="m-2">
+      <div class="row-1">
           <div class="form-group">
             <label for="managedBy">Managed By</label>
             <input
@@ -30,6 +36,8 @@
               v-on:keyup.13="search()"
             />
           </div>
+      </div>
+      <div class="row-2">
           <div class="form-group">
             <label for="groupName">Group Name</label>
             <input
@@ -42,12 +50,13 @@
               v-on:keyup.13="search()"
             />
           </div>
-
+      </div>
           <div class="submit text-right" >
             <button class="btn btn-primary mr-1" @click="search()">Search</button>
             <button class="btn btn-secondary" @click="clear()">Clear</button>
           </div>
-
+    </div>
+    </div>
 
           <group-management 
             :criteria="criteria"
