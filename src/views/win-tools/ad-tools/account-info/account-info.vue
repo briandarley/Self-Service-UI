@@ -35,7 +35,7 @@
               v-on:keyup.13="search()"
               data-validation="{'required': 'true', 'message': 'Search field required'}"
               ref="newAlias"
-                  
+                  autocomplete="off"
             />
           </div>
           <div class="submit">

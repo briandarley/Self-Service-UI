@@ -1,24 +1,27 @@
-import Vue from "vue"
-import {
-  Component
-  
-} from "vue-property-decorator";
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 import Spinner from "@/components/spinner/spinner.vue";
 
-
-
 @Component({
-  name: 'active-directory-info',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'CommonExtensions','ScreenReaderAnnouncerService'],
-  props: ['data'],
-  components: {Spinner}
+  name: "active-directory-info",
+  dependencies: [
+    "$",
+    "moment",
+    "toastService",
+    "spinnerService",
+    "CommonExtensions",
+    "ScreenReaderAnnouncerService",
+    "ExchangeToolsService"
+  ],
+  props: ["data"],
+  components: { Spinner }
 })
-
 export default class ActiveDirectoryInfo extends Vue {
-
   async mounted() {
     this.toastService.set(this);
-    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Win Tools - Active Directory");
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
+      "Win Tools - Active Directory"
+    );
   }
 
   isEmpty(value) {
@@ -31,31 +34,35 @@ export default class ActiveDirectoryInfo extends Vue {
       return false;
     }
 
-   return false;
+    return false;
   }
-  showSpinner(){
+  showSpinner() {
     this.$refs.spinnerCntrl.showSpinner();
   }
-  hideSpinner(){
+  hideSpinner() {
     this.$refs.spinnerCntrl.hideSpinner();
   }
 
-  async enableAccount(){
-    
+  async enableAccount() {
     try {
-      this.showSpinner()
-            
-      await this.ExchangeToolsService.unlockAdUser(this.data.userDetail.samAccountName);
-      
-      this.data.userDetail.lockoutTime = 0;
-      this.toastService.success("Successfully unlocked account");
+      this.showSpinner();
+
+      let response = await this.ExchangeToolsService.unlockAdUser(
+        this.data.userDetail.samAccountName
+      );
+
+      if (response.status !== false) {
+        this.data.userDetail.lockoutTime = 0;
+        this.toastService.success("Successfully unlocked account");
+      }
+      else{
+        this.toastService.error("Failed to unlock account");
+      }
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to unlock account");
-    }
-    finally {
+    } finally {
       this.hideSpinner();
     }
-    
   }
 }

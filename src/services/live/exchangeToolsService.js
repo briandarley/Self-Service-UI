@@ -117,7 +117,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
             try {
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/ad-info/${userId}/unlock-ad-account`);
+                let response = await handler.put(`WinTools/exchange-tools/ad-tools/account-info/ad-info/${userId}/unlock-ad-account`);
 
                 return response.data;
 
