@@ -1,6 +1,12 @@
 <template>
   <div class="pb-100" v-if="data">
-    <div class="account-details">
+    <spinner
+        allowServiceUpdate="false"
+        ref="spinnerCntrl"
+        class="control-spinner"
+      ></spinner>
+
+    <div class="account-details row-odd">
       <h2 class="text-secondary">Dual Role Info</h2>
       <div>
         <span class="label">Is Dual Account</span>
@@ -23,7 +29,7 @@
       </div>
     </div>
 
-    <div class="account-details mt-4" v-if="data.userDetail">
+    <div class="account-details  row-even" v-if="data.userDetail">
       <h2 class="text-secondary">General Information</h2>
       <div>
         <span class="label">Onyen</span>
@@ -60,7 +66,7 @@
         <span>{{data.userDetail.department}}</span>
       </div>
     </div>
-    <div class="account-details mt-4" v-if="data.userDetail">
+    <div class="account-details  row-odd" v-if="data.userDetail">
       <h2 class="text-secondary">AD Account Status</h2>
       <div>
         <span class="label">Created</span>
@@ -76,8 +82,16 @@
       </div>
       <div>
         <span class="label">Lockout Time</span>
-        <span v-if="data.userDetail.lockoutTime == 0">Enabled</span>
-        <span v-else>{{data.userDetail.lockoutTime | formatDateTime}}</span>
+        <span v-if="data.userDetail.lockoutTime == 0">Enabled 
+
+ 
+
+        </span>
+        <span v-else>{{data.userDetail.lockoutTime | formatDateTime}} 
+          
+          <button class="btn  btn-outline-danger" @click="enableAccount()" ><i class="fa fa-chevron-right" ></i> Enable</button>
+          
+          </span>
       </div>
       <div class="recent-locks">
         <span class="label">Recent Lockouts</span>

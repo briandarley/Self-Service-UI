@@ -113,6 +113,24 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
+        async unlockAdUser(userId) {
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.get(`WinTools/exchange-tools/ad-tools/account-info/ad-info/${userId}/unlock-ad-account`);
+
+                return response.data;
+
+            } catch (e) {
+
+                if (e.message.includes("404")) {
+                    return {
+                        status: false
+                    };
+                }
+                throw e;
+            }
+        },
         async getAdUserByEmail(email) {
             try {
                 const handler = await httpHandlerService.get();

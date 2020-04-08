@@ -1,6 +1,6 @@
 <template>
    <div class="pb-100" v-if="data">
-    <div class="account-details">
+    <div class="account-details row-odd">
       <h2 class="text-secondary">General Information</h2>
       <div>
         <span class="label">Primary SMTP</span>
