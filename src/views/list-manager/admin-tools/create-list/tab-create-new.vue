@@ -25,6 +25,7 @@
           v-model="model.listName"
           data-validation="{'name': 'List Name','minLength': '3','message':'Invalid, can contain only alpha numeric characters (lower case) with no spaces', 'regex': '^[a-z0-9_\\-]+$'}"
           ref="list_name"
+          v-lowercase
           v-on:keyup.13="search()"
         />
       </div>
