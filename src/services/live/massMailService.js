@@ -371,7 +371,32 @@ function MassMailService(httpHandlerService, commonExtensions) {
             }
 
 
+        },
+        async getUserActivity(campaignId){
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.get(`/massmail/campaigns/${campaignId}/user-activity`);
+
+                return response.data;
+            } catch (e) {
+                return false;
+
+            }
+        },
+        async getUserActivityByIp(campaignId){
+            try {
+                const handler = await httpHandlerService.get();
+
+                let response = await handler.get(`/massmail/campaigns/${campaignId}/user-activity-by-ip`);
+
+                return response.data;
+            } catch (e) {
+                return false;
+
+            }
         }
+
     }
 }
 

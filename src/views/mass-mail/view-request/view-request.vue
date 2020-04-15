@@ -69,11 +69,15 @@
                   <i class="material-icons">search</i>
                   <span>View</span>
                 </button>
-                <button class="button btn btn-sm btn-light" @click="toggleShowHistory(item)">
+                <button class="button btn btn-sm btn-outline-light text-dark border-dark" @click="toggleShowHistory(item)">
                   <i class="material-icons">history</i>
                   <span>History</span>
                 </button>
-                <button class="button btn btn-sm btn-secondary" @click="viewShowVerify(item)" v-if="showVerify(item)">
+                <button class="button btn btn-sm btn-outline-light text-dark border-dark" @click="viewConfirmCampaignMetrics(item)" v-if="showVerify(item)">
+                  <i class="material-icons">trending_up</i>
+                  <span>Metrics</span>
+                </button>
+                <button class="button btn btn-sm btn-outline-light text-dark border-dark" @click="viewShowVerify(item)" v-if="showVerify(item)">
                   <i class="material-icons">verified_user</i>
                   <span>Verify</span>
                 </button>
@@ -126,7 +130,16 @@
         <button class="btn btn-primary" @click="closeConfirmVerify()">Close</button>
       </div>
     </confirm-dialog>
-
+    <confirm-dialog id="confirmCampaignMetrics" ref="confirmCampaignMetrics" width="800">
+      <div slot="modal-title" class="text-white">Message Metrics : {{readOnlyModel.id}}</div>
+      <div slot="modal-body">
+        <campaign-metrics :campaignId="readOnlyModel.id"></campaign-metrics>
+        
+      </div>
+      <div slot="modal-footer">
+        <button class="btn btn-primary" @click="closeConfirmCampaignMetrics()">Close</button>
+      </div>
+    </confirm-dialog>
     <campaign-communications
       ref="campaignCommunications"
       @cancel="onHideCommunication"

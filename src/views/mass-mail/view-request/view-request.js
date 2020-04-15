@@ -9,7 +9,7 @@ import ReadOnlyView from "./read-only-view/read-only-view.vue";
 import ConfirmVerify from "./confirm-verify/confirm-verify.vue";
 import CampaignCommunications from "./campaign-communications/campaign-communications.vue";
 import SearchCriteria from "./search-criteria/search-criteria.vue";
-
+import CampaignMetrics from "./campaign-metrics/campaign-metrics.vue";
 import "./filters/index";
 
 @Component({
@@ -22,7 +22,8 @@ import "./filters/index";
     ReadOnlyView,
     CampaignCommunications,
     SearchCriteria,
-    ConfirmVerify
+    ConfirmVerify,
+    CampaignMetrics
   }
 
 
@@ -254,7 +255,11 @@ export default class ViewRequest extends Vue {
     this.readOnlyModel = entity;
     this.$refs.confirmViewReadOnly.show();
   }
-  
+  viewConfirmCampaignMetrics(entity) {
+    this.readOnlyModel = entity;
+    this.$refs.confirmCampaignMetrics.show();
+  }
+
   closeConfirmViewReadOnly() {
     this.$refs.confirmViewReadOnly.hide();
   }
@@ -264,7 +269,9 @@ export default class ViewRequest extends Vue {
   closeConfirmVerify(){
     this.$refs.confirmVerify.hide();
   }
-
+  closeConfirmCampaignMetrics() {
+    this.$refs.confirmCampaignMetrics.hide();
+  }
 
 
   _resetCriteria() {
