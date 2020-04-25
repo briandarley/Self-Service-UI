@@ -78,13 +78,17 @@ export default class App extends Vue {
     this.printWelcome();
     let $ = this.$;
     this.$refs.mainSpinner.showSpinner();
+   
     new SimpleBar($(".app-section")[0], {
       autoHide: false,
       height: "auto"
     });
 
-
-    this.EventBus.attachEvent("attach-scroll", this.attachScrollBar);
+    setTimeout(() => {
+    
+    this.EventBus.attachEvent("attach-scroll", this.attachScrollBar);  
+    }, 50);
+    
 
     this.EventBus.attachEvent('announcement-page-load', this.onAnnouncePageLoad);
     this.EventBus.attachEvent('announcement-send-announcement', this.onAnnounceMessage);
@@ -118,13 +122,14 @@ export default class App extends Vue {
       autoHide: false,
       height: "auto"
     });
-    let height = simple.contentEl.scrollHeight;
+    
+    let height = simple.el.scrollHeight;
     $('#appSpinner').height(height);
 
     //execute every 100ms, then stop after 1sec
     let handle = setInterval(() => {
-      simple.recalculate();
-      height = simple.contentEl.scrollHeight;
+      //simple.recalculate();
+      height = simple.el.scrollHeight;
       $('#appSpinner').height(height);
     }, 100)
 

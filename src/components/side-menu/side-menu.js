@@ -1,16 +1,12 @@
 /* eslint-disable */
 import Vue from "vue";
-import {
-  Component,
-  Watch
-} from "vue-property-decorator";
-import SimpleBar from 'simplebar';
+import { Component, Watch } from "vue-property-decorator";
+import SimpleBar from "simplebar";
 
 @Component({
   name: "side-menu",
   dependencies: ["$", "RouteSourcesService", "EventBus"],
-  props: ['collapsed']
-
+  props: ["collapsed"],
 })
 export default class SideMenu extends Vue {
   routes = [];
@@ -20,28 +16,28 @@ export default class SideMenu extends Vue {
 
   tree = [];
 
-  navigateTo($element){
+  navigateTo($element) {
     const $ = this.$;
-    $($element).find("nav").click();
+    $($element)
+      .find("nav")
+      .click();
     //$element.find("nav").click()
-}
+  }
 
   async _getRouteInfo() {
     if (!this.currentRoute.meta.routeDefinition) return null;
 
-
     let routeDetail = this.currentRoute.meta.routeDefinition;
     if (!routeDetail) return null;
 
-
     let criteria = {
       excludeWildCards: true,
-      excludeUnOrdered: true
-    }
+      excludeUnOrdered: true,
+    };
 
     let menuResult = await this.RouteSourcesService.getRouteMenu(criteria);
     if (routeDetail.order === -1) {
-      routeDetail = menuResult.find(c => c.id === routeDetail.parentRouteId);
+      routeDetail = menuResult.find((c) => c.id === routeDetail.parentRouteId);
     }
     if (!routeDetail) return null;
 
@@ -53,13 +49,11 @@ export default class SideMenu extends Vue {
 
     return {
       routeDetail: routeDetail,
-      menuResult: menuResult
-    }
-
+      menuResult: menuResult,
+    };
   }
 
   _getChildRoutes(routeDetail, menuResult) {
-
     let childRoutes = [];
 
     //Is the selected route a parent route?
@@ -68,7 +62,7 @@ export default class SideMenu extends Vue {
     //find parent of selected route
     //&& !c.nestedRouting
     let availableRoutes = menuResult.filter(
-      c => c.parentRouteId === routeDetail.id && !c.nestedRouting
+      (c) => c.parentRouteId === routeDetail.id && !c.nestedRouting
     );
 
     if (availableRoutes.length) {
@@ -79,14 +73,13 @@ export default class SideMenu extends Vue {
         let childRoute = availableRoutes[i];
         //&& !c.nestedRouting
         childRoute.children = menuResult.filter(
-          c => c.parentRouteId === childRoute.id && !c.nestedRouting
+          (c) => c.parentRouteId === childRoute.id && !c.nestedRouting
         );
       }
       childRoutes = childRoutes.concat(availableRoutes);
     } else {
-
       let parentRoute = menuResult.find(
-        c => c.id === routeDetail.parentRouteId
+        (c) => c.id === routeDetail.parentRouteId
       );
 
       if (parentRoute) {
@@ -94,14 +87,14 @@ export default class SideMenu extends Vue {
         childRoutes = [parentRoute];
       }
       availableRoutes = menuResult.filter(
-        c => c.parentRouteId === routeDetail.parentRouteId && !c.nestedRouting
+        (c) => c.parentRouteId === routeDetail.parentRouteId && !c.nestedRouting
       );
       //find the children of the available routes, this will allow users to navigate through the list
       for (var i = 0; i < availableRoutes.length; i++) {
         let childRoute = availableRoutes[i];
 
         childRoute.children = menuResult.filter(
-          c => c.parentRouteId === childRoute.id && !c.nestedRouting
+          (c) => c.parentRouteId === childRoute.id && !c.nestedRouting
         );
       }
       childRoutes = childRoutes.concat(availableRoutes);
@@ -112,32 +105,32 @@ export default class SideMenu extends Vue {
 
   _cleanAndSortRoutes(routes) {
     routes.sort((a, b) => {
-      if(a.id == b.parentRouteId) return false;
-      return a.order > b.order
-    })
+      if (a.id == b.parentRouteId) return false;
+      return a.order > b.order;
+    });
 
     //if the route contains parameter options, don't add it
-    routes = routes.map(c => {
+    routes = routes.map((c) => {
       let route = c.route.replace(/\/:[a-zA-Z0-9]+\??$/, "");
       c.route = route;
 
       return c;
-    })
+    });
 
     return routes;
   }
+
   @Watch("collapsed")
-  onCollapsedChanged(newValue) {
-    if(!this.simpleBar){
+  onCollapsedChanged() {
+    if (!this.simpleBar) {
       return;
     }
-   
-    this.simpleBar.recalculate();
 
+    this.simpleBar.recalculate();
   }
 
   @Watch("$route", {
-    immediate: false
+    immediate: false,
   })
   async onRouteChanged(newValue, oldValue) {
     if (newValue.name == oldValue.name) return;
@@ -147,7 +140,10 @@ export default class SideMenu extends Vue {
 
     if (!routeInfo) return;
 
-    let childRoutes = this._getChildRoutes(routeInfo.routeDetail, routeInfo.menuResult);
+    let childRoutes = this._getChildRoutes(
+      routeInfo.routeDetail,
+      routeInfo.menuResult
+    );
 
     childRoutes = this._cleanAndSortRoutes(childRoutes);
 
@@ -184,16 +180,14 @@ export default class SideMenu extends Vue {
   async mounted() {
     const $ = this.$;
 
-    this.simpleBar = new SimpleBar($('.side-menu')[0], {
+    this.simpleBar = new SimpleBar($(".side-menu")[0], {
       autoHide: false,
       classNames: {
-        scrollbar: 'sb-scrollbar',
-      }
+        scrollbar: "sb-scrollbar",
+      },
     });
 
     this.EventBus.attachEvent("toggle-side-menu", this.attachToggleSideMenu);
-
-
   }
 
   attachToggleSideMenu() {
@@ -213,38 +207,42 @@ export default class SideMenu extends Vue {
     this.tree = [];
 
     let allRoutes = await this.RouteSourcesService.getAllMenuItems({
-      exlcudeWildCard: true
+      exlcudeWildCard: true,
     });
-    if(allRoutes == null) return;
-    
+    if (allRoutes == null) return;
+
     let routeDefinition = this.$route.meta.routeDefinition;
 
     let parentRoute = allRoutes.find(
-      c => c.id === routeDefinition.parentRouteId
+      (c) => c.id === routeDefinition.parentRouteId
     );
     //&& !c.nestedRouting
     if (
       parentRoute &&
-      !allRoutes.some(c => c.parentRouteId === routeDefinition.id && !c.nestedRouting)
+      !allRoutes.some(
+        (c) => c.parentRouteId === routeDefinition.id && !c.nestedRouting
+      )
     ) {
-      parentRoute = allRoutes.find(c => c.id === parentRoute.parentRouteId);
+      parentRoute = allRoutes.find((c) => c.id === parentRoute.parentRouteId);
     }
     //if(!routeDefinition.children.length)
 
     let list = [];
     while (parentRoute) {
       //&&  !c.nestedRouting
-      let children = allRoutes.filter(c => c.parentRouteId === parentRoute.id && !c.nestedRouting);
+      let children = allRoutes.filter(
+        (c) => c.parentRouteId === parentRoute.id && !c.nestedRouting
+      );
 
       if (
         children.length &&
         (!routeDefinition.children ||
           routeDefinition.children.length === 0 ||
-          !children.some(c => c.id === routeDefinition.id))
+          !children.some((c) => c.id === routeDefinition.id))
       ) {
         list.push(parentRoute);
       }
-      parentRoute = allRoutes.find(c => c.id === parentRoute.parentRouteId);
+      parentRoute = allRoutes.find((c) => c.id === parentRoute.parentRouteId);
     }
 
     let tree = JSON.parse(JSON.stringify(list.reverse()));
@@ -254,9 +252,5 @@ export default class SideMenu extends Vue {
     }
 
     this.tree = tree;
-
-
   }
-
- 
 }

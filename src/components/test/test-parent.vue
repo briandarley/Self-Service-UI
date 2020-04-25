@@ -16,7 +16,7 @@ export default class MyParent extends Vue {
   
   parentVal = "value of parent";
 
-  childchanged(arg1, arg2){
+  childchanged(){
     
     
   }

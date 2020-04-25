@@ -105,7 +105,7 @@
             <p>The ITS Listserv Service is currently under review for migration to O365.</p>
             <p>There are options to choose from within O365 such as Teams or Groups to better suit your needs.</p>
             <p>
-              Please contact (919) 963-HELP for assistance with setting up an O365 Team or group.
+              Please contact (919) 962-HELP for assistance with setting up an O365 Team or group.
               <br />If you choose to use Listserv, please be advised that this service may migrate to O365 soon.
             </p>
           </div>

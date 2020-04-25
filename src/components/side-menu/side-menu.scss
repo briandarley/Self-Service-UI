@@ -6,7 +6,7 @@
   /* god damn ie */
   -ms-grid-column: 1;
   //full screen minus top header minus footer
-  //height: calc(100vh - 175px - 75px);
+  height: calc(100vh - 175px);
   box-sizing: border-box;
   z-index: 100;
   box-shadow: 10px 5px 10px #888;

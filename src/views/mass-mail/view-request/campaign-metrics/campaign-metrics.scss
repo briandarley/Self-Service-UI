@@ -1,12 +1,42 @@
 .search-result{
-
+   
     .results .result-grid,.row-header{
         display: flex;
 
         div{
             flex:1;
+            text-align: left;
+
         }
         
     }
+    .user-activity-results .sdd-grid .result-grid{
+        div:nth-of-type(4) {
+            text-align: right;
+        }
+    }
+    .filter{
+        display: flex;
+        div{
+            flex:1;
+            &:nth-of-type(4){
+                background-color: $gray-500;
+            }
+        }
+    }
+
     
 }
+.results-container{
+    min-height: 300px;
+    
+}
+.user-activity-results{
+    height:300px;
+    overflow: hidden;
+
+}
+.sdd-grid {
+height:300px;
+    
+  }

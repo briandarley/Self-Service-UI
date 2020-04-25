@@ -173,14 +173,16 @@ export default class Aliases extends BaseValidateMixin {
       await this.ExchangeToolsService.setPrimaryAlias(uid, this.selectedPrimarySmtp);
 
       this.toastService.success("Successfully set primary alias");
+      
+
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to set new primary alias");
     }
     finally{
       this.selectedPrimarySmtp = "";
-      this.$refs.addEmailAliasDialog.hide();
-      //
+      this.$refs.confirmChangePrimaryAliasDialog.hide();
+      
     }
   }
 

@@ -372,11 +372,11 @@ function MassMailService(httpHandlerService, commonExtensions) {
 
 
         },
-        async getUserActivity(campaignId){
+        async getCampaignReadStatistics(campaignId){
             try {
                 const handler = await httpHandlerService.get();
 
-                let response = await handler.get(`/massmail/campaigns/${campaignId}/user-activity`);
+                let response = await handler.get(`/massmail/campaigns/${campaignId}/read-statistics`);
 
                 return response.data;
             } catch (e) {
@@ -384,14 +384,14 @@ function MassMailService(httpHandlerService, commonExtensions) {
 
             }
         },
-        async getUserActivityByIp(campaignId){
+        async getUserActivity(criteria){
             try {
                 const handler = await httpHandlerService.get();
-
-                let response = await handler.get(`/massmail/campaigns/${campaignId}/user-activity-by-ip`);
-
+                let queryParams = commonExtensions.convertToQueryParams(criteria);
+                let response = await handler.get(`/massmail/campaigns/${criteria.campaignId}/user-activity?${queryParams}`);
                 return response.data;
             } catch (e) {
+                
                 return false;
 
             }

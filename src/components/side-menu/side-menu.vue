@@ -1,5 +1,5 @@
 <template>
-  <!-- data-simplebar -->
+  
   <transition name="fade">
     <div class="side-menu" :class="{'hide-side-menu': !showSideMenu}" role="menu">
       <div class="side-menu-pager">
@@ -15,7 +15,7 @@
       <transition-group class="nav" name="fly_in" tag="ul">
         <li
           class="nav-item"
-          v-for="(item, index)  in routes"
+          v-for="item  in routes"
           :key="item.id"
           :class="{'active': isMenuActive(item), 'has-children': hasChildren(item)}"
           :title="item.title"
