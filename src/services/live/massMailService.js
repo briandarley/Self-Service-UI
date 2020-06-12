@@ -39,28 +39,28 @@ function MassMailService(httpHandlerService, commonExtensions) {
                 throw e;
             }
         },
-        async getDepartments() {
-            try {
+        // async getDepartments() {
+        //     try {
 
-                const handler = await httpHandlerService.get(60000);
+        //         const handler = await httpHandlerService.get(60000);
 
-                let response = await handler.get(`/massmail/departments`);
+        //         let response = await handler.get(`/massmail/departments`);
 
-                return response.data.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
-
-
-
-            } catch (e) {
-                if (e.message.includes("404")) {
-                    return {
-                        status: false
-                    };
-                }
-                throw e;
-            }
+        //         return response.data.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 
 
-        },
+
+        //     } catch (e) {
+        //         if (e.message.includes("404")) {
+        //             return {
+        //                 status: false
+        //             };
+        //         }
+        //         throw e;
+        //     }
+
+
+        // },
         async getMassMailAudienceTotals() {
             try {
 
@@ -149,7 +149,23 @@ function MassMailService(httpHandlerService, commonExtensions) {
                 throw error;
             }
         },
-        async checkIfUserExists(onyen) {
+        // async checkIfUserExists(onyen) {
+        //     try {
+        //         const handler = await httpHandlerService.get();
+
+        //         let response = await handler.get(`/MassMail/create-request/audience-criteria/users/${onyen}`);
+
+        //         return response.data;
+        //     } catch (error) {
+        //         if (error.message.includes("404")) {
+        //             return {
+        //                 status: false
+        //             };
+        //         }
+        //         throw error;
+        //     }
+        // },
+        async getMassMailUserProfile(onyen) {
             try {
                 const handler = await httpHandlerService.get();
 
@@ -166,13 +182,17 @@ function MassMailService(httpHandlerService, commonExtensions) {
             }
         },
         async save(model) {
+           
             if(model.comments && Array.isArray(model.comments))
             {
                 model.comments = model.comments[0];
             }
+            
             if (!model.id) {
+                
                 model.id = await this._addNewCampaign(model);
             } else {
+                
                 let response = await this._updateNewCampaign(model);
                 if (response.status == false) {
                     return response;
@@ -196,7 +216,7 @@ function MassMailService(httpHandlerService, commonExtensions) {
         async _updateNewCampaign(model) {
             try {
                 const handler = await httpHandlerService.get();
-
+                                
                 await handler.put(`/massmail/campaigns/${model.id}`, model);
 
                 return true;
@@ -372,7 +392,7 @@ function MassMailService(httpHandlerService, commonExtensions) {
 
 
         },
-        async getCampaignReadStatistics(campaignId){
+        async getCampaignReadStatistics(campaignId) { 
             try {
                 const handler = await httpHandlerService.get();
 
@@ -384,12 +404,23 @@ function MassMailService(httpHandlerService, commonExtensions) {
 
             }
         },
-        async getUserActivity(criteria){
+        async getUserActivity(criteria) {
             try {
                 const handler = await httpHandlerService.get();
                 let queryParams = commonExtensions.convertToQueryParams(criteria);
                 let response = await handler.get(`/massmail/campaigns/${criteria.campaignId}/user-activity?${queryParams}`);
                 return response.data;
+            } catch (e) {
+                
+                return false;
+
+            }
+        },
+        async getAudienceCodeValudDisplayOrder() {
+            try {
+                const handler = await httpHandlerService.get();
+                let response = await handler.get(`/massmail/mass-mail-audience/audience-code-value-display-order`);
+                return response.data.entities;
             } catch (e) {
                 
                 return false;

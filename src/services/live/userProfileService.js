@@ -111,12 +111,22 @@ function UserProfileService(httpHandlerService) {
                 const handler = await httpHandlerService.get();
 
 
-                let response = await handler.put(`/UserProfiles/${userId}/ad-profile/primary-alias/${alias}/add-alias`);
+                let response = await handler
+                .put(`/UserProfiles/${userId}/ad-profile/primary-alias/${alias}/add-alias`
+                ).then(response => {
+                    return response;
+                }).catch(error=> {
+                    throw {message: error.response.data};
+                    
+                });
 
                 return response.data;
 
             } catch (e) {
-                throw e;
+                return {
+                    message: e.message,
+                    status: false,
+                  };
             }
         },
         async removeEmailAlias(userId, alias) {

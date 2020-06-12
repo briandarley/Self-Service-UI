@@ -46,7 +46,7 @@ export default class BasicInformation extends BaseValidateMixin {
   async mounted() {
     this.toastService.set(this);
     this.campaignId = this.$route.params.id;
-    await this.loadDepartments();
+    //await this.loadDepartments();
     
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Basic Information");
   }
@@ -61,19 +61,19 @@ export default class BasicInformation extends BaseValidateMixin {
     }
   }
   
-  async loadDepartments() {
-    try {
-      this.spinnerService.show();
-      let entities = await this.MassMailService.getDepartments()
-      this.departments = entities;
+  // async loadDepartments() {
+  //   try {
+  //     this.spinnerService.show();
+  //     let entities = await this.MassMailService.getDepartments()
+  //     this.departments = entities;
 
-    } catch (e) {
-      window.console.log(e);
-      this.toasterService.error('Failed to retrieve departments');
-    } finally {
-      this.spinnerService.hide();
-    }
-  }
+  //   } catch (e) {
+  //     window.console.log(e);
+  //     this.toasterService.error('Failed to retrieve departments');
+  //   } finally {
+  //     this.spinnerService.hide();
+  //   }
+  // }
 
   async getSchoolsDepartmentsLike(query, _, asyncResults) {
 

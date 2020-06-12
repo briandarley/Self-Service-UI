@@ -43,8 +43,17 @@ export default class Aliases extends BaseValidateMixin {
     immediate: false
   })
   async onEmailAddressesChanged(newValue) {
-    this.emailAddresses.find(c => c.primary).primary = false;
-    this.emailAddresses.find(c => c.email === newValue).primary = true;
+    let emailAddress = this.emailAddresses.find(c => c.primary);
+    if( emailAddress)
+    {
+      emailAddress.primary = false;
+    }
+    emailAddress = this.emailAddresses.find(c => c.email === newValue);
+    if( emailAddress)
+    {
+      emailAddress.primary = true;
+    }
+    
   }
 
   async search() {
@@ -83,10 +92,14 @@ export default class Aliases extends BaseValidateMixin {
       this.emailAddresses = this.CommonExtensions.getValidEmailAddresses(
         this.adUser.proxyAddresses
       );
-
-      this.primary = this.emailAddresses.find(c => c.primary).email;
+      let emailAddress  = this.emailAddresses.find(c => c.primary);
+      if( emailAddress)
+      {
+        this.primary = emailAddress.email;
+      }
+      
     } catch (e) {
-      window.console.log(e);
+      
       this.toastService.error("Failed to retrieve AD user");
     } finally {
       this.spinnerService.hide();
@@ -118,6 +131,7 @@ export default class Aliases extends BaseValidateMixin {
         return;
       }
       this.closeAddEmailAliasDialog();
+      
       let response = await this.ExchangeToolsService.addAlias(
         this.adUser.samAccountName,
         newAlias
@@ -126,7 +140,8 @@ export default class Aliases extends BaseValidateMixin {
       if (response.success) {
         this.toastService.success("Successfully added alias");
       } else {
-        this.toastService.error(response.errorMessage);
+         this.toastService.error(`Failed to add alias. Error Response: ${response.message}`);
+         return;
       }
       this.newAliasPrefix = "";
 
@@ -135,7 +150,7 @@ export default class Aliases extends BaseValidateMixin {
       }
 
     } catch (e) {
-      window.console.log(e);
+      
       this.toastService.error("Failed to add alias");
     } finally {
       this.spinnerService.hide();
@@ -155,7 +170,12 @@ export default class Aliases extends BaseValidateMixin {
   }
 
   confirmChangePrimaryAlias(event){
-    this.currentPrimary = this.emailAddresses.find(c=> c.primary).email;
+    
+    let emailAddress = this.emailAddresses.find(c=> c.primary);
+    if( emailAddress)
+    {
+      this.currentPrimary = emailAddress.email;
+    }
     
     this.selectedPrimarySmtp = event.target.value;
     
@@ -176,7 +196,6 @@ export default class Aliases extends BaseValidateMixin {
       
 
     } catch (e) {
-      window.console.log(e);
       this.toastService.error("Failed to set new primary alias");
     }
     finally{
@@ -205,7 +224,7 @@ export default class Aliases extends BaseValidateMixin {
       let index = this.emailAddresses.indexOf(this.deleteEntity);
       this.emailAddresses.splice(index, 1);
     } catch (e) {
-      window.console.log(e);
+      
       this.toastService.error("Failed to remove alias");
     }
     finally{
@@ -246,7 +265,7 @@ export default class Aliases extends BaseValidateMixin {
       
 
     } catch (e){
-      window.console.log(e);
+      
       this.toastService.error("Failed to set forwarding address");
 
     } finally{

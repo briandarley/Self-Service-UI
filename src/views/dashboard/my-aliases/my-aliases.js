@@ -258,7 +258,11 @@ export default class MyAliases extends BaseValidateMixin {
 
     this.spinnerService.show();
     try {
-      await this.UserProfileService.addEmailAlias(this.userId, this.newAlias)
+      let response = await this.UserProfileService.addEmailAlias(this.userId, this.newAlias)
+      if(response .status === false){
+        this.toastService.error(`Failed to add alias. Error Response: ${response.message}`);
+        return;
+      }
       this.toastService.success("Successfully added new alias");
       await this.cancelPrimaryAlias();
     } catch (e) {

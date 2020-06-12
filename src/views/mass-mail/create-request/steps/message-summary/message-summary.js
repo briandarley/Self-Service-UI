@@ -1,81 +1,121 @@
-import {
-  BaseValidateMixin
-} from "./../../../../../components/mixins/index";
-import {
-  Component,
-  Watch
-} from "vue-property-decorator";
-import TestMessages from './test-messages/test-messages.vue';
-
-
-
+import { BaseValidateMixin } from "./../../../../../components/mixins/index";
+import { Component, Watch } from "vue-property-decorator";
+import TestMessages from "./test-messages/test-messages.vue";
 
 @Component({
-  name: 'message-summary',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ScreenReaderAnnouncerService'],
+  name: "message-summary",
+  dependencies: [
+    "$",
+    "moment",
+    "toastService",
+    "spinnerService",
+    "ScreenReaderAnnouncerService",
+    "MassMailService",
+  ],
   components: {
-    TestMessages
+    TestMessages,
   },
-  props: ['value'],
+  props: ["value"],
   filters: {
     formatSender(value) {
-      if (!value)
-        return "no-reply@email.unc.edu";
+      if (!value) return "no-reply@email.unc.edu";
       return value;
     },
-   
+
     formatEmployeeCriteria(value) {
       if (value) {
         return "/ " + value;
       }
       return "";
-    }
-  }
+    },
+  },
 })
-
 export default class MessageSummary extends BaseValidateMixin {
-  model = {
-
-  }
-
-  @Watch('model', {
+  model = {};
+  audienceOptions = [];
+  includePopulation = "";
+  excludePopulation = "";
+  
+  @Watch("model", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   onModelChanged(newValue) {
-    this.$emit('input', newValue);
+    this.$emit("input", newValue);
   }
-  @Watch('value', {
+  @Watch("value", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   onValueChanged(newValue) {
     this.model = newValue;
     const $ = this.$;
-    
+
     if (this.model) {
       let html = $(this.model.content);
       let images = html.find("img");
 
-      //if images are greater than 600, the preview will crop the image, 
+      //if images are greater than 600, the preview will crop the image,
       //set image to 100% if that happens
       images.each((_, img) => {
-        
-        if($(img).width() >= 600){
+        if ($(img).width() >= 600) {
           $(img).width("100%");
         }
-        
       });
-      this.model.content = html.get().map(function(v){return v.outerHTML}).join('');
-      
+      this.model.content = html
+        .get()
+        .map(function(v) {
+          return v.outerHTML;
+        })
+        .join("");
     }
-
   }
 
   async mounted() {
-    
     this.toastService.set(this);
-    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Message Summary");
+    this.audienceOptions = await this.MassMailService.getAudienceCodeValudDisplayOrder();
+    this.initializeSendingCriteriaDisplay();
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
+      "Mass Mail Message Summary"
+    );
+  }
+
+  initializeSendingCriteriaDisplay() {
+    let reducer = (val, curVal) => {
+      let respond = val.concat([curVal]);
+
+      if (curVal.entities) {
+        curVal.entities.forEach((c) => (c.parent = curVal));
+        return respond.concat(curVal.entities);
+      }
+      return respond;
+    };
+
+    let included = JSON.parse(JSON.stringify(this.audienceOptions)).reduce(
+      reducer,
+      []
+    );
+    let excluded = JSON.parse(JSON.stringify(this.audienceOptions)).reduce(
+      reducer,
+      []
+    );
+
+    this.value.campaignAudienceSelections.includePopulations.forEach((pop) => {
+      included.find((c) => c.code == pop).selected = true;
+    });
+    this.value.campaignAudienceSelections.excludePopulations.forEach((pop) => {
+      excluded.find((c) => c.code == pop).selected = true;
+    });
+
+
+    let parents = [...new Set(included.filter(c=> c.selected == true && (c.parent != null || c.code === "TEST")).map(c=> c))]
+    
+    this.includePopulation =  parents.map(c=> c.description).join(', ');
+
+     parents = [...new Set(excluded.filter(c=> c.selected == true && c.parent != null).map(c=> c))]
+    this.excludePopulation = parents.map(c=> c.description).join(', ');
+  
+    
   }
 
   showPreview() {
@@ -108,14 +148,11 @@ export default class MessageSummary extends BaseValidateMixin {
     }
 
     if (this.model.targetPopulation != null) {
-      if(this.model.targetPopulation.includes("EMPLOYEES"))
-      {
+      if (this.model.targetPopulation.includes("EMPLOYEES")) {
         if (!this.model.targetEmployee) {
           errors.push("Employee criteria required");
         }
       }
-
-
     }
 
     if (errors.length) {
@@ -123,8 +160,5 @@ export default class MessageSummary extends BaseValidateMixin {
     }
 
     return true;
-
-
-
   }
 }

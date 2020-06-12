@@ -34,15 +34,10 @@ export default class Spinner extends Vue {
       this.spinnerService.onHideSpinner = this.hideSpinner;
       this.spinnerService.onShowSpinner = this.showSpinner;
     }
-
-  }
-  created() {
     
-      // this.spinnerService.onToggleSpinner = this.toggleSpinner;
-      // this.spinnerService.onHideSpinner = this.hideSpinner;
-      // this.spinnerService.onShowSpinner = this.showSpinner;
     
-
   }
+  
+  
 
 }

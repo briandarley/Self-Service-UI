@@ -42,7 +42,14 @@
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <input type="text" class="form-control" id="description" v-model="model.description" />
+        <input 
+        type="text" 
+        class="form-control" 
+        id="description" 
+        v-model="model.description" 
+        data-validation="{'name': 'List Description', 'message':'List description required','required':'true'}"
+        ref="description"
+        />
       </div>
       <div class="form-group">
         <label class="d-inline-block mr-3" aria-label="Type of List">Type of List</label>

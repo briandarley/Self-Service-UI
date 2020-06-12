@@ -1,52 +1,75 @@
 <template>
-  <form @submit.prevent.prevent class="container" autocomplete="off" ref="submitForm">
+  <form
+    @submit.prevent.prevent
+    class="container"
+    autocomplete="off"
+    ref="submitForm"
+  >
     <div class="border border-primary form-group">
       <div class="bg-primary text-white row-header">
         <div class="pl-3">Create Mass Mail - Message Summary</div>
       </div>
 
       <div class="container">
-        <div class="two-column">
-          <div class="form-group">
-            <span class="label">Send Date</span>
-            <span class="entity-value ml-3">{{model.sendDate | formatDate}}</span>
+        <div class="summary">
+          <div class="two-column header">
+            <div>Send Date</div>
+            <div>Expiration Date</div>
           </div>
-          <div class="form-group">
-            <span class="label">Expiration Date</span>
-            <span class="entity-value ml-3">{{model.expirationDate | formatDate}}</span>
+          <div class="two-column">
+            <div>{{ model.sendDate | formatDate }}</div>
+            <div>{{ model.expirationDate | formatDate }}</div>
           </div>
-        </div>
-        <div class="one-column">
-          <ul>
-            <li>
-              <span class="label">Send From</span>
-              <span class="entity-value">{{model.sendFrom | formatSender}}</span>
-            </li>
-            <li>
-              <span class="label">Reply To</span>
-              <span class="entity-value">{{model.replyTo | formatSender}}</span>
-            </li>
-            <li>
-              <span class="label">Subject</span>
-              <span class="entity-value">{{model.subject}}</span>
-            </li>
-            <li>
-              <span class="label">Sponsoring Organization</span>
-              <span class="entity-value">{{model.sponsoringUniversity}}</span>
-            </li>
-            <li>
-              <span class="label">Priority</span>
-              <span class="entity-value">{{model.priority}}</span>
-            </li>
-            <li>
-              <span class="label">Sending Criteria</span>
-              <span class="entity-value">
-                
-                {{model.targetPopulation | formatSendingCriteria}}
-                {{model.targetEmployee | formatEmployeeCriteria}}
-              </span>
-            </li>
-          </ul>
+          <div class="two-column header mt-3">
+            <div>Send From</div>
+            <div>Reply To</div>
+          </div>
+          <div class="two-column">
+            <div>{{ model.sendFrom | formatSender }}</div>
+            <div>{{ model.replyTo | formatSender }}</div>
+          </div>
+
+          <div class="one-column header mt-3">
+            <div>Subject</div>
+          </div>
+          <div class="one-column">
+            <div>{{ model.subject }}</div>
+          </div>
+
+          <div class="one-column header mt-3">
+            <div>Sponsoring Organization</div>
+          </div>
+          <div class="one-column">
+            <div>{{ model.sponsoringUniversity }}</div>
+          </div>
+
+          <div class="one-column header mt-3">
+            <div>Priority</div>
+          </div>
+          <div class="one-column">
+            <div>{{ model.priority }}</div>
+          </div>
+
+          <div class="one-column header mt-3">
+            <div>Sending Criteria</div>
+          </div>
+          <div class="one-column">
+            <div>
+              <div class="ml-4">
+                Included Populations: <span class="ml-3">{{ includePopulation }}</span>
+              </div>
+              
+            </div>
+          </div>
+          <div class="one-column">
+            <div>
+              <div class="ml-4">
+                Excluded Populations: <span class="ml-3" v-if="excludePopulation">{{ excludePopulation }}</span><span class="ml-3" v-else>None</span>
+              </div>
+            </div>
+          </div>
+
+          
         </div>
 
         <div class="submit d-flex justify-content-end my-4">

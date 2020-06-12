@@ -7,7 +7,7 @@ import {
 } from "vue-property-decorator";
 import StepNavigation from './nav/step-navigation.vue';
 import BasicInformation from './steps/basic-information/basic-information.vue';
-import AudienceCriteria from './steps/audience-criteria/audience-criteria.vue';
+import AudienceCriteria from './steps/audience-criteria2/audience-criteria.vue';
 import MessageContents from './steps/message-contents/message-contents.vue';
 import MessageSummary from './steps/message-summary/message-summary.vue'
 
