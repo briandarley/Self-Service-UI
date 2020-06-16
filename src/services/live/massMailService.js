@@ -149,22 +149,7 @@ function MassMailService(httpHandlerService, commonExtensions) {
                 throw error;
             }
         },
-        // async checkIfUserExists(onyen) {
-        //     try {
-        //         const handler = await httpHandlerService.get();
-
-        //         let response = await handler.get(`/MassMail/create-request/audience-criteria/users/${onyen}`);
-
-        //         return response.data;
-        //     } catch (error) {
-        //         if (error.message.includes("404")) {
-        //             return {
-        //                 status: false
-        //             };
-        //         }
-        //         throw error;
-        //     }
-        // },
+       
         async getMassMailUserProfile(onyen) {
             try {
                 const handler = await httpHandlerService.get();
@@ -418,7 +403,7 @@ function MassMailService(httpHandlerService, commonExtensions) {
         },
         async getAudienceCodeValudDisplayOrder() {
             try {
-                const handler = await httpHandlerService.get();
+                const handler = await httpHandlerService.get(60000);
                 let response = await handler.get(`/massmail/mass-mail-audience/audience-code-value-display-order`);
                 return response.data.entities;
             } catch (e) {

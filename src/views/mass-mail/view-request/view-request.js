@@ -1,8 +1,6 @@
-import Vue from "vue"
-import {
-  Component
-} from "vue-property-decorator";
-import ActionMenu from "./action-menu/action-menu.vue"
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import ActionMenu from "./action-menu/action-menu.vue";
 import ApprovalActions from "./approval-actions/approval-actions.vue";
 import ViewHistory from "./view-history/view-history.vue";
 import ReadOnlyView from "./read-only-view/read-only-view.vue";
@@ -13,8 +11,18 @@ import CampaignMetrics from "./campaign-metrics/campaign-metrics.vue";
 import "./filters/index";
 
 @Component({
-  name: 'view-request',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'ScreenReaderAnnouncerService', 'MassMailService', 'UserService', 'SignalRService', 'EventBus'],
+  name: "view-request",
+  dependencies: [
+    "$",
+    "moment",
+    "toastService",
+    "spinnerService",
+    "ScreenReaderAnnouncerService",
+    "MassMailService",
+    "UserService",
+    "SignalRService",
+    "EventBus",
+  ],
   components: {
     ActionMenu,
     ApprovalActions,
@@ -23,17 +31,15 @@ import "./filters/index";
     CampaignCommunications,
     SearchCriteria,
     ConfirmVerify,
-    CampaignMetrics
-  }
-
-
+    CampaignMetrics,
+  },
 })
-
 export default class ViewRequest extends Vue {
   _currentCol = "id";
   _currentSortDir = 1;
   pagedResponse = {};
   entities = [];
+  codeValues = [];
   criteria = {
     pageSize: 5,
     index: 0,
@@ -42,17 +48,15 @@ export default class ViewRequest extends Vue {
     filterText: "",
     expireDateFrom: null,
     expireDateThru: null,
-    priority: "ALL"
+    priority: "ALL",
   };
   readOnlyModel = {};
 
-
   onCampaignStatusUpdate(model) {
-
-
-    let msg = `Campaign ${model.id} status was updated to ${model.campaignStatus.status}, updated by ${model.campaignStatus.changeUser}`;
-    this.toastService.success(msg)
-
+    let msg = `Campaign ${model.id} status was updated to ${
+      model.campaignStatus.status
+    }, updated by ${model.campaignStatus.changeUser}`;
+    this.toastService.success(msg);
 
     if (!this.entities) return;
 
@@ -69,7 +73,9 @@ export default class ViewRequest extends Vue {
     let campaignId = model.campaignId;
     let pagedResponse = model.pagedResponse;
     let currentPage = pagedResponse.index + 1;
-    let totalPages = Math.ceil(pagedResponse.totalRecords / pagedResponse.pageSize);
+    let totalPages = Math.ceil(
+      pagedResponse.totalRecords / pagedResponse.pageSize
+    );
     const $ = this.$;
 
     let progress = Math.round((currentPage / totalPages) * 100, 2);
@@ -77,8 +83,6 @@ export default class ViewRequest extends Vue {
     $(`#progessbar_${campaignId}`).removeClass("hidden");
     let progressBar = $(`#progessbar_${campaignId} > .progress-bar`);
     $(progressBar).width(progress + "%");
-
-
   }
 
   async indexChanged(index) {
@@ -88,48 +92,67 @@ export default class ViewRequest extends Vue {
 
   async mounted() {
     this.toastService.set(this);
-
+    this.codeValues = await this.MassMailService.getAudienceCodeValudDisplayOrder();
     await this.search();
 
-    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail View Request");
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
+      "Mass Mail View Request"
+    );
 
     this.addDropDownBehavior();
     await this.SignalRService.setupConnection();
 
-    this.EventBus.attachEvent('massmail-campaign-status-update', this.onCampaignStatusUpdate)
-    this.EventBus.attachEvent('massmail-campaign-mail-batch-update', this.onMailBatchUpdate)
+    this.EventBus.attachEvent(
+      "massmail-campaign-status-update",
+      this.onCampaignStatusUpdate
+    );
+    this.EventBus.attachEvent(
+      "massmail-campaign-mail-batch-update",
+      this.onMailBatchUpdate
+    );
   }
 
   addDropDownBehavior() {
     const $ = this.$;
     setTimeout(() => {
-      $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function (event) {
+      $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(
+        event
+      ) {
         event.preventDefault();
         event.stopPropagation();
 
-        $(this).siblings().toggleClass("show");
+        $(this)
+          .siblings()
+          .toggleClass("show");
 
-
-        if (!$(this).next().hasClass('show')) {
-          $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+        if (
+          !$(this)
+            .next()
+            .hasClass("show")
+        ) {
+          $(this)
+            .parents(".dropdown-menu")
+            .first()
+            .find(".show")
+            .removeClass("show");
         }
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function () {
-          $('.dropdown-submenu .show').removeClass("show");
-        });
-
+        $(this)
+          .parents("li.nav-item.dropdown.show")
+          .on("hidden.bs.dropdown", function() {
+            $(".dropdown-submenu .show").removeClass("show");
+          });
       });
     }, 1000);
   }
 
   async onAction(args) {
     switch (args.action) {
-
       case "edit":
         this.$router.push({
           name: "create-request",
           params: {
-            id: args.entity.id
-          }
+            id: args.entity.id,
+          },
         });
         break;
       case "copy":
@@ -144,18 +167,16 @@ export default class ViewRequest extends Vue {
 
         break;
       default:
-        window.console.warn("Action Not Registered")
+        window.console.warn("Action Not Registered");
         window.console.warn(args);
         break;
     }
   }
 
-
   async onConfirmCommunication(messageAction) {
     try {
       this.spinnerService.show();
 
-      
       let response = await this.MassMailService.addAction(messageAction);
 
       if (response.status === false) {
@@ -164,8 +185,8 @@ export default class ViewRequest extends Vue {
 
       let statusModel = {
         campaignId: messageAction.id,
-        status: messageAction.actionCode
-      }
+        status: messageAction.actionCode,
+      };
 
       response = await this.MassMailService.updateStatus(statusModel);
 
@@ -174,12 +195,11 @@ export default class ViewRequest extends Vue {
         return;
       }
 
-
       if (messageAction.message) {
         let commentModel = {
           campaignId: messageAction.id,
           comment: messageAction.message,
-          commentTypeCode: "COMMENT"
+          commentTypeCode: "COMMENT",
         };
 
         response = await this.MassMailService.addComment(commentModel);
@@ -193,12 +213,10 @@ export default class ViewRequest extends Vue {
       this.toastService.success("Successfully updated campaign status");
 
       await this.search();
-
     } catch (e) {
       window.console.log(e);
-      this.toastService.error('Failed to retrieve record');
+      this.toastService.error("Failed to retrieve record");
     } finally {
-
       this.spinnerService.hide();
     }
   }
@@ -206,7 +224,6 @@ export default class ViewRequest extends Vue {
   onHideCommunication() {
     //this.$refs.campaignCommunications.hide()
   }
-
 
   async cloneCampaign(campaignId) {
     try {
@@ -222,14 +239,12 @@ export default class ViewRequest extends Vue {
       this.$router.push({
         name: "create-request",
         params: {
-          id: entity.id
-        }
+          id: entity.id,
+        },
       });
-
-
     } catch (e) {
       window.console.log(e);
-      this.toastService.error('Failed to copy campaign');
+      this.toastService.error("Failed to copy campaign");
     } finally {
       this.spinnerService.hide();
     }
@@ -238,14 +253,17 @@ export default class ViewRequest extends Vue {
   toggleShowHistory(entity) {
     this.readOnlyModel = entity;
     this.$refs.confirmViewHistory.show();
-
   }
-  showVerify(entity){
-    const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
-    if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
+  showVerify(entity) {
+    const allowedRoles = [
+      "MASSMAIL_STUDENT_APPROVER",
+      "MASSMAIL_EMPLOYEE_APPROVER",
+      "MASSMAIL_APPROVER",
+      "MASSMAIL_ADMIN",
+    ];
+    if (!allowedRoles.some((c) => this.UserService.isInRole(c))) return false;
 
     return entity.campaignStatus.mailProcessDate;
-    
   }
   viewShowVerify(entity) {
     this.readOnlyModel = entity;
@@ -263,16 +281,15 @@ export default class ViewRequest extends Vue {
   closeConfirmViewReadOnly() {
     this.$refs.confirmViewReadOnly.hide();
   }
-  closeConfirmViewHistory(){
+  closeConfirmViewHistory() {
     this.$refs.confirmViewHistory.hide();
   }
-  closeConfirmVerify(){
+  closeConfirmVerify() {
     this.$refs.confirmVerify.hide();
   }
   closeConfirmCampaignMetrics() {
     this.$refs.confirmCampaignMetrics.hide();
   }
-
 
   _resetCriteria() {
     this.criteria = {
@@ -285,24 +302,24 @@ export default class ViewRequest extends Vue {
       expireDateThru: null,
       priority: "ALL",
       sort: this._currentCol,
-      listSortDirection: this._currentSortDir
+      listSortDirection: this._currentSortDir,
     };
   }
 
   async search() {
     try {
       this.spinnerService.show();
-      
-      this.pagedResponse = await this.MassMailService.getMassMailRecords(this.criteria);
 
+      this.pagedResponse = await this.MassMailService.getMassMailRecords(
+        this.criteria
+      );
     } catch (e) {
       window.console.log(e);
-      this.toastService.error('Failed to retrieve record');
+      this.toastService.error("Failed to retrieve record");
     } finally {
       this.spinnerService.hide();
     }
   }
-
 
   async clear() {
     this._resetCriteria();
@@ -310,7 +327,6 @@ export default class ViewRequest extends Vue {
   }
 
   async sort(column) {
-
     if (this._currentCol === column) {
       this._currentSortDir *= -1;
     } else {
@@ -322,10 +338,5 @@ export default class ViewRequest extends Vue {
     this.criteria.sort = this._currentCol;
     this.criteria.listSortDirection = this._currentSortDir;
     await this.search();
-
-
-
   }
-
-
 }

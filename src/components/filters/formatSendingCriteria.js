@@ -1,37 +1,38 @@
 import Vue from "vue";
 
-export default function formatSendingCriteria(value, abreviated) {
-  if (value == null) return "";
-  let all = value.includes("ALL");
-  if (all) {
-    value = value.substring(4);
-  }
-  if (value == null || value == "") {
-    return "";
-  }
-  let items = value.toLowerCase().split(",");
 
-  for (let i = 0; i < items.length; i++) {
-    items[i] = items[i][0].toUpperCase() + items[i].slice(1);
-    if (abreviated) {
-      switch (items[i]) {
-        case "Students":
-          items[i] = "Stud";
-          break;
-        case "Employees":
-          items[i] = "Emp";
-          break;
-        case "Affiliates":
-          items[i] = "Aff";
-          break;
-        case "Faculty":
-          items[i] = "Fac";
-          break;
-      }
+export default  function formatSendingCriteria(value, codeValues) {
+  
+  
+
+  let reduced = codeValues.reduce((val, curVal)=> {
+    let items =  val.concat([curVal]);
+    if(curVal.entities.length) {
+
+      curVal.entities.forEach(item=> {
+        item.parent = curVal;
+      })
+      return  items.concat(curVal.entities);
     }
-  }
-  value = items.join(",");
-  return value;
+    return  items;
+  }, [])
+
+  
+
+  let matching = reduced.filter(item => value.campaignAudienceSelections.includePopulations.includes(item.code));
+  let displayValues = matching.map(item=> {
+    if(item.parent)
+    {
+      return item.parent.description.substring(0, 3);
+    }
+    return item.description.substring(0, 3);
+
+  });
+  
+  displayValues = displayValues.filter((v,i,a)=> a.indexOf(v)===i).join(",")
+  
+  return displayValues;
+  
 }
 
 Vue.filter("formatSendingCriteria", formatSendingCriteria);

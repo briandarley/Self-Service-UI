@@ -39,7 +39,7 @@
                 <div>{{item.author}}</div>
                 <div>{{item.sendDate | formatDate}}</div>
                 <div>{{item.expirationDate | formatDate}}</div>
-                <div>{{item.targetPopulation | formatSendingCriteria(true)}}</div>
+                <div>{{item | formatSendingCriteria(codeValues)}}</div>
                 <div>{{item.priority}}</div>
                 <div>
                   <div>

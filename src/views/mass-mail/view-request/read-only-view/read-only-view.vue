@@ -7,58 +7,71 @@
           <ul>
             <li>
               <span>Send Date</span>
-              <span>{{model.sendDate | formatDate}}</span>
+              <span>{{ model.sendDate | formatDate }}</span>
             </li>
             <li>
               <span>Expiration Date</span>
-              <span>{{model.expirationDate | formatDate}}</span>
+              <span>{{ model.expirationDate | formatDate }}</span>
             </li>
             <li>
               <span>Send From</span>
-              <span>{{model.sendFrom | defaultNoReplyIfEmpty}}</span>
+              <span>{{ model.sendFrom | defaultNoReplyIfEmpty }}</span>
             </li>
             <li>
               <span>Reply-To</span>
-              <span>{{model.replyTo | defaultNoReplyIfEmpty}}</span>
+              <span>{{ model.replyTo | defaultNoReplyIfEmpty }}</span>
             </li>
             <li>
               <span>Subject</span>
-              <span>{{model.subject}}</span>
+              <span>{{ model.subject }}</span>
             </li>
             <li>
               <span>Sponsoring Office</span>
-              <span>{{model.sponsoringUniversity}}</span>
+              <span>{{ model.sponsoringUniversity }}</span>
             </li>
             <li>
               <span>Priority</span>
-              <span>{{model.priority}}</span>
+              <span>{{ model.priority }}</span>
             </li>
           </ul>
-          <h5>Employee Recipient Criteria</h5>
-          <ul v-if="hasEmployeePopulation()">
-            <li v-if="hasAllEmployees()">
-              <span>All Employees</span>
-            </li>
-            <li v-else>
-              <span>DDD</span>
-            </li>
-          </ul>
-          <ul v-else>
-            <li>
-              <span>No Employees</span>
-            </li>
-          </ul>
-          <h5>Student Recipient Criteria</h5>
-          <ul v-if="hasStudentPopulation()">
-            <li>
-              <span>All Students</span>
+          <h5 class="text-primary">Selected Audience</h5>
+          <ul v-for="(item, index) in selectedPopulations" v-bind:key="index">
+            <li class="d-block">
+              <div class="text-primary ml-2">
+                {{ item.description }}
+              </div>
+              <ul v-if="item.children.length" class="ml-5">
+                <li
+                  class="d-block"
+                  v-for="(child, childIndex) in item.children"
+                  v-bind:key="childIndex"
+                >
+                  {{ child }}
+                </li>
+              </ul>
             </li>
           </ul>
-          <ul v-else>
-            <li>
-              <span>No Students</span>
-            </li>
-          </ul>
+          <div v-if="excludedPopulations.length">
+            <h5 class="text-primary" >
+              Excluded Audience
+            </h5>
+            <ul v-for="item in excludedPopulations" v-bind:key="item.code">
+              <li class="d-block">
+                <div class="text-primary ml-2">
+                  {{ item.description }}
+                </div>
+                <ul v-if="item.children.length" class="ml-5">
+                  <li
+                    class="d-block"
+                    v-for="child in item.children"
+                    v-bind:key="child.code"
+                  >
+                    {{ child }}
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </tabbed-item>
       <tabbed-item slot="tab_1">
@@ -74,13 +87,15 @@
           <div class="results">
             <div class="result-grid" v-for="item in comments" :key="item.id">
               <div class="comment-info">
-                <div>{{item.createDate | formatDate}}</div>
-                <div v-if="item.commentTypeCode == 'INITIAL_AUTH_COMMENT'">Initial Comment</div>
-                <div v-else>{{item.commentTypeCode}}</div>
-                <div>{{item.createUser}}</div>
+                <div>{{ item.createDate | formatDate }}</div>
+                <div v-if="item.commentTypeCode == 'INITIAL_AUTH_COMMENT'">
+                  Initial Comment
+                </div>
+                <div v-else>{{ item.commentTypeCode }}</div>
+                <div>{{ item.createUser }}</div>
               </div>
               <div class="comment-section">
-                {{item.comment}}
+                {{ item.comment }}
               </div>
             </div>
           </div>
