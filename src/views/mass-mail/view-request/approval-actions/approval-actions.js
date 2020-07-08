@@ -5,20 +5,15 @@ import {
 
 @Component({
   name: 'approval-actions',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService','UserService'],
-  props: ['id', 'entity']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService','UserService','MassMailCodeValueHelperService'],
+  props: ['id', 'entity','codeValues']
 })
 
 export default class ApprovalActions extends Vue {
   mainDropDownVisible = false;
   currentElement = '';
-/*
-Mass Mail Roles
-MASSMAIL_ADMIN
-MASSMAIL_STUDENT_APPROVER
-MASSMAIL_EMPLOYEE_APPROVER
-MASSMAIL_APPROVER
-*/
+
+
   get elmId() {
     if (!this.entity) return "ac_not_set";
     return `approval_menu_${this.entity.id}`;
@@ -28,7 +23,7 @@ MASSMAIL_APPROVER
     this.toastService.set(this);
   }
   
-  get isDone(){
+  get isDone() {
     if(this.entity.campaignStatus == null) return true;
 
     if(this.entity.campaignStatus.status === "CANCELED") return true;
@@ -39,7 +34,7 @@ MASSMAIL_APPROVER
     return false;
   }
 
-  get isCanceled(){
+  get isCanceled() {
     if(this.entity.campaignStatus == null) return true;
 
     if(this.entity.campaignStatus.status === "CANCELED") return true;
@@ -59,7 +54,7 @@ MASSMAIL_APPROVER
     return isSameOrAfter;
 
   }
-  get dropDownEnabled(){
+  get dropDownEnabled() {
     const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
     
     if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
@@ -67,7 +62,7 @@ MASSMAIL_APPROVER
 
   }
 
-  get showSendNow(){
+  get showSendNow() {
     const allowedRoles = ["MASSMAIL_STUDENT_APPROVER","MASSMAIL_EMPLOYEE_APPROVER","MASSMAIL_APPROVER","MASSMAIL_ADMIN"]
 
     if(!allowedRoles.some(c=> this.UserService.isInRole(c))) return false;
@@ -77,17 +72,46 @@ MASSMAIL_APPROVER
 
 
   }
+
+  _getTopLevelCodeSelections() {
+    //associate entities with their parents
+    let values = this.entity.campaignAudienceSelections.includePopulations.map(
+      (cv) => {
+        let code = this.codeValues.find((c) => c.code == cv);
+        return code.parent ? code.parent : code;
+      }
+    );
+    //remove duplicates
+    values = values.reduce((val, curval)=> {
+      if(!val.length)
+      {
+        val.push(curval)
+      }
+      else if(!val.some(c=> c.code == curval.code)){
+        val.push(curval)
+      }
+      return val;
+    }, [])
+    return values;  
+   
+  }
+
+
   get showStudentApproval() {
+    
     if(!this.UserService.isInRole("MASSMAIL_STUDENT_APPROVER")) return false;
     if (!this.isActive) return false;
     if(this.entity.campaignStatus.status.indexOf("DENIED") > -1) return false;
     if(this.entity.campaignStatus.status.indexOf("APPROVED_STUDENTS") > -1) return false;
     if(this.entity.campaignStatus.approvedStudentsDate != null) return false;
     
-    if(!this.entity.targetPopulation) return false;
-    let populations = this.entity.targetPopulation.split(",");
-    if (populations.indexOf("STUDENTS") > -1) return true;
-    return false;
+    let codes = this._getTopLevelCodeSelections();
+
+    if(!codes.some(c=> c.code === "AUDIENCE_GRP_STDNT")){
+      return false
+    }
+    return true;
+    
   }
 
   get showEmployeeApproval() {
@@ -98,11 +122,13 @@ MASSMAIL_APPROVER
     if(this.entity.campaignStatus.status.indexOf("APPROVED_EMPLOYEES") > -1) return false;
     if(this.entity.campaignStatus.approvedEmployeesDate != null) return false;
     
-    if(!this.entity.targetPopulation) return false;
-    let populations = this.entity.targetPopulation.split(",");
+        let codes = this._getTopLevelCodeSelections();
 
-    if (populations.indexOf("EMPLOYEES")> -1 || populations.indexOf("AFFILIATES")> -1) return true;
-    return false;
+    if(!codes.some(c=> c.code === "AUDIENCE_GRP_EMP") && !codes.some(c=> c.code === "AUDIENCE_GRP_AFL")){
+      return false
+    }
+    return true;
+    
   }
   get isApproved() {
     if(!this.entity.campaignStatus) return false;

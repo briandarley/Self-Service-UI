@@ -12,23 +12,28 @@ function SignalRService(configReaderService,eventBus) {
             
                 this._connection = new signalR.HubConnectionBuilder()
                     .withUrl(`${serviceEndpoint}provision-hub`)
-                    .withUrl(`${serviceEndpoint}massmail-action-hub`)
+                    .withUrl(`${serviceEndpoint}mass-mail-action-hub`)
                     .build();
 
                     this._connection.on("ProvisionStatusUpdate", update => {
-                    console.log("SignalR, Provision Status Update called ");
-                });
+                    //console.log("SignalR, Provision Status Update called ");
+                    });
 
-                this._connection.on("MassMailCampaignActionUpdate", update => {
-                    eventBus.emit('massmail-campaign-status-update', update);
-                });
-                this._connection.on("NotifyCampaignBatchProcessUpdate", update => {
-                    eventBus.emit('massmail-campaign-mail-batch-update', update);
-                });
+                    this._connection.on("MassMailCampaignActionUpdate", update => {
+                        //console.log("SignalR, MassMailCampaignActionUpdate called ");
+                        eventBus.emit('massmail-campaign-status-update', update);
+                    });
+                    this._connection.on("NotifyBatchStateUpdateAction", update => {
+                        //window.console.log(update);
+                        //console.log("SignalR, NotifyBatchStateUpdateAction called ");
+                        eventBus.emit('notify-batch-state-update-action', update);
+                    });
+
+             
                 
 
                 await this._connection.start()
-                    .catch(e => console.error(e.toString()));
+                    .catch(e => window.console.error(e.toString()));
             
 
 

@@ -8,6 +8,7 @@ import ConfirmVerify from "./confirm-verify/confirm-verify.vue";
 import CampaignCommunications from "./campaign-communications/campaign-communications.vue";
 import SearchCriteria from "./search-criteria/search-criteria.vue";
 import CampaignMetrics from "./campaign-metrics/campaign-metrics.vue";
+import ProgressNotification from "./progress-notification/progress-notification.vue";
 import "./filters/index";
 
 @Component({
@@ -22,6 +23,7 @@ import "./filters/index";
     "UserService",
     "SignalRService",
     "EventBus",
+    "MassMailCodeValueHelperService",
   ],
   components: {
     ActionMenu,
@@ -32,6 +34,7 @@ import "./filters/index";
     SearchCriteria,
     ConfirmVerify,
     CampaignMetrics,
+    ProgressNotification,
   },
 })
 export default class ViewRequest extends Vue {
@@ -39,6 +42,7 @@ export default class ViewRequest extends Vue {
   _currentSortDir = 1;
   pagedResponse = {};
   entities = [];
+
   codeValues = [];
   criteria = {
     pageSize: 5,
@@ -50,7 +54,30 @@ export default class ViewRequest extends Vue {
     expireDateThru: null,
     priority: "ALL",
   };
+
+  currentlyProcessing = [];
+
   readOnlyModel = {};
+  showProgress(campaign) {
+    //return this.currentlyProcessing.some(c=> c.campaignId == campaign.id)
+  }
+  getProgress(campaign) {
+    return this.currentlyProcessing.find((c) => c.campaignId == campaign.id);
+  }
+
+  onNotifyBatchStateUpdateAction(model) {
+    
+    if (this.currentlyProcessing.some((c) => c.campaignId == model.campaignId)) {
+      let index = this.currentlyProcessing.findIndex((c) => c.campaignId == model.campaignId);
+       this.currentlyProcessing.splice(index, 1);
+    }
+    this.currentlyProcessing.push(model);
+    
+    this.currentlyProcessing = JSON.parse(JSON.stringify(this.currentlyProcessing));
+    this.entities = JSON.parse(JSON.stringify(this.entities));
+
+    
+  }
 
   onCampaignStatusUpdate(model) {
     let msg = `Campaign ${model.id} status was updated to ${
@@ -70,19 +97,17 @@ export default class ViewRequest extends Vue {
   }
 
   onMailBatchUpdate(model) {
-    let campaignId = model.campaignId;
-    let pagedResponse = model.pagedResponse;
-    let currentPage = pagedResponse.index + 1;
-    let totalPages = Math.ceil(
-      pagedResponse.totalRecords / pagedResponse.pageSize
-    );
-    const $ = this.$;
-
-    let progress = Math.round((currentPage / totalPages) * 100, 2);
-
-    $(`#progessbar_${campaignId}`).removeClass("hidden");
-    let progressBar = $(`#progessbar_${campaignId} > .progress-bar`);
-    $(progressBar).width(progress + "%");
+    // let campaignId = model.campaignId;
+    // let pagedResponse = model.pagedResponse;
+    // let currentPage = pagedResponse.index + 1;
+    // let totalPages = Math.ceil(
+    //   pagedResponse.totalRecords / pagedResponse.pageSize
+    // );
+    // const $ = this.$;
+    // let progress = Math.round((currentPage / totalPages) * 100, 2);
+    // $(`#progessbar_${campaignId}`).removeClass("hidden");
+    // let progressBar = $(`#progessbar_${campaignId} > .progress-bar`);
+    // $(progressBar).width(progress + "%");
   }
 
   async indexChanged(index) {
@@ -90,9 +115,50 @@ export default class ViewRequest extends Vue {
     await this.search();
   }
 
+  displayPopulationText(entity) {
+    //associate entities with their parents
+    let values = entity.campaignAudienceSelections.includePopulations.map(
+      (cv) => {
+        let code = this.codeValues.find((c) => c.code == cv);
+        return code.parent ? code.parent.description : code.description;
+      }
+    );
+    //remove duplicates
+    values = [...new Set(values.map((c) => c))];
+
+    //truncate description if more than one entry is found
+    return values
+      .map((c) => {
+        if (values.length > 1) {
+          return c.substring(0, 3);
+        }
+        return c;
+      })
+      .join(",");
+  }
+
+  formatCodeValues(codeValues) {
+    let reduced = codeValues.reduce((val, curVal) => {
+      val.push(curVal);
+      if (curVal.entities.length) {
+        curVal.entities.forEach((c) => {
+          c.parent = JSON.parse(JSON.stringify(curVal));
+          c.parent.entities = null;
+        });
+
+        val = val.concat(curVal.entities);
+      }
+      return val;
+    }, []);
+
+    return reduced;
+  }
+
   async mounted() {
     this.toastService.set(this);
-    this.codeValues = await this.MassMailService.getAudienceCodeValudDisplayOrder();
+    let codeValues = await this.MassMailService.getAudienceCodeValueDisplayOrder();
+    this.codeValues = this.formatCodeValues(codeValues);
+
     await this.search();
 
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
@@ -103,12 +169,16 @@ export default class ViewRequest extends Vue {
     await this.SignalRService.setupConnection();
 
     this.EventBus.attachEvent(
-      "massmail-campaign-status-update",
+      "mass-mail-campaign-status-update",
       this.onCampaignStatusUpdate
     );
     this.EventBus.attachEvent(
-      "massmail-campaign-mail-batch-update",
+      "mass-mail-campaign-mail-batch-update",
       this.onMailBatchUpdate
+    );
+    this.EventBus.attachEvent(
+      "notify-batch-state-update-action",
+      this.onNotifyBatchStateUpdateAction
     );
   }
 
@@ -254,6 +324,7 @@ export default class ViewRequest extends Vue {
     this.readOnlyModel = entity;
     this.$refs.confirmViewHistory.show();
   }
+
   showVerify(entity) {
     const allowedRoles = [
       "MASSMAIL_STUDENT_APPROVER",
@@ -265,14 +336,17 @@ export default class ViewRequest extends Vue {
 
     return entity.campaignStatus.mailProcessDate;
   }
+
   viewShowVerify(entity) {
     this.readOnlyModel = entity;
     this.$refs.confirmVerify.show();
   }
+
   viewReadOnlyView(entity) {
     this.readOnlyModel = entity;
     this.$refs.confirmViewReadOnly.show();
   }
+
   viewConfirmCampaignMetrics(entity) {
     this.readOnlyModel = entity;
     this.$refs.confirmCampaignMetrics.show();
@@ -281,12 +355,15 @@ export default class ViewRequest extends Vue {
   closeConfirmViewReadOnly() {
     this.$refs.confirmViewReadOnly.hide();
   }
+
   closeConfirmViewHistory() {
     this.$refs.confirmViewHistory.hide();
   }
+
   closeConfirmVerify() {
     this.$refs.confirmVerify.hide();
   }
+
   closeConfirmCampaignMetrics() {
     this.$refs.confirmCampaignMetrics.hide();
   }

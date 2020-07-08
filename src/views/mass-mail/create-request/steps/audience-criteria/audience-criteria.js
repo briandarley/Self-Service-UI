@@ -19,7 +19,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
   model = {
     targetPopulation: "",
     employeeCriteria: "",
-    targetEmployee: ""
+    
   };
   onyen = "";
   audienceSizeModel = {};
@@ -123,14 +123,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
         );
       }
 
-      if (this.model.targetEmployee === "DDD") {
-        this.checkUserSuccess = this.checkUserSuccess && person.dddEntry;
-        if (!person.dddEntry) {
-          this.validationErrors.push(
-            `DDD criteria selected, user does not meet this criteria`
-          );
-        }
-      }
+     
 
       if (this.model.priority === "Informational") {
         this.checkUserSuccess =
@@ -178,11 +171,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
 
     this.showEmployeeCriteria = this._showEmployeeCriteria();
 
-    if (this.model.targetEmployee === "DDD") {
-      this.audienceSize = await this._getCalculatedDddAudienceCount();
-    } else {
-      this.audienceSize = await this._getCalculatedTargetAudienceCount();
-    }
+    this.audienceSize = await this._getCalculatedTargetAudienceCount();
 
     this._beginCounterAnnimation();
   }
@@ -279,17 +268,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
     return this.audienceList.some(c => c.value === "EMPLOYEES" && c.checked);
   }
 
-  async _getCalculatedDddAudienceCount() {
-    if (this.audienceList.some(c => c.value === "TEST" && c.checked)) {
-      return 0;
-    }
-
-    if (this.model.priority === "Formal Notice") {
-      return this.audienceSizeModel["totalDddUsers"];
-    } else {
-      return this.audienceSizeModel["massMailAllowedDdd"];
-    }
-  }
+  
 
   async initializeAudienceSize() {
     const $ = this.$;
@@ -302,11 +281,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
       }
     });
     this.audienceSize = 0;
-    if (this.model.targetEmployee === "DDD") {
-      this.audienceSize = await this._getCalculatedDddAudienceCount();
-    } else {
-      this.audienceSize = await this._getCalculatedTargetAudienceCount();
-    }
+    this.audienceSize = await this._getCalculatedTargetAudienceCount();
     const audienceSize = this.$options.filters.formatNumber(this.audienceSize);
 
     $("#targetAudience").html(audienceSize);
@@ -343,11 +318,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
     this.audienceList[0].checked = this.isToggled;
     this.audienceList[4].checked = false;
 
-    this.model.targetEmployee = "";
-
-    if (this.audienceList[1].checked == true) {
-      this.model.targetEmployee = "All Employees";
-    }
+    
     
     await this.calculateAudience();
     this.setModelValue();
@@ -371,13 +342,10 @@ export default class AudienceCriteria extends BaseValidateMixin {
     this.audienceList[4].checked = false;
     let value = ev.target.checked;
 
-    this.model.targetEmployee = "";
+    
     switch (population) {
       case "employee":
         this.audienceList[1].checked = value;
-        if (value) {
-          this.model.targetEmployee = "All Employees";
-        }
         break;
       case "student":
         this.audienceList[2].checked = value;

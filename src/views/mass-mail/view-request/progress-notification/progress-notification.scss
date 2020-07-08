@@ -1,0 +1,14 @@
+.stats{
+    display:flex;
+    padding: 10px;
+
+    div {
+        span:first-child{
+            padding:0 20px;
+        }
+    }
+}
+h3{
+    font-size: 1em;
+    padding-left: 10px;
+}

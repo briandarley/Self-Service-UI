@@ -401,7 +401,7 @@ function MassMailService(httpHandlerService, commonExtensions) {
 
             }
         },
-        async getAudienceCodeValudDisplayOrder() {
+        async getAudienceCodeValueDisplayOrder() {
             try {
                 const handler = await httpHandlerService.get(60000);
                 let response = await handler.get(`/massmail/mass-mail-audience/audience-code-value-display-order`);

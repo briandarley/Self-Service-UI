@@ -1,8 +1,9 @@
 import Vue from "vue";
 import injector from "vue-inject";
-
-export default function approvalStatusText(entity) {
+//Shows the current overal state of the campaign
+export default function approvalStatusText(entity, codeValues) {
   let moment = injector.get("moment");
+  let helper = injector.get("MassMailCodeValueHelperService");
 
   if (!entity.campaignStatus)
     return `<div class="text-danger">Invalid State</div>`;
@@ -35,23 +36,13 @@ export default function approvalStatusText(entity) {
   let statusText = [];
 
   if (entity.campaignStatus.approvedEmployeesDate) {
-    if (entity.targetEmployee === "DDD") {
-      statusText.push(
-        `<div class="text-success">Approved Employees (DDD)</div>`
-      );
-    } else {
-      statusText.push(`<div class="text-success">Approved Employees</div>`);
-    }
+    statusText.push(`<div class="text-success">Approved Employees</div>`);
   }
   if (entity.campaignStatus.approvedStudentsDate) {
     statusText.push(`<div class="text-success">Approved Students</div>`);
   }
   if (entity.campaignStatus.deniedEmployeesDate) {
-    if (entity.targetEmployee === "DDD") {
-      statusText.push(`<div class="text-danger">Denied Employees (DDD)</div>`);
-    } else {
-      statusText.push(`<div class="text-danger">Denied Employees</div>`);
-    }
+    statusText.push(`<div class="text-danger">Denied Employees</div>`);
   }
   if (entity.campaignStatus.deniedStudentsDate) {
     statusText.push(`<div class="text-success">Denied Students</div>`);
@@ -73,6 +64,11 @@ export default function approvalStatusText(entity) {
   ) {
     return statusText.join("");
   }
+
+  //let parentSelectCodes = helper.getSelectedParentCodeValues(entity.campaignAudienceSelections.includePopulations, codeValues);
+  //let targetPopulationNull = !entity.campaignAudienceSelections || !entity.campaignAudienceSelections.includePopulations || !entity.campaignAudienceSelections.includePopulations.length;
+  //will need to pull the population, reduce to get parents
+
   if (entity.targetPopulation) {
     if (entity.targetPopulation.includes("STUDENTS")) {
       if (entity.campaignStatus.hasStudentPending()) {
@@ -87,18 +83,11 @@ export default function approvalStatusText(entity) {
       entity.targetPopulation.includes("AFFILIATES")
     ) {
       if (entity.campaignStatus.hasEmployeePending()) {
-        if (entity.targetEmployee === "DDD") {
-          statusText.push(`
-        <div>
-          Pending for Employees (DDD)
-        </div>`);
-        } else {
-          statusText.push(`
+        statusText.push(`
         <div>
           Pending for Employees
         </div>
       `);
-        }
       }
     }
   }

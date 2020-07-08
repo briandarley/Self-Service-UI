@@ -1,2 +1,1 @@
-require("./formatEmployeeCriteria");
 require("./approvalStatusText");

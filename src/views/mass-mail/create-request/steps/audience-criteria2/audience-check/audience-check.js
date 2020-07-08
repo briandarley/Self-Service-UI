@@ -24,10 +24,7 @@ export default class AudienceCheck extends BaseValidateMixin {
   }
 
   async checkUser() {
-    //this.model.campaignAudienceSelections.includePopulations
-    //this.model.campaignAudienceSelections.excludePopulations
-    //this.model.priority
-
+    
     try {
       this.validationErrors = [];
       this.spinnerService.show();
@@ -145,62 +142,7 @@ export default class AudienceCheck extends BaseValidateMixin {
       }
 
       this.checkUserSuccess = false;
-      //let checkedAudiences = [];
-
-      // this.audienceList.forEach((item) => {
-      //   if (item.checked == true) {
-      //     switch (item.value) {
-      //       case "ALL":
-      //       case "TEST":
-      //         break;
-      //       case "EMPLOYEES":
-      //         this.checkUserSuccess = this.checkUserSuccess || person.employee;
-      //         checkedAudiences.push("Employees");
-      //         break;
-      //       case "STUDENTS":
-      //         this.checkUserSuccess = this.checkUserSuccess || person.student;
-      //         checkedAudiences.push("Students");
-      //         break;
-      //       case "AFFILIATES":
-      //         this.checkUserSuccess = this.checkUserSuccess || person.affiliate;
-      //         checkedAudiences.push("Affiliates");
-      //         break;
-      //       case "FACULTY":
-      //         this.checkUserSuccess = this.checkUserSuccess || person.faculty;
-      //         checkedAudiences.push("Faculty");
-      //         break;
-      //       default:
-      //         throw "Unsuported Value";
-      //     }
-      //   }
-      // });
-
-      // if (!this.checkUserSuccess) {
-      //   let list = checkedAudiences.join(",");
-
-      //   this.validationErrors.push(
-      //     `Population ${list}, user does not meet this criteria`
-      //   );
-      // }
-
-      // if (this.model.targetEmployee === "DDD") {
-      //   this.checkUserSuccess = this.checkUserSuccess && person.dddEntry;
-      //   if (!person.dddEntry) {
-      //     this.validationErrors.push(
-      //       `DDD criteria selected, user does not meet this criteria`
-      //     );
-      //   }
-      // }
-
-      // if (this.model.priority === "Informational") {
-      //   this.checkUserSuccess =
-      //     this.checkUserSuccess && person.massEmailAllowed;
-      //   if (!person.massEmailAllowed) {
-      //     this.validationErrors.push(
-      //       `Campaign type is 'Informational', however; entered user has MassEmail flag set to false`
-      //     );
-      //   }
-      // }
+      
       this.checkUserSuccess = meetsCriteria || !this.validationErrors.length;
 
       if (this.userInfo && !this.checkUserSuccess) {

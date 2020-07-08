@@ -39,21 +39,23 @@
                 <div>{{item.author}}</div>
                 <div>{{item.sendDate | formatDate}}</div>
                 <div>{{item.expirationDate | formatDate}}</div>
-                <div>{{item | formatSendingCriteria(codeValues)}}</div>
+                <div>{{displayPopulationText(item)}}</div>
                 <div>{{item.priority}}</div>
                 <div>
                   <div>
-                    <actionMenu :entity="item" @action="onAction"></actionMenu>
+                    <actionMenu :entity="item" @action="onAction" ></actionMenu>
                   </div>
                   <div>
-                    <approval-actions :entity="item" @action="onAction"></approval-actions>
+                     <approval-actions :entity="item" @action="onAction" :codeValues="codeValues"></approval-actions> 
                   </div>
                 </div>
               </div>
               <div class="campaign-subject">{{item.subject}}</div>
               <div class="campaign-status">
-                <div v-html="$options.filters.approvalStatusText(item)"></div>
+                <div v-html="$options.filters.approvalStatusText(item,codeValues)"></div>
               </div>
+              <progress-notification :campaign="item" :progressNotications="currentlyProcessing"></progress-notification>
+              
               <div class="progress hidden" :id="'progessbar_' + item.id">
                 <div
                   class="progress-bar"

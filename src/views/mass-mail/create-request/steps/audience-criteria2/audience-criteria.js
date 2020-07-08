@@ -26,7 +26,8 @@ export default class AudienceCriteria extends BaseValidateMixin {
   model = {
     targetPopulation: "",
     employeeCriteria: "",
-    targetEmployee: "",
+    campaignAudienceSelections : {
+      includePopulations: []}
   };
   onyen = "";
   audienceOptions = [];
@@ -274,7 +275,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
   async mounted() {
     this.toastService.set(this);
 
-    this.audienceOptions = await this.MassMailService.getAudienceCodeValudDisplayOrder();
+    this.audienceOptions = await this.MassMailService.getAudienceCodeValueDisplayOrder();
 
     await this.bindPopulationLists();
 

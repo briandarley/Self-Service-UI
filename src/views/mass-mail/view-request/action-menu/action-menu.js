@@ -42,7 +42,7 @@ export default class ActionMenu extends Vue {
 
   }
 
-  get showContactAuthor(){
+  get showContactAuthor() {
     //don't show contact author option if the user is the author
     return this.UserService.getUserName() !== this.entity.author;
   }

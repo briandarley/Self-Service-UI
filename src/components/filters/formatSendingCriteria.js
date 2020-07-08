@@ -1,25 +1,13 @@
 import Vue from "vue";
-
+import injector from "vue-inject";
 
 export default  function formatSendingCriteria(value, codeValues) {
+  let helper = injector.get("MassMailCodeValueHelperService");
   
-  
-
-  let reduced = codeValues.reduce((val, curVal)=> {
-    let items =  val.concat([curVal]);
-    if(curVal.entities.length) {
-
-      curVal.entities.forEach(item=> {
-        item.parent = curVal;
-      })
-      return  items.concat(curVal.entities);
-    }
-    return  items;
-  }, [])
-
-  
+  let reduced = helper.getCodeValueChildParentRelations(JSON.parse(JSON.stringify(codeValues)))
 
   let matching = reduced.filter(item => value.campaignAudienceSelections.includePopulations.includes(item.code));
+
   let displayValues = matching.map(item=> {
     if(item.parent)
     {

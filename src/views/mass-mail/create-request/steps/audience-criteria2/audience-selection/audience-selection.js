@@ -20,14 +20,14 @@ export default class AudienceSelection extends Vue {
     $(`#${this.id} .collapse`).collapse(this.exapandAll ? "show" : "hide");
   }
 
-  setModelValue() {
-    let value = this.audienceList
-      .filter((c) => c.checked)
-      .map((c) => c.value)
-      .join(",");
+  // setModelValue() {
+  //   let value = this.audienceList
+  //     .filter((c) => c.checked)
+  //     .map((c) => c.value)
+  //     .join(",");
 
-    this.model.targetPopulation = value;
-  }
+  //   this.model.targetPopulation = value;
+  // }
 
   addPannelBehavior() {
     const $ = this.$;

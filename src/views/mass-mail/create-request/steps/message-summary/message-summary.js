@@ -20,14 +20,8 @@ import TestMessages from "./test-messages/test-messages.vue";
     formatSender(value) {
       if (!value) return "no-reply@email.unc.edu";
       return value;
-    },
-
-    formatEmployeeCriteria(value) {
-      if (value) {
-        return "/ " + value;
-      }
-      return "";
-    },
+    }
+  
   },
 })
 export default class MessageSummary extends BaseValidateMixin {
@@ -73,7 +67,7 @@ export default class MessageSummary extends BaseValidateMixin {
 
   async mounted() {
     this.toastService.set(this);
-    this.audienceOptions = await this.MassMailService.getAudienceCodeValudDisplayOrder();
+    this.audienceOptions = await this.MassMailService.getAudienceCodeValueDisplayOrder();
     this.initializeSendingCriteriaDisplay();
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
       "Mass Mail Message Summary"
@@ -143,19 +137,20 @@ export default class MessageSummary extends BaseValidateMixin {
     if (!this.model.priority) {
       errors.push("Priority required");
     }
-    if (!this.model.targetPopulation) {
+    
+    let targetPopulationNull = !this.model.campaignAudienceSelections || !this.model.campaignAudienceSelections.includePopulations || !this.model.campaignAudienceSelections.includePopulations.length;
+    
+    if(targetPopulationNull) {
       errors.push("Target population required");
     }
+    
 
-    if (this.model.targetPopulation != null) {
-      if (this.model.targetPopulation.includes("EMPLOYEES")) {
-        if (!this.model.targetEmployee) {
-          errors.push("Employee criteria required");
-        }
-      }
-    }
+
 
     if (errors.length) {
+      window.console.log(errors);
+      this.toastService.error(errors.join(",<br/>"))
+
       return false;
     }
 

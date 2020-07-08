@@ -35,7 +35,9 @@
             </li>
           </ul>
           <h5 class="text-primary">Selected Audience</h5>
-          <ul v-for="(item, index) in selectedPopulations" v-bind:key="index">
+          
+          <div>{{populations}}</div>
+          <!-- <ul v-for="(item, index) in selectedPopulations" v-bind:key="index">
             <li class="d-block">
               <div class="text-primary ml-2">
                 {{ item.description }}
@@ -71,7 +73,7 @@
                 </ul>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </tabbed-item>
       <tabbed-item slot="tab_1">

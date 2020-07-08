@@ -218,9 +218,12 @@ export default class CreateRequest extends BaseValidateMixin {
       
       this.spinnerService.show();
       
+      
+      let targetPopulationNull = !this.model.campaignAudienceSelections || !this.model.campaignAudienceSelections.includePopulations || !this.model.campaignAudienceSelections.includePopulations.length;
+
       //Ask if the user wishes to submit the request for review
-      if (status) {
-        if(this.model.targetPopulation === "TEST"){
+      if (status && !targetPopulationNull) {
+        if(this.model.campaignAudienceSelections.includePopulations.indexOf("TEST") > -1){
           return;
         }
         if (this.model.campaignStatus.status == "SAVED" && status == "CREATED") {
@@ -379,7 +382,14 @@ export default class CreateRequest extends BaseValidateMixin {
     if (!this.$refs.stepMessageSummary.isValid()) {
       return false;
     }
-    if(this.model.targetPopulation === "TEST") return false;
+
+    let targetPopulationNull = !this.model.campaignAudienceSelections || !this.model.campaignAudienceSelections.includePopulations || !this.model.campaignAudienceSelections.includePopulations.length;
+
+    if(!targetPopulationNull && this.model.campaignAudienceSelections.includePopulations.indexOf("TEST") > -1 )
+    {
+      return false;
+    }
+    
     return (this.model.campaignStatus.status === "SAVED");
   }
 

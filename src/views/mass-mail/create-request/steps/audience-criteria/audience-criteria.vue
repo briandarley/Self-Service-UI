@@ -101,7 +101,7 @@
             </div>
 
             <div class="form-inline">
-              <select
+              <!-- <select
                 id="employeeCriteria"
                 class="form-control"
                 v-model="model.targetEmployee"
@@ -111,7 +111,7 @@
                 <option value>--Select Employee Criteria--</option>
                 <option>All Employees</option>
                 <option>DDD</option>
-              </select>
+              </select> -->
               <pop-over
                 title="Employee Criteria"
                 data-content="Select the appropriate employee criteria."
