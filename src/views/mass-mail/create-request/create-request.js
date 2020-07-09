@@ -46,7 +46,10 @@ export default class CreateRequest extends BaseValidateMixin {
       replyTo: "",
       subject: "",
       sponsoringUniversity: "",
-      priority: ""
+      priority: "",
+      campaignAudienceSelections : {
+        includePopulations: []
+      }
 
     }
   }
