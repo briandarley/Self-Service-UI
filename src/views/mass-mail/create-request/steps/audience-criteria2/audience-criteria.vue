@@ -20,13 +20,18 @@
         <div class="form-group w-75">
           <tabbed-control tabs="Include Populations, Exclude Populations">
             <tabbed-item slot="tab_0">
+
+
+
               <audience-selection
                 :id="'includeAudience'"
                 :entities="audienceSelectOptions"
                 :description="'Include E-mail Population'"
+                :enable-select-all="true"
                 v-on:populationSelected="onPopulationSelected"
                 v-on:rebindList="onRebindList"
                 ref="audienceSelectOptions"
+                
               ></audience-selection>
 
               <!-- Check Audience -->

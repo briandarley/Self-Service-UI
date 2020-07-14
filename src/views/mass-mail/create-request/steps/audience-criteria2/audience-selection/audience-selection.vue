@@ -1,20 +1,31 @@
 <template>
   <div class="accordion" :id="id">
-
     <div class="d-flex">
       <div>
         {{ description }}
       </div>
+
+      
+
       <div class="ml-auto text-right">
-        <a @click.prevent="toggleExandAll()" class="text-primary alert-link"
-          >
+        <a @click.prevent="toggleExandAll()" class="text-primary alert-link">
           <span v-if="!exapandAll">Expand All</span>
           <span v-else>Collapse All</span>
-          </a
-        >
+        </a>
       </div>
     </div>
 
+  <div
+        class="ml-3 pt-2 custom-control custom-checkbox "
+        v-if="enableSelectAll"
+      >
+        <input type="checkbox" id="chkSelectAll" class="custom-control-input" @change="toggleSelectAll()" />
+        <label
+          for="chkSelectAll"
+          class="font-weight-bolder text-primary custom-control-label"
+          >Select All</label
+        >
+      </div>
     <div v-for="entity in entities" :key="entity.code" class="card">
       <div
         class="card-header p-1 pl-3 d-flex flex-row justify-content-between audience-pannel"

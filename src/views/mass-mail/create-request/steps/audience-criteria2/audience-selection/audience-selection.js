@@ -4,10 +4,11 @@ import { Component } from "vue-property-decorator";
 @Component({
   name: "audience-selection",
   dependencies: ["$", "moment", "toastService", "spinnerService"],
-  props: ["entities", "id", "description"],
+  props: ["entities", "id", "description", "enableSelectAll"],
 })
 export default class AudienceSelection extends Vue {
   exapandAll = false;
+  toggleAll = false;
 
   async mounted() {
     this.toastService.set(this);
@@ -28,6 +29,24 @@ export default class AudienceSelection extends Vue {
 
   //   this.model.targetPopulation = value;
   // }
+
+  toggleSelectAll() {
+    this.toggleAll = !this.toggleAll;
+
+    this.entities.forEach((c) => {
+      if (c.code !== "TEST") {
+        c.selected = this.toggleAll;
+        if (c.entities) {
+          c.entities.forEach((d) => (d.selected = this.toggleAll));
+        }
+      }
+    });
+
+    this.entities = JSON.parse(JSON.stringify(this.entities));
+    let entity = this.entities[0];
+    this.$emit("populationSelected", entity);
+
+  }
 
   addPannelBehavior() {
     const $ = this.$;
@@ -129,34 +148,29 @@ export default class AudienceSelection extends Vue {
     }
     let entities = JSON.parse(JSON.stringify(this.entities));
     //need to get all entities into single branch
-    let reduced = entities.reduce((val, curVal) => {
-      if (curVal.entities) {
-        curVal.entities.forEach(c=> c.parent = curVal);
-        return val.concat(curVal.entities);
-      }
-      return val;
-    }, this.entities).find(c=> c.code === entity.code );
+    let reduced = entities
+      .reduce((val, curVal) => {
+        if (curVal.entities) {
+          curVal.entities.forEach((c) => (c.parent = curVal));
+          return val.concat(curVal.entities);
+        }
+        return val;
+      }, this.entities)
+      .find((c) => c.code === entity.code);
 
-
-    if(reduced.parent)
-    {
-      let parent = this.entities.find(c=> c.code === reduced.parent.code);
-      let child = parent.entities.find(c=> c.code === reduced.code);
+    if (reduced.parent) {
+      let parent = this.entities.find((c) => c.code === reduced.parent.code);
+      let child = parent.entities.find((c) => c.code === reduced.code);
       child.selected = false;
-      if(!parent.entities.some(c=> c.selected))
-      {
+      if (!parent.entities.some((c) => c.selected)) {
         parent.selected = false;
       }
-    }
-    else {
-
-      let target = this.entities.find(c=> c.code === reduced.code)
+    } else {
+      let target = this.entities.find((c) => c.code === reduced.code);
       target.selected = false;
-      target.entities.forEach(c=> c.selected = false);
-
+      target.entities.forEach((c) => (c.selected = false));
     }
 
-   
     this.$emit("rebindList");
   }
 }
