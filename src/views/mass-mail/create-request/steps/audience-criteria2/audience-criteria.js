@@ -258,7 +258,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
   isValid() {
     let errors = [];
 
-    if (!this.model.campaignAudienceSelections.includePopulations.some(c=> c)
+    if (!this.model.campaignAudienceSelections || !this.model.campaignAudienceSelections.includePopulations.some(c=> c)
     ) {
       this.toastService.error("Must include one population group or select 'Test'");
       errors.push("Must include one population group or select 'Test'");
@@ -300,8 +300,14 @@ export default class AudienceCriteria extends BaseValidateMixin {
   }
 
   initializePopSelections() {
-    let includePops = this.model.campaignAudienceSelections.includePopulations;
-    let excludePops = this.model.campaignAudienceSelections.excludePopulations;
+    let includePops = [];
+    let excludePops = [];
+    if(this.model.campaignAudienceSelections)
+    {
+      includePops = this.model.campaignAudienceSelections.includePopulations;
+      excludePops = this.model.campaignAudienceSelections.excludePopulations;
+    }
+    
 
     //reduce all entities to a single list of values
     let reduce = (val, curVal) => {
