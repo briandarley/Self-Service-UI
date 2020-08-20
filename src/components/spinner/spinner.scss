@@ -1,3 +1,6 @@
+.hidden {
+    display:none !important;
+}
 .spinner {
     position: absolute;
     background-color: rgba(175, 202, 226, 0.75);
@@ -14,13 +17,15 @@
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
 
-    
+// height: 100vh !important;
+    // border: 10px solid red;
 }
 
 .spinner-container {
     grid-row: 2;
     grid-column: 2;
     align-self: center;
+    
 }
 
 

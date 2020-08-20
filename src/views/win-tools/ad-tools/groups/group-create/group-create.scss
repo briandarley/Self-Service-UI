@@ -1,0 +1,13 @@
+
+.type-ahead-container{
+    .twitter-typeahead{
+        width: 100%;
+        
+         .tt-menu {
+            max-height: 150px;
+            overflow-y: auto;
+            
+          }
+    }
+    
+}

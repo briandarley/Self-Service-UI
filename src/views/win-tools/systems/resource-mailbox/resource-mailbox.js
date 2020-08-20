@@ -161,6 +161,7 @@ export default class ResourceMailbox extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+  
   async createSharedMailbox() {
     try {
       this.spinnerService.show();

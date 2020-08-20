@@ -78,9 +78,15 @@ export default class SharedMailbox extends BaseValidateMixin {
 
     try {
       //check to make sure email is unique model.replyToAddress
-      let adUser = await this.ExchangeToolsService.getAdUserByEmail(this.model.replyToAddress);
+      let pagedResponse = await this.ExchangeToolsService.getAdUsers({proxyAddress: this.model.replyToAddress});
 
-      return adUser;
+      if(pagedResponse.status === false || pagedResponse.totalRecords == 0) {
+        this.toastService.error("Failed to retrieve user by email");
+        return null;
+      }
+
+      return pagedResponse.entities[0];
+      
 
     } catch (e) {
       window.console.log(e);

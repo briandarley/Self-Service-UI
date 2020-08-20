@@ -41,6 +41,7 @@ export default class Pager extends Vue {
     deep: true
   })
   onCriteriaChanged(newValue) {
+    
     this.pageInfo = {
       pageSize: 5,
       index: 0
@@ -56,9 +57,10 @@ export default class Pager extends Vue {
 
   @Watch("totalRecords", {
     immediate: false
+    
   })
   onTotalRecordsChanged(newValue) {
-    
+    //before trouble shooting why paging doesn't work, make sure 'pageSize' is set (it's needed to set the button count)
     if (!newValue) return;
 
     this.populateButtonCount();

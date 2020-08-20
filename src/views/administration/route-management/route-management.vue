@@ -25,36 +25,57 @@
                     autocomplete="off"
                   />
                 </div>
+
                 <div class="d-flex">
-                  <div class="form-group form-inline">
+                  <div class="custom-control custom-checkbox">
                     <input
                       type="checkbox"
                       id="chkIncludeChildren"
-                      class="form-control"
-                      :checked="model.includeChildren"
-                      v-model="model.includeChildren"
+                      class="custom-control-input"
+                       v-model="model.includeChildren"
+                       :checked="model.includeChildren"
+                      @change="selectPopulation(entity)"
                     />
-                    <label for="chkIncludeChildren">Include Children?</label>
+
+                    <label for="chkIncludeChildren" class="font-weight-bolder text-primary custom-control-label">Include Children?</label>
                   </div>
-                  <div class="form-group form-inline">
+
+
+
+
+
+                  <div class="ml-3 custom-control custom-checkbox">
                     <input
                       type="checkbox"
                       id="chkIncludeParents"
-                      class="form-control"
-                      :checked="model.includeParents"
+                      class="custom-control-input"
+                       :checked="model.includeParents"
                       v-model="model.includeParents"
                     />
-                    <label for="chkIncludeParents">Include Parents?</label>
+
+                    <label for="chkIncludeParents" class="font-weight-bolder text-primary custom-control-label">Include Parents?</label>
                   </div>
+
+
+                  
                 </div>
               </div>
               <div class="submit d-flex justify-content-between">
                 <div class="text-left d-flex-grow-1">
-                  <button class="btn btn-primary" @click="$refs.confirmAddRoute.show()">Add Route</button>
+                  <button
+                    class="btn btn-primary"
+                    @click="$refs.confirmAddRoute.show()"
+                  >
+                    Add Route
+                  </button>
                 </div>
                 <div class="text-right d-flex-grow-1">
-                  <button class="btn btn-primary mr-1" @click="search()">Search</button>
-                  <button class="btn btn-secondary" @click="clear()">Clear</button>
+                  <button class="btn btn-primary mr-1" @click="search()">
+                    Search
+                  </button>
+                  <button class="btn btn-secondary" @click="clear()">
+                    Clear
+                  </button>
                 </div>
               </div>
             </div>
@@ -77,25 +98,36 @@
               </div>
               <!-- Header Cols -->
               <!-- Record Results -->
-              <div class="result-grid row" v-for="(item, index) in entities" v-bind:key="index">
+              <div
+                class="result-grid row"
+                v-for="(item, index) in entities"
+                v-bind:key="index"
+              >
                 <div v-if="item">
-                  <div class="col">{{item.id}}</div>
-                  <div class="col">{{item.name}}</div>
-                  <div class="col">{{item.enabled | toEnabledDisabled}}</div>
+                  <div class="col">{{ item.id }}</div>
+                  <div class="col">{{ item.name }}</div>
+                  <div class="col">{{ item.enabled | toEnabledDisabled }}</div>
                   <div class="col text-right">
                     <a href="#" @click.prevent="toggleShowChildren(item)">
                       <i
                         class="fa fa-angle-double-down more-info"
-                        :class="{expanded: item.expanded, collapsed: item.expanded === false}"
+                        :class="{
+                          expanded: item.expanded,
+                          collapsed: item.expanded === false,
+                        }"
                       ></i>
-                       <span v-if="item.expanded">collapse</span>
-                <span v-else>expand</span>
+                      <span v-if="item.expanded">collapse</span>
+                      <span v-else>expand</span>
                     </a>
                   </div>
                   <div class="entity-details">
                     <transition name="expand">
                       <div class="entity-details-data" v-if="item.expanded">
-                        <route-info :model="item" @routeUpdated="onRouteUpdated" @routeDeleted="onRouteDeleted"></route-info>
+                        <route-info
+                          :model="item"
+                          @routeUpdated="onRouteUpdated"
+                          @routeDeleted="onRouteDeleted"
+                        ></route-info>
                       </div>
                     </transition>
                   </div>
@@ -104,14 +136,30 @@
               <!-- Record Results -->
 
               <!-- Add New Route -->
-              <confirm-dialog id="confirmAddRoute" ref="confirmAddRoute" width="900">
-                <div slot="modal-title" class="text-white">Confirm: Add New Route</div>
+              <confirm-dialog
+                id="confirmAddRoute"
+                ref="confirmAddRoute"
+                width="900"
+              >
+                <div slot="modal-title" class="text-white">
+                  Confirm: Add New Route
+                </div>
                 <div slot="modal-body">
                   <route-info :model="newRoute"></route-info>
                 </div>
                 <div slot="modal-footer">
-                  <button class="btn btn-primary" @click="onConfirmAddRouteClick()">add entity</button>
-                  <button class="btn btn-secondary" @click="onCancelAddRouteClick()">cancel</button>
+                  <button
+                    class="btn btn-primary"
+                    @click="onConfirmAddRouteClick()"
+                  >
+                    add entity
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    @click="onCancelAddRouteClick()"
+                  >
+                    cancel
+                  </button>
                 </div>
               </confirm-dialog>
 

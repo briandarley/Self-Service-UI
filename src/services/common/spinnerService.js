@@ -6,9 +6,9 @@ function spinnerService() {
     onShowSpinner: null,
     onHideSpinner: null,
     onToggleSpinner: null,
-    show() {
+    show(options) {
      if (this.onShowSpinner) {
-        this.onShowSpinner();
+        this.onShowSpinner(options);
       }
     },
     hide() {

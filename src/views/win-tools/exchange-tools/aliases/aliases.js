@@ -69,13 +69,13 @@ export default class Aliases extends BaseValidateMixin {
       this.loadingAliases = true;
       this.adUser = null;
       
-      let responses = await Promise.all([this.ExchangeToolsService.getAdUser(this.filter), this.ExchangeToolsService.getOffice365Mailbox(this.filter)]);
+      let responses = await Promise.all([this.ExchangeToolsService.getAdUsers(this.filter), this.ExchangeToolsService.getOffice365Mailbox(this.filter)]);
 
-      let adUser = responses[0];
+      let pagedResponse = responses[0];
       let mailbox = responses[1];
-      
+            
 
-      if(adUser.status === false){
+      if(pagedResponse.status === false || pagedResponse.totalRecords == 0){
         this.toastService.error("User not found");
         return;
       }
@@ -83,7 +83,8 @@ export default class Aliases extends BaseValidateMixin {
         this.toastService.error(`Mailbox for user ${this.filter} not found`);
         return;
       }
-      this.adUser = adUser;
+      
+      this.adUser =  pagedResponse.entities[0];
       
       if(mailbox.forwardingSmtpAddress && mailbox.forwardingSmtpAddress.startsWith("smtp:")){
         mailbox.forwardingSmtpAddress = mailbox.forwardingSmtpAddress.substring(5);

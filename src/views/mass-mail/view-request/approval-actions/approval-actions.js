@@ -130,12 +130,14 @@ export default class ApprovalActions extends Vue {
     return true;
     
   }
+
   get isApproved() {
     if(!this.entity.campaignStatus) return false;
    
     if(this.entity.campaignStatus.status === "APPROVED") return true;
     return false;
   }
+  
   get hasApprovals() {
     if (!this.isActive) return false;
     

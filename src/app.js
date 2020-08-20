@@ -118,22 +118,28 @@ export default class App extends Vue {
 
   attachScrollBar() {
     let $ = this.$;
+    
     new SimpleBar($(".app-section")[0], {
       autoHide: false,
       height: "auto"
     });
     
+    //debugger;
     
     //let height = simple.el.scrollHeight;
     //$('#appSpinner').height(height);
-    $('#appSpinner').height("100vh");
+    //$('#appSpinner').height("100vh");
+    
+    $('#appSpinner').height($('#appSpinner').parent().height() );
+    
 
     //execute every 100ms, then stop after 1sec
     let handle = setInterval(() => {
       //simple.recalculate();
       //height = simple.el.scrollHeight;
-      //$('#appSpinner').height(height);
-      $('#appSpinner').height("100vh");
+      //$('#appSpinner').height("100vh");
+      $('#appSpinner').height($('#appSpinner').parent().height() );
+      
     }, 100)
 
     setTimeout(() => {

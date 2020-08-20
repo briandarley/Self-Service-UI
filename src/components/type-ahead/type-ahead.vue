@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="type-ahead-container">
     <input type="hidden" />
     <input
       :id="id"
+      
       class="typeahead form-control"
       :placeholder="placeHolder"
       :value="val"
