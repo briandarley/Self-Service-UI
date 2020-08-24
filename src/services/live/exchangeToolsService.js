@@ -1012,7 +1012,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         //throw e;
       }
     },
-    
+
     async addAdGroupMember(groupDn, memberDn) {
       try {
         const handler = await httpHandlerService.get();
@@ -1133,6 +1133,44 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         );
 
         return response.data;
+      } catch (e) {
+        let message = e;
+        if (e.response) {
+          message = e.response.data;
+        }
+        return {
+          status: false,
+          message: message,
+        };
+      }
+    },
+    async uploadAdMemberFiles(data, options) {
+      try {
+        let callback = options.fileUploadProgress;
+        let groupDn = options.distinguishedName;
+
+        const handler = await httpHandlerService.get();
+        //Note CORS errors like 'No headers found will occur if the max file size is exceeded, setting up the server to except larger files will resolve this
+        let response = await handler.post(
+          `/WinTools/exchange-tools/ad-tools/ad-groups/${groupDn}/members/file`,
+          data,
+          {
+             headers: {
+               "Content-Type": "multipart/form-data",
+             },
+            onUploadProgress: function(progressEvent) {
+              if(callback)
+              {
+                callback(parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total)));
+              }
+
+            }
+          }
+        );
+       
+        return response;
+
+
       } catch (e) {
         let message = e;
         if (e.response) {

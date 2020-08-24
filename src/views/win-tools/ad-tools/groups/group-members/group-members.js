@@ -22,13 +22,19 @@ export default class GroupMembers extends BaseValidateMixin {
   hideInfo = false;
   _currentCol = "name";
   _currentSortDir = 1;
+  dragAndDropCapable = false;
+  fileUploadOptions = {};
   isLoaded = false;
+  showUpload = false;
   currentUser = {};
   authorizedServiceAccounts = [];
+  addMemberResponse = [];
   showAddMember = false;
+  
   adEntity = {};
   groupDetail = {
     managedBy: [],
+    memberOf: [],
     samAccountName: "",
   };
 
@@ -87,16 +93,18 @@ export default class GroupMembers extends BaseValidateMixin {
   }
 
   get editManagersEnabled() {
-    // debugger;
+    
     if (this.isRestrictedGroup) return false;
 
     if (!this.currentUser.distinguishedName) {
       return false;
     }
-    if(this.groupDetail.isExchangeGroup) {
+    if (this.groupDetail.isExchangeGroup) {
       return true;
     }
-    if(this.groupDetail.distinguishedName.indexOf("OU=Shared Mailboxes") > -1) {
+    if (
+      this.groupDetail.distinguishedName.indexOf("OU=Shared Mailboxes") > -1
+    ) {
       return true;
     }
     //return false;
@@ -130,11 +138,14 @@ export default class GroupMembers extends BaseValidateMixin {
     this.isLoaded = false;
     this.toastService.set(this);
     await this.initializeView();
-
-    
+    this.fileUploadOptions.fileUpload = this.ExchangeToolsService.uploadAdMemberFiles;
+    this.fileUploadOptions.fileUploadProgress = this.fileUploadProgress;
+    this.fileUploadOptions.distinguishedName = this.groupDetail.distinguishedName;
+    this.fileUploadOptions.downloadTemplate = this.downloadTemplate;
     this.isLoaded = true;
+    
   }
-
+  
   async initializeView() {
     this.readQueryParams();
 
@@ -253,14 +264,13 @@ export default class GroupMembers extends BaseValidateMixin {
   }
 
   goToGroupSearch(options) {
-    
     if (options && options.parentsOf) {
       this.$router.push({
         name: "ad-groups",
         query: {
           criteria: JSON.stringify({
             userMemberOf: this.groupDetail.distinguishedName,
-            userMemberOfNested: true
+            userMemberOfNested: true,
           }),
         },
       });
@@ -315,12 +325,15 @@ export default class GroupMembers extends BaseValidateMixin {
   clearLookup() {
     this.modelSearch = {};
     this.adEntity = {};
+    this.addMemberResponse = [];
   }
 
   resetSearch() {
     this.modelSearch = {};
     //this.showAddMember = false;
     this.adEntity = {};
+    this.addMemberResponse = [];
+    this.showUpload = false;
   }
   async removeMember(entity) {
     this.spinnerService.show();
@@ -330,7 +343,7 @@ export default class GroupMembers extends BaseValidateMixin {
         entity.distinguishedName
       );
 
-      window.console.log(response);
+      //window.console.log(response);
       if (response.success === false) {
         this.toastService.error("Failed to remove member from group");
         return;
@@ -413,5 +426,71 @@ export default class GroupMembers extends BaseValidateMixin {
       //   ouName: result.ouName
       // }
     });
+  }
+
+  
+  onShowAddMember() {
+    this.showAddMember = true;
+    
+ //       this.uploadPercentage = parseInt(
+    //         Math.round((progressEvent.loaded * 100) / progressEvent.total)
+    //       );
+  }
+  
+  fileUploadProgress(progressEvent){
+   
+    window.console.log(progressEvent);
+  }
+  onFileUploadBegin(){
+    this.spinnerService.show();
+
+  }
+  onFileUploadComplete() {
+    this.spinnerService.hide();
+  }
+  onFileUploadedError(response) {
+    this.toastService.error(`Failed to upload file, \n${response.message}`)
+    
+  }
+  async onFileUploaded(response) {
+    this.toastService.success("File successfully uploaded");
+    window.console.log(response);
+    let entities = response.map(c=> {
+      return { adUser: c.key.entity, status: c.value}
+      }
+    );
+
+    this.addMemberResponse =  entities;
+
+    await this.search();
+    
+  }
+
+
+  showUploadControl() { 
+    this.showUpload = true;
+  }
+
+
+  downloadTemplate() {
+
+    let csvContent = "data:text/csv;charset=utf-8,Member Id [Onyen - Email - PID - DistinguishedName - SamAccountName]\r\n";
+    
+
+    var encodedUri = encodeURI(csvContent);
+    const $ = this.$;
+
+    let link = $("<a></a>")
+        .attr("href", encodedUri)
+        .attr("download", `add-member-to-group-template.csv`)
+    
+    $("body").append(link);
+    $(link)[0].click()
+    $(link).remove();
+
+    
+
+    
+
   }
 }

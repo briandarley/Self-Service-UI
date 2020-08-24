@@ -1,6 +1,6 @@
 <template>
   <div class="container group-members">
-    <div class="card card-icon" v-if="isLoaded">
+    <div class="card card-icon" :class="{ hidden: !isLoaded }">
       <div class="card-header text-primary">
         <div class="icon bg-primary text-white">
           <i class="fa fas fas fa-object-group"></i>
@@ -67,7 +67,7 @@
               class="btn btn-primary ml-1 btn-sm"
               @click="goToGroupSearch()"
             >
-              <i class="fa fa-angle-left mr-1"></i>
+              <i class="fa fa-angle-left"></i>
               Back to Group Search
             </button>
 
@@ -85,9 +85,9 @@
             <button
               class="btn btn-primary btn-sm"
               :disabled="!editManagersEnabled"
-              @click="showAddMember = true"
+              @click="onShowAddMember()"
             >
-              <i class="fa fa-plus-circle mr-1"></i>
+              <i class="fa fa-plus-circle"></i>
               Add Member
             </button>
           </div>
@@ -117,7 +117,7 @@
               </div>
 
               <div class="submit text-right">
-                <button class="btn btn-primary mr-1" @click="search()">
+                <button class="btn btn-primary " @click="search()">
                   Search
                 </button>
                 <button class="btn btn-secondary" @click="clear()">
@@ -146,7 +146,7 @@
             <!-- <div class="bg bg-primary text-white p-2">Search Results</div> -->
 
             <div class="d-flex mt-5" style="justify-content:space-between">
-              <h3 class="text-primary">
+              <h3 class="text-secondary">
                 Total Members {{ pagedResponse.totalRecords | formatNumber }}
               </h3>
               <pager
@@ -159,11 +159,11 @@
 
             <!--Trigger-->
             <div class="search-result">
-              <div class="bg-primary text-white row-header">
+              <div class="bg-secondary text-secondary row-header">
                 <div>
                   <a href="#" @click.prevent="sort('cn')">CN</a>
                 </div>
-                
+
                 <div><a href="#" @click.prevent="sort('mail')">Email</a></div>
 
                 <div>
@@ -181,7 +181,7 @@
                   <div class="record-info">
                     <div class="record-info-detail">
                       <div>{{ item.cn | filterCn }}</div>
-                      
+
                       <div>{{ item.mail }}</div>
                       <div>{{ item.objectClass }}</div>
 
@@ -190,7 +190,7 @@
                           href="#"
                           @click.prevent="editGroup(item)"
                           v-if="item.objectClass === 'group'"
-                          class="mr-1"
+                          class="text-dark mr-1"
                           >Edit</a
                         >
 
@@ -198,12 +198,12 @@
                           href="#"
                           @click.prevent="removeMember(item)"
                           v-if="editManagersEnabled"
+                          class="text-dark"
                           >Remove</a
                         >
-                        <span v-else class="text-secondary">Remove</span>
+                        <span v-else class="text-dark">Remove</span>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
               </div>
@@ -238,81 +238,189 @@
             </div>
           </div>
         </div>
-        <div class="mt-3 border border-primary mx-2" v-if="showAddMember">
-          <h6 class="p-1 bg-primary text-white">New Member Lookup</h6>
-          <div class="add-meber pr-3 d-flex">
-            <div class="form-group w-75 d-flex">
-              <label for="memberId-search" class="w-25 text-right pr-2 pt-1 align-self-center">User Id</label>
-              <input
-                type="text"
-                id="memberId-search"
-                name="memberId-search"
-                class="form-control "
-                v-select-all
-                placeholder="entity Id, (Onyen, PID, SamAccountName)"
-                v-model="modelSearch.filterText"
-                v-on:keyup.13="lookupEntity()"
-                autocomplete="off"
-              />
-            </div>
-            <div class="w-25 text-right">
-              <button
-              type="button"
-              class="btn btn-primary mr-1"
-              @click="lookupEntity()"
-            >
-              <i class="fa fa-search small mr-1"></i>
-              Lookup
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              @click="clearLookup()"
-            >
-              <i class="fa fa-trash small mr-1"></i>
-              Clear
-            </button>
+
+        <!-- showAddMember -->
+
+        <div v-if="showAddMember">
+          <div v-if="!showUpload">
+            <div class="mt-3 border border-secondary mx-2">
+              <h6 class="p-2 bg-secondary text-white">New Member Lookup</h6>
+              <div class="add-meber d-flex">
+                <div class="form-group  d-flex w-60">
+                  <label for="memberId-search" class="w-25 text-right pr-2 pt-1"
+                    >Entity Id</label
+                  >
+                  <input
+                    type="text"
+                    id="memberId-search"
+                    name="memberId-search"
+                    class="form-control "
+                    v-select-all
+                    placeholder="entity Id, (Onyen, PID, SamAccountName)"
+                    v-model="modelSearch.filterText"
+                    v-on:keyup.13="lookupEntity()"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="mr-1">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    @click="lookupEntity()"
+                  >
+                    <i class="fa fa-search small"></i>
+                    Lookup
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="clearLookup()"
+                  >
+                    <i class="fa fa-trash small"></i>
+                    Clear
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    @click="showUploadControl()"
+                  >
+                    <i class="fa fa-upload"></i>
+                    Upload File
+                  </button>
+                </div>
+              </div>
+
+              <div v-if="adEntity.cn">
+                <div class="search-result m-3">
+                  <div class="bg-secondary text-white row-header">
+                    <div>
+                      CN
+                    </div>
+                    <div>
+                      Display Name
+                    </div>
+                    <div>
+                      Mail
+                    </div>
+
+                    <div>
+                      Type
+                    </div>
+                  </div>
+                  <div class="record-info">
+                    <div class="record-info-detail">
+                      <div>{{ adEntity.cn | filterCn }}</div>
+                      <div>{{ adEntity.displayName }}</div>
+
+                      <div>{{ adEntity.mail }}</div>
+                      <div class="text-center">{{ adEntity.objectClass }}</div>
+
+                      <!-- {{adEntity}} -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-right m-3">
+                  <button
+                    class="btn btn-primary mr-2"
+                    @click="addToMemberList()"
+                  >
+                    Add Entity
+                  </button>
+                  <button class="btn btn-secondary" @click="resetSearch()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div v-if="adEntity.cn">
-            <div class="search-result m-3">
-              <div class="bg-primary text-white row-header">
-                <div>
-                  CN
+          <div v-else class="border border-primary">
+            <file-upload
+              :options="fileUploadOptions"
+              @fileUploaded="onFileUploaded"
+              @fileUploadedError="onFileUploadedError"
+              @fileUploadBegin="onFileUploadBegin"
+              @fileUploadComplete="onFileUploadComplete"
+              @canceled="resetSearch"
+            >
+              <div slot="header">
+                <div
+                  class="bg-secondary p-2 text-white d-flex justify-content-between"
+                >
+                  <span>Upload File</span>
+                  <span>
+                    <a
+                      class="text-white"
+                      title="download csv"
+                      href="#"
+                      @click.prevent="downloadTemplate(item)"
+                      aria-label="Download CSV file"
+                    >
+                      <span class="text-white mr-1">Template</span>
+                      <i class="fas fa-file-csv" aria-hidden="true"></i>
+                    </a>
+                  </span>
                 </div>
-                <div>
-                  Display Name
-                </div>
-                <div>
-                  Mail
-                </div>
-
-                <div>
-                  Type
+                <div class="upload-instructions">
+                  <i class="fa fa-info-circle"></i>
+                  <p>
+                    Use the control below to upload a list of members for selected group. Use the template if
+                    needed to assist with formatting. 
+                  </p>
                 </div>
               </div>
-              <div class="record-info">
-                <div class="record-info-detail">
-                  <div>{{ adEntity.cn | filterCn }}</div>
-                  <div>{{ adEntity.displayName }}</div>
 
-                  <div>{{ adEntity.mail }}</div>
-                  <div>{{ adEntity.objectClass }}</div>
+              <!-- File-Upload Footer -->
+              <div slot="footer">
+                <div class="container my-3" v-if="addMemberResponse.length">
+                  <h4>
+                    Total Added Records
+                    {{ addMemberResponse.filter((c) => c.adUser.cn).length }}
+                  </h4>
+                  <div class="search-result add-member-result ">
+                    <div class="bg-secondary text-white row-header">
+                      <div>
+                        CN
+                      </div>
+                      <div>
+                        Type
+                      </div>
+                      <div>
+                        Status
+                      </div>
+                      <div class="control"></div>
+                    </div>
 
-                  <!-- {{adEntity}} -->
+                    <div class="results">
+                      <div
+                        class="result-grid"
+                        v-for="(item, index) in addMemberResponse"
+                        :key="index"
+                      >
+                        <div class="record-info">
+                          <div class="record-info-detail" v-if="item.adUser.cn">
+                            <div>{{ item.adUser.cn }}</div>
+                            <div class="text-center">
+                              {{ item.adUser.objectClass }}
+                            </div>
+                            <div>{{ item.status }}</div>
+                            <div></div>
+                          </div>
+                          <div class="record-info-detail" v-else>
+                            <div>{{ item.adUser }}</div>
+                            <div></div>
+                            <div></div>
+                            <div>{{ item.status }}</div>
+                            <div></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="text-right m-3">
-              <button class="btn btn-primary mr-2" @click="addToMemberList()">
-                Add Entity
-              </button>
-              <button class="btn btn-secondary" @click="resetSearch()">
-                Cancel
-              </button>
-            </div>
+              <!-- File-Upload Footer -->
+            </file-upload>
           </div>
         </div>
       </div>

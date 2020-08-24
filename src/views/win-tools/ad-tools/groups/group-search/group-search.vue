@@ -48,7 +48,7 @@
           </button>
         </div>
 
-        <div class="border border-primary search-criteria">
+        <div class="border border-primary search-criteria border-top-0">
           <div class="bg bg-primary text-white p-2">Search Criteria</div>
           <div class="m-2">
             <div class="row-1">

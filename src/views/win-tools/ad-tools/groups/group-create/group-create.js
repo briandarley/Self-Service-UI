@@ -44,7 +44,7 @@ export default class GroupCreate extends BaseValidateMixin {
     await this.initializeTypeAheadValue();
     
   }
-
+  
   async loadOrganizationalUnits() {
     let result = await this.ExchangeToolsService.getOrganizationalUnits();
 
@@ -76,7 +76,7 @@ export default class GroupCreate extends BaseValidateMixin {
       return;
     }
     this.model.name = newvalue.replace(/[^a-zA-Z0-9_-]/g, "");
-    this.model.replyToAddress = this.model.name + "@ad.unc.edu";
+    this.model.replyToAddress = this.model.name + "@unc.edu";
   }
 
   goToGroupSearch() {

@@ -11,7 +11,7 @@
           <div class="icon bg-primary text-white">
             <i class="fa fas fas fa-object-group"></i>
           </div>
-          <h1>Group Create</h1>
+          <h1>Group Create (Shared/Resource Mailbox)</h1>
         </div>
         <div class="card-body">
           <div class="alert alert-info">
@@ -41,7 +41,7 @@
           </div>
 
           <div class="my-3 submit text-left">
-            <button type="button" class="btn btn-primary ml-1" @click="goToGroupSearch()">
+            <button type="button" class="btn btn-primary ml-1 btn-sm" @click="goToGroupSearch()">
               <i class="fa fa-angle-left mr-1"></i>
               Back to Group Search
             </button>
@@ -77,6 +77,7 @@
                     placeholder="Friendly Name"
                     id="displayName"
                     ref="displayName"
+                    data-lpignore="true"
                     data-validation="{'name': 'Friendly Name','message':'Friendly name is required', 'required':true}"
                     v-model="model.displayName"
                   />
@@ -91,6 +92,7 @@
                     name="mailbox-name"
                     id="mailbox-name"
                     placeholder="Short Name"
+                    data-lpignore="true"
                     v-model="model.name"
                     data-validation="{'name': 'Short Name','message':'Invalid, can contain only alpha numeric characters with no spaces', 'maxLength': 23,'regex': '^[-a-zA-Z0-9]+$'}"
                     ref="name"
@@ -100,7 +102,7 @@
               </div>
               <div class="row-3">
                 <div class="form-group">
-                  <label for="group-type">Group Type</label>
+                  <label for="group-type">Mailbox Type</label>
                   <select
                     name="select-group-type"
                     id="select-group-type"
@@ -109,7 +111,7 @@
                     v-model="model.groupTypeCode"
                     data-validation="{'name': 'Group Type','message':'Group type required','required':true}"
                   >
-                    <option value="">-- select group type --</option>
+                    <option value="">-- select mailbox type --</option>
                     <option value="SHARED_MAILBOX">Shared Mailbox</option>
                     <option value="RESOURCE_MAILBOX">Resource Mailbox</option>
                   </select>
@@ -151,6 +153,7 @@
                     id="description"
                     placeholder="Description"
                     v-model="model.description"
+                    data-lpignore="true"
                     ref="description"                    
                   />
                 </div>

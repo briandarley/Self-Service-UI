@@ -75,6 +75,7 @@ export default class TypeAhead extends Vue {
         minLength: minLength,
       };
     }
+    
     if(!dataOptions){
       dataOptions = {
         name: "query-results",
@@ -82,26 +83,32 @@ export default class TypeAhead extends Vue {
         async: async,
       };
     }
-
-    el.typeahead(
-      displayOptions,
-      dataOptions
-    )
-      .bind("typeahead:select", (event, suggestion) => {
-        //window.console.log("typeahead:select");
-        event.target.value = suggestion;
-        that.val = suggestion;
-        el.typeahead('close');
-      })
-      .bind("typeahead:change", (event, suggestion) => {
-        //window.console.log("typeahead:select");
-        event.target.value = suggestion;
-        that.val = suggestion;
-      })
-      .parent()
-      .css("padding", "0");
+    
+      el.typeahead(
+        displayOptions,
+        dataOptions
+      )
+        .bind("typeahead:select", (event, suggestion) => {
+          //window.console.log("typeahead:select");
+          event.target.value = suggestion;
+          that.val = suggestion;
+          el.typeahead('close');
+        })
+        .bind("typeahead:change", (event, suggestion) => {
+          //window.console.log("typeahead:select");
+          event.target.value = suggestion;
+          that.val = suggestion;
+        })
+        .parent()
+        .css("padding", "0");
+    
+    
   }
+  
   mounted() {
+    //this.initializeControl();
+    setTimeout(() => {
     this.initializeControl();
+    },1500);
   }
 }
