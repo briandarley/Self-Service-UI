@@ -9,6 +9,7 @@ import { Component, Watch } from "vue-property-decorator";
     "toastService",
     "spinnerService",
     "ExchangeToolsService",
+    "UserService"
   ],
   components: {},
   //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
@@ -23,7 +24,9 @@ export default class GroupCreate extends BaseValidateMixin {
     limit: 20
     //display: "name"
   };
-
+  currentUser = {
+    profile: {}
+  };
   model = {
     id: 0,
     name: "",
@@ -42,7 +45,7 @@ export default class GroupCreate extends BaseValidateMixin {
     this.toastService.set(this);
     await this.loadOrganizationalUnits();
     await this.initializeTypeAheadValue();
-    
+    this.currentUser = await this.UserService.get();
   }
   
   async loadOrganizationalUnits() {
@@ -241,19 +244,21 @@ export default class GroupCreate extends BaseValidateMixin {
         //result.ouName
         //result.displayName
         this.toastService.success("Successfully added group to queue.")
-        //
         
-        this.$router.push({
-          name: "ad-group-edit",
-          query: {
-            name: result.name,
-            ouName: result.ouName
-          },
-          // params: {
-          //   name: result.name,
-          //   ouName: result.ouName
-          // }
-        });
+        this.$refs.confirmGroupCreated.show();
+        //this.goToGroupSearch();
+
+        // this.$router.push({
+        //   name: "ad-group-edit",
+        //   query: {
+        //     name: result.name,
+        //     ouName: result.ouName
+        //   },
+        //   // params: {
+        //   //   name: result.name,
+        //   //   ouName: result.ouName
+        //   // }
+        // });
       }
       //window.console.log(result);
 
@@ -275,5 +280,16 @@ export default class GroupCreate extends BaseValidateMixin {
     }
   }
 
- 
+  test() {
+    this.$refs.confirmGroupCreated.show();
+  }
+  onConfirmGroupCreatedClick() {
+    this.$refs.confirmGroupCreated.hide();
+
+    this.$router.push({
+      name: "ad-groups"
+    
+    });
+
+  }
 }

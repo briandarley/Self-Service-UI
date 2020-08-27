@@ -28,14 +28,14 @@
         </div>
         <div class="row bg-primary text-white row-header">
           <div class="col">User</div>
-          <div class="col">Canonical Name</div>
+          <div class="col">Distinguished Name</div>
           <div class="col"></div>
         </div>
         <div class="result-grid row" v-for="(item, index) in entities" :key="index">
           <div class="col">{{item.samAccountName}}</div>
           <div class="col">{{item.id}}</div>
           <div class="col">
-            <a href="#" @click.prevent="removeEntity(item.samAccountName)">
+            <a href="#" @click.prevent="removeEntity(item)">
               <i class="fa fa-trash-o" aria-hidden="true"></i>
               <span>remove</span>
             </a>

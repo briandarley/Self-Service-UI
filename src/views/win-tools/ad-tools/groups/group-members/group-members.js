@@ -474,9 +474,15 @@ export default class GroupMembers extends BaseValidateMixin {
 
   downloadTemplate() {
 
-    let csvContent = "data:text/csv;charset=utf-8,Member Id [Onyen - Email - PID - DistinguishedName - SamAccountName]\r\n";
+    let csvContent = "data:text/csv;charset=utf-8,\"Member Id [Onyen - Email - PID - DistinguishedName - SamAccountName]\",\r\n";
+    csvContent += "\"Sample Data Follows\",\r\n"
+    csvContent += "\"700004832\",\r\n"
+    csvContent += "\"700013564\",\r\n"
+    csvContent += "\"700017517\",\r\n"
+    csvContent += "\"bdarley\",\r\n"
+    csvContent += "\"bdarley@email.unc.edu\",\r\n",
+    csvContent += "\"CN=Charles Test Xavier,OU=Contacts,OU=Identity,DC=adtest,DC=unc,DC=edu\",\r\n"
     
-
     var encodedUri = encodeURI(csvContent);
     const $ = this.$;
 

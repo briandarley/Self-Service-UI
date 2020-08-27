@@ -14,6 +14,7 @@ export default class MyAdGroups extends Vue {
   async loadMyAdGroups() {
     try {
       this.spinnerService.show();
+      
       let response = await this.DashboardService.getMyAdGroups();
       
       if(response.status === false)

@@ -19,7 +19,7 @@
       <div class="result-grid" v-for="(item, index) in entities" v-bind:key="index" role="row">
         <div class="record">
           <div class="record-info">
-            <div class="col" role="cell">{{item.displayName}}</div>
+            <div class="col" role="cell">{{item.name}}</div>
             <div class="col" role="cell">{{item.whenCreated | formatDate}}</div>
             <div class="col" role="cell">
               <a href="#" @click.prevent="toggleUsers(item)" :aria-label="!item.showUsers? 'Click to expand group members': 'Click to collapse group members' ">
@@ -37,7 +37,7 @@
                 <tabbed-item slot="tab_0">
                   <user-list-management
                     ref="groupUsers"
-                    :group="item.samAccountName"
+                    :group="item"
                     autoLoadEntities="true"
                     @controlLoaded="onGroupUserListLoaded(item)"
                     :service="service"
@@ -46,7 +46,7 @@
                 <tabbed-item slot="tab_1">
                   <manager-list-management
                     ref="groupManagers"
-                    :group="item.samAccountName"
+                    :group="item"
                     autoLoadEntities="true"
                     @controlLoaded="onManagerListLoaded(item)"
                     :service="service"

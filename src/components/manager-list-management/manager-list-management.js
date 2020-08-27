@@ -33,32 +33,7 @@ export default class ManagerListManagement extends Vue {
   }
 
 
-  async removeEntity(samAccountName){
-    try {
-      if(this.entities.length <= 1){
-        this.toastService.error("All groups must have at least one owner who manages membership, message approval, and other settings for the group.")
-        return;
-      }
-      if(samAccountName.toLowerCase() === "its_exchmbcreate.svc"){
-        this.toastService.error("Service account cannot be removed as a manager of group.")
-        return;
-      }
-      
-
-      this.showSpinner();
-      
-      await this.service.removeGroupManager(this.group, samAccountName);
-      this.entities = this.entities.filter(c => c.samAccountName !== samAccountName);
-      this.toastService.success("Successfully removed entity");
-      this.$emit('entityRemoved', samAccountName);
-
-    } catch (e) {
-      window.console.log(e);
-      this.toastService.error('Failed to remove entity');
-    } finally {
-      this.hideSpinner();
-    }
-  }
+  
 
 
   showDialog(){
@@ -70,81 +45,10 @@ export default class ManagerListManagement extends Vue {
     this.$refs.confirmAddManager.hide();
   }
 
-  async onLookupMember(){
-    
-    let userId = this.userId;
-    this.multipleRecords = false;
-    
-
-    if (!userId) {
-      this.toastService.error("Search criteria empty, please specify a search criteria");
-      return;
-    }
-
-    if (userId.toUpperCase() == this.group.toUpperCase()) {
-      this.toastService.error("You can't add reference to itself, silly");
-      return;
-    }
-
-    try {
-
-      this.spinnerService.show();
-      let responses = await Promise.all([this.service.getExchangeUser(userId)]);
-
-      let exchangeUserEntity = responses[0];
-      
-      if (exchangeUserEntity.status !== false) {
-        this.lookupEntityModel = {
-          name: exchangeUserEntity.samAccountName,
-          samAccountName: exchangeUserEntity.samAccountName,
-          type: 'user',
-          displayName: exchangeUserEntity.displayName,
-          email: exchangeUserEntity.userPrincipalName,
-          distinguishedName: exchangeUserEntity.distinguishedName
-        };
-        this.showDialog();
-      } 
-
-      if (exchangeUserEntity.status === false) {
-        this.toastService.error(`Failed to retrieve entity information for entity '${userId}'`)
-        return;
-      }
-
-
-    } catch (e) {
-      window.console.log(e);
-      this.toastService.error("Failed to locate member given criteria");
-    } finally {
-      this.spinnerService.hide();
-    }
-
-
-  }
   
   
-  async onConfirmAddMemberClick() {
-    try {
-      this.showSpinner();
-      this.hideDialog();
-      
-      
-      if (this.entities.some(c => c.samAccountName === this.lookupEntityModel.samAccountName)) {
-        this.toastService.error("Entity is already a member of group")
-        return;
-      }
-      
-      await this.service.addGroupManager(this.group, this.lookupEntityModel.samAccountName);
-      this.entities.push(this.lookupEntityModel);
-
-      this.toastService.success("Successfully added entity to group");
-      
-    } catch (e) {
-      window.console.log(e);
-      this.toastService.error("Failed to add members to group");
-    } finally {
-      this.hideSpinner();
-    }
-  }
+  
+  
   onCancelConfirmClick(){
     this.hideDialog();
   }
@@ -164,7 +68,7 @@ export default class ManagerListManagement extends Vue {
     this.userId = "";
   }
   
-  async mounted(){
+  async mounted() {
     
     this.toastService.set(this);
     this.$emit('controlLoaded');
@@ -172,7 +76,8 @@ export default class ManagerListManagement extends Vue {
     if(this.autoLoadEntities){
       this.showSpinner();
       try{
-        this.entities = await this.service.getDistributionGroupManagers(this.group);
+        
+        this.entities = await this.service.getMyManagedGroupManagers(this.group.samAccountName);
 
 
         this.entities.map(c=> {
@@ -196,10 +101,101 @@ export default class ManagerListManagement extends Vue {
     
 
   }
-  async onGroupManagerRetrieveFailed(){
-   
+  
+
+  async onConfirmAddMemberClick() {
+    try {
+      this.showSpinner();
+      this.hideDialog();
+      
+      
+      if (this.entities.some(c => c.samAccountName === this.lookupEntityModel.samAccountName)) {
+        this.toastService.error("Entity is already a member of group")
+        return;
+      }
+      
+      let response = await this.service.addManagerToGroup(this.group.distinguishedName, this.lookupEntityModel.distinguishedName);
+      if(response.status === false) {
+        this.toastService.error(`Failed to add manager to list ${response.message}`);
+        return;
+      }
+      this.entities.push(this.lookupEntityModel);
+
+      this.toastService.success("Successfully added entity to group");
+      
+    } catch (e) {
+      window.console.log(e);
+      this.toastService.error("Failed to add members to group");
+    } finally {
+      this.hideSpinner();
+    }
+  }
+
+
+  async onLookupMember() {
     
+    let userId = this.userId;
+    this.multipleRecords = false;
     
+
+    if (!userId) {
+      this.toastService.error("Search criteria empty, please specify a search criteria");
+      return;
+    }
+
+    if (userId.toUpperCase() == this.group.toUpperCase()) {
+      this.toastService.error("You can't add reference to itself, silly");
+      return;
+    }
+
+    try {
+
+      this.spinnerService.show();
+      let pagedResponse = await this.service.getPagedAdEntities({samAccountName: userId});
+
+      if(pagedResponse.status === false || pagedResponse.totalRecords === 0) {
+        this.toastService.error("Failed to retrieve user information given criteria");
+        return;
+      }
+      this.lookupEntityModel = pagedResponse.entities[0];
+      this.showDialog();
+
+    } catch (e) {
+      window.console.log(e);
+      this.toastService.error("Failed to locate member given criteria");
+    } finally {
+      this.spinnerService.hide();
+    }
+
+
+  }
+
+  async removeEntity(entity) {
+    try {
+      if(this.entities.length <= 1){
+        this.toastService.error("All groups must have at least one owner who manages membership, message approval, and other settings for the group.")
+        return;
+      }
+      if(entity.samAccountName.toLowerCase() === "its_exchmbcreate.svc"){
+        this.toastService.error("Service account cannot be removed as a manager of group.")
+        return;
+      }
+
+      
+
+      this.showSpinner();
+      
+      await this.service.removeManagerFromGroup(this.group.distinguishedName, entity.distinguishedName);
+      this.entities = this.entities.filter(c => c.distinguishedName !== entity.distinguishedName);
+      this.toastService.success("Successfully removed entity");
+      this.$emit('entityRemoved', entity.samAccountName);
+
+    } catch (e) {
+      window.console.log(e);
+      this.toastService.error('Failed to remove entity');
+    } finally {
+      this.hideSpinner();
+    }
   }
 }
 

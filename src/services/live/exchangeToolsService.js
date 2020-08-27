@@ -514,42 +514,8 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    async getDistributionGroupMembers(id) {
-      try {
-        const handler = await httpHandlerService.get();
-        let response = await handler.get(
-          `/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/members`
-        );
-        {
-          return response.data;
-        }
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-    },
-    async getDistributionGroupManagers(id) {
-      try {
-        const handler = await httpHandlerService.get();
-        let response = await handler.get(
-          `/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/managers`
-        );
-        {
-          return response.data;
-        }
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-    },
+    
+    
     async getSharedMailbox(samAccountName) {
       try {
         const handler = await httpHandlerService.get();
@@ -1182,6 +1148,42 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         };
       }
     },
+    // async getDistributionGroupMembers(id) {
+    //   try {
+    //     const handler = await httpHandlerService.get();
+    //     let response = await handler.get(
+    //       `/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/members`
+    //     );
+    //     {
+    //       return response.data;
+    //     }
+    //   } catch (e) {
+    //     if (e.message.includes("404")) {
+    //       return {
+    //         status: false,
+    //       };
+    //     }
+    //     throw e;
+    //   }
+    // }
+    // async getDistributionGroupManagers(id) {
+    //   try {
+    //     const handler = await httpHandlerService.get();
+    //     let response = await handler.get(
+    //       `/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/managers`
+    //     );
+    //     {
+    //       return response.data;
+    //     }
+    //   } catch (e) {
+    //     if (e.message.includes("404")) {
+    //       return {
+    //         status: false,
+    //       };
+    //     }
+    //     throw e;
+    //   }
+    // },
   };
 }
 

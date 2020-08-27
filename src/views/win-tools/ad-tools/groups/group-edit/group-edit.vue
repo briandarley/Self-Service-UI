@@ -33,7 +33,7 @@
           <div>
             <button
               type="button"
-              class="btn btn-primary ml-1"
+              class="btn btn-primary ml-1 btn-sm"
               @click="goToGroupSearch()"
             >
               <i class="fa fa-angle-left mr-1"></i>
@@ -42,7 +42,7 @@
 
             <button
               type="button"
-              class="btn btn-primary ml-1"
+              class="btn btn-primary ml-1 btn-sm"
               @click="goToGroupManagers()"
             >
               <i class="fa fa-angle-right mx-1"></i>
@@ -51,11 +51,11 @@
 
           </div>
           <div>
-            <button class="btn btn-danger mr-2">
+            <button class="btn btn-danger mr-2 btn-sm">
               <i class="fa fa-trash-o mr-1"></i>
               Delete Group
             </button>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary btn-sm">
               <i class="fa fa-plus-circle mr-1"></i>
               Add Member
             </button>
