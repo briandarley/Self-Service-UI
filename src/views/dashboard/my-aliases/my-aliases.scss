@@ -37,10 +37,12 @@ li {
 
   div:first-child {
     text-align: center;
+    flex:3;
   }
 
   div:last-child {
-    text-align: right;
+    text-align: center;
+    flex:1;
   }
 }
 
@@ -54,12 +56,17 @@ li {
 
   
 
-  >div {
-    text-align: right;
+  div {
+    text-align: left;
     height: 40px;
     margin: auto;
     flex: 1;
 
+    &:first-of-type{
+      text-align: left;
+      padding-left: 20px;
+      flex:3;
+    }
   }
 
   >div:nth-of-type(even) {

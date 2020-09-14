@@ -56,11 +56,11 @@
             <ul>
               <li>
                 <label>Name</label>
-                <span>{{lookupEntityModel.name}}</span>
+                <span>{{lookupEntityModel.name || lookupEntityModel.samAccountName}}</span>
               </li>
               <li>
                 <label>Type</label>
-                <span>{{lookupEntityModel.type}}</span>
+                <span>{{lookupEntityModel.objectClass}}</span>
               </li>
               <li>
                 <label>Display Name</label>
@@ -68,7 +68,7 @@
               </li>
               <li>
                 <label>Email</label>
-                <span>{{lookupEntityModel.email}}</span>
+                <span>{{lookupEntityModel.mail}}</span>
               </li>
               <li v-if="lookupEntityModel.distinguishedName">
                 <label>Distinguished Name</label>

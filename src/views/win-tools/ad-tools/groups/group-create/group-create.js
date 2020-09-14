@@ -78,8 +78,10 @@ export default class GroupCreate extends BaseValidateMixin {
       this.model.replyToAddress = "";
       return;
     }
-    this.model.name = newvalue.replace(/[^a-zA-Z0-9_-]/g, "");
-    this.model.replyToAddress = this.model.name + "@unc.edu";
+    let value = newvalue.replace(/[^a-zA-Z0-9_-]/g, "");
+    
+    this.model.name = value.substr(0,12);
+    this.model.replyToAddress = value + "@unc.edu";
   }
 
   goToGroupSearch() {

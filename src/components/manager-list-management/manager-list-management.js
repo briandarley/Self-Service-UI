@@ -119,6 +119,7 @@ export default class ManagerListManagement extends Vue {
         this.toastService.error(`Failed to add manager to list ${response.message}`);
         return;
       }
+      
       this.entities.push(this.lookupEntityModel);
 
       this.toastService.success("Successfully added entity to group");
@@ -143,7 +144,7 @@ export default class ManagerListManagement extends Vue {
       return;
     }
 
-    if (userId.toUpperCase() == this.group.toUpperCase()) {
+    if (userId.toUpperCase() == this.group.samAccountName.toUpperCase()) {
       this.toastService.error("You can't add reference to itself, silly");
       return;
     }

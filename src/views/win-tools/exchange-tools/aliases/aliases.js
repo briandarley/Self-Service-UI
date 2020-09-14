@@ -33,7 +33,7 @@ export default class Aliases extends BaseValidateMixin {
   selectedPrimarySmtp = "";
   currentPrimary = "";
   
-  mailbox = {};
+  
   /*
   If the user has role 
   ITS_WSP-Tools-ExchangeTools-Aliases-kenan-flagler
@@ -69,27 +69,25 @@ export default class Aliases extends BaseValidateMixin {
       this.loadingAliases = true;
       this.adUser = null;
       
-      let responses = await Promise.all([this.ExchangeToolsService.getAdUsers(this.filter), this.ExchangeToolsService.getOffice365Mailbox(this.filter)]);
+      
+      let responses = await Promise.all([this.ExchangeToolsService.getAdUsers({samAccountName: this.filter})]);
 
       let pagedResponse = responses[0];
-      let mailbox = responses[1];
+      
             
 
       if(pagedResponse.status === false || pagedResponse.totalRecords == 0){
         this.toastService.error("User not found");
         return;
       }
-      if(mailbox.status === false){
-        this.toastService.error(`Mailbox for user ${this.filter} not found`);
-        return;
-      }
       
       this.adUser =  pagedResponse.entities[0];
       
-      if(mailbox.forwardingSmtpAddress && mailbox.forwardingSmtpAddress.startsWith("smtp:")){
-        mailbox.forwardingSmtpAddress = mailbox.forwardingSmtpAddress.substring(5);
+      
+      if(this.adUser.msExchGenericForwardingAddress && this.adUser.msExchGenericForwardingAddress.startsWith("smtp:")){
+        this.adUser.msExchGenericForwardingAddress = this.adUser.msExchGenericForwardingAddress.substring(5);
       }
-      this.mailbox = mailbox;
+      
       this.emailAddresses = this.CommonExtensions.getValidEmailAddresses(
         this.adUser.proxyAddresses
       );
@@ -164,7 +162,7 @@ export default class Aliases extends BaseValidateMixin {
     this.emailAddresses = [];
     this.adUser = null;
     this.newAliasPrefix = "";
-    this.mailbox = {};
+    
     if (this.adminProfile.adminAliases && this.adminProfile.adminAliases.length) {
       this.newAliasDomain = this.adminProfile.adminAliases[0];
     }
@@ -251,14 +249,14 @@ export default class Aliases extends BaseValidateMixin {
   async setForwardingAddress() {
     try{
       
-      if(this.mailbox.forwardingSmtpAddress && !this.ValidationService.isValidEmail(this.mailbox.forwardingSmtpAddress))
+      if(this.adUser.msExchGenericForwardingAddress && !this.ValidationService.isValidEmail(this.adUser.msExchGenericForwardingAddress))
       {
         this.toastService.error("Invalid forwarding address. Value must be a valid email");
       }
       else{
         this.spinnerService.show();
            
-        await this.ExchangeToolsService.setForwardingAddress(this.adUser.samAccountName, this.mailbox.forwardingSmtpAddress);
+        await this.ExchangeToolsService.setForwardingAddress(this.adUser.samAccountName, this.adUser.msExchGenericForwardingAddress);
         
         this.toastService.success("Successfully set forwarding address for account");
       }

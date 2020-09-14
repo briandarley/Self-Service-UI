@@ -34,6 +34,10 @@ export default class AddEntity extends Vue {
     this.spinnerService.show();
     try {
       this.pagedResponse = {};
+
+
+
+
       let pagedResponse = await this.service.getPagedAdEntities(this.criteria);
 
       if (pagedResponse.totalRecords == 0) {
@@ -72,9 +76,9 @@ export default class AddEntity extends Vue {
       entity.added = true;
 
       this.pagedResponse =JSON.parse(JSON.stringify(this.pagedResponse));
-      
-
       this.$emit("addToGroupMembers", entity)
+
+      
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Error adding entity to group");

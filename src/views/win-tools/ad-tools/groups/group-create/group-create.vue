@@ -53,7 +53,7 @@
           <div class="bg bg-primary text-white p-2">Group Properties</div>
           <div class="m-2">
             <div class="row-1">
-              <label>Departmental Unit Abbreviation (i.e. ITS, DSA, FPG)</label>
+              <label>Departmental Unit Abbreviation (SamAccountName Prefix, i.e. ITS, DSA, FPG)</label>
               <type-ahead
                 id="thSelectDepartment"
                 placeHolder="select organization"
@@ -68,7 +68,7 @@
             <div class="row-1">
               <div class="form-group">
                 <label for="displayName"
-                  >Friendly name for Global Address List</label
+                  >Friendly name for Global Address List (DisplayName, Mailbox/User)</label
                 >
                 <input
                   type="text"
@@ -85,7 +85,7 @@
             </div>
             <div class="row-2">
               <div class="form-group">
-                <label for="mailbox-name">Mailbox Short Name</label>
+                <label for="mailbox-name">Mailbox Short Name (SamAccountName limitation, 12 characters max)</label>
                 <input
                   type="text"
                   class="form-control"
@@ -94,7 +94,10 @@
                   placeholder="Short Name"
                   data-lpignore="true"
                   v-model="model.name"
-                  data-validation="{'name': 'Short Name','message':'Invalid, can contain only alpha numeric characters with no spaces', 'maxLength': 23,'regex': '^[-a-zA-Z0-9]+$'}"
+                  v-maxchars="12"
+
+
+                  data-validation="{'name': 'Short Name','message':'Invalid, can contain only alpha numeric characters with no spaces', 'maxLength': 12,'regex': '^[-a-zA-Z0-9]+$'}"
                   ref="name"
                   title="Alpha Numeric only"
                 />
