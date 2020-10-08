@@ -18,7 +18,7 @@ import RouteInfo from '../views/administration/route-management/route-info/route
 import ChildRouteInfo from '../views/administration/route-management/child-route-info/child-route-info.vue';
 import GroupManagement from './group-management/group-management.vue';
 import FileUpload from './file-upload/file-upload.vue';
-
+import GroupCreateStatus from './group-create-status/group-create-status.vue';
 
 Vue.component("vue-toastr", Toastr);
 Vue.component("progress-bar", ProgressBar);
@@ -35,3 +35,4 @@ Vue.component("child-route-info",  ChildRouteInfo);
 Vue.component("pop-over",  PopOver);
 Vue.component("group-management",  GroupManagement);
 Vue.component("file-upload",  FileUpload);
+Vue.component("group-create-status", GroupCreateStatus);

@@ -22,7 +22,7 @@ import "simplebar/dist/simplebar.css";
 })
 export default class App extends Vue {
   currentRoute;
-
+  groupCreateModel = {};
 
   @Watch("$route", {
     immediate: false
@@ -89,10 +89,12 @@ export default class App extends Vue {
     this.EventBus.attachEvent("attach-scroll", this.attachScrollBar);  
     }, 50);
     
+    
 
     this.EventBus.attachEvent('announcement-page-load', this.onAnnouncePageLoad);
     this.EventBus.attachEvent('announcement-send-announcement', this.onAnnounceMessage);
     this.EventBus.attachEvent('announcement-clear', this.onAnnounceClear);
+    
   }
 
   onAnnouncePageLoad(page) {
@@ -115,7 +117,7 @@ export default class App extends Vue {
     let announcer = window.document.getElementById("announcer");
     announcer.innerHTML = "";
   }
-
+ 
   attachScrollBar() {
     let $ = this.$;
     

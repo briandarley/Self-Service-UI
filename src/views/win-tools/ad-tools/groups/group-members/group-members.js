@@ -476,11 +476,10 @@ export default class GroupMembers extends BaseValidateMixin {
 
     let csvContent = "data:text/csv;charset=utf-8,\"Member Id [Onyen - Email - PID - DistinguishedName - SamAccountName]\",\r\n";
     csvContent += "\"Sample Data Follows\",\r\n"
-    csvContent += "\"700004832\",\r\n"
-    csvContent += "\"700013564\",\r\n"
-    csvContent += "\"700017517\",\r\n"
-    csvContent += "\"bdarley\",\r\n"
-    csvContent += "\"bdarley@email.unc.edu\",\r\n",
+    csvContent += "\"700001234\",\r\n"
+    csvContent += "\"70004567\",\r\n"
+    csvContent += "\"jdoeonyen\",\r\n"
+    csvContent += "\"jdoe@email.unc.edu\",\r\n",
     csvContent += "\"CN=Charles Test Xavier,OU=Contacts,OU=Identity,DC=adtest,DC=unc,DC=edu\",\r\n"
     
     var encodedUri = encodeURI(csvContent);

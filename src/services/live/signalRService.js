@@ -1,5 +1,5 @@
 import injector from 'vue-inject';
-import * as signalR from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
 
 function SignalRService(configReaderService,eventBus) {
     return {
@@ -8,11 +8,16 @@ function SignalRService(configReaderService,eventBus) {
             const serviceEndpoint = await configReaderService.getConfigurationSetting("signalREndpoint")
             
             if(this._connection) return;
-            
+                /*
+                    Note when adding new Hubs, be sure to register them in startup.cs
+                */
             
                 this._connection = new signalR.HubConnectionBuilder()
                     .withUrl(`${serviceEndpoint}provision-hub`)
                     .withUrl(`${serviceEndpoint}mass-mail-action-hub`)
+                    .withUrl(`${serviceEndpoint}win-tools-hub`)
+                    .withAutomaticReconnect([0, 1000, 5000, null])
+                    .configureLogging(signalR.LogLevel.Information)
                     .build();
 
                     this._connection.on("ProvisionStatusUpdate", update => {
@@ -28,7 +33,19 @@ function SignalRService(configReaderService,eventBus) {
                         //console.log("SignalR, NotifyBatchStateUpdateAction called ");
                         eventBus.emit('notify-batch-state-update-action', update);
                     });
-
+                    // this._connection.on("NotifyGroupCreated", update => {
+                        
+                    //     eventBus.emit('NotifyGroupCreated', update);
+                    // });
+                    // this._connection.on("NotifyGroupCurrentStepProcessing", update => {
+                        
+                    //     eventBus.emit('NotifyGroupCurrentStepProcessing', update);
+                    // });
+                    this._connection.on("NotifyGroupProcessUpdate", model => {
+                        eventBus.emit('NotifyGroupProcessUpdate', model);
+                    });
+                    
+                    
              
                 
 
@@ -37,7 +54,7 @@ function SignalRService(configReaderService,eventBus) {
             
 
 
-            //connection.invoke("GetProvisionStatus", 160370);
+            
 
         },
         async getProvisionStatus(provisionId){

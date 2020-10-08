@@ -48,7 +48,10 @@ $("#myModal").hide();
       $(`#${this.id} .modal-dialog button`).focus();  
     }, 1050);
   
-
+    element.on('hide.bs.modal', ()=> {
+      this.$emit("close")
+    })
+    
   }
 
 

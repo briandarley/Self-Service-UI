@@ -175,8 +175,8 @@
               <div class="results">
                 <div
                   class="result-grid"
-                  v-for="item in pagedResponse.entities"
-                  :key="item.distinguishedName"
+                  v-for="(item, index) in pagedResponse.entities"
+                  :key="index"
                 >
                   <div class="record-info">
                     <div class="record-info-detail">
