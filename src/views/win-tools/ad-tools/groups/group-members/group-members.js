@@ -277,15 +277,24 @@ export default class GroupMembers extends BaseValidateMixin {
       return;
     }
 
-    let criteria = JSON.parse(this.$route.query.criteria);
-    delete criteria.distinguishedName;
-
-    this.$router.push({
-      name: "ad-groups",
-      query: {
-        criteria: JSON.stringify(criteria),
-      },
-    });
+    if(this.$route.query.criteria){
+      let criteria = JSON.parse(this.$route.query.criteria);
+      delete criteria.distinguishedName;
+  
+      this.$router.push({
+        name: "ad-groups",
+        query: {
+          criteria: JSON.stringify(criteria),
+        },
+      });
+    }
+    else {
+      this.$router.push({
+        name: "ad-groups"
+        
+      });
+    }
+    
   }
 
   goToGroupManagers() {
