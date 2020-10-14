@@ -10,8 +10,9 @@
       <side-menu :collapsed="sideBarCollapsed"></side-menu>
 
       <div class="app-section" role="main">
-        <button
-          class="btn btn-primary ml-2 mt-2 toggle-menu-btn"
+        <div class="ml-2 mt-2 toggle-menu-btn-cntr" >
+          <button
+          class="btn btn-primary toggle-menu-btn"
           @click="toggleMenu()"
         >
           <i class="fa fa-bars"></i>
@@ -19,6 +20,7 @@
             Toggle Menu
           </span>
         </button>
+        </div>
         <group-create-status></group-create-status>
         <transition name="fade">
           <router-view />

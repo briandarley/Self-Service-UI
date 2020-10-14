@@ -129,6 +129,15 @@ input::placeholder {
       background: $gray-500;
       height: calc(100vh - 100px - 75px);
 
+      .toggle-menu-btn-cntr{
+        height: 40px;
+
+        .toggle-menu-btn {
+          margin-top:10px;
+          position:absolute;
+        }
+       
+      }
     }
   }
 
@@ -601,7 +610,9 @@ input::placeholder {
     .site-footer {
       display: none;
     }
-
+    .toggle-menu-btn-cntr{
+      display: none;
+    }
     .toggle-menu-btn {
       display: none;
     }
