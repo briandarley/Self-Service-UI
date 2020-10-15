@@ -8,23 +8,53 @@
         <h1>Resource Mailbox</h1>
       </div>
       <div class="card-body">
-        <div class="border border-primary">
+        <div class="alert alert-warning">
+          <div class="info">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <div>
+            <p class="my-4 p-2">
+            Resource Mailbox creation has moved to 
+                
+                <router-link :to="{name: 'ad-groups'}" >
+                
+                <span>Win Tools/AD Tools/Groups</span>
+              </router-link>
+
+          </p>
+          <p>
+            Use the button 'Create New Group' to create a new resource mailbox
+          </p>
+          </div>
+        </div>
+        <div class="border border-primary" v-if="false">
           <div class="alert alert-info">
             <div class="info">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
             </div>
             <div class="mt-3">
-              <p>Create Resource Mailbox, its full-access group and populate group with members.</p>
               <p>
-                Resource mailboxes are similar to Shared Mailboxes but provide expanded calendar control.
-                A typical use of Resource Mailbox is for managing room reservations.
+                Create Resource Mailbox, its full-access group and populate
+                group with members.
+              </p>
+              <p>
+                Resource mailboxes are similar to Shared Mailboxes but provide
+                expanded calendar control. A typical use of Resource Mailbox is
+                for managing room reservations.
               </p>
             </div>
           </div>
           <!-- Group Definition Fields/Lookup -->
-          <form @submit.prevent.prevent class="container" role="form" ref="submitForm">
+          <form
+            @submit.prevent.prevent
+            class="container"
+            role="form"
+            ref="submitForm"
+          >
             <div class="form-group">
-              <label for="select-department">Departmental Unit Abbreviation (i.e. ITS, DSA, FPG)</label>
+              <label for="select-department"
+                >Departmental Unit Abbreviation (i.e. ITS, DSA, FPG)</label
+              >
               <select
                 name="select-department"
                 id="select-department"
@@ -38,11 +68,14 @@
                   v-for="(item, index) in organizationalUnits"
                   :key="index"
                   :value="item.name"
-                >{{getDepartmentLabel(item)}}</option>
+                  >{{ getDepartmentLabel(item) }}</option
+                >
               </select>
             </div>
             <div class="form-group">
-              <label for="friendly-name">Friendly name for Global Address List</label>
+              <label for="friendly-name"
+                >Friendly name for Global Address List</label
+              >
               <input
                 type="text"
                 class="form-control"
@@ -72,14 +105,18 @@
                 class="btn btn-primary mr-1"
                 @click="create"
                 :disabled="showAddMembers"
-                :class="{'disabled': showAddMembers}"
-              >Create</button>
+                :class="{ disabled: showAddMembers }"
+              >
+                Create
+              </button>
               <button
                 class="btn btn-secondary"
                 @click="clear"
                 :disabled="showAddMembers"
-                :class="{'disabled': showAddMembers}"
-              >Clear</button>
+                :class="{ disabled: showAddMembers }"
+              >
+                Clear
+              </button>
 
               <a
                 href="#"
@@ -119,12 +156,12 @@
                   @groupRetrieveFailed="onGroupManagerRetrieveFailed"
                   :service="ExchangeToolsService"
                 ></manager-list-management>
-              </div> 
+              </div>
               <!-- Add Group Managers -->
-            </section>  
+            </section>
           </div>
-        </div>   
-      </div> 
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -8,7 +8,32 @@
         <h1>Shared Mailbox</h1>
       </div>
       <div class="card-body">
-        <div class="border border-primary">
+        
+
+ 
+        <div class="alert alert-warning">
+          <div class="info">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+         <div>
+            <p class="my-4 p-2">
+            Shared Mailbox creation has moved to 
+                
+                <router-link :to="{name: 'ad-groups'}" >
+                
+                <span>Win Tools/AD Tools/Groups</span>
+              </router-link>
+
+          </p>
+          <p>
+            Use the button 'Create New Group' to create a new shared mailbox
+          </p>
+         </div>
+        </div>
+
+
+
+        <div class="border border-primary" v-if="false">
           <div class="alert alert-info">
             <div class="info">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
