@@ -1,4 +1,5 @@
 {
+   "defaultMailDomain": "@emailtest.edu",
     "serviceEndpoint": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
     "signalREndpoint": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
     "ckeditorPlugins" : "/client/self-service/ckeditor/plugins",

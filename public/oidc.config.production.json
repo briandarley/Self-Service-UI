@@ -1,4 +1,5 @@
 {
+    "defaultMailDomain": "@unc.edu",
     "serviceEndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
     "signalREndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/",
     "ckeditorPlugins" : "/client/self-service/ckeditor/plugins",

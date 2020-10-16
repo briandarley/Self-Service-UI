@@ -1,4 +1,5 @@
 {
+  "defaultMailDomain": "@emailtest.edu",
   "serviceEndpoint": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
   "serviceEndpoint2": "https://its-idmuat-web.ad.unc.edu/Services/business.selfservice.api/v1/",
   "serviceEndpoint1": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",

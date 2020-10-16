@@ -9,12 +9,15 @@ import { Component, Watch } from "vue-property-decorator";
     "toastService",
     "spinnerService",
     "ExchangeToolsService",
-    "UserService"
+    "UserService",
+    "ConfigReaderService"
   ],
   components: {},
   //components: { Users, Roles, TabbedControl, TabbedItem, AuditDistGroups, ScheduledTasks }
 })
 export default class GroupCreate extends BaseValidateMixin {
+  defaultMailDomain = "@emailtest.unc.edu";
+
   thDataOptions = {
     name: "query-results",
     source: this.typeAheadSource,
@@ -46,6 +49,8 @@ export default class GroupCreate extends BaseValidateMixin {
     await this.loadOrganizationalUnits();
     await this.initializeTypeAheadValue();
     this.currentUser = await this.UserService.get();
+
+    this.defaultMailDomain = await this.ConfigReaderService.getConfigurationSetting("defaultMailDomain")
   }
   
   async loadOrganizationalUnits() {
@@ -81,7 +86,8 @@ export default class GroupCreate extends BaseValidateMixin {
     let value = newvalue.replace(/[^a-zA-Z0-9_-]/g, "");
     
     this.model.name = value.substr(0,12);
-    this.model.replyToAddress = value + "@unc.edu";
+    
+    this.model.replyToAddress = value + this.defaultMailDomain;
   }
 
   goToGroupSearch() {
