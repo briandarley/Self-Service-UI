@@ -41,70 +41,7 @@
           ></date-picker>
         </div>
       </div>
-      <!-- Send From -->
-      <div class="one-column-email">
-        <div class="form-group">
-          <label for="send-from">Send From</label>
-          <div class="form-inline">
-            <input
-              type="text"
-              id="send-from"
-              class="form-control"
-              ref="sendFrom"
-              v-model="model.sendFrom"
-              :placeholder="defaultMailAddress"
-              data-validation="{'name': 'E-mail','type':'email'}"
-              autocomplete="off"
-            />
-
-            <span
-              class="input-group-addon btn btn-outline-light text-info border-secondary"
-              @click="model.sendFrom = ''"
-            >
-              <i class="fa fa-at" aria-hidden="true"></i>
-            </span>
-          </div>
-          <pop-over
-            class="pop-over"
-            title="Send From"
-            autocomplete="off"
-            :data-content="`If you do not wish to receive replies to your message, specify ${defaultMailAddress} in the 'Send From' field and leave the 'Reply To' field blank`"
-            link-text="Don't want to receive replies?"
-          ></pop-over>
-          <!-- </div> -->
-        </div>
-      </div>
-      <!-- Reply To -->
-      <div class="one-column-email">
-        <!-- <div class="form-field"> -->
-        <div class="form-group">
-          <label for="reply-to">Reply To (optional)</label>
-          <div class="form-inline">
-            <input
-              type="text"
-              id="reply-to"
-              ref="replyTo"
-              class="form-control"
-              v-model="model.replyTo"
-              :placeholder="defaultMailAddress"
-              data-validation="{'name': 'E-mail','type':'email'}"
-              autocomplete="off"
-            />
-            <span
-              class="input-group-addon btn btn-outline-light text-info border-secondary"
-              @click="model.replyTo = ''"
-            >
-              <i class="fa fa-at" aria-hidden="true"></i>
-            </span>
-
-            <pop-over
-              title="Reply To"
-              data-content="This is where e-mail replies will be delivered. This can be a shared folder or commercial mail account. If left blank, defaults to the same address as 'Send From'"
-            ></pop-over>
-          </div>
-          <!-- </div> -->
-        </div>
-      </div>
+      
       <!-- Subject -->
       <div class="one-column">
         <div class="form-group">
