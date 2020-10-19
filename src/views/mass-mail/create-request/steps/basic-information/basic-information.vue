@@ -41,7 +41,11 @@
           ></date-picker>
         </div>
       </div>
-      
+      <!-- 10/19/2020, removed fields 'Send From' and 'Reply To' because of privacy concerns 
+      Process sends messages in batches of 100 and must be in BCC to avoid privacy issues when the recipients are in the To field.
+      Otherwise we have to send requests one at a time which would slow everything dowd immensely
+      --> 
+
       <!-- Subject -->
       <div class="one-column">
         <div class="form-group">

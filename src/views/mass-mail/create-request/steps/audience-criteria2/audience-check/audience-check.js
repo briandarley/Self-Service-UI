@@ -98,7 +98,7 @@ export default class AudienceCheck extends BaseValidateMixin {
               }
               break;
             case "RETIREES":
-              if(this.userInfo.affiliateTypes.indexOf("Retiree") == -1) {
+              if(!this.userInfo.affiliateTypes || this.userInfo.affiliateTypes.indexOf("Retiree") == -1) {
                 this.validationErrors.push("User is not retiree");
               }
               else {
@@ -106,7 +106,7 @@ export default class AudienceCheck extends BaseValidateMixin {
               }
               break;
             case "VOLUNTEERS":
-              if(this.userInfo.affiliateTypes.indexOf("Volunteer") == -1) {
+              if(!this.userInfo.affiliateTypes || this.userInfo.affiliateTypes.indexOf("Volunteer") == -1) {
                 this.validationErrors.push("User is not volunteer");
               }
               else {
@@ -115,7 +115,8 @@ export default class AudienceCheck extends BaseValidateMixin {
               break;
               
             case "CONSULTANTS":
-              if(this.userInfo.affiliateTypes.indexOf("Independent Contractor") == -1 && this.userInfo.affiliateTypes.indexOf("Other Contractor/Consultant") == -1) {
+              if(!this.userInfo.affiliateTypes || 
+                (this.userInfo.affiliateTypes.indexOf("Independent Contractor") == -1 && this.userInfo.affiliateTypes.indexOf("Other Contractor/Consultant") == -1)) {
                 this.validationErrors.push("User is not a consultant");
               }
               else {
@@ -123,7 +124,7 @@ export default class AudienceCheck extends BaseValidateMixin {
               }
               break;
             case "VISITING_SCHOLAR":
-              if(this.userInfo.affiliateTypes.indexOf("Visiting Scholar") == -1) {
+              if(!this.userInfo.affiliateTypes || this.userInfo.affiliateTypes.indexOf("Visiting Scholar") == -1) {
                 this.validationErrors.push("User is not visiting scholar");
               }
               else {
