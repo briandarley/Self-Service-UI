@@ -320,8 +320,14 @@ export default class ViewRequest extends Vue {
     }
   }
 
-  toggleShowHistory(entity) {
-    this.readOnlyModel = entity;
+  async toggleShowHistory(entity) {
+
+    //This shouldn't be static, let's refresh each time it's requested
+    let pagedResponse = await this.MassMailService.getMassMailRecords(
+      {id: entity.id}
+    );
+
+    this.readOnlyModel = pagedResponse.entities[0];
     this.$refs.confirmViewHistory.show();
   }
 

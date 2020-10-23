@@ -26,6 +26,7 @@ export default class ViewHistory extends Vue {
     try {
       this.spinnerService.show();
       let entities = await this.MassMailService.getCampaignActions(this.campaignId);
+      
       this.entities  = entities.sort((a,b)=> {
         if(a.id > b.id) return -1;
         if(a.id < b.id) return 1;

@@ -298,7 +298,12 @@ export default class GroupMembers extends BaseValidateMixin {
   }
 
   goToGroupManagers() {
-    let criteria = JSON.parse(this.$route.query.criteria);
+    let criteria = {};
+    if(this.$route.query){
+      criteria = JSON.parse(this.$route.query.criteria);
+    }
+   
+    
 
     this.$router.push({
       name: "ad-group-managers",
