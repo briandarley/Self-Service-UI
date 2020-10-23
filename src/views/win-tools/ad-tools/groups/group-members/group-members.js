@@ -299,7 +299,7 @@ export default class GroupMembers extends BaseValidateMixin {
 
   goToGroupManagers() {
     let criteria = {};
-    if(this.$route.query){
+    if(this.$route.query && this.$route.query.criteria){
       criteria = JSON.parse(this.$route.query.criteria);
     }
    
