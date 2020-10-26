@@ -84,7 +84,7 @@
           <div>
             <button
               class="btn btn-primary btn-sm"
-              :disabled="!editManagersEnabled"
+              :disabled="!isSafeGroupForMembers"
               @click="onShowAddMember()"
             >
               <i class="fa fa-plus-circle"></i>
@@ -197,7 +197,7 @@
                         <a
                           href="#"
                           @click.prevent="removeMember(item)"
-                          v-if="editManagersEnabled"
+                          v-if="isSafeGroupForMembers"
                           class="text-dark"
                           >Remove</a
                         >
@@ -256,7 +256,7 @@
                     name="memberId-search"
                     class="form-control "
                     v-select-all
-                    placeholder="entity Id, (Onyen, PID, SamAccountName)"
+                    placeholder="entity Id, (Onyen, PID, SamAccountName,CN)"
                     v-model="modelSearch.filterText"
                     v-on:keyup.13="lookupEntity()"
                     autocomplete="off"

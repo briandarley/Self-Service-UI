@@ -81,7 +81,7 @@ export default class GroupMembers extends BaseValidateMixin {
 
   get canAddMember() {
     if (this.isRestrictedGroup) return false;
-    if (!this.editManagersEnabled) return false;
+    
     if (!this.pagedResponse.totalRecords) {
       return true;
     }
@@ -91,7 +91,13 @@ export default class GroupMembers extends BaseValidateMixin {
 
     return false;
   }
-
+  get isSafeGroupForMembers(){
+    if(this.groupDetail.distinguishedName.indexOf("OU=Storage Groups") > -1)
+    {
+      return true;
+    }
+    return this.editManagersEnabled;
+  }
   get editManagersEnabled() {
     
     if (this.isRestrictedGroup) return false;
@@ -102,11 +108,10 @@ export default class GroupMembers extends BaseValidateMixin {
     if (this.groupDetail.isExchangeGroup) {
       return true;
     }
-    if (
-      this.groupDetail.distinguishedName.indexOf("OU=Shared Mailboxes") > -1
-    ) {
+    if (this.groupDetail.distinguishedName.indexOf("OU=Shared Mailboxes") > -1) {
       return true;
     }
+    
     //return false;
     let matchedAccounts = this.groupDetail.managedBy.filter(
       (c) =>
