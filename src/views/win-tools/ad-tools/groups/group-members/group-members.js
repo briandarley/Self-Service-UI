@@ -92,6 +92,9 @@ export default class GroupMembers extends BaseValidateMixin {
     return false;
   }
   get isSafeGroupForMembers(){
+    if(!this.groupDetail.distinguishedName){
+      return false;
+    }
     if(this.groupDetail.distinguishedName.indexOf("OU=Storage Groups") > -1)
     {
       return true;
