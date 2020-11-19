@@ -170,9 +170,21 @@ export default class GroupManagers extends BaseValidateMixin {
         this.currentUser.distinguishedName.toLowerCase() === c.toLowerCase()
     );
 
+
     if (matchedAccounts.length) {
       return true;
     }
+
+     matchedAccounts = this.groupDetail.managedBy.filter(
+      (c) =>
+        "CN=ITS_ExchMBCreate.svc,OU=MyIT,OU=WS,OU=InfraOps,OU=Service Accounts,OU=Departmental Users,OU=ITS,OU=UNC,DC=ad,DC=unc,DC=edu".toLowerCase() === c.toLowerCase()
+    );
+
+    if (matchedAccounts.length) {
+      return true;
+    }
+
+
 
     matchedAccounts = this.groupDetail.managedBy.filter((c) =>
       this.authorizedServiceAccounts.some((d) => d === c)
