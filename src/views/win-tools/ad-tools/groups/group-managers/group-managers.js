@@ -58,7 +58,7 @@ export default class GroupManagers extends BaseValidateMixin {
     this.readQueryParams();
 
     await this.loadGroupDetails();
-
+    await this.retrieveAuthUserDetails();
     //window.console.log(this.groupDetail);
     // this.groupName = this.$route.query.name;
     // this.ouName = this.$route.query.ouName;
@@ -161,24 +161,29 @@ export default class GroupManagers extends BaseValidateMixin {
       return false;
     }
 
-    if (!this.currentUser.distinguishedName) {
+    if (!this.currentUser || !this.currentUser.distinguishedName) {
       return false;
     }
 
     let matchedAccounts = this.groupDetail.managedBy.filter(
       (c) =>
-        this.currentUser.distinguishedName.toLowerCase() === c.toLowerCase()
+        "CN=ITS_ExchMBCreate.svc,OU=MyIT,OU=WS,OU=InfraOps,OU=Service Accounts,OU=Departmental Users,OU=ITS,OU=UNC,DC=ad,DC=unc,DC=edu".toLowerCase() === c.toLowerCase()
     );
-
 
     if (matchedAccounts.length) {
       return true;
     }
+    
 
-     matchedAccounts = this.groupDetail.managedBy.filter(
+    matchedAccounts = this.groupDetail.managedBy.filter(
       (c) =>
-        "CN=ITS_ExchMBCreate.svc,OU=MyIT,OU=WS,OU=InfraOps,OU=Service Accounts,OU=Departmental Users,OU=ITS,OU=UNC,DC=ad,DC=unc,DC=edu".toLowerCase() === c.toLowerCase()
+        this.currentUser.distinguishedName.toLowerCase() === c.toLowerCase()
     );
+
+
+    
+
+   
 
     if (matchedAccounts.length) {
       return true;
@@ -192,6 +197,15 @@ export default class GroupManagers extends BaseValidateMixin {
 
     return matchedAccounts.length;
   }
+
+  async retrieveAuthUserDetails() {
+    let userId = await this.UserService.getUserName();
+    let pagedResponse = await this.ExchangeToolsService.getAdUsers({
+      samAccountName: userId,
+    });
+    this.currentUser = pagedResponse.entities[0];
+  }
+
 
   goToGroupSearch() {
     let criteria = JSON.parse(this.$route.query.criteria);
