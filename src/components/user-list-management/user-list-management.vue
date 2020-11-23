@@ -8,16 +8,33 @@
       ></spinner>
       <div class="container">
         
+
+
+
         <add-entity :service="service" :group="group" @addToGroupMembers="onAddToGroupMembers"></add-entity>
+
+
+<div class="d-flex mt-5" style="justify-content:space-between">
+              <h3 class="text-secondary">
+                Total Members {{ pagedResponse.totalRecords | formatNumber }}
+              </h3>
+              <pager
+                :criteria="criteria"
+                btn-count="5"
+                :total-records="pagedResponse.totalRecords"
+                v-on:indexChanged="indexChanged"
+              ></pager>
+            </div>
+
         <div class="row bg-primary text-white row-header">
           <div class="col">
-            <a href="#" @click.prevent="sort('user')">User</a>
+            <a href="#" @click.prevent="sort('samAccountName')">User</a>
           </div>
           <div class="col">
-            <a href="#" @click.prevent="sort('emailAddress')">Email Address</a>
+            <a href="#" @click.prevent="sort('mail')">Email Address</a>
           </div>
           <div class="col">
-            <a href="#" @click.prevent="sort('displayName')">Display Name</a>
+            <a href="#" @click.prevent="sort('name')">Display Name</a>
           </div>
           <div class="col"></div>
         </div>
@@ -29,7 +46,7 @@
               placeholder="filter"
               autocomplete="off"
               v-select-all
-              v-model="filter.user"
+              v-model="filter.samAccountName"
             />
           </div>
 
@@ -40,7 +57,7 @@
               placeholder="filter"
               autocomplete="off"
               v-select-all
-              v-model="filter.emailAddress"
+              v-model="filter.mail"
             />
           </div>
 
@@ -59,7 +76,7 @@
         </div>
         <div
           class="result-grid row"
-          v-for="(entity, index) in entities"
+          v-for="(entity, index) in pagedResponse.entities"
           :key="index"
         >
           <div class="col">
