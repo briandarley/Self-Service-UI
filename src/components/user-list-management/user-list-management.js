@@ -50,7 +50,7 @@ export default class UserListManagement extends Vue {
       this.criteria.filterText = this.filter.samAccountName;
     }
     if(this.filter.mail) {
-      this.criteria.mail = this.filter.mail;
+      this.criteria.filterText = this.filter.mail;
     }
     if(this.filter.name){
       this.criteria.name = this.filter.name;
