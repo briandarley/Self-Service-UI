@@ -27,9 +27,17 @@ function AdministrationService(httpHandlerService, routeSourcesService,commonExt
             try {
 
                 const handler = await httpHandlerService.get();
+                var criteria = {
+                    groupSamAccountName : samAccountName,
+                    pageSize: 2000,
+                    index: 0
+                };
+                let queryParams = commonExtensions.convertToQueryParams(criteria);
 
-                let response = await handler.get(`/Administrations/ad-groups/${samAccountName}/members`);
 
+                let response = await handler.get(`/Administrations/ad-groups/members?${queryParams}`);
+
+                
                 return response.data;
 
             } catch (e) {
