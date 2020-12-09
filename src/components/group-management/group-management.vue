@@ -1,8 +1,34 @@
 <template>
   <div class="container mt-5 mb-4" role="table">
-    <div class="d-flex" style="justify-content:space-between">
-      <h3 class="text-primary">Total {{entities.length | formatNumber}}</h3>
+    
+    
+    
+    <div class="d-flex mt-5" style="justify-content:space-between">
+      <h3 class="text-secondary">
+        Total Groups {{ pagedResponse.totalRecords | formatNumber }}
+      </h3>
+      <pager
+        :criteria="groupMemberCriteria"
+        btn-count="5"
+        :total-records="pagedResponse.totalRecords"
+        v-on:indexChanged="indexChanged"
+      ></pager>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div class="d-flex" style="justify-content:space-between">
+      <h3 class="text-primary">Total {{ entities.length | formatNumber }}</h3>
+    </div> -->
+
     <!-- Header Cols -->
     <div class="bg-primary text-white row-header" role="row">
       <div class="col" role="columnheader">
@@ -16,17 +42,36 @@
 
     <!-- Record Results -->
     <div role="rowgroup">
-      <div class="result-grid" v-for="(item, index) in entities" v-bind:key="index" role="row">
+      <div
+        class="result-grid"
+        v-for="(item, index) in pagedResponse.entities"
+        v-bind:key="index"
+        role="row"
+      >
         <div class="record">
           <div class="record-info">
-            <div class="col" role="cell">{{item.name}}</div>
-            <div class="col" role="cell">{{item.whenCreated | formatDate}}</div>
+            <div class="col" role="cell">{{ item.name }}</div>
             <div class="col" role="cell">
-              <a href="#" @click.prevent="toggleUsers(item)" :aria-label="!item.showUsers? 'Click to expand group members': 'Click to collapse group members' ">
+              {{ item.whenCreated | formatDate }}
+            </div>
+            <div class="col" role="cell">
+              <a
+                href="#"
+                @click.prevent="toggleUsers(item)"
+                :aria-label="
+                  !item.showUsers
+                    ? 'Click to expand group members'
+                    : 'Click to collapse group members'
+                "
+              >
                 <i
                   class="fa fa-angle-double-down more-info"
-                  :class="{expanded: item.showUsers, collapsed: item.showUsers === false}"
-                ></i> Members
+                  :class="{
+                    expanded: item.showUsers,
+                    collapsed: item.showUsers === false,
+                  }"
+                ></i>
+                Members
               </a>
             </div>
           </div>
@@ -60,7 +105,7 @@
     </div>
     <!-- Record Results -->
 
-    <div v-if="!entities.length && performedSearch">
+    <div v-if="!pagedResponse.totalRecords && performedSearch">
       <div class="alert alert-warning">
         <div class="info">
           <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
@@ -71,4 +116,4 @@
   </div>
 </template>
 <script src="./group-management.js"></script>
-<style lang="scss" src="./group-management.scss" ></style>
+<style lang="scss" src="./group-management.scss"></style>

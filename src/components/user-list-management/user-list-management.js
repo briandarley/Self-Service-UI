@@ -16,7 +16,7 @@ export default class UserListManagement extends Vue {
   userId = "";
   _currentCol = "samAccountName";
   _currentSortDir = 1;
-  
+  //originalList = [];
   filter = {};
   
   pagedResponse = {};
@@ -150,7 +150,7 @@ export default class UserListManagement extends Vue {
       );
 
       this.pagedResponse.entities.splice(index, 1);
-      this.pagedResponse.entities = JSON.parse(JSON.stringify(this.pagedResponse.entities));
+      this.pagedResponse.entities = JSON.parse(JSON.stringify(this.entities));
 
       this.toastService.success("Successfully removed entity");
       this.$emit("entityRemoved", entity);
