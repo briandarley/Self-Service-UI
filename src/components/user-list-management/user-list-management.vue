@@ -7,24 +7,23 @@
         class="control-spinner"
       ></spinner>
       <div class="container">
-        
+        <add-entity
+          :service="service"
+          :group="group"
+          @addToGroupMembers="onAddToGroupMembers"
+        ></add-entity>
 
-
-
-        <add-entity :service="service" :group="group" @addToGroupMembers="onAddToGroupMembers"></add-entity>
-
-
-<div class="d-flex mt-5" style="justify-content:space-between">
-              <h3 class="text-secondary">
-                Total Members {{ pagedResponse.totalRecords | formatNumber }}
-              </h3>
-              <pager
-                :criteria="criteria"
-                btn-count="5"
-                :total-records="pagedResponse.totalRecords"
-                v-on:indexChanged="indexChanged"
-              ></pager>
-            </div>
+        <div class="d-flex mt-5" style="justify-content:space-between">
+          <h3 class="text-secondary">
+            Total Members {{ pagedResponse.totalRecords | formatNumber }}
+          </h3>
+          <pager
+            :criteria="criteria"
+            btn-count="5"
+            :total-records="pagedResponse.totalRecords"
+            v-on:indexChanged="indexChanged"
+          ></pager>
+        </div>
 
         <div class="row bg-primary text-white row-header">
           <div class="col">
@@ -80,9 +79,10 @@
           :key="index"
         >
           <div class="col">
-            {{ entity.samAccountName || entity.name }}</div>
+            {{ entity.samAccountName || entity.name }}
+          </div>
           <div class="col">{{ entity.mail }}</div>
-          <div class="col">{{ entity.name || entity.cn}} </div>
+          <div class="col">{{ entity.name || entity.cn }}</div>
 
           <div class="col">
             <a href="#" @click.prevent="removeEntity(entity)">
@@ -93,7 +93,6 @@
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 <script src="./user-list-management.js"></script>

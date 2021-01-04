@@ -1,0 +1,40 @@
+.submit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contact-detail {
+  div {
+    padding: 10px;
+    display: flex;
+    span {
+      align-self: center;
+      
+    }
+    span:nth-of-type(1) {
+      flex: 20%;
+    }
+    span:nth-of-type(2) {
+      flex: 80%;
+    }
+    span div select {
+      margin-left: 0;
+      padding: 0;
+    }
+    span.m-0 {
+      padding: 0 !important;
+      margin: 0 !important;
+      div {
+        padding: 0 !important;
+        margin: 0 !important;
+        //720237775
+        select {
+          margin-right: 10px;
+        }
+        input[type="text"] {
+            margin-right: 10px;
+        }
+      }
+    }
+  }
+}
