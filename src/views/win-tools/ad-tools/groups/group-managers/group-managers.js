@@ -238,7 +238,7 @@ export default class GroupManagers extends BaseValidateMixin {
       let criteria = {};
       this.modelSearch.filterText = this.modelSearch.filterText.trim();
 
-      if(this.ValidationService.isValidEmail(this.modelSearch))
+      if(this.ValidationService.isValidEmail(this.modelSearch.filterText))
       {
         criteria.proxyAddress = this.modelSearch.filterText;
       } else if (this.modelSearch.filterText.match(/[a-zA-Z0-9]+/)) {
