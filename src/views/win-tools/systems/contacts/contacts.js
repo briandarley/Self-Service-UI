@@ -24,10 +24,7 @@ export default class Contacts extends Vue {
   async mounted() {
     this.toastService.set(this);
   }
-  @Watch('selectedSmtpAddress', {immediate:false}) 
-  onSelectedSmtpAddressChanged(newValue){
-    this.newProxyAddress = newValue;
-  }
+  
 
   clear() {
     this.entity = { valid: false };
