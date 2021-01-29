@@ -63,6 +63,9 @@
               </tabbed-item>
               <tabbed-item slot="tab_3">
                 <div class="container">
+                  <div v-if="officeLoading">
+                    Loading Office Data ...
+                  </div>
                   <office-365-info :data="office365Data"></office-365-info>
                 </div>
               </tabbed-item>

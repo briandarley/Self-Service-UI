@@ -26,6 +26,7 @@ import Office365Info from './office-365-info/office-365-info.vue';
 export default class AccountInfo extends BaseValidateMixin {
   //getAdToolsAccountInfoLdapAuditInfo
   filter = "";
+  officeLoading = false;
   ldapData = null;
   adData = null;
   campusDirectoryData = null;
@@ -80,10 +81,12 @@ export default class AccountInfo extends BaseValidateMixin {
       this.campusDirectoryData = campusDirData;
       //this.office365Data = office365Data;
       this.dataRetrievalSuccess = true;
-
+      this.officeLoading = true;
       this.ExchangeToolsService.getOffice365AuditInfo(this.filter).then(response=>{
         this.office365Data = response;
-      })
+      }).finally(()=>{
+        this.officeLoading = false;
+      });
 
     } catch (e) {
       window.console.log(e);
