@@ -194,7 +194,7 @@
                     name="memberId-search"
                     class="form-control "
                     v-select-all
-                    placeholder="entity Id, (Onyen, PID, SamAccountName)"
+                    placeholder="entity Id, (Onyen, PID,Email, SamAccountName)"
                     v-model="modelSearch.filterText"
                     v-on:keyup.13="lookupUser()"
                     autocomplete="off"

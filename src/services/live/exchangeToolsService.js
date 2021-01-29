@@ -856,24 +856,24 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    async getOffice365Mailbox(userId) {
-      try {
-        const handler = await httpHandlerService.get();
+    // async getOffice365Mailbox(userId) {
+    //   try {
+    //     const handler = await httpHandlerService.get();
 
-        let response = await handler.get(
-          `/WinTools/exchange-tools/ad-tools/office365-mailboxes/${userId}`
-        );
+    //     let response = await handler.get(
+    //       `/WinTools/exchange-tools/ad-tools/office365-mailboxes/${userId}`
+    //     );
 
-        return response.data;
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-    },
+    //     return response.data;
+    //   } catch (e) {
+    //     if (e.message.includes("404")) {
+    //       return {
+    //         status: false,
+    //       };
+    //     }
+    //     throw e;
+    //   }
+    // },
 
     async setForwardingAddress(userId, forwardingAddress) {
       try {
