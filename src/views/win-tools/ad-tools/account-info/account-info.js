@@ -50,17 +50,17 @@ export default class AccountInfo extends BaseValidateMixin {
       let ldapTask = this.ExchangeToolsService.getAdToolsAccountInfoLdapAuditInfo(this.filter)
       let adTask = this.ExchangeToolsService.getAdToolsAccountInfoActiveDirectoryAuditInfo(this.filter)
       let campusDirTask = this.ExchangeToolsService.getCampusDirectoryAuditInfo(this.filter);
-      let office365Task = this.ExchangeToolsService.getOffice365AuditInfo(this.filter);
+      //let office365Task = this.ExchangeToolsService.getOffice365AuditInfo(this.filter);
 
-      let responses = await Promise.all([ldapTask, adTask, campusDirTask, office365Task]);
-
+      //let responses = await Promise.all([ldapTask, adTask, campusDirTask, office365Task]);
+      let responses = await Promise.all([ldapTask, adTask, campusDirTask]);
       let ldapData = responses[0];
 
       let adData = responses[1];
 
       let campusDirData = responses[2];
 
-      let office365Data = responses[3];
+      //let office365Data = responses[3];
 
 
       //campusDirData.homeAddress = "111 Ginkgo Trail, $ Chapel Hill, NC  27516 $ USA";
@@ -78,8 +78,12 @@ export default class AccountInfo extends BaseValidateMixin {
       this.ldapData = ldapData;
       this.adData = adData;
       this.campusDirectoryData = campusDirData;
-      this.office365Data = office365Data;
+      //this.office365Data = office365Data;
       this.dataRetrievalSuccess = true;
+
+      this.ExchangeToolsService.getOffice365AuditInfo(this.filter).then(response=>{
+        this.office365Data = response;
+      })
 
     } catch (e) {
       window.console.log(e);
