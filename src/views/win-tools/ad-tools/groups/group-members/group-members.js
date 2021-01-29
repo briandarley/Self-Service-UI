@@ -408,7 +408,7 @@ export default class GroupMembers extends BaseValidateMixin {
         this.groupDetail.distinguishedName,
         this.adEntity.distinguishedName
       );
-      window.console.log(response);
+      
       if (response.success === false) {
         this.toastService.error("Failed to add member to group");
         return;
@@ -419,7 +419,7 @@ export default class GroupMembers extends BaseValidateMixin {
       this.pagedResponse.entities.push(this.adEntity);
       this.pagedResponse.totalRecords++;
 
-      this.resetSearch();
+      //this.resetSearch();
 
       this.showAddMember = true;
     } catch (e) {

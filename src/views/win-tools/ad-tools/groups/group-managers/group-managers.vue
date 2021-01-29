@@ -59,7 +59,90 @@
             ></a>
           </div>
         </div>
+<div class="mt-3 border border-primary mx-2" v-if="canAddManager && showAddManager">
+              <h6 class="p-1 bg-primary text-white">Add Group Manager</h6>
+              <div class="add-meber pr-3 d-flex">
+                <div class="form-group w-75 d-flex">
+                  <label
+                    for="memberId-search"
+                    class="w-25 text-right pr-2 pt-1 align-self-center"
+                    >User Id</label
+                  >
+                  <input
+                    type="text"
+                    id="memberId-search"
+                    name="memberId-search"
+                    class="form-control "
+                    v-select-all
+                    placeholder="entity Id, (Onyen, PID,Email, SamAccountName)"
+                    v-model="modelSearch.filterText"
+                    v-on:keyup.13="lookupUser()"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="w-25 text-right">
+                  <button
+                    type="button"
+                    class="btn btn-primary mr-1"
+                    @click="lookupUser()"
+                  >
+                    <i class="fa fa-search small mr-1"></i>
+                    Lookup
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="resetSearch()"
+                  >
+                    <i class="fa fa-trash small mr-1"></i>
+                    Clear
+                  </button>
+                </div>
+              </div>
 
+              <div v-if="adUser.cn">
+                <div class="search-result m-3">
+                  <div class="bg-primary text-white row-header">
+                    <div>
+                      CN
+                    </div>
+                    <div>
+                      User Id
+                    </div>
+                    <div>
+                      Email
+                    </div>
+
+                    <div>
+                      Employee Id
+                    </div>
+                  </div>
+                  <div class="record-info">
+                    
+                      <div>{{ adUser.cn | filterCn }}</div>
+                      <div>{{ adUser.samAccountName }}</div>
+
+                      <div>{{ adUser.mail }}</div>
+                      <div>{{ adUser.employeeId }}</div>
+
+                      
+                    
+                  </div>
+                </div>
+
+                <div class="text-right m-3">
+                  <button
+                    class="btn btn-primary mr-2"
+                    @click="addToManagerList()"
+                  >
+                    Add Entity
+                  </button>
+                  <button class="btn btn-secondary" @click="resetSearch()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
         <div class="d-flex justify-content-between my-3">
           <div>
             <button
@@ -179,90 +262,7 @@
             </div>
 
             
-            <div class="mt-3 border border-primary mx-2" v-if="canAddManager && showAddManager">
-              <h6 class="p-1 bg-primary text-white">Add Group Manager</h6>
-              <div class="add-meber pr-3 d-flex">
-                <div class="form-group w-75 d-flex">
-                  <label
-                    for="memberId-search"
-                    class="w-25 text-right pr-2 pt-1 align-self-center"
-                    >User Id</label
-                  >
-                  <input
-                    type="text"
-                    id="memberId-search"
-                    name="memberId-search"
-                    class="form-control "
-                    v-select-all
-                    placeholder="entity Id, (Onyen, PID,Email, SamAccountName)"
-                    v-model="modelSearch.filterText"
-                    v-on:keyup.13="lookupUser()"
-                    autocomplete="off"
-                  />
-                </div>
-                <div class="w-25 text-right">
-                  <button
-                    type="button"
-                    class="btn btn-primary mr-1"
-                    @click="lookupUser()"
-                  >
-                    <i class="fa fa-search small mr-1"></i>
-                    Lookup
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="resetSearch()"
-                  >
-                    <i class="fa fa-trash small mr-1"></i>
-                    Clear
-                  </button>
-                </div>
-              </div>
-
-              <div v-if="adUser.cn">
-                <div class="search-result m-3">
-                  <div class="bg-primary text-white row-header">
-                    <div>
-                      CN
-                    </div>
-                    <div>
-                      User Id
-                    </div>
-                    <div>
-                      Email
-                    </div>
-
-                    <div>
-                      Employee Id
-                    </div>
-                  </div>
-                  <div class="record-info">
-                    
-                      <div>{{ adUser.cn | filterCn }}</div>
-                      <div>{{ adUser.samAccountName }}</div>
-
-                      <div>{{ adUser.mail }}</div>
-                      <div>{{ adUser.employeeId }}</div>
-
-                      
-                    
-                  </div>
-                </div>
-
-                <div class="text-right m-3">
-                  <button
-                    class="btn btn-primary mr-2"
-                    @click="addToManagerList()"
-                  >
-                    Add Entity
-                  </button>
-                  <button class="btn btn-secondary" @click="resetSearch()">
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>

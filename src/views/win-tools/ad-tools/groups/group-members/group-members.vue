@@ -60,186 +60,9 @@
             ></a>
           </div>
         </div>
-        <div class="d-flex justify-content-between my-3">
-          <div>
-            <button
-              type="button"
-              class="btn btn-primary ml-1 btn-sm"
-              @click="goToGroupSearch()"
-            >
-              <i class="fa fa-angle-left"></i>
-              Back to Group Search
-            </button>
 
-            <button
-              type="button"
-              class="btn btn-primary ml-1 btn-sm"
-              @click="goToGroupManagers()"
-              :disabled="!editManagersEnabled"
-            >
-              <i class="fa fa-angle-right mx-1"></i>
-              Edit Group Managers
-            </button>
-          </div>
-          <div>
-            <button
-              class="btn btn-primary btn-sm"
-              :disabled="!isSafeGroupForMembers"
-              @click="onShowAddMember()"
-            >
-              <i class="fa fa-plus-circle"></i>
-              Add Member
-            </button>
-          </div>
-        </div>
-        <div v-if="pagedResponse.totalRecords">
-          <div class="border border-primary search-criteria">
-            <div class="bg bg-primary text-white p-2">Search Criteria</div>
-            <div class="m-2">
-              <div class="row-1">
-                <div class="row-1"></div>
-              </div>
-              <div class="row-1">
-                <div class="form-group" data-lpignore="true">
-                  <label for="memberId-search">Member Id</label>
-                  <input
-                    type="text"
-                    id="memberId-search"
-                    name="memberId-search"
-                    class="form-control"
-                    v-select-all
-                    placeholder="onyen, pid, email, sam account name"
-                    v-model="criteria.filterText"
-                    v-on:keyup.13="search()"
-                    autocomplete="off"
-                  />
-                </div>
-              </div>
 
-              <div class="submit text-right">
-                <button class="btn btn-primary " @click="search()">
-                  Search
-                </button>
-                <button class="btn btn-secondary" @click="clear()">
-                  Clear
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="ml-3 pt-2 custom-control custom-checkbox ">
-            <input
-              type="checkbox"
-              id="chkRecursive"
-              class="custom-control-input"
-              v-model="criteria.recursiveSearch"
-              @change="search()"
-            />
-            <label
-              for="chkRecursive"
-              class="font-weight-bolder text-primary custom-control-label"
-              >Recursive Lookup? (List members within groups, slower)</label
-            >
-          </div>
-
-          <div class="mt-3">
-            <!-- <div class="bg bg-primary text-white p-2">Search Results</div> -->
-
-            <div class="d-flex mt-5" style="justify-content:space-between">
-              <h3 class="text-secondary">
-                Total Members {{ pagedResponse.totalRecords | formatNumber }}
-              </h3>
-              <pager
-                :criteria="criteria"
-                btn-count="5"
-                :total-records="pagedResponse.totalRecords"
-                v-on:indexChanged="indexChanged"
-              ></pager>
-            </div>
-
-            <!--Trigger-->
-            <div class="search-result">
-              <div class="bg-secondary text-secondary row-header">
-                <div>
-                  <a href="#" @click.prevent="sort('cn')">CN</a>
-                </div>
-
-                <div><a href="#" @click.prevent="sort('mail')">Email</a></div>
-
-                <div>
-                  <a href="#" @click.prevent="sort('objectClass')">Type</a>
-                </div>
-
-                <div class="control">Action</div>
-              </div>
-              <div class="results">
-                <div
-                  class="result-grid"
-                  v-for="(item, index) in pagedResponse.entities"
-                  :key="index"
-                >
-                  <div class="record-info">
-                    <div class="record-info-detail">
-                      <div>{{ item.cn | filterCn }}</div>
-
-                      <div>{{ item.mail }}</div>
-                      <div>{{ item.objectClass }}</div>
-
-                      <div>
-                        <a
-                          href="#"
-                          @click.prevent="editGroup(item)"
-                          v-if="item.objectClass === 'group'"
-                          class="text-dark mr-1"
-                          >Edit</a
-                        >
-
-                        <a
-                          href="#"
-                          @click.prevent="removeMember(item)"
-                          v-if="isSafeGroupForMembers"
-                          class="text-dark"
-                          >Remove</a
-                        >
-                        <span v-else class="text-dark">Remove</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="d-flex mt-2" style="justify-content:space-between">
-              <div></div>
-              <pager
-                :criteria="criteria"
-                btn-count="5"
-                :total-records="pagedResponse.totalRecords"
-                v-on:indexChanged="indexChanged"
-              ></pager>
-            </div>
-          </div>
-        </div>
-        <div v-else>
-          <div class="alert alert-warning mt-4">
-            <div class="info">
-              <i class="fas fa-exclamation-circle"></i>
-            </div>
-            <div>
-              <p class="my-1">
-                No members found in group.
-              </p>
-              <p v-if="canAddMember">
-                Click 'Add Member' button to add members to group.
-              </p>
-              <p v-else>
-                This group is restricted and cannot be modified.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- showAddMember -->
+                <!-- showAddMember -->
 
         <div v-if="showAddMember">
           <div v-if="!showUpload">
@@ -423,6 +246,186 @@
             </file-upload>
           </div>
         </div>
+        <div class="d-flex justify-content-between my-3">
+          <div>
+            <button
+              type="button"
+              class="btn btn-primary ml-1 btn-sm"
+              @click="goToGroupSearch()"
+            >
+              <i class="fa fa-angle-left"></i>
+              Back to Group Search
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary ml-1 btn-sm"
+              @click="goToGroupManagers()"
+              :disabled="!editManagersEnabled"
+            >
+              <i class="fa fa-angle-right mx-1"></i>
+              Edit Group Managers
+            </button>
+          </div>
+          <div>
+            <button
+              class="btn btn-primary btn-sm"
+              :disabled="!isSafeGroupForMembers"
+              @click="onShowAddMember()"
+            >
+              <i class="fa fa-plus-circle"></i>
+              Add Member
+            </button>
+          </div>
+        </div>
+        <div v-if="pagedResponse.totalRecords">
+          <div class="border border-primary search-criteria">
+            <div class="bg bg-primary text-white p-2">Search Criteria</div>
+            <div class="m-2">
+              <div class="row-1">
+                <div class="row-1"></div>
+              </div>
+              <div class="row-1">
+                <div class="form-group" data-lpignore="true">
+                  <label for="memberId-search">Member Id</label>
+                  <input
+                    type="text"
+                    id="memberId-search"
+                    name="memberId-search"
+                    class="form-control"
+                    v-select-all
+                    placeholder="onyen, pid, email, sam account name"
+                    v-model="criteria.filterText"
+                    v-on:keyup.13="search()"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+
+              <div class="submit text-right">
+                <button class="btn btn-primary " @click="search()">
+                  Search
+                </button>
+                <button class="btn btn-secondary" @click="clear()">
+                  Clear
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="ml-3 pt-2 custom-control custom-checkbox ">
+            <input
+              type="checkbox"
+              id="chkRecursive"
+              class="custom-control-input"
+              v-model="criteria.recursiveSearch"
+              @change="search()"
+            />
+            <label
+              for="chkRecursive"
+              class="font-weight-bolder text-primary custom-control-label"
+              >Recursive Lookup? (List members within groups, slower)</label
+            >
+          </div>
+
+          <div class="mt-3">
+            <!-- <div class="bg bg-primary text-white p-2">Search Results</div> -->
+
+            <div class="d-flex mt-5" style="justify-content:space-between">
+              <h3 class="text-secondary">
+                Total Members {{ pagedResponse.totalRecords | formatNumber }}
+              </h3>
+              <pager
+                :criteria="criteria"
+                btn-count="5"
+                :total-records="pagedResponse.totalRecords"
+                v-on:indexChanged="indexChanged"
+              ></pager>
+            </div>
+
+            <!--Trigger-->
+            <div class="search-result">
+              <div class="bg-secondary text-secondary row-header">
+                <div>
+                  <a href="#" @click.prevent="sort('cn')">CN</a>
+                </div>
+
+                <div><a href="#" @click.prevent="sort('mail')">Email</a></div>
+
+                <div>
+                  <a href="#" @click.prevent="sort('objectClass')">Type</a>
+                </div>
+
+                <div class="control">Action</div>
+              </div>
+              <div class="results">
+                <div
+                  class="result-grid"
+                  v-for="(item, index) in pagedResponse.entities"
+                  :key="index"
+                >
+                  <div class="record-info">
+                    <div class="record-info-detail">
+                      <div>{{ item.cn | filterCn }}</div>
+
+                      <div>{{ item.mail }}</div>
+                      <div>{{ item.objectClass }}</div>
+
+                      <div>
+                        <a
+                          href="#"
+                          @click.prevent="editGroup(item)"
+                          v-if="item.objectClass === 'group'"
+                          class="text-dark mr-1"
+                          >Edit</a
+                        >
+
+                        <a
+                          href="#"
+                          @click.prevent="removeMember(item)"
+                          v-if="isSafeGroupForMembers"
+                          class="text-dark"
+                          >Remove</a
+                        >
+                        <span v-else class="text-dark">Remove</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex mt-2" style="justify-content:space-between">
+              <div></div>
+              <pager
+                :criteria="criteria"
+                btn-count="5"
+                :total-records="pagedResponse.totalRecords"
+                v-on:indexChanged="indexChanged"
+              ></pager>
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <div class="alert alert-warning mt-4">
+            <div class="info">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div>
+              <p class="my-1">
+                No members found in group.
+              </p>
+              <p v-if="canAddMember">
+                Click 'Add Member' button to add members to group.
+              </p>
+              <p v-else>
+                This group is restricted and cannot be modified.
+              </p>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>

@@ -28,7 +28,7 @@ export default class GroupManagers extends BaseValidateMixin {
   authorizedServiceAccounts = [];
   groupDetail = {
     samAccountName: "",
-    managedBy: []
+    managedBy: [],
   };
   groupManagers = [];
   pagedResponse = [];
@@ -40,7 +40,7 @@ export default class GroupManagers extends BaseValidateMixin {
     userId: "",
   };
   adUser = {};
-  
+
   showManagerSearchResults = false;
 
   get canAddManager() {
@@ -71,7 +71,6 @@ export default class GroupManagers extends BaseValidateMixin {
     }
 
     this.locked = !this.canEdit();
-    
   }
 
   async loadGroupDetails() {
@@ -146,14 +145,21 @@ export default class GroupManagers extends BaseValidateMixin {
 
   canEdit() {
     let prefixes = ["MSG_", "MDG_"];
-    if(prefixes.some(c=> this.groupDetail.samAccountName.toUpperCase().startsWith(c))){
+    if (
+      prefixes.some((c) =>
+        this.groupDetail.samAccountName.toUpperCase().startsWith(c)
+      )
+    ) {
       return false;
     }
     let suffixes = ["_PSX"];
-    if(suffixes.some(c=> this.groupDetail.samAccountName.toUpperCase().endsWith(c))){
+    if (
+      suffixes.some((c) =>
+        this.groupDetail.samAccountName.toUpperCase().endsWith(c)
+      )
+    ) {
       return false;
     }
-  
 
     if (this.isAdmin) return true;
 
@@ -167,29 +173,22 @@ export default class GroupManagers extends BaseValidateMixin {
 
     let matchedAccounts = this.groupDetail.managedBy.filter(
       (c) =>
-        "CN=ITS_ExchMBCreate.svc,OU=MyIT,OU=WS,OU=InfraOps,OU=Service Accounts,OU=Departmental Users,OU=ITS,OU=UNC,DC=ad,DC=unc,DC=edu".toLowerCase() === c.toLowerCase()
+        "CN=ITS_ExchMBCreate.svc,OU=MyIT,OU=WS,OU=InfraOps,OU=Service Accounts,OU=Departmental Users,OU=ITS,OU=UNC,DC=ad,DC=unc,DC=edu".toLowerCase() ===
+        c.toLowerCase()
     );
 
     if (matchedAccounts.length) {
       return true;
     }
-    
 
     matchedAccounts = this.groupDetail.managedBy.filter(
       (c) =>
         this.currentUser.distinguishedName.toLowerCase() === c.toLowerCase()
     );
 
-
-    
-
-   
-
     if (matchedAccounts.length) {
       return true;
     }
-
-
 
     matchedAccounts = this.groupDetail.managedBy.filter((c) =>
       this.authorizedServiceAccounts.some((d) => d === c)
@@ -205,7 +204,6 @@ export default class GroupManagers extends BaseValidateMixin {
     });
     this.currentUser = pagedResponse.entities[0];
   }
-
 
   goToGroupSearch() {
     let criteria = JSON.parse(this.$route.query.criteria);
@@ -230,7 +228,6 @@ export default class GroupManagers extends BaseValidateMixin {
     });
   }
 
-
   async lookupUser() {
     this.spinnerService.show();
     try {
@@ -238,13 +235,12 @@ export default class GroupManagers extends BaseValidateMixin {
       let criteria = {};
       this.modelSearch.filterText = this.modelSearch.filterText.trim();
 
-      if(this.ValidationService.isValidEmail(this.modelSearch.filterText))
-      {
+      if (this.ValidationService.isValidEmail(this.modelSearch.filterText)) {
         criteria.proxyAddress = this.modelSearch.filterText;
+      } else if (this.modelSearch.filterText.match(/^[0-9]+$/)) {
+        criteria.employeeId = this.modelSearch.filterText;
       } else if (this.modelSearch.filterText.match(/[a-zA-Z0-9]+/)) {
         criteria.samAccountName = this.modelSearch.filterText;
-      } else if (this.modelSearch.filterText.match(/[a-zA-Z0-9]+/)) {
-        criteria.employeeId = this.modelSearch.filterText;
       } else {
         this.toastService.error("Invalid criteria entered for manager id");
         return;
@@ -266,20 +262,22 @@ export default class GroupManagers extends BaseValidateMixin {
     }
   }
   async doDeleteGroupWork(criteria) {
-    
-   await this.ExchangeToolsService.deleteAdGroup(criteria);
-   
+    await this.ExchangeToolsService.deleteAdGroup(criteria);
   }
   async verifyDeleteGroup() {
     this.spinnerService.show();
     try {
-      if (this.groupDetail.distinguishedName.toUpperCase().indexOf("MAILBOXES") >     -1) {
+      if (
+        this.groupDetail.distinguishedName.toUpperCase().indexOf("MAILBOXES") >
+        -1
+      ) {
         this.$refs.confirmRemoveMailbox.show();
-      }
-      else {
-        await this.doDeleteGroupWork({distinguishedName: this.groupDetail.distinguishedName});
+      } else {
+        await this.doDeleteGroupWork({
+          distinguishedName: this.groupDetail.distinguishedName,
+        });
         this.toastService.success("Successfully deleted group");
-        this.$refs.confirmRemoveMailbox.hide()
+        this.$refs.confirmRemoveMailbox.hide();
         this.goToGroupSearch();
       }
     } catch (e) {
@@ -293,8 +291,13 @@ export default class GroupManagers extends BaseValidateMixin {
   async onConfirmRemoveMailbox() {
     this.spinnerService.show();
     try {
-      await this.doDeleteGroupWork({distinguishedName: this.groupDetail.distinguishedName,deleteMailbox: true});
-      this.toastService.success("Successfully deleted group and associated mailbox");
+      await this.doDeleteGroupWork({
+        distinguishedName: this.groupDetail.distinguishedName,
+        deleteMailbox: true,
+      });
+      this.toastService.success(
+        "Successfully deleted group and associated mailbox"
+      );
       this.$refs.confirmRemoveMailbox.hide();
     } catch (e) {
       window.console.log(e);
@@ -306,7 +309,9 @@ export default class GroupManagers extends BaseValidateMixin {
   async onConfirmRemoveJustGroup() {
     this.spinnerService.show();
     try {
-      await this.doDeleteGroupWork({distinguishedName: this.groupDetail.distinguishedName});
+      await this.doDeleteGroupWork({
+        distinguishedName: this.groupDetail.distinguishedName,
+      });
       this.toastService.success("Successfully deleted group");
       this.$refs.confirmRemoveMailbox.hide();
     } catch (e) {
@@ -336,7 +341,7 @@ export default class GroupManagers extends BaseValidateMixin {
       }
       await this.loadGroupDetails();
       await this.search();
-      this.resetSearch();
+      //this.resetSearch();
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to add manager");
