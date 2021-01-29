@@ -32,7 +32,7 @@
               class="form-control"
               v-select-all
               v-model="filter"
-              placeholder="onyen"
+              placeholder="onyen, pid, or email"
               data-validation="{'required': 'true'}"
               ref="searchField"
               autocomplete="off"

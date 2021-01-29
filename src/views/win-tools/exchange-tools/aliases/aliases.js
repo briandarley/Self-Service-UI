@@ -68,13 +68,27 @@ export default class Aliases extends BaseValidateMixin {
     try {
       this.loadingAliases = true;
       this.adUser = null;
-      
-      
-      let responses = await Promise.all([this.ExchangeToolsService.getAdUsers({samAccountName: this.filter})]);
 
-      let pagedResponse = responses[0];
-      
-            
+
+
+      this.filter = this.filter.trim();
+      var criteria = {
+
+      };
+
+      if (this.ValidationService.isValidEmail(this.filter)) {
+        criteria.proxyAddress = this.filter;
+      } else if (this.filter.match(/^[0-9]+$/)) {
+        criteria.employeeId = this.filter;
+      } else if (this.filter.match(/[a-zA-Z0-9]+/)) {
+        criteria.samAccountName = this.filter;
+      } else {
+        this.toastService.error("Invalid search term");
+        return;
+      }
+
+      let pagedResponse = await this.ExchangeToolsService.getAdUsers(criteria);
+
 
       if(pagedResponse.status === false || pagedResponse.totalRecords == 0){
         this.toastService.error("User not found");
