@@ -44,7 +44,7 @@ export default class GroupMembers extends BaseValidateMixin {
   pagedResponse = [];
   criteria = {
     distinguishedName: "",
-    recursiveSearch: true,
+    //recursiveSearch: false,
     filterText: "",
     pageSize: 50,
     index: 0,
@@ -181,7 +181,7 @@ export default class GroupMembers extends BaseValidateMixin {
 
   async clear() {
     this.criteria = {
-      recursiveSearch: this.criteria.recursiveSearch,
+      recursiveSearch: this.criteria.recursiveSearch ? true : null,
       filterText: "",
       distinguishedName: this.$route.query.distinguishedName,
       pageSize: 50,
@@ -237,10 +237,11 @@ export default class GroupMembers extends BaseValidateMixin {
         criteria.samAccountName = criteria.filterText;
       }
       criteria.filterText = "";
-
+      criteria.recursiveSearch = this.criteria.recursiveSearch ? true : null;
       this.pagedResponse = await this.ExchangeToolsService.getAdGroupMembers(
         criteria
       );
+      
       //window.console.log(this.pagedResponse.entities[0])
     } catch (e) {
       window.console.log(e);

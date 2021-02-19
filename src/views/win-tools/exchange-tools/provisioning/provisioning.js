@@ -88,6 +88,7 @@ export default class Provisioning extends BaseValidateMixin {
     this.spinnerService.show();
 
     try {
+
       let provisionData = await this.ExchangeToolsService.getProvisionHistory(
         this.filter
       );

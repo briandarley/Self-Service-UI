@@ -61,8 +61,7 @@
           </div>
         </div>
 
-
-                <!-- showAddMember -->
+        <!-- showAddMember -->
 
         <div v-if="showAddMember">
           <div v-if="!showUpload">
@@ -187,8 +186,9 @@
                 <div class="upload-instructions">
                   <i class="fa fa-info-circle"></i>
                   <p>
-                    Use the control below to upload a list of members for selected group. Use the template if
-                    needed to assist with formatting. 
+                    Use the control below to upload a list of members for
+                    selected group. Use the template if needed to assist with
+                    formatting.
                   </p>
                 </div>
               </div>
@@ -424,8 +424,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
