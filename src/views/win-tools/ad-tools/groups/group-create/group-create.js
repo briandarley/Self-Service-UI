@@ -235,8 +235,9 @@ export default class GroupCreate extends BaseValidateMixin {
       if (this.model.groupTypeCode === "SHARED_MAILBOX") {
         if (await this.replyToAddressExists()) {
           this.toastService.error(
-            "Reply to address is invalid, Email may already be assigned to another group or person"
+            "Reply to address is invalid, Email may already be assigned to another entity"
           );
+          return;
         } 
       }
       
@@ -247,26 +248,11 @@ export default class GroupCreate extends BaseValidateMixin {
         this.toastService.error(`Failed to create resource, ${result.message}`);
       }
       else {
-        //result
-        //result.id
-        //result.ouName
-        //result.displayName
+      
         this.toastService.success("Successfully added group to queue.")
         
         this.$refs.confirmGroupCreated.show();
-        //this.goToGroupSearch();
-
-        // this.$router.push({
-        //   name: "ad-group-edit",
-        //   query: {
-        //     name: result.name,
-        //     ouName: result.ouName
-        //   },
-        //   // params: {
-        //   //   name: result.name,
-        //   //   ouName: result.ouName
-        //   // }
-        // });
+      
       }
       //window.console.log(result);
 

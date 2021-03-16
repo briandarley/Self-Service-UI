@@ -129,8 +129,9 @@
                     </div>
                   </div>
                   <div class="record-info">
+                    
                     <div class="record-info-detail">
-                      <div>{{ adEntity.cn | filterCn }}</div>
+                      
                       <div>{{ adEntity.displayName }}</div>
 
                       <div>{{ adEntity.mail }}</div>

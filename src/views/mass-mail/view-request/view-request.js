@@ -58,7 +58,7 @@ export default class ViewRequest extends Vue {
   currentlyProcessing = [];
 
   readOnlyModel = {};
-  showProgress(campaign) {
+  showProgress() {
     //return this.currentlyProcessing.some(c=> c.campaignId == campaign.id)
   }
   getProgress(campaign) {
@@ -96,7 +96,7 @@ export default class ViewRequest extends Vue {
     this.pagedResponse = JSON.parse(JSON.stringify(this.pagedResponse));
   }
 
-  onMailBatchUpdate(model) {
+  onMailBatchUpdate() {
     // let campaignId = model.campaignId;
     // let pagedResponse = model.pagedResponse;
     // let currentPage = pagedResponse.index + 1;
@@ -116,10 +116,17 @@ export default class ViewRequest extends Vue {
   }
 
   displayPopulationText(entity) {
+    if(!entity.audienceSelection){
+      return;
+    }
+
     //associate entities with their parents
-    let values = entity.campaignAudienceSelections.includePopulations.map(
+    
+    
+    let values = entity.audienceSelection.split(',').map(
       (cv) => {
         let code = this.codeValues.find((c) => c.code == cv);
+        
         return code.parent ? code.parent.description : code.description;
       }
     );
@@ -142,6 +149,7 @@ export default class ViewRequest extends Vue {
       val.push(curVal);
       if (curVal.entities.length) {
         curVal.entities.forEach((c) => {
+          
           c.parent = JSON.parse(JSON.stringify(curVal));
           c.parent.entities = null;
         });
@@ -392,10 +400,11 @@ export default class ViewRequest extends Vue {
   async search() {
     try {
       this.spinnerService.show();
-
-      this.pagedResponse = await this.MassMailService.getMassMailRecords(
+      this.pagedResponse = {totalRecords:0};
+      this.pagedResponse= await this.MassMailService.getMassMailRecords(
         this.criteria
       );
+      
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to retrieve record");

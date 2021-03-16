@@ -1,5 +1,5 @@
 import { BaseValidateMixin } from "./../../../../../components/mixins/index";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({
   name: "group-managers",
@@ -239,14 +239,14 @@ export default class GroupManagers extends BaseValidateMixin {
         criteria.proxyAddress = this.modelSearch.filterText;
       } else if (this.modelSearch.filterText.match(/^[0-9]+$/)) {
         criteria.employeeId = this.modelSearch.filterText;
-      } else if (this.modelSearch.filterText.match(/[a-zA-Z0-9]+/)) {
+      } else if (this.modelSearch.filterText.match(/[a-zA-Z0-9.]+/)) {
         criteria.samAccountName = this.modelSearch.filterText;
       } else {
         this.toastService.error("Invalid criteria entered for manager id");
         return;
       }
 
-      let pagedResponse = await this.ExchangeToolsService.getAdUsers(criteria);
+      let pagedResponse = await this.ExchangeToolsService.getAdEntities(criteria);
 
       if (pagedResponse.totalRecords == 0) {
         this.toastService.error("User not found");

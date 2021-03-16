@@ -327,11 +327,23 @@ export default class GroupMembers extends BaseValidateMixin {
     this.spinnerService.show();
     try {
       let criteria = {};
-      criteria.filterText = this.modelSearch.filterText;
+      
 
-      let pagedResponse = await this.ExchangeToolsService.getAdEntities(
-        criteria
-      );
+      this.modelSearch.filterText = this.modelSearch.filterText.trim();
+
+      if (this.ValidationService.isValidEmail(this.modelSearch.filterText)) {
+        criteria.proxyAddress = this.modelSearch.filterText;
+      } else if (this.modelSearch.filterText.match(/^[0-9]+$/)) {
+        criteria.employeeId = this.modelSearch.filterText;
+      } else if (this.modelSearch.filterText.match(/[a-zA-Z0-9.]+/)) {
+        criteria.samAccountName = this.modelSearch.filterText;
+      } else {
+        this.toastService.error("Invalid criteria entered for manager id");
+        return;
+      }
+
+      let pagedResponse = await this.ExchangeToolsService.getAdEntities(criteria);
+      
 
       if (pagedResponse.totalRecords !== 0) {
         this.adEntity = pagedResponse.entities[0];

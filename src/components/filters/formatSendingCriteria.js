@@ -6,7 +6,7 @@ export default  function formatSendingCriteria(value, codeValues) {
   
   let reduced = helper.getCodeValueChildParentRelations(JSON.parse(JSON.stringify(codeValues)))
 
-  let matching = reduced.filter(item => value.campaignAudienceSelections.includePopulations.includes(item.code));
+  let matching = reduced.filter(item => value.audienceSelection.includes(item.code));
 
   let displayValues = matching.map(item=> {
     if(item.parent)

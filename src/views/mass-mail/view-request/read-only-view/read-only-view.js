@@ -96,16 +96,14 @@ export default class ReadOnlyView extends Vue {
   hasEmployeePopulation() {
     
     let targetPopulationIsNull =
-      !this.model.campaignAudienceSelections ||
-      !this.model.campaignAudienceSelections.includePopulations ||
-      !this.model.campaignAudienceSelections.includePopulations.length;
+      !this.model.audienceSelection;
     //will need to pull the population, reduce to get parents
     if(targetPopulationIsNull) return false;
 
     let employees = ["STAFF", "FACULTY", "DDD", "RETIREES", "VOLUNTEERS", "CONSULTANTS", "VISITING_SCHOLAR" ];
     
     employees.map(c=> {
-      if(this.model.campaignAudienceSelections.includePopulations.some(d=> d === c))
+      if(this.model.audienceSelection.some(d=> d === c))
       {
         return c;
       }
@@ -118,16 +116,14 @@ export default class ReadOnlyView extends Vue {
   hasStudentPopulation() {
     
     let targetPopulationIsNull =
-      !this.model.campaignAudienceSelections ||
-      !this.model.campaignAudienceSelections.includePopulations ||
-      !this.model.campaignAudienceSelections.includePopulations.length;
+      !this.model.audienceSelection;
 
       if(targetPopulationIsNull) return false;
 
       let students = ["UNDERGRADUATES", "GRADUATES" ];
 
       students.map(c=> {
-        if(this.model.campaignAudienceSelections.includePopulations.some(d=> d === c))
+        if(this.model.audienceSelection.some(d=> d === c))
         {
           return c;
         }
@@ -163,7 +159,7 @@ export default class ReadOnlyView extends Vue {
 
 
 
-    let values = this.model.campaignAudienceSelections.includePopulations.map(
+    let values = this.model.audienceSelection.map(
       (cv) => {
         let code = this.codeValues.find((c) => c.code == cv);
         return code.parent ? code.parent.description : code.description;

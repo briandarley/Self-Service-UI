@@ -1,6 +1,9 @@
 import { BaseValidateMixin } from "./../../../../../components/mixins/index";
 import { Component, Watch } from "vue-property-decorator";
 import { CountUp } from "countup.js";
+import AudienceSelection from "./audience-selection/audience-selection.vue";
+import AudienceCheck from "./audience-check/audience-check.vue";
+
 @Component({
   name: "audience-criteria",
   dependencies: [
@@ -9,9 +12,13 @@ import { CountUp } from "countup.js";
     "toastService",
     "spinnerService",
     "MassMailService",
-    "ScreenReaderAnnouncerService"
+    "ScreenReaderAnnouncerService",
   ],
-  props: ["value"]
+  components: {
+    AudienceSelection,
+    AudienceCheck,
+  },
+  props: ["value"],
 })
 export default class AudienceCriteria extends BaseValidateMixin {
   audienceCheckResult = "";
@@ -19,146 +26,32 @@ export default class AudienceCriteria extends BaseValidateMixin {
   model = {
     targetPopulation: "",
     employeeCriteria: "",
-    
+    audienceSelection: "",
+    excludeAudience: "",
   };
   onyen = "";
+  audienceOptions = [];
+  audienceSelectOptions = [];
+  audienceDeselectOptions = [];
+
   audienceSizeModel = {};
-  targetPerson = null;
+
   audienceSize = 0;
   beginAudienceSize = 0;
-  checkUserSuccess = null;
-  showEmployeeCriteria = false;
-  isToggled = false;
-  audienceList = [
-    {
-      value: "ALL",
-      checked: false
-    },
-    {
-      value: "EMPLOYEES",
-      checked: false
-    },
-    {
-      value: "STUDENTS",
-      checked: false
-    },
-    {
-      value: "AFFILIATES",
-      checked: false
-    },
-    {
-      value: "TEST",
-      checked: false
-    }
-  ];
 
   @Watch("model", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   onModelChanged(newValue) {
     this.$emit("input", newValue);
   }
   @Watch("value", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   onValueChanged(newValue) {
     this.model = newValue;
-    
-  }
-
-  async checkUser() {
-    try {
-      this.validationErrors = [];
-      this.spinnerService.show();
-      this.checkUserSuccess = false;
-
-      if (!this.onyen) {
-        this.toastService.error("Invalid Onyen entered");
-        return;
-      }
-      let person = {};
-      person = await this.MassMailService.checkIfUserExists(this.onyen);
-      if (person.status === false) {
-        this.toastService.error("Could not locate user");
-        return;
-      }
-
-      this.checkUserSuccess = false;
-      let checkedAudiences = [];
-      this.audienceList.forEach(item => {
-        if (item.checked == true) {
-          switch (item.value) {
-            case "ALL":
-            case "TEST":
-              break;
-            case "EMPLOYEES":
-              this.checkUserSuccess = this.checkUserSuccess || person.employee;
-              checkedAudiences.push("Employees");
-              break;
-            case "STUDENTS":
-              this.checkUserSuccess = this.checkUserSuccess || person.student;
-              checkedAudiences.push("Students");
-              break;
-            case "AFFILIATES":
-              this.checkUserSuccess = this.checkUserSuccess || person.affiliate;
-              checkedAudiences.push("Affiliates");
-              break;
-            case "FACULTY":
-              this.checkUserSuccess = this.checkUserSuccess || person.faculty;
-              checkedAudiences.push("Faculty");
-              break;
-            default:
-              throw "Unsuported Value";
-          }
-        }
-      });
-
-      if (!this.checkUserSuccess) {
-        let list = checkedAudiences.join(",");
-
-        this.validationErrors.push(
-          `Population ${list}, user does not meet this criteria`
-        );
-      }
-
-     
-
-      if (this.model.priority === "Informational") {
-        this.checkUserSuccess =
-          this.checkUserSuccess && person.massEmailAllowed;
-        if (!person.massEmailAllowed) {
-          this.validationErrors.push(
-            `Campaign type is 'Informational', however; entered user has MassEmail flag set to false`
-          );
-        }
-      }
-
-      if (person && !this.checkUserSuccess) {
-        this.audienceCheckResult =
-          "Person found but the person does not meet the criteria specified";
-        this.$refs.confirmCheckUser.show();
-        this.checkUserSuccess = false;
-        return;
-      } else if (person) {
-        this.toastService.success("Verified user within selected audience");
-        return;
-      }
-    } catch (e) {
-      window.console.log(e);
-      this.toastService.error("Failed to retrieve user");
-    } finally {
-      this.spinnerService.hide();
-    }
-  }
-
-  closeConfirmCheckUser() {
-    this.$refs.confirmCheckUser.hide();
-  }
-
-  clearCheckUserStatus() {
-    this.checkUserSuccess = null;
   }
 
   async employeeCriteriaChanged() {
@@ -169,9 +62,71 @@ export default class AudienceCriteria extends BaseValidateMixin {
     this.beginAudienceSize = this.audienceSize;
     this.audienceSize = 0;
 
-    this.showEmployeeCriteria = this._showEmployeeCriteria();
+    //First get counts for the selected, then subtract from
+    let selectedItems = (val, curVal) => {
+      if (curVal.selected) {
+        let selected = curVal.entities.filter((c) => c.selected);
 
-    this.audienceSize = await this._getCalculatedTargetAudienceCount();
+        val = val.concat(selected);
+
+        return val;
+      }
+      return val;
+    };
+
+    let selectedValues = this.audienceSelectOptions
+      .reduce(
+        selectedItems,
+        this.audienceSelectOptions.filter((c) => c.selected)
+      )
+      .map((c) => c.code);
+
+    let audienceCountM = 0;
+    let audienceCount = 0;
+
+    selectedValues.forEach((code) => {
+      switch (code) {
+        case "UNDERGRADUATES":
+          audienceCount += this.audienceSizeModel.undergraduates;
+          audienceCountM += this.audienceSizeModel.mUndergraduates;
+          break;
+        case "GRADUATES":
+          audienceCount += this.audienceSizeModel.graduates;
+          audienceCountM += this.audienceSizeModel.mGraduates;
+          break;
+        case "STAFF":
+          audienceCount += this.audienceSizeModel.staff;
+          audienceCountM += this.audienceSizeModel.mStaff;
+          break;
+        case "FACULTY":
+          audienceCount += this.audienceSizeModel.faculty;
+          audienceCountM += this.audienceSizeModel.mFaculty;
+          break;
+        case "DDD":
+          audienceCount += this.audienceSizeModel.ddd;
+          audienceCountM += this.audienceSizeModel.mDdd;
+          break;
+        case "RETIREES":
+          audienceCount += this.audienceSizeModel.retirees;
+          audienceCountM += this.audienceSizeModel.mRetirees;
+          break;
+        case "VOLUNTEERS":
+          audienceCount += this.audienceSizeModel.volunteers;
+          audienceCountM += this.audienceSizeModel.mVolunteers;
+          break;
+        case "CONSULTANTS":
+          audienceCount += this.audienceSizeModel.contractors;
+          audienceCountM += this.audienceSizeModel.mContractors;
+          break;
+        case "VISITING_SCHOLAR":
+          audienceCount += this.audienceSizeModel.visitingScholars;
+          audienceCountM += this.audienceSizeModel.mVisitingScholars;
+          break;
+      }
+    });
+
+    this.audienceSize =
+      this.model.priority === "Formal Notice" ? audienceCount : audienceCountM;
 
     this._beginCounterAnnimation();
   }
@@ -189,7 +144,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
       useGrouping: true,
       separator: ",",
       decimal: ".",
-      startVal: this.beginAudienceSize
+      startVal: this.beginAudienceSize,
     };
 
     const couter = new CountUp(
@@ -207,172 +162,204 @@ export default class AudienceCriteria extends BaseValidateMixin {
     }
   }
 
-  async _getCalculatedTargetAudienceCount() {
-    if (this.audienceList.some(c => c.value === "TEST" && c.checked)) {
-      return 0;
-    }
+  async bindPopulationLists() {
+    if (!this.audienceSelectOptions.length) {
+      let audienceRaw = JSON.parse(JSON.stringify(this.audienceOptions));
+      this.audienceSelectOptions = audienceRaw;
 
-    let audienceSize;
-    let students = this.audienceList.some(
-      c => c.value === "STUDENTS" && c.checked
-    );
-    let employees = this.audienceList.some(
-      c => c.value === "EMPLOYEES" && c.checked
-    );
-    let affiliates = this.audienceList.some(
-      c => c.value === "AFFILIATES" && c.checked
-    );
-    let faculty = this.audienceList.some(
-      c => c.value === "FACULTY" && c.checked
-    );
+      audienceRaw = JSON.parse(JSON.stringify(this.audienceOptions));
 
-    let totalStudents = 0,
-      totalEmployees = 0,
-      totalAffiliate = 0,
-      totalFaculty = 0;
+      let testPopulation = audienceRaw.filter((c) => c.code == "TEST")[0];
 
-    if (this.model.priority !== "Formal Notice") {
-      if (students) {
-        totalStudents = this.audienceSizeModel.massMailAllowedStudents;
+      let indexOfTestPopulation = audienceRaw.indexOf(testPopulation);
+
+      if (indexOfTestPopulation > -1) {
+        audienceRaw.splice(indexOfTestPopulation, 1);
       }
-      if (employees) {
-        totalEmployees = this.audienceSizeModel.massMailAllowedEmployees;
-      }
-      if (affiliates) {
-        totalAffiliate = this.audienceSizeModel.massMailAllowedAffiliate;
-      }
-      if (faculty) {
-        totalFaculty = this.audienceSizeModel.massMailAllowedFaculty;
-      }
+
+      this.audienceDeselectOptions = JSON.parse(JSON.stringify(audienceRaw));
     } else {
-      if (students) {
-        totalStudents = this.audienceSizeModel.totalStudents;
-      }
-      if (employees) {
-        totalEmployees = this.audienceSizeModel.totalEmployees;
-      }
-      if (affiliates) {
-        totalAffiliate = this.audienceSizeModel.totalAffiliate;
-      }
-      if (faculty) {
-        totalFaculty = this.audienceSizeModel.totalFaculty;
-      }
+      this.audienceSelectOptions = JSON.parse(
+        JSON.stringify(this.audienceSelectOptions)
+      );
+      this.audienceDeselectOptions = JSON.parse(
+        JSON.stringify(this.audienceDeselectOptions)
+      );
     }
-    audienceSize =
-      totalStudents + totalEmployees + totalAffiliate + totalFaculty;
-
-    return audienceSize;
   }
 
-  _showEmployeeCriteria() {
-    return this.audienceList.some(c => c.value === "EMPLOYEES" && c.checked);
+  async onPopulationSelected(entity) {
+    //allow sister component to properly unselect coresponding values
+    this.$refs.audienceDeselectOptions.deselectOptions(entity);
+
+    if (!entity.selected) {
+      this.calculateAudience();
+    }
+
+    this.setModelPopulationSelection();
   }
-
-  
-
-  async initializeAudienceSize() {
-    const $ = this.$;
-    this.audienceList.forEach(item => {
-      if(this.model.targetPopulation) 
-      {
-        if (this.model.targetPopulation.includes(item.value)) {
-          item.checked = true;
-        }
-      }
-    });
-    this.audienceSize = 0;
-    this.audienceSize = await this._getCalculatedTargetAudienceCount();
-    const audienceSize = this.$options.filters.formatNumber(this.audienceSize);
-
-    $("#targetAudience").html(audienceSize);
-
+  async onToggleSelection(entities) {
     
+    this.entities = JSON.parse(JSON.stringify(entities));
+       
+    let entity = this.entities[0];
+    this.$refs.audienceSelectOptions.selectPopulation(entity);
+    if (!entity.selected) {
+      this.calculateAudience();
+    }
+    this.setModelPopulationSelection();
+  }
+  async onPopulationExcluded(entity) {
+    //allow sister component to properly unselect coresponding values
+    this.$refs.audienceSelectOptions.deselectOptions(entity);
+
+    if (!entity.selected) {
+      this.calculateAudience();
+    }
+    this.setModelPopulationSelection();
+  }
+
+  onRebindList() {
+    //ensures that the current values are properly displayed
+    this.audienceSelectOptions = JSON.parse(
+      JSON.stringify(this.audienceSelectOptions)
+    );
+    this.audienceDeselectOptions = JSON.parse(
+      JSON.stringify(this.audienceDeselectOptions)
+    );
+
+    this.calculateAudience();
+  }
+
+  setModelPopulationSelection() {
+    let selectedItems = (val, curVal) => {
+      if (curVal.selected && !curVal.entities.length) {
+        val = val.concat([curVal]);
+      } else if (curVal.selected) {
+        let selected = curVal.entities.filter((c) => c.selected);
+
+        val = val.concat(selected);
+
+        return val;
+      }
+      return val;
+    };
+    
+    let selectedValues = this.audienceSelectOptions.reduce(selectedItems, []).map(items => items.code).join(',');
+    let deselectedValues = this.audienceDeselectOptions.reduce(selectedItems,[]).map(items => items.code).join(',');
+    
+    this.model.audienceSelection = selectedValues;
+    this.model.excludeAudience = deselectedValues;
+
+  }
+
+  isValid() {
+    
+    let errors = [];
+    this.model.audienceSelection = !this.model.audienceSelection ? "" : this.model.audienceSelection;
+    let selection = this.model.audienceSelection.split(",");
+
+    if (!selection.some((c) => c)) {
+      this.toastService.error(
+        "Must include one population group or select 'Test'"
+      );
+      errors.push("Must include one population group or select 'Test'");
+    }
+    if (errors.length) {
+      return false;
+    }
+
+    errors = this.validate(this.$refs.submitForm);
+    if (!errors || !errors.length) return true;
+    return false;
   }
 
   async mounted() {
     this.toastService.set(this);
 
+    this.audienceOptions = await this.MassMailService.getAudienceCodeValueDisplayOrder();
+
+    await this.bindPopulationLists();
+
     this.audienceSizeModel = await this.MassMailService.getMassMailAudienceTotals();
-    this.showEmployeeCriteria = this._showEmployeeCriteria();
 
+    this.initializePopSelections();
     this.initializeAudienceSize();
-
+    this.calculateAudience();
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
       "Mass Mail Audience Criteria"
     );
   }
 
-  isValid() {
-    let errors = this.validate(this.$refs.submitForm);
-    if (!errors || !errors.length) return true;
-    return false;
+  async initializeAudienceSize() {
+    const $ = this.$;
+
+    this.audienceSize = 0;
+
+    const audienceSize = this.$options.filters.formatNumber(this.audienceSize);
+
+    $("#targetAudience").html(audienceSize);
   }
 
-  async toggleAll(ev) {
-    let value = ev.target.checked;
-    this.isToggled = value;
+  initializePopSelections() {
+    let includePops = [];
+    let excludePops = [];
 
-    for (let i = 0; i < this.audienceList.length; i++) {
-      this.audienceList[i].checked = this.isToggled;
+    if (this.model.audienceSelection) {
+      includePops = this.model.audienceSelection.split(",");
     }
-    this.audienceList[0].checked = this.isToggled;
-    this.audienceList[4].checked = false;
+    if (this.model.excludeAudience) {
+      excludePops = this.model.excludeAudience.split(",");
+    }
 
+    //reduce all entities to a single list of values
+    let reduce = (val, curVal) => {
+      if (!curVal.entities.length) {
+        return val.concat([curVal]);
+      }
+      if (curVal.entities.length) {
+        curVal.entities.forEach((c) => (c.parent = curVal));
+        return val.concat(curVal.entities);
+      }
+      return val;
+    };
+
+    let selections = this.audienceSelectOptions.reduce(reduce, []);
+    let deselections = this.audienceDeselectOptions.reduce(reduce, []);
+
+    //Select the population as well as the parent
+    includePops.forEach((code) => {
+      let entity = selections.find((c) => c.code == code);
+      entity.selected = true;
+      if (entity.parent) {
+        entity.parent.selected = true;
+      }
+    });
     
-    
-    await this.calculateAudience();
-    this.setModelValue();
-  }
-
-  async clearAllAudiences(ev) {
-    let value = ev.target.checked;
-
-    for (let i = 0; i < this.audienceList.length; i++) {
-      this.audienceList[i].checked = false;
-    }
-    this.audienceList[0].checked = false;
-    this.audienceList[4].checked = value;
-
-    await this.calculateAudience();
-    this.setModelValue();
-  }
-  async audienceChecked(ev, population) {
-    this.audienceList[0].checked = false;
-
-    this.audienceList[4].checked = false;
-    let value = ev.target.checked;
-
-    
-    switch (population) {
-      case "employee":
-        this.audienceList[1].checked = value;
-        break;
-      case "student":
-        this.audienceList[2].checked = value;
-        break;
-      case "affiliate":
-        this.audienceList[3].checked = value;
-        break;
-    }
-    
-    let totalChecked = this.audienceList.filter(c => c.checked).length;
-    if (totalChecked < this.audienceList.length - 2) {
-      this.audienceList[0].checked = false;
-    }
-    if (totalChecked == this.audienceList.length - 2) {
-      this.audienceList[0].checked = true;
-    }
-    //this.audienceList =JSON.parse(JSON.stringify(this.audienceList));
-    await this.calculateAudience();
-    this.setModelValue();
-  }
-
-  setModelValue() {
-    let value = this.audienceList
-      .filter(c => c.checked)
-      .map(c => c.value)
-      .join(",");
-
-    this.model.targetPopulation = value;
+    excludePops.forEach((code) => {
+      let entity = deselections.find((c) => c.code == code);
+      entity.selected = true;
+      if (entity.parent) {
+        entity.parent.selected = true;
+      }
+    });
+    //avoiding circular reference issues when deserializing
+    this.audienceSelectOptions = JSON.parse(
+      JSON.stringify(this.audienceSelectOptions, (_, value) => {
+        if (value && value.parent) {
+          value.parent = null;
+        }
+        return value;
+      })
+    );
+    //avoiding circular reference issues when deserializing
+    this.audienceDeselectOptions = JSON.parse(
+      JSON.stringify(this.audienceDeselectOptions, (_, value) => {
+        if (value && value.parent) {
+          value.parent = null;
+        }
+        return value;
+      })
+    );
   }
 }

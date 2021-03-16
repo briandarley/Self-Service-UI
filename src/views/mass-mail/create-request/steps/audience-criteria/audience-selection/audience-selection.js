@@ -21,15 +21,6 @@ export default class AudienceSelection extends Vue {
     $(`#${this.id} .collapse`).collapse(this.exapandAll ? "show" : "hide");
   }
 
-  // setModelValue() {
-  //   let value = this.audienceList
-  //     .filter((c) => c.checked)
-  //     .map((c) => c.value)
-  //     .join(",");
-
-  //   this.model.targetPopulation = value;
-  // }
-
   toggleSelectAll() {
     this.toggleAll = !this.toggleAll;
 
@@ -41,11 +32,9 @@ export default class AudienceSelection extends Vue {
         }
       }
     });
-
-    this.entities = JSON.parse(JSON.stringify(this.entities));
-    let entity = this.entities[0];
-    this.$emit("populationSelected", entity);
-
+    
+    this.$emit("toggleSelection", this.entities);
+    
   }
 
   addPannelBehavior() {

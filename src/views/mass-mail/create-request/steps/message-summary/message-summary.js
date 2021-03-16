@@ -94,10 +94,10 @@ export default class MessageSummary extends BaseValidateMixin {
       []
     );
 
-    this.value.campaignAudienceSelections.includePopulations.forEach((pop) => {
+    this.value.audienceSelection.forEach((pop) => {
       included.find((c) => c.code == pop).selected = true;
     });
-    this.value.campaignAudienceSelections.excludePopulations.forEach((pop) => {
+    this.value.excludeAudience.forEach((pop) => {
       excluded.find((c) => c.code == pop).selected = true;
     });
 
@@ -138,7 +138,7 @@ export default class MessageSummary extends BaseValidateMixin {
       errors.push("Priority required");
     }
     
-    let targetPopulationNull = !this.model.campaignAudienceSelections || !this.model.campaignAudienceSelections.includePopulations || !this.model.campaignAudienceSelections.includePopulations.length;
+    let targetPopulationNull = !this.model.audienceSelection;
     
     if(targetPopulationNull) {
       errors.push("Target population required");

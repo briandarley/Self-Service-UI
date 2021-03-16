@@ -43,10 +43,10 @@ export default class AudienceCheck extends BaseValidateMixin {
         return;
       }
       window.console.log(
-        this.model.campaignAudienceSelections.includePopulations
+        this.model.audienceSelection
       );
       if (
-        this.model.campaignAudienceSelections.includePopulations.indexOf(
+        this.model.audienceSelection.indexOf(
           "TEST"
         ) > -1
       ) {
@@ -57,7 +57,7 @@ export default class AudienceCheck extends BaseValidateMixin {
       }
       let meetsCriteria = false;
 
-      this.model.campaignAudienceSelections.includePopulations.forEach(
+      this.model.audienceSelection.forEach(
         (population) => {
           switch (population) {
             case "UNDERGRADUATES":

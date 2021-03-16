@@ -1,9 +1,9 @@
 import Vue from "vue";
 import injector from "vue-inject";
 //Shows the current overal state of the campaign
-export default function approvalStatusText(entity, codeValues) {
+export default function approvalStatusText(entity) {
   let moment = injector.get("moment");
-  let helper = injector.get("MassMailCodeValueHelperService");
+  
 
   if (!entity.campaignStatus)
     return `<div class="text-danger">Invalid State</div>`;
@@ -65,9 +65,7 @@ export default function approvalStatusText(entity, codeValues) {
     return statusText.join("");
   }
 
-  //let parentSelectCodes = helper.getSelectedParentCodeValues(entity.campaignAudienceSelections.includePopulations, codeValues);
-  //let targetPopulationNull = !entity.campaignAudienceSelections || !entity.campaignAudienceSelections.includePopulations || !entity.campaignAudienceSelections.includePopulations.length;
-  //will need to pull the population, reduce to get parents
+  
 
   if (entity.targetPopulation) {
     if (entity.targetPopulation.includes("STUDENTS")) {

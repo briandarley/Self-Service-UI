@@ -7,7 +7,7 @@ import {
 } from "vue-property-decorator";
 import StepNavigation from './nav/step-navigation.vue';
 import BasicInformation from './steps/basic-information/basic-information.vue';
-import AudienceCriteria from './steps/audience-criteria2/audience-criteria.vue';
+import AudienceCriteria from './steps/audience-criteria/audience-criteria.vue';
 import MessageContents from './steps/message-contents/message-contents.vue';
 import MessageSummary from './steps/message-summary/message-summary.vue'
 
@@ -47,9 +47,9 @@ export default class CreateRequest extends BaseValidateMixin {
       subject: "",
       sponsoringUniversity: "",
       priority: "",
-      campaignAudienceSelections : {
-        includePopulations: []
-      }
+      audienceSelection: "",
+      excludeAudience: ""
+      
 
     }
   }
@@ -222,11 +222,11 @@ export default class CreateRequest extends BaseValidateMixin {
       this.spinnerService.show();
       
       
-      let targetPopulationNull = !this.model.campaignAudienceSelections || !this.model.campaignAudienceSelections.includePopulations || !this.model.campaignAudienceSelections.includePopulations.length;
+      let targetPopulationNull = !this.model.audienceSelection;
 
       //Ask if the user wishes to submit the request for review
       if (status && !targetPopulationNull) {
-        if(this.model.campaignAudienceSelections.includePopulations.indexOf("TEST") > -1){
+        if(this.model.audienceSelection.indexOf("TEST") > -1){
           return;
         }
         if (this.model.campaignStatus.status == "SAVED" && status == "CREATED") {
@@ -386,9 +386,9 @@ export default class CreateRequest extends BaseValidateMixin {
       return false;
     }
 
-    let targetPopulationNull = !this.model.campaignAudienceSelections || !this.model.campaignAudienceSelections.includePopulations || !this.model.campaignAudienceSelections.includePopulations.length;
+    let targetPopulationNull = !this.model.audienceSelection;
 
-    if(!targetPopulationNull && this.model.campaignAudienceSelections.includePopulations.indexOf("TEST") > -1 )
+    if(!targetPopulationNull && this.model.audienceSelection.indexOf("TEST") > -1 )
     {
       return false;
     }
