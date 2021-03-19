@@ -341,7 +341,7 @@ export default class GroupManagers extends BaseValidateMixin {
       }
       await this.loadGroupDetails();
       await this.search();
-      //this.resetSearch();
+      
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to add manager");
@@ -366,11 +366,16 @@ export default class GroupManagers extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
-  resetSearch() {
+  async resetSearch() {
     this.adUser = {};
     this.showAddManager = false;
     this.modelSearch = {
       userId: "",
     };
+    this.criteria = {
+      distinguishedName: "",
+    };
+
+    await this.search();
   }
 }

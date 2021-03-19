@@ -1043,10 +1043,10 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
     async addAdGroupManager(groupDn, managerDn) {
       try {
         const handler = await httpHandlerService.get();
-
+        
         let response = await handler.post(
           `/WinTools/exchange-tools/ad-tools/ad-groups/${groupDn}/managers`,
-          '"' + managerDn + '"'
+          `"${managerDn}"`
         );
 
         return response.data;

@@ -49,7 +49,7 @@ export default class GroupManagement extends Vue {
       
       
        this.pagedResponse = await this.service.getMyManagedGroups(this.groupMemberCriteria);
-       
+      
        
 
       if (this.pagedResponse.totalRecords === 0 && !criteria) {
@@ -146,13 +146,17 @@ export default class GroupManagement extends Vue {
     
   }
 
-  async clear() {
+  async clear(criteria) {
 
     this.performedSearch = false;
     this.pagedResponse.entities = [];
     
     this.lookupEntityModel = null;
-    
+    if(criteria)
+    {
+      this.groupMemberCriteria = criteria;
+    }
+
   }
 
   async onManagerListLoaded() {

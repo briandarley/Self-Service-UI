@@ -11,6 +11,10 @@ import {
 
 export default class MyAdGroups extends Vue {
   entities = [];
+  criteria = {
+    filterText: ''
+  };
+
   async loadMyAdGroups() {
     try {
       this.spinnerService.show();
@@ -36,6 +40,7 @@ export default class MyAdGroups extends Vue {
       this.spinnerService.hide();
     }
   }
+
   async mounted() {
     this.toastService.set(this);
     await this.loadMyAdGroups();
@@ -43,22 +48,21 @@ export default class MyAdGroups extends Vue {
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("My Active Directory Groups");
   }
 
-  criteria = {
-    filterText: ''
-  };
   async search() {
+    this.$refs.groupManagment.clear();
     this.$refs.groupManagment.loadEntities({initialLoad: true});
   }
 
-  
-
   async clear() {
-    this.criteria = {
-      filterText: '',
-      managedBy: ''
-    }
-    this.$refs.groupManagment.clear();
+     this.criteria = {
+       filterText: '',
+       managedBy: ''
+     }
+     this.$refs.groupManagment.clear(this.criteria);
+     this.$refs.groupManagment.loadEntities({initialLoad: true});
+    
   }
+  
  
   
 }
