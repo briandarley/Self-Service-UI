@@ -95,6 +95,7 @@ export default class GroupSearch extends Vue {
     };
 
     let filter = query.toUpperCase();
+    
     let items = this.organizationalUnits
       .filter(
         (c) =>

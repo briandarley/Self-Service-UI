@@ -162,7 +162,7 @@ function DashboardService(moment, httpHandlerService, commonExtensions) {
     async addManagerToGroup(groupDn, memberDn) {
       try {
       const handler = await httpHandlerService.get();
-           debugger;
+           
       
       let response = await handler.post(
           `dashboard/my-managed-groups/${groupDn}/managers/${memberDn}`

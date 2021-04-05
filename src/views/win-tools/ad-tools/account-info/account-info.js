@@ -72,6 +72,9 @@ export default class AccountInfo extends BaseValidateMixin {
       }
 
       if (adData.userDetail) {
+        if(!adData.userDetail.proxyAddresses){
+          adData.userDetail.proxyAddresses = [];
+        }
         let emailAddresses = adData.userDetail.proxyAddresses.filter(c => c.startsWith("smtp:")).map(c => c.substring(5));
         adData.userDetail.proxyAddresses = emailAddresses;
       }

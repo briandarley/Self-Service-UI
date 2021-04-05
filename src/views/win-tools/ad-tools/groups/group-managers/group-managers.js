@@ -123,6 +123,7 @@ export default class GroupManagers extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+  
   async sort(column) {
     if (this._currentCol === column) {
       this._currentSortDir *= -1;
@@ -231,7 +232,7 @@ export default class GroupManagers extends BaseValidateMixin {
   async lookupUser() {
     this.spinnerService.show();
     try {
-      //newUser.userId
+      
       let criteria = {};
       this.modelSearch.filterText = this.modelSearch.filterText.trim();
 
@@ -261,9 +262,11 @@ export default class GroupManagers extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+
   async doDeleteGroupWork(criteria) {
     await this.ExchangeToolsService.deleteAdGroup(criteria);
   }
+
   async verifyDeleteGroup() {
     this.spinnerService.show();
     try {
@@ -366,16 +369,12 @@ export default class GroupManagers extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
-  async resetSearch() {
+  resetSearch() {
     this.adUser = {};
     this.showAddManager = false;
     this.modelSearch = {
       userId: "",
     };
-    this.criteria = {
-      distinguishedName: "",
-    };
-
-    await this.search();
+    
   }
 }
