@@ -41,7 +41,12 @@ export default class GroupSearch extends Vue {
     managedBy: "",
     //memberGroupCountGreaterThan: 10
   };
-
+  criteriaOrganizationalUnits = {
+    index: 0,
+    pageSize : 100,
+    sort: "name",
+    isRootOu: true,
+  }
   organizationalUnits = [];
 
   async mounted() {
@@ -53,17 +58,9 @@ export default class GroupSearch extends Vue {
   }
 
   async loadOrganizationalUnits() {
-    let result = await this.ExchangeToolsService.getOrganizationalUnits();
+    let result = await this.ExchangeToolsService.getOrganizationalUnits(this.criteriaOrganizationalUnits);
 
-    this.organizationalUnits = result.sort((a, b) => {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) {
-        return -1;
-      }
-      if (a.name.toLowerCase() > b.name.toLowerCase()) {
-        return 1;
-      }
-      return 0;
-    });
+    this.organizationalUnits = result.entities;
   }
 
   initializeTypeAheadValue() {

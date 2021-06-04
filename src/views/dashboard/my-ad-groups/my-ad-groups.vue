@@ -58,6 +58,7 @@
                   placeholder="group name like"
                   v-model="criteria.filterText"
                   v-on:keyup.13="search()"
+                  autocomplete="off"
                 />
               </div>
 

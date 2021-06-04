@@ -27,7 +27,12 @@ export default class ResourceMailbox extends BaseValidateMixin {
   showAddMembers = false;
   groupMemberId = "";
   groupManagerId = "";
-  
+  criteria = {
+    index: 0,
+    pageSize : 100,
+    sort: "name",
+    isRootOu: true
+  }
   @Watch('model.displayName')
   onDisplayNameChanged(newvalue) {
     if (!newvalue) {
@@ -48,14 +53,9 @@ export default class ResourceMailbox extends BaseValidateMixin {
   async loadOrganizationalUnits() {
     this.spinnerService.show();
     try {
-      let list = await this.ExchangeToolsService.getOrganizationalUnits();
-      list.sort((a, b) => {
-        if (a.name > b.name) return 1;
-        if (a.name < b.name) return -1;
-        return 0;
-
-      })
-      this.organizationalUnits = list;
+      let request = await this.ExchangeToolsService.getOrganizationalUnits(this.criteria);
+      
+      this.organizationalUnits = request.entities;
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to load organizational units");

@@ -42,6 +42,8 @@ export default class GroupCreate extends BaseValidateMixin {
     displayName: "",
   };
 
+  
+
   organizationalUnits = [];
 
   async mounted() {
@@ -54,17 +56,16 @@ export default class GroupCreate extends BaseValidateMixin {
   }
   
   async loadOrganizationalUnits() {
-    let result = await this.ExchangeToolsService.getOrganizationalUnits();
+    
+    let criteria = {
+      index: 0,
+      pageSize : 2000,
+      sort: "name",
+      isRootOu: true,
+    }
+    let result = await this.ExchangeToolsService.getOrganizationalUnits(criteria);
 
-    this.organizationalUnits = result.sort((a, b) => {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) {
-        return -1;
-      }
-      if (a.name.toLowerCase() > b.name.toLowerCase()) {
-        return 1;
-      }
-      return 0;
-    });
+    this.organizationalUnits = result.entities;
   }
 
   get groupTypeDisplay() {

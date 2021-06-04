@@ -348,12 +348,13 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
       }
       //
     },
-    async getOrganizationalUnits() {
+    async getOrganizationalUnits(criteria) {
       try {
-        const handler = await httpHandlerService.get(10000);
+        const handler = await httpHandlerService.get();
+        let queryParams = commonExtensions.convertToQueryParams(criteria);
 
         let response = await handler.get(
-          `WinTools/systems/organizational-units`
+          `WinTools/systems/organizational-units?${queryParams}`
         );
 
         return response.data;
@@ -606,21 +607,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    // async getOrganizationalUnits() {
-    //   try {
-    //     const handler = await httpHandlerService.get();
-    //     let list = await handler.get(`WinTools/systems/organizational-units`);
-
-    //     return list.data;
-    //   } catch (e) {
-    //     if (e.message.includes("404")) {
-    //       return {
-    //         status: false,
-    //       };
-    //     }
-    //     throw e;
-    //   }
-    // },
+    
     async createSharedMailbox(model) {
       try {
         const handler = await httpHandlerService.get();
@@ -640,79 +627,6 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
       }
       //
     },
-    // async addGroupMember(groupId, memberId, recursively) {
-    //   try {
-    //     const handler = await httpHandlerService.get();
-    //     if (!recursively) {
-    //       let response = await handler.put(
-    //         `/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${memberId}`
-    //       );
-    //       return response.data;
-    //     } else {
-    //       let response = await handler.put(
-    //         `/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${memberId}?recursively=true`
-    //       );
-    //       return response.data;
-    //     }
-    //   } catch (e) {
-    //     if (e.message.includes("404")) {
-    //       return {
-    //         status: false,
-    //       };
-    //     }
-    //     throw e;
-    //   }
-    // },
-    // async removeGroupMember(groupId, memberId) {
-    //   try {
-    //     const handler = await httpHandlerService.get();
-
-    //     let response = await handler.delete(
-    //       `/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${memberId}`
-    //     );
-    //     return response.data;
-    //   } catch (e) {
-    //     if (e.message.includes("404")) {
-    //       return {
-    //         status: false,
-    //       };
-    //     }
-    //     throw e;
-    //   }
-    // },
-    // async addGroupManager(groupId, memberId) {
-    //   try {
-    //     const handler = await httpHandlerService.get();
-    //     let response = await handler.put(
-    //       `/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/managers/${memberId}`
-    //     );
-    //     return response.data;
-    //   } catch (e) {
-    //     if (e.message.includes("404")) {
-    //       return {
-    //         status: false,
-    //       };
-    //     }
-    //     throw e;
-    //   }
-    // },
-    // async removeGroupManager(groupId, memberId) {
-    //   try {
-    //     const handler = await httpHandlerService.get();
-
-    //     let response = await handler.delete(
-    //       `/wintools/exchange-tools/ad-tools/distribution-groups/${groupId}/managers/${memberId}`
-    //     );
-    //     return response.data;
-    //   } catch (e) {
-    //     if (e.message.includes("404")) {
-    //       return {
-    //         status: false,
-    //       };
-    //     }
-    //     throw e;
-    //   }
-    // },
     async getAdminAliases(criteria) {
       try {
         const handler = await httpHandlerService.get();
@@ -1167,43 +1081,11 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
           message: message,
         };
       }
-    },
-    // async getDistributionGroupMembers(id) {
-    //   try {
-    //     const handler = await httpHandlerService.get();
-    //     let response = await handler.get(
-    //       `/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/members`
-    //     );
-    //     {
-    //       return response.data;
-    //     }
-    //   } catch (e) {
-    //     if (e.message.includes("404")) {
-    //       return {
-    //         status: false,
-    //       };
-    //     }
-    //     throw e;
-    //   }
-    // }
-    // async getDistributionGroupManagers(id) {
-    //   try {
-    //     const handler = await httpHandlerService.get();
-    //     let response = await handler.get(
-    //       `/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/managers`
-    //     );
-    //     {
-    //       return response.data;
-    //     }
-    //   } catch (e) {
-    //     if (e.message.includes("404")) {
-    //       return {
-    //         status: false,
-    //       };
-    //     }
-    //     throw e;
-    //   }
-    // },
+    }
+ 
+
+  
+   
   };
 }
 
