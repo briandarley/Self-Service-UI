@@ -48,12 +48,16 @@ export default class ListDeletions extends Vue {
       let response = await this.ListManagerService.getDeletionList(
         this.criteria
       );
+      if( !response.entities){
+        response.entities = [];
+      }
       response.entities = response.entities.map(c => {
         c.expanded = false;
         return c;
       });
       this.deletionList = response;
     } catch (e) {
+      
       this.toastService.error("Failed to retrieve records");
     } finally {
       this.spinnerService.hide();
