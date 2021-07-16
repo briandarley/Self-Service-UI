@@ -40,20 +40,25 @@
           <!-- Header Cols -->
           <div role="table">
             <div class="row bg-primary text-white row-header list-deletions-header" role="rowheader">
-              <div class="col col-name" role="columnheader" aria-sort="none">
-                <span>List Name</span>
+              <div class="col col-name" role="columnheader" >
+                
+                 <a href="#" @click.prevent="sort('listName')" >List Name</a>
               </div>
-              <div class="col col-date" role="columnheader" aria-sort="none">
-                <span>Create Date</span>
+              <div class="col col-date" role="columnheader" >
+                <a href="#" @click.prevent="sort('createDate')" >Create Date</a>
+                
               </div>
-              <div class="col col-date" role="columnheader" aria-sort="none">
-                <span>Delete Date</span>
+              <div class="col col-date" role="columnheader" >
+                <a href="#" @click.prevent="sort('deleteDate')" >Delete Date</a>
+                
               </div>
-              <div class="col col-date" role="columnheader" aria-sort="none">
-                <span>Last Logged</span>
+              <div class="col col-date" role="columnheader" >
+                <a href="#" @click.prevent="sort('lastLogged')" >Last Logged</a>
+                
               </div>
-              <div class="col col-number" role="columnheader" aria-sort="none">
-                <span>Subscribers</span>
+              <div class="col col-number" role="columnheader" >
+                <a href="#" @click.prevent="sort('subscriberCount')" >Subscribers</a>
+                
               </div>
             </div>
             <!-- Header Cols -->
