@@ -34,7 +34,7 @@ export default class LyrisLogin extends Vue {
     },
     {
       title: "Reset Password",
-      href: "lists.unc.edu/emailpassword.tml"
+      href: "emailpassword.tml"
     }
   ]
   async mounted() {
