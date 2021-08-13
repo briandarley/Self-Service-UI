@@ -24,6 +24,8 @@
                -->
             </div>
           </div>
+         
+          
 
           <div>
             <p class="strong">Things to know before creating a request:</p>
@@ -45,8 +47,14 @@
               </li>
               <li>All requests must be approved and may be denied if there are concerns with the content or images. See the Appropriate Use section of the Mass Email Requirements for details.</li>
               <li>Message approval can take 1-3 days.</li>
+              <li>
+                 Have questions concerning the approval of a specific MassMail? Please contact the approvers group
+                <a href="mailto:MassMail-Approvers@unc.edu">MassMail-Approvers@unc.edu</a>
+              </li>
             </ul>
           </div>
+          
+
           <div>
             <p>
               To begin, choose
