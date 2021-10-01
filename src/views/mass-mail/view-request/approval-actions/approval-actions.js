@@ -89,14 +89,14 @@ export default class ApprovalActions extends Vue {
     if (!this.entity.audienceSelection) return;
 
     let values = this.entity.audienceSelection.split(",").map((cv) => {
-      let code = this.codeValues.find((c) => c.code == cv);
+      let code = this.codeValues.find((c) => c.codeValue == cv);
       return code.parent ? code.parent : code;
     });
     //remove duplicates
     values = values.reduce((val, curval) => {
       if (!val.length) {
         val.push(curval);
-      } else if (!val.some((c) => c.code == curval.code)) {
+      } else if (!val.some((c) => c.codeValue == curval.codeValue)) {
         val.push(curval);
       }
       return val;
@@ -116,7 +116,7 @@ export default class ApprovalActions extends Vue {
     if (!codes) {
       return false;
     }
-    if (!codes.some((c) => c.code === "AUDIENCE_GRP_STDNT")) {
+    if (!codes.some((c) => c.codeValue === "AUDIENCE_GRP_STDNT")) {
       return false;
     }
     return true;
@@ -135,8 +135,8 @@ export default class ApprovalActions extends Vue {
       return false;
     }
     if (
-      !codes.some((c) => c.code === "AUDIENCE_GRP_EMP") &&
-      !codes.some((c) => c.code === "AUDIENCE_GRP_AFL")
+      !codes.some((c) => c.codeValue === "AUDIENCE_GRP_EMP") &&
+      !codes.some((c) => c.codeValue === "AUDIENCE_GRP_AFL")
     ) {
       return false;
     }

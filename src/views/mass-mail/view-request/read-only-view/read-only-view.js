@@ -42,7 +42,8 @@ export default class ReadOnlyView extends Vue {
 
   formatContent() {
     const $ = this.$;
-    if (this.model && this.model.content) {
+    
+    if (this.model && this.model.content && this.model.content.content) {
       let html = $(this.model.content.content);
       let images = html.find("img");
 
@@ -76,7 +77,8 @@ export default class ReadOnlyView extends Vue {
     try {
       this.spinnerService.show();
 
-      this.comments = await this.MassMailService.getComments(this.model.id);
+      //this.comments = await this.MassMailService.getComments(this.model.id);
+      this.comments = this.campaign.comments;
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to retrieve comments");

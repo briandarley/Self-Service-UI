@@ -10,7 +10,7 @@
         id="editor1"
         rows="10"
         cols="80"
-        v-model="model.content"></textarea>
+        v-model="model.content.content"></textarea>
     </div>
   </form>
 </template>

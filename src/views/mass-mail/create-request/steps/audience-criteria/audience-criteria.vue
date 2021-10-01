@@ -37,7 +37,7 @@
 
               <!-- Check Audience -->
               <transition name="fade">
-                <!-- <audience-check :model="value" v-if="model.audienceSelection.length"></audience-check> -->
+                
               </transition>
             </tabbed-item>
             <tabbed-item slot="tab_1">

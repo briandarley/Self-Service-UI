@@ -14,32 +14,28 @@ export default class BasicInformation extends BaseValidateMixin {
   campaignId = null;
   defaultMailAddress = "no_reply@email.unc.edu";
   model ={};
-  // model = {
-  //   sendFrom: "",
-  //   expirationDate: null,
-  //   sendDate: null,
-  //   replyTo: "",
-  //   subject: "",
-  //   sponsoringUniversity: "",
-  //   priority: ""
-  // }
+  initialComment = {};
+
   @Watch('model', {immediate:false, deep: true})
   onModelChanged(newValue)
   {
     this.$emit('input', newValue);
   }
+
+
   @Watch('value', {immediate: true, deep: true})
   onValueChanged(newValue){
 
     if(Array.isArray(newValue.comments)){
       let initialComment = newValue.comments.find(c=> c.commentTypeCode === "INITIAL_AUTH_COMMENT");
-      if(initialComment)
-      {
-        newValue.comments =   initialComment;
+
+      if(!initialComment){
+        this.initialComment = {comment : "", commentTypeCode: "INITIAL_AUTH_COMMENT"};
       }
-      else{
-        newValue.comments = "";
+      else {
+        this.initialComment = initialComment;
       }
+      
     }
     this.model = newValue;
   }
@@ -61,19 +57,7 @@ export default class BasicInformation extends BaseValidateMixin {
     }
   }
   
-  // async loadDepartments() {
-  //   try {
-  //     this.spinnerService.show();
-  //     let entities = await this.MassMailService.getDepartments()
-  //     this.departments = entities;
-
-  //   } catch (e) {
-  //     window.console.log(e);
-  //     this.toasterService.error('Failed to retrieve departments');
-  //   } finally {
-  //     this.spinnerService.hide();
-  //   }
-  // }
+  
 
   async getSchoolsDepartmentsLike(query, _, asyncResults) {
 

@@ -142,10 +142,11 @@ function MassMailService(httpHandlerService, commonExtensions) {
       }
     },
     async save(model) {
-        
-      if (model.comments && Array.isArray(model.comments)) {
-        model.comments = model.comments[0];
-      }
+      
+       if(!model.comments){
+        model.comments = [];
+       }
+
 
       if (!model.id) {
         model.id = await this._addNewCampaign(model);
@@ -229,44 +230,7 @@ function MassMailService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    async addComment(model) {
-      try {
-        const handler = await httpHandlerService.get();
-
-        await handler.post(
-          `/massmail/campaign-comments/${model.campaignId}`,
-          model
-        );
-
-        return true;
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-            message: "Not Found",
-          };
-        }
-        throw e;
-      }
-    },
-    async getComments(campaignId) {
-      try {
-        const handler = await httpHandlerService.get();
-
-        let response = await handler.get(
-          `/MassMail/campaign-comments/${campaignId}`
-        );
-
-        return response.data;
-      } catch (error) {
-        if (error.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw error;
-      }
-    },
+   
     async cloneCampaign(campaignId) {
       try {
         const handler = await httpHandlerService.get();
@@ -370,31 +334,56 @@ function MassMailService(httpHandlerService, commonExtensions) {
         return false;
       }
     },
-    async getUserActivity(criteria) {
-      try {
-        const handler = await httpHandlerService.get();
-        let queryParams = commonExtensions.convertToQueryParams(criteria);
-        let response = await handler.get(
-          `/massmail/campaigns/${
-            criteria.campaignId
-          }/user-activity?${queryParams}`
-        );
-        return response.data;
-      } catch (e) {
-        return false;
-      }
-    },
     async getAudienceCodeValueDisplayOrder() {
       try {
         const handler = await httpHandlerService.get(60000);
         let response = await handler.get(
           `/massmail/mass-mail-audience/audience-code-value-display-order`
         );
+        
         return response.data.entities;
       } catch (e) {
         return false;
       }
     },
+    async addComment(model) {
+      try {
+        const handler = await httpHandlerService.get();
+
+        await handler.post(
+          `/massmail/campaign-comments/${model.campaignId}`,
+          model
+        );
+
+        return true;
+      } catch (e) {
+        if (e.message.includes("404")) {
+          return {
+            status: false,
+            message: "Not Found",
+          };
+        }
+        throw e;
+      }
+    },
+    async getComments(campaignId) {
+      try {
+        const handler = await httpHandlerService.get();
+
+        let response = await handler.get(
+          `/MassMail/campaign-comments/${campaignId}`
+        );
+
+        return response.data;
+      } catch (error) {
+        if (error.message.includes("404")) {
+          return {
+            status: false,
+          };
+        }
+        throw error;
+      }
+    }
   };
 }
 

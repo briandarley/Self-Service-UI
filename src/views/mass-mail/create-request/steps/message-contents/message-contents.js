@@ -58,7 +58,7 @@ export default class MessageContents extends BaseValidateMixin {
   }
 
   onTextChanged(e) {
-   this.model.content = e.editor.getData();
+   this.model.content.content = e.editor.getData();
   }
 
   beforeDestroy() {

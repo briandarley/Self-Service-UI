@@ -83,10 +83,10 @@
             <div class="form-inline">
             <input
               type="text"
-              id="sponsoringUniversity"
-              ref="sponsoringUniversity"
+              id="sponsor"
+              ref="sponsor"
               class="form-control"
-              v-model="model.sponsoringUniversity"
+              v-model="model.sponsor"
               v-validate="'required'"
               placeholder="School or Department Name"
               autocomplete="off"
@@ -98,21 +98,7 @@
               data-content="Name of the UNC department, unit, or recognized student organization that is sponsoring this mass email message."
             ></pop-over>
           </div>
-          <!-- <div class="form-inline">
-            <type-ahead
-              :id="'sponsoringUniversity'"
-              :placeHolder="'School or Department Name'"
-              :value="model.sponsoringUniversity"
-              ref="sponsoringUniversity"
-              @change="onSponsorChanged"
-              :service="getSchoolsDepartmentsLike"
-              data-validation="{'name': 'Sponsor', 'error': 'Sponsoring University/Department Required','required': true}"
-            ></type-ahead>
-            <pop-over
-              title="Sponsor"
-              data-content="Name of the UNC department, unit, or recognized student organiztion that is sponsoring this mass email message."
-            ></pop-over>
-          </div> -->
+         
         </div>
       </div>
       <!-- Priority -->
@@ -157,7 +143,7 @@
             id="message-comments"
             class="form-control"
             rows="5"
-            v-model="model.comments"
+            v-model="initialComment.comment"
           ></textarea>
         </div>
       </div>

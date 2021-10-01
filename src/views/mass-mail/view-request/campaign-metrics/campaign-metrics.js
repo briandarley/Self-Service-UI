@@ -34,23 +34,7 @@ export default class CampaignMetrics extends Vue {
     filterText: null,
     sort: "totalReads",
   };
-  @Watch("filter", {immediate: false, deep:true})
-   onFilterChanged() {
-    this.userActivityCriteria.index = 0;
-    this.userActivityCriteria.country  = this.filter["country"]
-    this.userActivityCriteria.region  = this.filter["region"]
-    this.userActivityCriteria.city  = this.filter["city"]
-
-    if(this.searchTimeout){
-      window.clearTimeout(this.searchTimeout);
-    }
-    this.searchTimeout = window.setTimeout(async() => {
-      await this.getUserActivity(this.campaignId);
-    }, 500);
-
-
-  }
-
+  
 
   @Watch("campaignId", { immediate: false })
   async onCampaignIdChanged(newvalue) {
@@ -82,7 +66,7 @@ export default class CampaignMetrics extends Vue {
       //TODO Switch to user activity by Country, Country/City, and by IP Criteria object
       let responses = await Promise.all([
         this.MassMailService.getCampaignReadStatistics(campaignId)//,
-        //this.MassMailService.getUserActivity(this.userActivityCriteria),
+        
       ]);
       //todo remove if we ever want to use geo location in future
       responses.push(true);
@@ -102,28 +86,10 @@ export default class CampaignMetrics extends Vue {
     }
   }
 
-  async indexChanged(index) {
-    this.userActivityCriteria.index = index;
-
-    await this.getUserActivity(this.campaignId);
-  }
+  
 
 
-  async sort(column){
-    if (this._currentCol === column) {
-      this._currentSortDir *= -1;
-    } else {
-      this._currentSortDir = 1;
-    }
-    this.userActivityCriteria.index = 0;
-    
-    this._currentCol = column;
-    
-    this.userActivityCriteria.sort = column;
-    this.userActivityCriteria.listSortDirection = this._currentSortDir == 1 ? 1 : 0;
-    await this.getUserActivity(this.campaignId);
-    
-  }
+  
   
   async mounted() {
     this.toastService.set(this);

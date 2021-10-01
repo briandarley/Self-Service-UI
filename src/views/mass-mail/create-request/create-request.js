@@ -1,30 +1,30 @@
-import {
-  BaseValidateMixin
-} from "./../../../components/mixins/index";
-import {
-  Component,
-  Watch
-} from "vue-property-decorator";
-import StepNavigation from './nav/step-navigation.vue';
-import BasicInformation from './steps/basic-information/basic-information.vue';
-import AudienceCriteria from './steps/audience-criteria/audience-criteria.vue';
-import MessageContents from './steps/message-contents/message-contents.vue';
-import MessageSummary from './steps/message-summary/message-summary.vue'
+import { BaseValidateMixin } from "./../../../components/mixins/index";
+import { Component, Watch } from "vue-property-decorator";
+import StepNavigation from "./nav/step-navigation.vue";
+import BasicInformation from "./steps/basic-information/basic-information.vue";
+import AudienceCriteria from "./steps/audience-criteria/audience-criteria.vue";
+import MessageContents from "./steps/message-contents/message-contents.vue";
+import MessageSummary from "./steps/message-summary/message-summary.vue";
 
 @Component({
-  name: 'create-request',
-  dependencies: ['$', 'toastService', 'spinnerService', 'MassMailService', 'ScreenReaderAnnouncerService', 'UserService'],
+  name: "create-request",
+  dependencies: [
+    "$",
+    "toastService",
+    "spinnerService",
+    "MassMailService",
+    "ScreenReaderAnnouncerService",
+    "UserService",
+  ],
   components: {
     StepNavigation,
     BasicInformation,
     AudienceCriteria,
     MessageContents,
     MessageSummary,
-
   },
-  props: ['id']
+  props: ["id"],
 })
-
 export default class CreateRequest extends BaseValidateMixin {
   loaded = true;
   confirmedSave = false;
@@ -35,23 +35,19 @@ export default class CreateRequest extends BaseValidateMixin {
   userId = "";
 
   _resetModel() {
-
     this.confirmedSave = false;
 
     this.model = {
-
       sendFrom: "",
       sendDate: this._addDays(0),
       expirationDate: this._addDays(3),
       replyTo: "",
       subject: "",
-      sponsoringUniversity: "",
+      sponsor: "",
       priority: "",
       audienceSelection: "",
-      excludeAudience: ""
-      
-
-    }
+      excludeAudience: "",
+    };
   }
 
   _addDays(days) {
@@ -86,9 +82,7 @@ export default class CreateRequest extends BaseValidateMixin {
       return "BASIC_INFORMATION";
     }
     return "";
-
   }
-
 
   navClick(value) {
     this.currentView = value;
@@ -99,7 +93,6 @@ export default class CreateRequest extends BaseValidateMixin {
   }
 
   async mounted() {
-
     this.toastService.set(this);
 
     await this.getUser();
@@ -108,34 +101,40 @@ export default class CreateRequest extends BaseValidateMixin {
 
     let response = await this.loadCampain();
 
-    
     if (!response) {
       this.$router.push({
-        name: "massmail"
+        name: "massmail",
       });
     }
 
-
-
-    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Mass Mail Create Request");
+    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
+      "Mass Mail Create Request"
+    );
   }
 
   isValid() {
-
-    if (this.$refs.stepBasicInformation && this.$refs.stepBasicInformation.isValid()) {
+    if (
+      this.$refs.stepBasicInformation &&
+      this.$refs.stepBasicInformation.isValid()
+    ) {
       return true;
-    } else if (this.$refs.stepAudienceCriteria && this.$refs.stepAudienceCriteria.isValid()) {
+    } else if (
+      this.$refs.stepAudienceCriteria &&
+      this.$refs.stepAudienceCriteria.isValid()
+    ) {
       return true;
-    } else if (this.$refs.stepMessageContents && this.$refs.stepMessageContents.isValid()) {
+    } else if (
+      this.$refs.stepMessageContents &&
+      this.$refs.stepMessageContents.isValid()
+    ) {
       return true;
     }
     return false;
   }
 
   async navigateNext(skipSave) {
-
     if (!this.isValid()) {
-      this.toastService.error("Form invalid")
+      this.toastService.error("Form invalid");
       return;
     }
 
@@ -161,7 +160,6 @@ export default class CreateRequest extends BaseValidateMixin {
     }
   }
 
-
   navigatePrevious() {
     let previousNav = this.getPreviousNav();
     if (!previousNav) return;
@@ -170,7 +168,7 @@ export default class CreateRequest extends BaseValidateMixin {
 
   async getUser() {
     let user = await this.UserService.get();
-    this.userId = user.profile.sub
+    this.userId = user.profile.sub;
   }
 
   cancelSubmit() {
@@ -190,26 +188,21 @@ export default class CreateRequest extends BaseValidateMixin {
 
       setTimeout(() => {
         this.$router.push({
-          name: "massmail"
+          name: "massmail",
         });
-
-
       }, 500);
-
     } catch (e) {
-
       this.confirmedSave = false;
 
       window.console.log(e);
 
-      this.toastService.error('Failed to submit record');
+      this.toastService.error("Failed to submit record");
 
       return false;
     } finally {
       this.spinnerService.hide();
     }
   }
-
 
   //confirmSubmit cancelSubmit confirmSubmit
   async save(status) {
@@ -218,30 +211,67 @@ export default class CreateRequest extends BaseValidateMixin {
       if (!this.allowedSave()) {
         return;
       }
-      
+
       this.spinnerService.show();
-      
-      
+
       let targetPopulationNull = !this.model.audienceSelection;
 
       //Ask if the user wishes to submit the request for review
       if (status && !targetPopulationNull) {
-        if(this.model.audienceSelection.indexOf("TEST") > -1){
+        if (this.model.audienceSelection.indexOf("TEST") > -1) {
           return;
         }
-        if (this.model.campaignStatus.status == "SAVED" && status == "CREATED") {
+        if (
+          this.model.campaignStatus.status == "SAVED" &&
+          status == "CREATED"
+        ) {
           this.$refs.confirmSubmit.show();
           return;
         }
       }
 
-      if(this.unmodifiedModel === JSON.stringify(this.model)){
+      if (this.$refs.stepBasicInformation) {
+        
+
+        let enteredComment = this.$refs.stepBasicInformation.initialComment;
+        
+        if(!this.model.comments){
+          this.model.comments = [];
+        }
+
+        if (enteredComment.comment) {
+          //Add/update initial comment
+          let initialComment = this.model.comments.find(
+            (c) => c.commentTypeCode === "INITIAL_AUTH_COMMENT"
+          );
+          if (!initialComment) {
+            initialComment = {              
+              commentTypeCode: "INITIAL_AUTH_COMMENT",
+            };
+            this.model.comments.push(initialComment);
+          }
+          
+          initialComment.changeUser = "";
+          initialComment.comment = enteredComment.comment;
+          
+        } else {
+          //remove initial comment
+          
+          var index = this.model.comments.map(c=> c.commentTypeCode).indexOf("INITIAL_AUTH_COMMENT");
+          this.model.comments.splice(index, 1);
+          
+        }
+        
+      }
+
+      if (this.unmodifiedModel === JSON.stringify(this.model)) {
         return true;
       }
+
       
       let response = await this.MassMailService.save(this.model);
-      
-      if(response.status == false){
+
+      if (response.status == false) {
         this.toastService.error(response.error);
         return;
       }
@@ -253,12 +283,11 @@ export default class CreateRequest extends BaseValidateMixin {
         this.notifiedSaved = true;
       }
 
-      
       return response;
     } catch (e) {
       this.confirmedSave = false;
       window.console.log(e);
-      this.toastService.error('Failed to save record');
+      this.toastService.error("Failed to save record");
       return false;
     } finally {
       this.spinnerService.hide();
@@ -267,16 +296,13 @@ export default class CreateRequest extends BaseValidateMixin {
 
   @Watch("$route.params.id")
   async onIdChanged() {
-
     let response = await this.loadCampain();
-
 
     if (!response) {
       this.$router.push({
-        name: "massmail"
+        name: "massmail",
       });
     }
-
   }
 
   async loadCampain() {
@@ -286,63 +312,62 @@ export default class CreateRequest extends BaseValidateMixin {
         return true;
       }
 
-
       this.model = {};
-      let request = await this.MassMailService.getMassMailRecord(this.$route.params.id, true);
+      let request = await this.MassMailService.getMassMailRecord(
+        this.$route.params.id,
+        true
+      );
 
       if (request.status === false) {
-        this.toastService.error(`Failed to retrieve campaign with given id ${this.$route.params.id}`)
+        this.toastService.error(
+          `Failed to retrieve campaign with given id ${this.$route.params.id}`
+        );
         return false;
       }
 
       let model = request[0];
 
-      if (Array.isArray(model.comments)) {
-        let initialComments = model.comments.filter(c => c.commentTypeCode === "INITIAL_AUTH_COMMENT");
-        if (initialComments.length) {
-          model.comments = initialComments[0].comment;
-        }
-      } else{
-        model.comments = "";
+      // if (Array.isArray(model.comments)) {
+      //   let initialComments = model.comments.filter(c => c.commentTypeCode === "INITIAL_AUTH_COMMENT");
+      //   if (initialComments.length) {
+      //     model.comments = initialComments[0].comment;
+      //   }
+      // } else{
+      //   model.comments = "";
+      // }
+
+      if (!model.content) {
+        model.content = { content: "" };
       }
-      
-      if(model.content)
-      {
-        model.content = model.content.content;
-      }
+
       this.unmodifiedModel = JSON.stringify(model);
       this.model = model;
       this.notifiedSaved = true;
 
       return true;
-
-
     } catch (e) {
       window.console.log(e);
-      this.toastService.error('Failed to load campaign');
+      this.toastService.error("Failed to load campaign");
     } finally {
       this.spinnerService.hide();
     }
   }
 
   async confirmSave() {
-
     this.confirmedSave = true;
 
     this.$refs.confirmSave.hide();
 
     let response = await this.save();
 
-
     if (response) {
       this.$router.push({
         name: "create-request",
         params: {
-          id: response.id
-        }
-      })
+          id: response.id,
+        },
+      });
       this.navigateNext(true);
-
     }
   }
 
@@ -362,15 +387,13 @@ export default class CreateRequest extends BaseValidateMixin {
       this._resetModel();
 
       this.$router.push({
-        name: "massmail"
-      })
-
-
+        name: "massmail",
+      });
 
       this.$refs.confirmCancel.hide();
     } catch (e) {
       window.console.log(e);
-      this.toastService.error('Failed to cancel MassMail campaign');
+      this.toastService.error("Failed to cancel MassMail campaign");
     } finally {
       this.spinnerService.hide();
     }
@@ -381,21 +404,21 @@ export default class CreateRequest extends BaseValidateMixin {
   }
 
   get allowSubmit() {
-
     if (!this.$refs.stepMessageSummary.isValid()) {
       return false;
     }
 
     let targetPopulationNull = !this.model.audienceSelection;
 
-    if(!targetPopulationNull && this.model.audienceSelection.indexOf("TEST") > -1 )
-    {
+    if (
+      !targetPopulationNull &&
+      this.model.audienceSelection.indexOf("TEST") > -1
+    ) {
       return false;
     }
-    
-    return (this.model.campaignStatus.status === "SAVED");
-  }
 
+    return this.model.campaignStatus.status === "SAVED";
+  }
 
   get allowCancel() {
     //this.model.campaignStatus.status
@@ -407,24 +430,27 @@ export default class CreateRequest extends BaseValidateMixin {
     }
 
     return this.model.campaignStatus.status === "SAVED";
-    
   }
-
 
   allowedSave() {
-    
     if (!this.model.id) return true;
-    let editableStatuses = ["SAVED", "CREATED","NOTIFIED","DENIED_EMPLOYEES", "DENIED_STUDENTS"]
-    let response = editableStatuses.indexOf(this.model.campaignStatus.status) > -1;
-    if(["DENIED_EMPLOYEES", "DENIED_STUDENTS"].indexOf(this.model.campaignStatus.status) > -1)
-    {
-      this.model.campaignStatus.status = 'SAVED';
+    let editableStatuses = [
+      "SAVED",
+      "CREATED",
+      "NOTIFIED",
+      "DENIED_EMPLOYEES",
+      "DENIED_STUDENTS",
+    ];
+    let response =
+      editableStatuses.indexOf(this.model.campaignStatus.status) > -1;
+    if (
+      ["DENIED_EMPLOYEES", "DENIED_STUDENTS"].indexOf(
+        this.model.campaignStatus.status
+      ) > -1
+    ) {
+      this.model.campaignStatus.status = "SAVED";
     }
 
-
-    return  response;
-  
-
+    return response;
   }
-
 }

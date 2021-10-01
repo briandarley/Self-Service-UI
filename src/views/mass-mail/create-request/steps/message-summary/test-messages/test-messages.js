@@ -54,6 +54,7 @@ export default class TestMessages extends Vue {
 
       this.entities.splice(pos, 1)
 
+      this.toastService.success(`Sucessfully removed ${email}`);
     } catch (e) {
       window.console.log(e);
       this.toastService.error('Failed to remove reviewer');
@@ -69,6 +70,8 @@ export default class TestMessages extends Vue {
 
       this.spinnerService.show();
       await this.MassMailService.addFavoriteReviewer(email);
+
+      this.toastService.success(`Sucessfully added ${email}`);
     } catch (e) {
       window.console.log(e);
       this.toastService.error('Failed to save favortie reviewer');

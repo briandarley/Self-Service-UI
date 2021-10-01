@@ -13,7 +13,7 @@ export default class CampaignCommunications extends Vue {
     campaignMessage: "",
     title: "",
     message: "",
-    actionCode: ""
+    code: ""
 
   }
 
@@ -26,7 +26,7 @@ export default class CampaignCommunications extends Vue {
       campaignMessage: "",
       title: "",
       message: "",
-      actionCode: ""
+      code: ""
 
     }
   }
@@ -81,7 +81,7 @@ export default class CampaignCommunications extends Vue {
 
     this.messageAction.title = `Send campaign now for campaign Id ${campaignId}`;
 
-    this.messageAction.actionCode = "APPROVED_FOR_SEND_NOW";
+    this.messageAction.code = "APPROVED_FOR_SEND_NOW";
     this.messageAction.id = campaignId;
 
     this.messageAction.message = this.MassMailResponseTemplates.getSendNowNotificationTemplate({
@@ -104,7 +104,7 @@ export default class CampaignCommunications extends Vue {
       populationType = "students";
     }
 
-    this.messageAction.actionCode = action;
+    this.messageAction.code = action;
     this.messageAction.id = campaignId;
 
 
@@ -131,7 +131,7 @@ export default class CampaignCommunications extends Vue {
       populationType = "students";
     }
 
-    this.messageAction.actionCode = action;
+    this.messageAction.code = action;
     this.messageAction.id = campaignId;
 
 
@@ -147,7 +147,7 @@ export default class CampaignCommunications extends Vue {
 
   _showContactCampaignDialog(campaignId, subject) {
     this.messageAction.title = `Contact User about campaign Id ${campaignId}`;
-    this.messageAction.actionCode = "COMMENT";
+    this.messageAction.code = "COMMENT";
     this.messageAction.id = campaignId;
 
     this.messageAction.message = this.MassMailResponseTemplates.getContactAuthorTemplate({
@@ -160,7 +160,7 @@ export default class CampaignCommunications extends Vue {
 
   _showCancelCampaignDialog(campaignId, subject) {
     this.messageAction.title = "Confirm Append Cancel Message?";
-    this.messageAction.actionCode = "CANCELED";
+    this.messageAction.code = "CANCELED";
     this.messageAction.id = campaignId;
 
     this.messageAction.message = this.MassMailResponseTemplates.getCancelNotificationTemplate({

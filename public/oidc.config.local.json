@@ -10,7 +10,7 @@
   "listmanager": {
     "lyris_list_base_path": "http://listtest.adtest.unc.edu/"
   },
-  "security1": {
+  "security.local": {
     "authority": "https://localhost:44334",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",
@@ -21,7 +21,7 @@
     "automaticSilentRenew": false,
     "revokeAccessTokenOnSignout": true
   },
-  "security2": {
+  "security.Test": {
     "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",
@@ -32,7 +32,7 @@
     "automaticSilentRenew": true,
     "revokeAccessTokenOnSignout": true
   },
-  "security": {
+  "security.Production": {
     "authority": "https://selfservice.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",
@@ -43,7 +43,7 @@
     "automaticSilentRenew": true,
     "revokeAccessTokenOnSignout": true
   },
-  "security4": {
+  "security": {
     "authority": "https://its-idmuat-web.ad.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",

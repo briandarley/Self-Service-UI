@@ -79,7 +79,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
         selectedItems,
         this.audienceSelectOptions.filter((c) => c.selected)
       )
-      .map((c) => c.code);
+      .map((c) => c.codeValue);
 
     let audienceCountM = 0;
     let audienceCount = 0;
@@ -169,7 +169,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
 
       audienceRaw = JSON.parse(JSON.stringify(this.audienceOptions));
 
-      let testPopulation = audienceRaw.filter((c) => c.code == "TEST")[0];
+      let testPopulation = audienceRaw.filter((c) => c.codeValue == "TEST")[0];
 
       let indexOfTestPopulation = audienceRaw.indexOf(testPopulation);
 
@@ -245,8 +245,8 @@ export default class AudienceCriteria extends BaseValidateMixin {
       return val;
     };
     
-    let selectedValues = this.audienceSelectOptions.reduce(selectedItems, []).map(items => items.code).join(',');
-    let deselectedValues = this.audienceDeselectOptions.reduce(selectedItems,[]).map(items => items.code).join(',');
+    let selectedValues = this.audienceSelectOptions.reduce(selectedItems, []).map(items => items.codeValue).join(',');
+    let deselectedValues = this.audienceDeselectOptions.reduce(selectedItems,[]).map(items => items.codeValue).join(',');
     
     this.model.audienceSelection = selectedValues;
     this.model.excludeAudience = deselectedValues;
@@ -329,7 +329,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
 
     //Select the population as well as the parent
     includePops.forEach((code) => {
-      let entity = selections.find((c) => c.code == code);
+      let entity = selections.find((c) => c.codeValue == code);
       entity.selected = true;
       if (entity.parent) {
         entity.parent.selected = true;
@@ -337,7 +337,7 @@ export default class AudienceCriteria extends BaseValidateMixin {
     });
     
     excludePops.forEach((code) => {
-      let entity = deselections.find((c) => c.code == code);
+      let entity = deselections.find((c) => c.codeValue == code);
       entity.selected = true;
       if (entity.parent) {
         entity.parent.selected = true;

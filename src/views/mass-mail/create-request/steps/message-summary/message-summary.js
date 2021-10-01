@@ -1,6 +1,7 @@
 import { BaseValidateMixin } from "./../../../../../components/mixins/index";
 import { Component, Watch } from "vue-property-decorator";
 import TestMessages from "./test-messages/test-messages.vue";
+import { split } from "lodash";
 
 @Component({
   name: "message-summary",
@@ -20,8 +21,7 @@ import TestMessages from "./test-messages/test-messages.vue";
     formatSender(value) {
       if (!value) return "no-reply@email.unc.edu";
       return value;
-    }
-  
+    },
   },
 })
 export default class MessageSummary extends BaseValidateMixin {
@@ -29,7 +29,7 @@ export default class MessageSummary extends BaseValidateMixin {
   audienceOptions = [];
   includePopulation = "";
   excludePopulation = "";
-  
+
   @Watch("model", {
     immediate: false,
     deep: true,
@@ -46,7 +46,7 @@ export default class MessageSummary extends BaseValidateMixin {
     const $ = this.$;
 
     if (this.model) {
-      let html = $(this.model.content);
+      let html = $(this.model.content.content);
       let images = html.find("img");
 
       //if images are greater than 600, the preview will crop the image,
@@ -56,7 +56,7 @@ export default class MessageSummary extends BaseValidateMixin {
           $(img).width("100%");
         }
       });
-      this.model.content = html
+      this.model.content.content = html
         .get()
         .map(function(v) {
           return v.outerHTML;
@@ -75,41 +75,70 @@ export default class MessageSummary extends BaseValidateMixin {
   }
 
   initializeSendingCriteriaDisplay() {
-    let reducer = (val, curVal) => {
-      let respond = val.concat([curVal]);
+    try {
+      let reducer = (val, curVal) => {
+        let respond = val.concat([curVal]);
 
-      if (curVal.entities) {
-        curVal.entities.forEach((c) => (c.parent = curVal));
-        return respond.concat(curVal.entities);
-      }
-      return respond;
-    };
+        if (curVal.entities) {
+          curVal.entities.forEach((c) => (c.parent = curVal));
+          return respond.concat(curVal.entities);
+        }
+        return respond;
+      };
 
-    let included = JSON.parse(JSON.stringify(this.audienceOptions)).reduce(
-      reducer,
-      []
-    );
-    let excluded = JSON.parse(JSON.stringify(this.audienceOptions)).reduce(
-      reducer,
-      []
-    );
-
-    this.value.audienceSelection.forEach((pop) => {
-      included.find((c) => c.code == pop).selected = true;
-    });
-    this.value.excludeAudience.forEach((pop) => {
-      excluded.find((c) => c.code == pop).selected = true;
-    });
-
-
-    let parents = [...new Set(included.filter(c=> c.selected == true && (c.parent != null || c.code === "TEST")).map(c=> c))]
+      let included = JSON.parse(JSON.stringify(this.audienceOptions)).reduce(
+        reducer,
+        []
+      );
+      let excluded = JSON.parse(JSON.stringify(this.audienceOptions)).reduce(
+        reducer,
+        []
+      );
+      let audienceSelection = split(this.value.audienceSelection, ",");
+      let excludeAudience = split(this.value.excludeAudience, ",");
+      
+      audienceSelection.forEach((pop) =>{
+        if(pop)
+          included.find((c) => c.codeValue == pop).selected = true;
+      });
+      excludeAudience.forEach((pop) =>{
+        if(pop)
+          excluded.find((c) => c.codeValue == pop).selected = true;
+        
+      });
+      // this.value.audienceSelection.forEach((pop) => {
+      //   included.find((c) => c.codeValue == pop).selected = true;
+      // });
+      // this.value.excludeAudience.forEach((pop) => {
+      //   excluded.find((c) => c.codeValue == pop).selected = true;
+      // });
     
-    this.includePopulation =  parents.map(c=> c.description).join(', ');
 
-     parents = [...new Set(excluded.filter(c=> c.selected == true && c.parent != null).map(c=> c))]
-    this.excludePopulation = parents.map(c=> c.description).join(', ');
-  
-    
+      let parents = [
+        ...new Set(
+          included
+            .filter(
+              (c) =>
+                c.selected == true && (c.parent != null || c.code === "TEST")
+            )
+            .map((c) => c)
+        ),
+      ];
+
+      this.includePopulation = parents.map((c) => c.description).join(", ");
+
+      parents = [
+        ...new Set(
+          excluded
+            .filter((c) => c.selected == true && c.parent != null)
+            .map((c) => c)
+        ),
+      ];
+      this.excludePopulation = parents.map((c) => c.description).join(", ");
+    } catch (e) {
+       window.console.log(e);
+      throw e;
+    }
   }
 
   showPreview() {
@@ -131,25 +160,22 @@ export default class MessageSummary extends BaseValidateMixin {
     if (!this.model.expirationDate) {
       errors.push("Expiration Date required");
     }
-    if (!this.model.sponsoringUniversity) {
+    if (!this.model.sponsor) {
       errors.push("Sponsoring Office required");
     }
     if (!this.model.priority) {
       errors.push("Priority required");
     }
-    
+
     let targetPopulationNull = !this.model.audienceSelection;
-    
-    if(targetPopulationNull) {
+
+    if (targetPopulationNull) {
       errors.push("Target population required");
     }
-    
-
-
 
     if (errors.length) {
       window.console.log(errors);
-      this.toastService.error(errors.join(",<br/>"))
+      this.toastService.error(errors.join(",<br/>"));
 
       return false;
     }

@@ -25,7 +25,7 @@ export default class AudienceSelection extends Vue {
     this.toggleAll = !this.toggleAll;
 
     this.entities.forEach((c) => {
-      if (c.code !== "TEST") {
+      if (c.codeValue !== "TEST") {
         c.selected = this.toggleAll;
         if (c.entities) {
           c.entities.forEach((d) => (d.selected = this.toggleAll));
@@ -67,7 +67,7 @@ export default class AudienceSelection extends Vue {
 
   clearAllSelections() {
     this.entities.forEach((entity) => {
-      if (entity.code !== "TEST") {
+      if (entity.codeValue !== "TEST") {
         entity.selected = false;
 
         entity.entities.forEach((child) => {
@@ -78,26 +78,26 @@ export default class AudienceSelection extends Vue {
   }
 
   clearTestSelection() {
-    let testItem = this.entities.filter((c) => c.code === "TEST");
+    let testItem = this.entities.filter((c) => c.codeValue === "TEST");
     if (testItem.length) {
       testItem[0].selected = false;
     }
   }
 
   selectPopulation(entity) {
-    if (entity.code === "TEST" && entity.selected) {
+    if (entity.codeValue === "TEST" && entity.selected) {
       this.clearAllSelections();
     } else {
       this.clearTestSelection();
     }
     if (!entity.entities || entity.entities.length == 0) {
       let parent = this.entities.reduce((val, curVal) => {
-        if (curVal.code == entity.code) {
+        if (curVal.codeValue == entity.codeValue) {
           val = val = val.concat([curVal]);
           return val;
         }
         if (curVal.entities && curVal.entities.length) {
-          let children = curVal.entities.filter((c) => c.code == entity.code);
+          let children = curVal.entities.filter((c) => c.codeValue == entity.codeValue);
 
           if (children.length) {
             return [curVal];
@@ -123,12 +123,12 @@ export default class AudienceSelection extends Vue {
 
   //Called from parent after sister component is changed
   deselectOptions(entity) {
-    if (entity.code === "TEST" && entity.selected) {
+    if (entity.codeValue === "TEST" && entity.selected) {
       this.clearAllSelections();
       this.$emit("rebindList");
       return;
-    } else if (entity.code !== "TEST" && entity.selected) {
-      if (this.entities.some((c) => c.code === "TEST")) {
+    } else if (entity.codeValue !== "TEST" && entity.selected) {
+      if (this.entities.some((c) => c.codeValue === "TEST")) {
         this.clearTestSelection();
       }
     }
@@ -145,17 +145,17 @@ export default class AudienceSelection extends Vue {
         }
         return val;
       }, this.entities)
-      .find((c) => c.code === entity.code);
+      .find((c) => c.codeValue === entity.codeValue);
 
     if (reduced.parent) {
-      let parent = this.entities.find((c) => c.code === reduced.parent.code);
-      let child = parent.entities.find((c) => c.code === reduced.code);
+      let parent = this.entities.find((c) => c.codeValue === reduced.parent.codeValue);
+      let child = parent.entities.find((c) => c.codeValue === reduced.codeValue);
       child.selected = false;
       if (!parent.entities.some((c) => c.selected)) {
         parent.selected = false;
       }
     } else {
-      let target = this.entities.find((c) => c.code === reduced.code);
+      let target = this.entities.find((c) => c.codeValue === reduced.codeValue);
       target.selected = false;
       target.entities.forEach((c) => (c.selected = false));
     }

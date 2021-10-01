@@ -91,7 +91,7 @@ export default class TabCreateNew extends BaseValidateMixin {
   }
   async getSchoolsDepartmentsLike(query, _, asyncResults) {
     try {
-      debugger;
+      
       //let departments =JSON.parse(JSON.stringify(this.departments));
       return new Promise(result => {
         setTimeout(() => {

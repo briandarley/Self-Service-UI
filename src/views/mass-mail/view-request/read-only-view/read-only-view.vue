@@ -27,7 +27,7 @@
             </li>
             <li>
               <span>Sponsoring Office</span>
-              <span>{{ model.sponsoringUniversity }}</span>
+              <span>{{ model.sponsor }}</span>
             </li>
             <li>
               <span>Priority</span>
@@ -77,7 +77,7 @@
         </div>
       </tabbed-item>
       <tabbed-item slot="tab_1">
-        <div v-if="model.content" v-html="model.content.content"></div>
+        <div v-if="model.content && model.content.content" v-html="model.content.content"></div>
       </tabbed-item>
       <tabbed-item slot="tab_2">
         <div class="search-result">

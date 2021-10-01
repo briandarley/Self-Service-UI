@@ -41,6 +41,7 @@ export default class ViewRequest extends Vue {
   _currentCol = "id";
   _currentSortDir = 1;
   pagedResponse = {};
+  pgResponse = {};
   entities = [];
 
   codeValues = [];
@@ -66,17 +67,20 @@ export default class ViewRequest extends Vue {
   }
 
   onNotifyBatchStateUpdateAction(model) {
-    
-    if (this.currentlyProcessing.some((c) => c.campaignId == model.campaignId)) {
-      let index = this.currentlyProcessing.findIndex((c) => c.campaignId == model.campaignId);
-       this.currentlyProcessing.splice(index, 1);
+    if (
+      this.currentlyProcessing.some((c) => c.campaignId == model.campaignId)
+    ) {
+      let index = this.currentlyProcessing.findIndex(
+        (c) => c.campaignId == model.campaignId
+      );
+      this.currentlyProcessing.splice(index, 1);
     }
     this.currentlyProcessing.push(model);
-    
-    this.currentlyProcessing = JSON.parse(JSON.stringify(this.currentlyProcessing));
-    this.entities = JSON.parse(JSON.stringify(this.entities));
 
-    
+    this.currentlyProcessing = JSON.parse(
+      JSON.stringify(this.currentlyProcessing)
+    );
+    this.entities = JSON.parse(JSON.stringify(this.entities));
   }
 
   onCampaignStatusUpdate(model) {
@@ -87,69 +91,63 @@ export default class ViewRequest extends Vue {
 
     if (!this.entities) return;
 
-    for (let i = 0; i < this.pagedResponse.entities.length; i++) {
-      if (this.pagedResponse.entities[i].id == model.id) {
-        this.pagedResponse.entities[i] = model;
+    for (let i = 0; i < this.pgResponse.entities.length; i++) {
+      if (this.pgResponse.entities[i].id == model.id) {
+        this.pgResponse.entities[i] = model;
         break;
       }
     }
-    this.pagedResponse = JSON.parse(JSON.stringify(this.pagedResponse));
-  }
-
-  onMailBatchUpdate() {
-    // let campaignId = model.campaignId;
-    // let pagedResponse = model.pagedResponse;
-    // let currentPage = pagedResponse.index + 1;
-    // let totalPages = Math.ceil(
-    //   pagedResponse.totalRecords / pagedResponse.pageSize
-    // );
-    // const $ = this.$;
-    // let progress = Math.round((currentPage / totalPages) * 100, 2);
-    // $(`#progessbar_${campaignId}`).removeClass("hidden");
-    // let progressBar = $(`#progessbar_${campaignId} > .progress-bar`);
-    // $(progressBar).width(progress + "%");
+    
+    this.pgResponse = JSON.parse(JSON.stringify(this.pgResponse));
   }
 
   async indexChanged(index) {
     this.criteria.index = index;
     await this.search();
+    
   }
 
   displayPopulationText(entity) {
-    if(!entity.audienceSelection){
-      return;
-    }
-
-    //associate entities with their parents
-    
-    
-    let values = entity.audienceSelection.split(',').map(
-      (cv) => {
-        let code = this.codeValues.find((c) => c.code == cv);
-        
-        return code.parent ? code.parent.description : code.description;
+    try{
+      if (!entity.audienceSelection) {
+        return;
       }
-    );
-    //remove duplicates
-    values = [...new Set(values.map((c) => c))];
-
-    //truncate description if more than one entry is found
-    return values
-      .map((c) => {
-        if (values.length > 1) {
-          return c.substring(0, 3);
-        }
-        return c;
-      })
-      .join(",");
+  
+      //associate entities with their parents
+  
+      let values = entity.audienceSelection.split(",").map((cv) => {
+        let code = this.codeValues.find((c) => c.codeValue == cv);
+  
+        return code.parent ? code.parent.description : code.description;
+      });
+      //remove duplicates
+      values = [...new Set(values.map((c) => c))];
+  
+      //truncate description if more than one entry is found
+      return values
+        .map((c) => {
+          if (values.length > 1) {
+            return c.substring(0, 3);
+          }
+          return c;
+        })
+        .join(",");
+    }
+    catch(e){
+      
+      window.console.log(e);
+      this.toastService.error("Failed to retrieve codes")
+    }
   }
 
   formatCodeValues(codeValues) {
+    
     let reduced = codeValues.reduce((val, curVal) => {
       val.push(curVal);
+      
       if (curVal.entities.length) {
+        
         curVal.entities.forEach((c) => {
-          
           c.parent = JSON.parse(JSON.stringify(curVal));
           c.parent.entities = null;
         });
@@ -165,10 +163,14 @@ export default class ViewRequest extends Vue {
   async mounted() {
     this.toastService.set(this);
     let codeValues = await this.MassMailService.getAudienceCodeValueDisplayOrder();
+    
+
     this.codeValues = this.formatCodeValues(codeValues);
 
     await this.search();
-
+    
+    
+    
     this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement(
       "Mass Mail View Request"
     );
@@ -180,10 +182,7 @@ export default class ViewRequest extends Vue {
       "mass-mail-campaign-status-update",
       this.onCampaignStatusUpdate
     );
-    this.EventBus.attachEvent(
-      "mass-mail-campaign-mail-batch-update",
-      this.onMailBatchUpdate
-    );
+
     this.EventBus.attachEvent(
       "notify-batch-state-update-action",
       this.onNotifyBatchStateUpdateAction
@@ -224,6 +223,7 @@ export default class ViewRequest extends Vue {
   }
 
   async onAction(args) {
+    
     switch (args.action) {
       case "edit":
         this.$router.push({
@@ -263,9 +263,9 @@ export default class ViewRequest extends Vue {
 
       let statusModel = {
         campaignId: messageAction.id,
-        status: messageAction.actionCode,
+        status: messageAction.code,
       };
-
+      
       response = await this.MassMailService.updateStatus(statusModel);
 
       if (!response) {
@@ -299,10 +299,6 @@ export default class ViewRequest extends Vue {
     }
   }
 
-  onHideCommunication() {
-    //this.$refs.campaignCommunications.hide()
-  }
-
   async cloneCampaign(campaignId) {
     try {
       this.spinnerService.show();
@@ -329,11 +325,11 @@ export default class ViewRequest extends Vue {
   }
 
   async toggleShowHistory(entity) {
-
+    
     //This shouldn't be static, let's refresh each time it's requested
-    let pagedResponse = await this.MassMailService.getMassMailRecords(
-      {id: entity.id}
-    );
+    let pagedResponse = await this.MassMailService.getMassMailRecords({
+      id: entity.id,
+    });
 
     this.readOnlyModel = pagedResponse.entities[0];
     this.$refs.confirmViewHistory.show();
@@ -348,7 +344,8 @@ export default class ViewRequest extends Vue {
     ];
     if (!allowedRoles.some((c) => this.UserService.isInRole(c))) return false;
 
-    return entity.campaignStatus.mailProcessDate;
+    return (entity.campaignStatus && entity.campaignStatus.mailProcessDate);
+    
   }
 
   viewShowVerify(entity) {
@@ -400,10 +397,12 @@ export default class ViewRequest extends Vue {
   async search() {
     try {
       this.spinnerService.show();
-      this.pagedResponse = {totalRecords:0};
-      this.pagedResponse= await this.MassMailService.getMassMailRecords(
+      //this.pagedResponse = { totalRecords: 0 };
+      let request = await this.MassMailService.getMassMailRecords(
         this.criteria
       );
+      //console.log(JSON.stringify(request));
+      this.pagedResponse = JSON.parse(JSON.stringify(request));
       
     } catch (e) {
       window.console.log(e);
@@ -416,6 +415,7 @@ export default class ViewRequest extends Vue {
   async clear() {
     this._resetCriteria();
     await this.search();
+    
   }
 
   async sort(column) {
@@ -430,5 +430,6 @@ export default class ViewRequest extends Vue {
     this.criteria.sort = this._currentCol;
     this.criteria.listSortDirection = this._currentSortDir;
     await this.search();
+    
   }
 }

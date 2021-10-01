@@ -12,10 +12,11 @@
     </div>
                          
     </div>                                                               
-    <div class="grid-records">                                         
+    <div class="grid-records">           
+                                
     <div class="grid-record" v-for="item in entities" :key="item.id">
       <div>{{item.createDate |formatDateTime}}</div>                                               
-      <div>{{item.actionCode}}</div>                                               
+      <div>{{item.code}}</div>                                               
       <div>{{item.createUser}}</div>
       
     </div>                                                              

@@ -40,7 +40,7 @@
             <div>Sponsoring Organization</div>
           </div>
           <div class="one-column">
-            <div>{{ model.sponsoringUniversity }}</div>
+            <div>{{ model.sponsor }}</div>
           </div>
 
           <div class="one-column header mt-3">
@@ -86,7 +86,7 @@
     <confirm-dialog id="confirmPreview" ref="confirmPreview" width="800">
       <div slot="modal-title" class="text-white">Preview: Preview Message</div>
       <div slot="modal-body">
-        <div class="message-preview" v-html="model.content"></div>
+        <div class="message-preview" v-html="model.content.content"></div>
       </div>
       <div slot="modal-footer">
         <button class="btn btn-primary" @click="closePreview()">Ok</button>

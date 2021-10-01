@@ -75,8 +75,12 @@ export default class AccountInfo extends BaseValidateMixin {
         if(!adData.userDetail.proxyAddresses){
           adData.userDetail.proxyAddresses = [];
         }
-        let emailAddresses = adData.userDetail.proxyAddresses.filter(c => c.startsWith("smtp:")).map(c => c.substring(5));
-        adData.userDetail.proxyAddresses = emailAddresses;
+        if(adData.userDetail.proxyAddresses.length)
+        {
+          //added due to missing proxy addresses user jtalcorn
+          let emailAddresses = adData.userDetail.proxyAddresses.filter(c => c.startsWith("smtp:")).map(c => c.substring(5));
+          adData.userDetail.proxyAddresses = emailAddresses;
+        }
       }
 
       this.ldapData = ldapData;
