@@ -21,6 +21,17 @@
     "automaticSilentRenew": false,
     "revokeAccessTokenOnSignout": true
   },
+  "security": {
+    "authority": "https://localhost:8001",
+    "client_id": "self-service-client",
+    "redirect_uri": "http://localhost:8080/call-back.html",
+    "response_type": "id_token token",
+    "scope": "openid profile self-service-business",
+    "post_logout_redirect_uri": "https://its-idmtst-web.adtest.unc.edu/Shibboleth.sso/Logout?return=https://sso.unc.edu/idp/logout.jsp",
+    "REMOVE_silent_redirect_uri": "http://localhost:8080/silent-refresh.html",
+    "automaticSilentRenew": false,
+    "revokeAccessTokenOnSignout": true
+  },
   "security.Test": {
     "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
     "client_id": "self-service-client",
@@ -43,7 +54,7 @@
     "automaticSilentRenew": true,
     "revokeAccessTokenOnSignout": true
   },
-  "security": {
+  "security.Uat": {
     "authority": "https://its-idmuat-web.ad.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",
