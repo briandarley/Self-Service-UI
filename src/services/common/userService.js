@@ -1,7 +1,6 @@
 import injector from "vue-inject";
 import * as Oidc from "oidc-client";
 
-
 var console = window.console;
 
 function UserService(
@@ -93,18 +92,25 @@ function UserService(
     async login() {
       this._initializeManager();
 
-      const handler = axios.create();
+      if (!location.hostname === "localhost") {
+        const handler = axios.create();
 
-      try {
-        let response = await handler.get(
-          `${window.location.protocol}//${
-            window.location.hostname
-          }/Shibboleth.sso/Session`
-        );
+        try {
+          let response = await handler.get(
+            `${window.location.protocol}//${
+              window.location.hostname
+            }/Shibboleth.sso/Session`
+          );
+          let data = response.data;
+          let index = data.indexOf("<strong>uid</strong>: ")
+          data = data.substring(index + "<strong>uid</strong>: ".length)
+          index = data.indexOf("</pre>");
+          data = data.substring(0, index);
 
-        console.log(response);
-      } catch (e) {
-        console.log(e);
+          console.log(data);
+        } catch (e) {
+          console.log(e);
+        }
       }
 
       this._mgr.clearStaleState(null).then(() => {
