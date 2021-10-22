@@ -7,7 +7,7 @@ function UserService(
   configReaderService,
   localStorageService,
   routerService,
-  httpHandlerService
+  axios
 ) {
   return {
     _user: null,
@@ -91,7 +91,8 @@ function UserService(
     },
     async login() {
       this._initializeManager();
-      const handler = await httpHandlerService.get();
+
+      const handler = axios.create();
 
       try {
         let response = await handler.get(
@@ -102,7 +103,7 @@ function UserService(
 
         console.log(response);
       } catch (e) {
-          console.log(e);
+        console.log(e);
       }
 
       this._mgr.clearStaleState(null).then(() => {
@@ -174,11 +175,6 @@ function UserService(
 //injector.service('UserService', ['ConfigReaderService', 'localStorageService', 'routerService'], UserService);
 injector.service(
   "UserService",
-  [
-    "ConfigReaderService",
-    "localStorageService",
-    "routerService",
-    "httpHandlerService",
-  ],
+  ["ConfigReaderService", "localStorageService", "routerService", "axios"],
   UserService
 );
