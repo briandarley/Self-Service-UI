@@ -91,7 +91,7 @@ function UserService(
     },
     async login() {
       this._initializeManager();
-
+      let uid = "";
       if (!location.hostname === "localhost") {
         const handler = axios.create();
 
@@ -106,7 +106,7 @@ function UserService(
           data = data.substring(index + "<strong>uid</strong>: ".length)
           index = data.indexOf("</pre>");
           data = data.substring(0, index);
-
+          uid = data;
           console.log(data);
         } catch (e) {
           console.log(e);
@@ -114,7 +114,7 @@ function UserService(
       }
 
       this._mgr.clearStaleState(null).then(() => {
-        const args = {};
+        const args = {uid:uid};
         this._mgr.signinRedirect(args);
       });
     },
