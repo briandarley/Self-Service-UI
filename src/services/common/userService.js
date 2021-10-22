@@ -3,7 +3,12 @@ import * as Oidc from "oidc-client";
 
 var console = window.console;
 
-function UserService(configReaderService, localStorageService, routerService,httpHandlerService) {
+function UserService(
+  configReaderService,
+  localStorageService,
+  routerService,
+  httpHandlerService
+) {
   return {
     _user: null,
     _mgr: null,
@@ -88,11 +93,17 @@ function UserService(configReaderService, localStorageService, routerService,htt
       this._initializeManager();
       const handler = await httpHandlerService.get();
 
-      let response = await handler.get(
-        `/Shibboleth.sso/Session`
-      );
-      
-      console.log(response);
+      try {
+        let response = await handler.get(
+          `${window.location.protocol}//${
+            window.location.hostname
+          }/Shibboleth.sso/Session`
+        );
+
+        console.log(response);
+      } catch (e) {
+          console.log(e);
+      }
 
       this._mgr.clearStaleState(null).then(() => {
         const args = {};
@@ -163,6 +174,11 @@ function UserService(configReaderService, localStorageService, routerService,htt
 //injector.service('UserService', ['ConfigReaderService', 'localStorageService', 'routerService'], UserService);
 injector.service(
   "UserService",
-  ["ConfigReaderService", "localStorageService", "routerService","httpHandlerService"],
+  [
+    "ConfigReaderService",
+    "localStorageService",
+    "routerService",
+    "httpHandlerService",
+  ],
   UserService
 );
