@@ -92,7 +92,7 @@ function UserService(
     async login() {
       this._initializeManager();
       let uid = "";
-      if (!location.hostname === "localhost") {
+      if (location.hostname !== "localhost") {
         const handler = axios.create();
 
         try {
