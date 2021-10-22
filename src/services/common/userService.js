@@ -114,7 +114,7 @@ function UserService(
       }
 
       this._mgr.clearStaleState(null).then(() => {
-        const args = {uid:uid};
+        const args = {extraQueryParams:{uid:uid}};
         this._mgr.signinRedirect(args);
       });
     },
