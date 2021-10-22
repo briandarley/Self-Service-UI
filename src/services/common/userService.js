@@ -1,6 +1,7 @@
 import injector from "vue-inject";
 import * as Oidc from "oidc-client";
 
+
 var console = window.console;
 
 function UserService(
