@@ -1,15 +1,14 @@
 {
    "defaultMailDomain": "@emailtest.edu",
-    "serviceEndpoint.Test": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
-    "serviceEndpoint": "https://localhost:13004/v1/",
-    "signalREndpoint.Test": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
-    "signalREndpoint": "https://localhost:13004/v1/",
+    "serviceEndpoint": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
+    "signalREndpoint": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
+
     "ckeditorPlugins" : "/client/self-service/ckeditor/plugins",
     "listmanager": {
       "lyris_list_base_path": "http://listtest.adtest.unc.edu/"
     },
     
-    "security.Test": {
+    "security": {
       "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
       "client_id": "self-service-client",
       "redirect_uri": "https://its-idmtst-web.adtest.unc.edu/client/self-service/call-back.html",
@@ -19,18 +18,8 @@
       "silent_redirect_uri": "https://its-idmst-web.adtest.unc.edu/client/self-sevice/silent-refresh.html",
       "automaticSilentRenew": true,
       "revokeAccessTokenOnSignout": true
-    },
-    "security": {
-      "authority": "https://localhost:8001",
-      "client_id": "self-service-client",
-      "redirect_uri": "https://its-idmtst-web.adtest.unc.edu/client/self-service/call-back.html",
-      "response_type": "id_token token",
-      "scope": "openid profile self-service-business",
-      "post_logout_redirect_uri": "https://its-idmtst-web.adtest.unc.edu/Shibboleth.sso/Logout?return=https://sso.unc.edu/idp/logout.jsp",
-      "silent_redirect_uri": "https://its-idmst-web.adtest.unc.edu/client/self-sevice/silent-refresh.html",
-      "automaticSilentRenew": true,
-      "revokeAccessTokenOnSignout": true
     }
+
     
     
   }
