@@ -71,22 +71,21 @@
                 <i class="fa fa-info-circle"></i>
               </div>
               <div>
-                <p
-                  
+                <p               
                 >The system has detected unfinished MassMail campaigns. Select from the list to continue editing.</p>
                 
                 <p>Note: Unfinished campaigns may periodically be removed after a period of time</p>
               </div>
             </div>
-            <div class="1select-list">
+            <div class="select-list">
               
               <div class="form-group">
                 <label
                   for="seletedMassMail"
                   class="strong"
                 >Select from the drop-down to edit an existing MassMail previously entered.</label>
-                <div class="form-inline">
-                  <select class="form-control w-75" v-model="seletedMassMail" id="seletedMassMail">
+                <div class="control-inline">
+                  <select class="form-control" v-model="seletedMassMail" id="seletedMassMail">
                     <option disabled value>Select an Existing MassMail to edit</option>
                     <option
                       v-for="item in activeCampaigns"

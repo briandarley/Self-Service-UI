@@ -32,7 +32,9 @@ Normal links should be bold to stand out
 a {
   font-weight: bold;
 }
-
+select {
+  appearance: auto !important;
+}
 
 /*
 Links within grids shouldn't have any styling
@@ -229,7 +231,9 @@ input::placeholder {
   }
 
 }
-
+.text-right{
+  text-align: right;
+}
 .card {
   margin: 50px 0;
   height: calc(100% - 100px);

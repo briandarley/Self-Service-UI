@@ -23,21 +23,19 @@
 
 .select-list{
     margin-bottom:20px;
-    >span{
-        display:block;
-        text-align: center;
-    }
-    >div{
+    
+    div.control-inline{
+    
         display:grid;
-        grid-template-columns: repeat(1fr, 4);
-        grid-template-rows: 1;
-        //justify-items: flex-end;
-        // align-items: flex-end;
+        grid-template-columns: 1fr;
+        
         select{
-            grid-column-start: 2;
+            grid-column-start: 1;
+            
+            
         }
         .group-btns{
-            grid-column-start: 3;
+            grid-column-start: 2;
             button:first-child{
                 margin:0 3px;
                 

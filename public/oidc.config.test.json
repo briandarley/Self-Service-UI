@@ -13,7 +13,7 @@
       "client_id": "self-service-client",
       "redirect_uri": "https://its-idmtst-web.adtest.unc.edu/client/self-service/call-back.html",
       "response_type": "id_token token",
-      "scope": "openid profile self-service-business",
+      "scope": "openid profile self-service-business ad-groups",
       "post_logout_redirect_uri": "https://its-idmtst-web.adtest.unc.edu/Shibboleth.sso/Logout?return=https://sso.unc.edu/idp/logout.jsp",
       "silent_redirect_uri": "https://its-idmst-web.adtest.unc.edu/client/self-sevice/silent-refresh.html",
       "automaticSilentRenew": true,
