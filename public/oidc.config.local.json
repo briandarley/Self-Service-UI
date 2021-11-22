@@ -1,10 +1,15 @@
 {
   "defaultMailDomain": "@emailtest.edu",
-  "serviceEndpoint5": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
-  "serviceEndpoint2": "https://its-idmuat-web.ad.unc.edu/Services/business.selfservice.api/v1/",
-  "serviceEndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
-  "signalREndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/",
-  "signalREndpoint.test": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
+  "serviceEndpoint": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
+  "signalREndpoint": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
+  
+  "serviceEndpoint.Production": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
+  "signalREndpoint.Production": "https://selfservice.unc.edu/services/business.selfservice.api/",
+
+  "serviceEndpoint.UAT": "https://its-idmuat-web.ad.unc.edu/services/business.selfservice.api/v1/",
+  "signalREndpoint.UAT": "https://its-idmuat-web.ad.unc.edu/services/business.selfservice.api/",
+
+  
   "serviceEndpoint.local": "http://localhost:13003/v1/",
   "signalREndpoint.local": "http://localhost:13003/",
   "ckeditorPlugins": "/ckeditor/plugins",
@@ -33,7 +38,7 @@
     "automaticSilentRenew": false,
     "revokeAccessTokenOnSignout": true
   },
-  "security.Test": {
+  "security": {
     "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",
@@ -44,7 +49,7 @@
     "automaticSilentRenew": true,
     "revokeAccessTokenOnSignout": true
   },
-  "security": {
+  "security.production": {
     "authority": "https://selfservice.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",
@@ -55,7 +60,7 @@
     "automaticSilentRenew": true,
     "revokeAccessTokenOnSignout": true
   },
-  "security.Uat": {
+  "security.uat": {
     "authority": "https://its-idmuat-web.ad.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",
