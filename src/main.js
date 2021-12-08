@@ -161,7 +161,7 @@ new Vue({
 
       const duoAuthService = injector.get("DuoAuthService");
 
-      let duoEnabled = await duoAuthService.duoRequired(this.currentRoute);
+      let duoEnabled = await duoAuthService.duoRequired(router.currentRoute.name);
 
       if (duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {
