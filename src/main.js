@@ -160,15 +160,19 @@ new Vue({
     async $route(to) {
 
       const duoAuthService = injector.get("DuoAuthService");
-//router.currentRoute.name
+      //router.currentRoute.name
       let duoEnabled = await duoAuthService.duoRequired(to.name);
 
       if (duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {
-          let localStorageService = injector.get("localStorageService");
-          localStorageService.set("MFA_REQUEST", to.name);
+          
+          if(to.name != "dashboard-mfa-reset") {
+            let localStorageService = injector.get("localStorageService");
+            localStorageService.set("MFA_REQUEST", to.name);
+          }
+          
           let duoAuthService = injector.get("DuoAuthService");
-          if (duoAuthService.getDuoState() !== "STATE_AUTH_PASSED" || to.name == "dashboard-mfa-reset") {
+          if (duoAuthService.getDuoState() !== "STATE_AUTH_PASSED") {
             //save to to variable
             this.$router.push({
               name: 'duo'
