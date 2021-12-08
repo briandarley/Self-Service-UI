@@ -28,6 +28,8 @@ new Vue({
   },
 
   methods: {
+
+
     async getRoutes() {
       if (!this.routeSources) {
         return;
@@ -159,7 +161,7 @@ new Vue({
 
       const duoAuthService = injector.get("DuoAuthService");
 
-      let duoEnabled = await duoAuthService.duoRequired();
+      let duoEnabled = await duoAuthService.duoRequired(this.currentRoute);
 
       if (duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {
@@ -183,11 +185,9 @@ new Vue({
   async created() {
    
     let service = injector.get("RouteSourcesService");
-    
-    await this.getRoutes();
-    this.routeSources = await service.getRouteMenu(router.currentRoute.name);
+    this.routeSources = await service.getRouteMenu();
 
-    
+    await this.getRoutes();
     this.currentRoute = router.currentRoute.name;
   },
   mounted() {
