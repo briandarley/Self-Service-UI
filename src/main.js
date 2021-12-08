@@ -28,8 +28,6 @@ new Vue({
   },
 
   methods: {
-
-
     async getRoutes() {
       if (!this.routeSources) {
         return;
@@ -185,7 +183,7 @@ new Vue({
   async created() {
    
     let service = injector.get("RouteSourcesService");
-    this.routeSources = await service.getRouteMenu();
+    this.routeSources = await service.getRouteMenu(router.currentRoute.name);
 
     await this.getRoutes();
     this.currentRoute = router.currentRoute.name;

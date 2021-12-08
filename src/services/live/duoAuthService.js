@@ -7,7 +7,7 @@ function DuoAuthService(httpHandlerService,localStorageService) {
         getDuoState(){
             return this._duoState;
         },
-        _setDuoState(state){
+        _setDuoState(state) {
             this._duoState = state;
         },
         async _getSigRequest() {
@@ -69,10 +69,10 @@ function DuoAuthService(httpHandlerService,localStorageService) {
               throw e;
             }
         },
-        async duoRequired(){
+        async duoRequired(routeName){
             try {
                 const handler = await httpHandlerService.get();
-                let response = await handler.get(`duo/duo-required`);
+                let response = await handler.get(`duo/duo-required?routeName=${routeName}`);
                 return response.data;
 
             } catch (error) {
