@@ -166,10 +166,8 @@ new Vue({
       if (duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {
           
-          if(to.name != "dashboard-mfa-reset") {
-            let localStorageService = injector.get("localStorageService");
+          let localStorageService = injector.get("localStorageService");
             localStorageService.set("MFA_REQUEST", to.name);
-          }
           
           let duoAuthService = injector.get("DuoAuthService");
           if (duoAuthService.getDuoState() !== "STATE_AUTH_PASSED") {
