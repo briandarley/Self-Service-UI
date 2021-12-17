@@ -1,7 +1,7 @@
 import injector from 'vue-inject';
 import DuoWebSDK from 'duo_web_sdk';
 //https://github.com/duosecurity/duo_web_sdk/blob/master/examples/react/src/App.js
-function DuoAuthService(httpHandlerService,localStorageService) {
+function DuoAuthService(httpHandlerService) {
     return {
         _duoState : "STATE_AUTH_PENDING",
         getDuoState(){
@@ -84,4 +84,4 @@ function DuoAuthService(httpHandlerService,localStorageService) {
     }
 }
 
-injector.service('DuoAuthService', ["httpHandlerService","localStorageService"], DuoAuthService);
+injector.service('DuoAuthService', ["httpHandlerService"], DuoAuthService);

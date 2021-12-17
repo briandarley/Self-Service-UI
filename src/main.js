@@ -154,7 +154,7 @@ new Vue({
 
 
     }
-    
+
   },
   watch: {
     async $route(to) {
@@ -165,10 +165,10 @@ new Vue({
 
       if (duoEnabled && to.name !== 'duo' && to.meta && to.meta.routeDefinition) {
         if (to.meta.routeDefinition.mfa) {
-          
+
           let localStorageService = injector.get("localStorageService");
-            localStorageService.set("MFA_REQUEST", to.name);
-          
+          localStorageService.set("MFA_REQUEST", to.name);
+
           let duoAuthService = injector.get("DuoAuthService");
           if (duoAuthService.getDuoState() !== "STATE_AUTH_PASSED") {
             //save to to variable
@@ -185,7 +185,7 @@ new Vue({
     }
   },
   async created() {
-   
+
     let service = injector.get("RouteSourcesService");
     this.routeSources = await service.getRouteMenu();
 
@@ -209,6 +209,6 @@ new Vue({
 
 
 
-//render: h => h(App)
+  //render: h => h(App)
 
 }).$mount("#app");
