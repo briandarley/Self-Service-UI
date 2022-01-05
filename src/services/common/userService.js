@@ -103,11 +103,14 @@ function UserService(
           );
           let data = response.data;
           let index = data.indexOf("<strong>uid</strong>: ")
+          if(index <= 0) {
+            return;
+          }
           data = data.substring(index + "<strong>uid</strong>: ".length)
           index = data.indexOf("</pre>");
           data = data.substring(0, index);
           uid = data;
-          console.log(data);
+          
         } catch (e) {
           console.log(e);
         }
