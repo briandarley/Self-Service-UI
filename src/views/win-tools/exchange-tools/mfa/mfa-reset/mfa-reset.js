@@ -113,6 +113,7 @@ export default class MfaReset extends BaseValidateMixin {
       this.currentDevice = null;
       this.selectedDevice = null;
       this.clearDuoRequest();
+      
       this.passcode = "";
       if(this.duoPreAuth.response.status_msg === "Account is active") {
         this.currentDevice = this.duoPreAuth.response.devices[0];
@@ -185,32 +186,16 @@ export default class MfaReset extends BaseValidateMixin {
       
       if(request.stat === "OK" && request.response.result === "allow")
       {
+        this.passcode = "";
         this.successDuoCall(request.response.result,request.response.status_msg);
       }
       else {
         this.failDuoCall(request.response.result,request.response.status_msg)
       }
 
-      window.console.log(request);
 
-      /*
-        {
-          "response": {
-            "result": "allow",
-            "status": "allow",
-            "status_msg": "Success. Logging you in..."
-          },
-          "stat": "OK"
-        }
-      */
 
-      // if(request.response && request.response.status === "allow") {
-      //   this.passcode = "";
-      //   this.toastService.success("Pass code validated");
-      // }
-      // else {
-      //   this.toastService.error("Failed code validation");
-      // }
+
       
     } catch (error) {
       window.console.log(error);
@@ -282,7 +267,6 @@ export default class MfaReset extends BaseValidateMixin {
 
   clearDuoRequest() {
     this.success = false;
-    this.passcode = "";
     this.duoRequest = {
       showCapabilities: true
     };
