@@ -57,3 +57,12 @@
         }
     }
 }
+
+.btn-lg{
+ background-color: lighten($color: $light, $amount: 10%);
+ height:120px
+}
+.btn-lg:active,.btn-lg:hover,.btn-lg:focus{
+    background-color: darken($color: $light, $amount: 10%);
+
+}

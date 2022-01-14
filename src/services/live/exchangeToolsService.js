@@ -314,11 +314,11 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    async getMfaMethodType(uid) {
+    async getMsolUser(uid) {
       try {
         const handler = await httpHandlerService.get();
         let response = await handler.get(
-          `WinTools/exchange-tools/mfa/mfa-method-type/${uid}`
+          `WinTools/exchange-tools/msol-users/${uid}`
         );
 
         return response.data;
