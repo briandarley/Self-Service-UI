@@ -332,6 +332,7 @@
                     type="text"
                     class="form-control w-50"
                     placeholder="Passcode"
+                    v-select-all
                     v-model="passcode"
                   />
                   <button

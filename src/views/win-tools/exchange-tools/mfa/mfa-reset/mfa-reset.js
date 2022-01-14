@@ -182,7 +182,7 @@ export default class MfaReset extends BaseValidateMixin {
         device: this.currentDevice.device,
         passCode: this.passcode
       });
-      //this.duoRequest = request;
+      window.console.log(request);
       
       if(request.stat === "OK" && request.response.result === "allow")
       {
@@ -223,14 +223,6 @@ export default class MfaReset extends BaseValidateMixin {
         this.failDuoCall(request.response.result,request.response.status_msg)
       }
 
-      //window.console.log(request);
-
-
-      // setTimeout(() => {
-      //   //this.successDuoCall();
-      //   this.failDuoCall('timedout','Verification Failed')
-      // }, 5000);
-
     } catch (error) {
       window.console.log(error);
       this.toastService.error("failed Duo Push");
@@ -256,7 +248,7 @@ export default class MfaReset extends BaseValidateMixin {
         this.failDuoCall(request.response.result,request.response.status_msg)
       }
 
-      //window.console.log(request);
+      
 
     } catch (error) {
       window.console.log(error);
@@ -300,7 +292,7 @@ export default class MfaReset extends BaseValidateMixin {
     this.success = true;
   }
   failDuoCall(status,message) {
-    //let mode = this.duoRequest.mode;
+    
     this.resetProgressBar();
     this.clearDuoRequest();
     this.duoRequest.callingApi = false;
@@ -349,6 +341,6 @@ export default class MfaReset extends BaseValidateMixin {
     deep: false,
   })
   onPassCodeChanged(newValue) {
-    this.clearDuoRequest();
+    //this.clearDuoRequest();
   }
 }
