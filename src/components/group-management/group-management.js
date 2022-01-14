@@ -161,8 +161,7 @@ export default class GroupManagement extends Vue {
 
   async onManagerListLoaded() {
     
-    //getDistributionGroupManagers
-    //getDistributionGroupMembers
+    
     
   }
 

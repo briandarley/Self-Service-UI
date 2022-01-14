@@ -454,87 +454,12 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    async getDistributionGroups(criteria) {
-      try {
-        let queryParams = commonExtensions.convertToQueryParams(criteria);
-
-        const handler = await httpHandlerService.get();
-        let list = await handler.get(
-          `WinTools/exchange-tools/ad-tools/distribution-groups?${queryParams}`
-        );
-
-        return list.data;
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-    },
-    async getDistributionGroup(id) {
-      try {
-        const handler = await httpHandlerService.get();
-        let list = await handler.get(
-          `WinTools/exchange-tools/ad-tools/distribution-groups/${id}`
-        );
-
-        return list.data;
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-    },
-    async getAllDistributionGroupEntities(id, recursively) {
-      try {
-        const handler = await httpHandlerService.get();
-        if (recursively) {
-          let response = await handler.get(
-            `/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/all-entities?recursively=true`
-          );
-
-          return response.data;
-        } else {
-          let response = await handler.get(
-            `/WinTools/exchange-tools/ad-tools/distribution-groups/${id}/all-entities`
-          );
-
-          return response.data;
-        }
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-    },
     
     
-    async getSharedMailbox(samAccountName) {
-      try {
-        const handler = await httpHandlerService.get();
-
-        let response = await handler.get(
-          `/WinTools/systems/shared-mailbox/${samAccountName}`
-        );
-
-        return response.data;
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-    },
+    
+    
+    
+    
     async getContact(id) {
       try {
         const handler = await httpHandlerService.get();
@@ -591,42 +516,9 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    async removeMember(groupId, distinguishedName) {
-      try {
-        const handler = await httpHandlerService.get();
-
-        await handler.delete(
-          `/WinTools/exchange-tools/ad-tools/distribution-groups/${groupId}/members/${distinguishedName}`
-        );
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-    },
     
-    async createSharedMailbox(model) {
-      try {
-        const handler = await httpHandlerService.get();
-        let response = await handler.post(
-          `WinTools/systems/shared-mailbox`,
-          model
-        );
-
-        return response.data;
-      } catch (e) {
-        if (e.message.includes("404")) {
-          return {
-            status: false,
-          };
-        }
-        throw e;
-      }
-      //
-    },
+    
+    
     async getAdminAliases(criteria) {
       try {
         const handler = await httpHandlerService.get();
