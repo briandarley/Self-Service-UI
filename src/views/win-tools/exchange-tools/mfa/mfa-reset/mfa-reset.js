@@ -128,8 +128,9 @@ export default class MfaReset extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
-  async resetMfa() {
-    
+  
+
+  async onResetMfa(){
     this.spinnerService.show();
     try {
       
@@ -142,6 +143,7 @@ export default class MfaReset extends BaseValidateMixin {
       this.spinnerService.hide();
     }
   }
+
   async onSendSmsRequest() {
     try {
       this.clearDuoRequest();
@@ -257,13 +259,7 @@ export default class MfaReset extends BaseValidateMixin {
 
   }
 
-  clearDuoRequest() {
-    this.success = false;
-    this.duoRequest = {
-      showCapabilities: true
-    };
-  }
-  
+   
   callingDuoSerice(mode) {
     this.resetProgressBar();
     if(mode !== "sms")
@@ -302,12 +298,7 @@ export default class MfaReset extends BaseValidateMixin {
     this.duoRequest.mode = status;
     this.duoRequest.message = message;
     this.success = false;
-    /*
-    Verification Failed
-    Error durring call: No keys pressed
-    Error durring call: Timedout
-    Login request denied
-    */
+    
   }
   completedDuoServiceCall() {
     this.resetProgressBar();
@@ -319,28 +310,31 @@ export default class MfaReset extends BaseValidateMixin {
   clear() {
     this.filter = "";
     this.msolUser = {};
+    this.success = false;
   }
 
-  // testClick() {
-    
-  //   this.$refs.dlgDuoAuth.show();
-  // }
+  clearDuoRequest() {
+    this.success = false;
+    this.duoRequest = {
+      showCapabilities: true
+    };
+  }
+
+  
   onVerifyUser(){
+    this.success = false;
     this.$refs.dlgDuoAuth.show();
-  }
-
-  onResetMfa(){
 
   }
+
+
   onCloseDuoAuth() {
     this.$refs.dlgDuoAuth.hide();
   }
 
-  @Watch("passcode", {
-    immediate: false,
-    deep: false,
-  })
-  onPassCodeChanged(newValue) {
-    //this.clearDuoRequest();
+  
+
+  bypassIdentification() {
+    this.success = true;
   }
 }

@@ -67,16 +67,17 @@
                 <div class="row">
                   <div class="col">{{ msolUser.displayName }}</div>
                   <div class="col">{{ msolUser.userPrincipalName }}</div>
-                  <div class="col text-success" v-if="msolUser.strongAuthentication.strongAuthenticationMethods">
+                  <div
+                    class="col text-success"
+                    v-if="
+                      msolUser.strongAuthentication.strongAuthenticationMethods
+                    "
+                  >
                     Active
                   </div>
-                  <div class="col text-danger" v-else>
-                    MFA Inactive
-                  </div>
-                  
+                  <div class="col text-danger" v-else>MFA Inactive</div>
                 </div>
                 <div class="mfa-method" v-if="showContactMethod">
-                  
                   <div>
                     <label>Phone Number</label>
                     <span>{{ phoneNumber }}</span>
@@ -135,7 +136,6 @@
       </div>
     </div>
 
-    
     <confirm-dialog id="dlgDuoAuth" ref="dlgDuoAuth" width="800">
       <div slot="modal-title" class="text-white">MFA Reset</div>
       <div slot="modal-body">
@@ -163,7 +163,10 @@
               </div>
               <div>
                 <div class="d-flex m-4" style="justify-content: space-between">
-                  <div class="material-icons w-25 text-center" style="font-size: 2em">
+                  <div
+                    class="material-icons w-25 text-center"
+                    style="font-size: 2em"
+                  >
                     <span v-if="duoRequest.mode == 'push'">tap_and_play</span>
                     <span v-if="duoRequest.mode == 'phone'">call</span>
                     <span v-if="duoRequest.mode == 'allow'" class="text-success"
@@ -179,7 +182,7 @@
                     >
                   </div>
 
-                  <div class="ml-3 w-50 ">
+                  <div class="ml-3 w-50">
                     <div class="text-dark" style="font-size: 1.3em">
                       <span v-if="duoRequest.mode == 'push'">pushed</span>
                       <span v-if="duoRequest.mode == 'phone'">calling</span>
@@ -322,35 +325,59 @@
                   Enter a passcode from Duo Mobile or a text
                 </div>
                 <transition name="fade">
-                  <div v-if="sendSmsNotice" class="text-success" 
-                  :class="{'text-danger':sendSmsNotice === 'Failed to send SMS Request'}">
+                  <div
+                    v-if="sendSmsNotice"
+                    class="text-success"
+                    :class="{
+                      'text-danger':
+                        sendSmsNotice === 'Failed to send SMS Request',
+                    }"
+                  >
                     {{ sendSmsNotice }}
                   </div>
                 </transition>
-                <div class="form-group form-inline mt-2">
-                  <input
-                    type="text"
-                    class="form-control w-50"
-                    placeholder="Passcode"
-                    v-select-all
-                    v-model="passcode"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    v-bind:class="{ disabled: !passcode }"
-                    :disabled="!passcode"
-                    @click="onEnterPassCode()"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    @click="onSendSmsRequest()"
-                  >
-                    Text User
-                  </button>
+                <div class="">
+                  <div class="form-group form-inline mt-2">
+                    <input
+                      type="text"
+                      class="form-control w-50"
+                      placeholder="Passcode"
+                      v-select-all
+                      v-model="passcode"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      v-bind:class="{ disabled: !passcode }"
+                      :disabled="!passcode"
+                      @click="onEnterPassCode()"
+                    >
+                      Submit
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      @click="onSendSmsRequest()"
+                    >
+                      Text User
+                    </button>
+                  </div>
+
+                  <div class="mt-5 d-flex justify-content-end">
+                    <div>
+                      <button
+                      type="button"
+                      class="btn btn-warning icon-button"
+                      @click="bypassIdentification()"
+                      
+                    >
+                      <span>
+                        <i class="fas fa-skull-crossbones px-1"></i>
+                      </span>
+                      <span> Bypass Identification </span>
+                    </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -367,9 +394,7 @@
           @click="onResetMfa()"
         >
           <span>
-            <i data-v-1da7b41f class="material-icons" aria-hidden="true"
-              >undo</i
-            >
+            <i class="material-icons" aria-hidden="true">undo</i>
           </span>
           <span>Reset MFA</span>
         </button>
