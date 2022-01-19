@@ -44,14 +44,17 @@ export default class MfaReset extends BaseValidateMixin {
     
   }
   get phoneNumber() {
+    if(!this.msolUser.strongAuthentication.userDetails) return "NA";
     if(!this.msolUser.strongAuthentication.userDetails.phoneNumber) return "NA";
     return this.msolUser.strongAuthentication.userDetails.phoneNumber;
   }
   get altPhoneNumber() {
+    if(!this.msolUser.strongAuthentication.userDetails) return "NA";
     if(!this.msolUser.strongAuthentication.userDetails.alternativePhoneNumber) return "NA";
     return this.msolUser.strongAuthentication.userDetails.alternativePhoneNumber;
   }
   get deviceName() {
+    if(!this.msolUser.strongAuthentication.userDetails) return "NA";
     if(!this.msolUser.strongAuthentication.phoneAppDetails.deviceName) return "NA";
     return this.msolUser.strongAuthentication.phoneAppDetails.deviceName;
   }
@@ -59,6 +62,7 @@ export default class MfaReset extends BaseValidateMixin {
   get primaryMfaMethod() {
     if(!this.msolUser ) return "";
     if(!this.msolUser.strongAuthentication) return "";
+    
     let primary = this.msolUser.strongAuthentication.strongAuthenticationMethods.find(c=> c.isDefault);
     return primary.methodType
   }
