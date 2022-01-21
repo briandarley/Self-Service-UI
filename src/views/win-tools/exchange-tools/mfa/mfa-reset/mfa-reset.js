@@ -62,7 +62,7 @@ export default class MfaReset extends BaseValidateMixin {
   get primaryMfaMethod() {
     if(!this.msolUser ) return "";
     if(!this.msolUser.strongAuthentication) return "";
-    
+    if(!this.msolUser.strongAuthentication.strongAuthenticationMethods) return "";
     let primary = this.msolUser.strongAuthentication.strongAuthenticationMethods.find(c=> c.isDefault);
     return primary.methodType
   }
