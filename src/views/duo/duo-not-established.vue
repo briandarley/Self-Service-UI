@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="">
+        <div class="container">
           <p>
             It appears you don't have DUO registered. The resource you are
             attempting to access requires DUO authentication.
