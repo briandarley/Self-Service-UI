@@ -141,7 +141,37 @@
       <div slot="modal-body">
         <div class="lookup-result">
           <div class="container" v-if="!duoPreAuth.response.devices">
-            <h4>No registered devices</h4>
+            <div class="alert alert-danger">
+              <div class="info">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+              </div>
+              <h4>No registered devices</h4>
+            </div>
+            <div>
+              <p>
+                Its strongly recommended that identification confirmation be
+                completed using DUO.
+              </p>
+              <p>
+                You may proceed resetting Microsoft MFA if this option is
+                unavailable.
+
+                 
+              </p>
+
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-warning icon-button float-right"
+                  @click="bypassIdentification()"
+                >
+                  <span>
+                    <i class="fas fa-skull-crossbones px-1"></i>
+                  </span>
+                  <span> Bypass Identification </span>
+                </button>
+              </div>
+            </div>
           </div>
           <div v-else>
             <h4>Identity Confirmation</h4>
@@ -366,16 +396,15 @@
                   <div class="mt-5 d-flex justify-content-end">
                     <div>
                       <button
-                      type="button"
-                      class="btn btn-warning icon-button"
-                      @click="bypassIdentification()"
-                      
-                    >
-                      <span>
-                        <i class="fas fa-skull-crossbones px-1"></i>
-                      </span>
-                      <span> Bypass Identification </span>
-                    </button>
+                        type="button"
+                        class="btn btn-warning icon-button"
+                        @click="bypassIdentification()"
+                      >
+                        <span>
+                          <i class="fas fa-skull-crossbones px-1"></i>
+                        </span>
+                        <span> Bypass Identification </span>
+                      </button>
                     </div>
                   </div>
                 </div>
