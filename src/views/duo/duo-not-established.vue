@@ -27,7 +27,7 @@
           </p>
 
           <p>
-            Call 919-962-HELP You may call (919) 962-HELP or Toll-Free from US
+            You may call (919) 962-HELP or Toll-Free from US
             and Puerto Rico: (866) 962-4457, for personal assistance with your
             computing problem.
           </p>
