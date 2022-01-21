@@ -155,22 +155,7 @@
               <p>
                 You may proceed resetting Microsoft MFA if this option is
                 unavailable.
-
-                 
               </p>
-
-              <div>
-                <button
-                  type="button"
-                  class="btn btn-warning icon-button float-right"
-                  @click="bypassIdentification()"
-                >
-                  <span>
-                    <i class="fas fa-skull-crossbones px-1"></i>
-                  </span>
-                  <span> Bypass Identification </span>
-                </button>
-              </div>
             </div>
           </div>
           <div v-else>
