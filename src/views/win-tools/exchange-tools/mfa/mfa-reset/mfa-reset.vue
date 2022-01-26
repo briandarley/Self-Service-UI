@@ -57,7 +57,19 @@
           </form>
 
           <transition name="fade">
-            <div class="mfa-user-status-results" v-if="msolUser.displayName">
+            <div class="container mt-4" v-if="resetEnabled===false">
+              <div class="alert alert-warning">
+                <div class="info">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <p>
+                   The account appears to have no MFA registered devices, MFA reset has been disabled.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mfa-user-status-results" v-if="resetEnabled && msolUser.displayName">
               <div class="bg-primary text-white row-header">
                 <div class="col">Display Name</div>
                 <div class="col">E-Mail</div>
@@ -65,7 +77,7 @@
               </div>
               <div class="result-grid">
                 <div class="row">
-                  <div class="col">{{ msolUser.displayName }}</div>
+                  <div class="col"><span class="px-3">{{ msolUser.displayName }}</span></div>
                   <div class="col">{{ msolUser.userPrincipalName }}</div>
                   <div
                     class="col text-success"
@@ -73,7 +85,7 @@
                       msolUser.strongAuthentication.strongAuthenticationMethods
                     "
                   >
-                    Active
+                    <span class="px-3">Active</span>
                   </div>
                   <div class="col text-danger" v-else>MFA Inactive</div>
                 </div>

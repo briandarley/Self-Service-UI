@@ -4,7 +4,7 @@ import injector from "vue-inject";
 function DashboardService(moment, httpHandlerService, commonExtensions) {
   return {
     async getNextGalSync() {
-      //http://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/Dashboard/last-gal-sync
+      
       const handler = await httpHandlerService.get(10000);
       let response = await handler.get("dashboard/last-gal-sync");
 
@@ -237,9 +237,25 @@ function DashboardService(moment, httpHandlerService, commonExtensions) {
         }
         throw e;
       }
+    },
+    
+    async getAuthMethods(){
+      try {
+        const handler = await httpHandlerService.get();
+
+        let response = await handler.get(`dashboard/auth-methods`);
+
+        return response.data;
+      } catch (e) {
+
+        if (e.message.includes("404")) {
+          return {
+            status: false,
+          };
+        }
+        throw e;
+      }
     }
-    
-    
     
 
     

@@ -348,6 +348,22 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
       }
       //
     },
+    async getAuthMethods(uid){
+      try {
+        const handler = await httpHandlerService.get();
+
+        let response = await handler.get(`WinTools/exchange-tools/mfa/auth-methods/${uid}`);
+
+        return response.data;
+      } catch (e) {
+        if (e.message.includes("404")) {
+          return {
+            status: false,
+          };
+        }
+        throw e;
+      }
+    },
     async getOrganizationalUnits(criteria) {
       try {
         const handler = await httpHandlerService.get();
@@ -958,6 +974,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         };
       }
     }
+    
  
 
   

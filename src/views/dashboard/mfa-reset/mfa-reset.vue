@@ -18,12 +18,23 @@
                 This will require the user to re-verify their secondary verification for access to Office365.</p>
             </div>
           </div>
+
+          <div class="alert alert-warning" v-if="!resetEnabled">
+            <div class="info">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p>MFA is not enabled for this account, Please proceed with enabling MFA for your account</p>
+            </div>
+          </div>
           
               <div class="submit text-center mt-4">
                 <button
                   type="button"
                   class="btn btn-danger icon-button"
                   aria-label="Left Align"
+                  v-bind:class="{ disabled: !resetEnabled }"
+                      :disabled="!resetEnabled"
                   @click="resetMfa()"
                 >
                   <span>
