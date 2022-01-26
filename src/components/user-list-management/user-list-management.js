@@ -27,7 +27,7 @@ export default class UserListManagement extends Vue {
   };
 
   //Called from parent controller
-  async populateEntities(parentGroup) {}
+  async populateEntities() {}
 
   async indexChanged(index) {
     this.criteria.index = index;
@@ -39,7 +39,7 @@ export default class UserListManagement extends Vue {
     immediate: false,
     deep: true,
   })
-  onFilterChanged(newValue) {
+  onFilterChanged() {
     this.criteria.index = 0;
     this.criteria.samAccountName = "";
     this.criteria.mail = "";
@@ -110,8 +110,8 @@ export default class UserListManagement extends Vue {
     this.spinnerService.show();
     try {
       let response = await this.service.addMemberToGroup(
-        this.group.distinguishedName,
-        entity.distinguishedName
+        this.group.samAccountName,
+        entity.samAccountName
       );
 
       if (response.status === false) {
@@ -134,8 +134,8 @@ export default class UserListManagement extends Vue {
       this.showSpinner();
 
       let response = await this.service.removeGroupMemberFromGroup(
-        this.group.distinguishedName,
-        entity.distinguishedName
+        this.group.samAccountName,
+        entity.samAccountName
       );
 
       if (response.status === false) {

@@ -177,10 +177,10 @@ export default class GroupCreate extends BaseValidateMixin {
       this.model.ouName = this.organizationalUnits.find(
         (c) => this.getTypeAheadDisplay(c) === stringValue || c.name === stringValue
       ).name;
-      //this.model.ouName = stringValue;
+      
       this.setTypeAheadValue(this.model.ouName);
     } else {
-      //debugger;
+      
       this.toastService.error("Invalid Department Unit");
       this.setTypeAheadValue(null);
     }
@@ -227,7 +227,8 @@ export default class GroupCreate extends BaseValidateMixin {
   async create() {
     this.spinnerService.show();
     try {
-      //
+      this.model.displayName = this.model.displayName.trim();
+      this.model.name = this.model.name.trim();
       if (!this.isValid()) {
         this.toastService.error("Form invalid");
         return;
@@ -255,17 +256,7 @@ export default class GroupCreate extends BaseValidateMixin {
         this.$refs.confirmGroupCreated.show();
       
       }
-      //window.console.log(result);
-
-
-
-
-      // try { 
-      //   
-      // } catch (error) {
-      //   window.console.log(error);
-      //   this.toastService.error("Failed to create group");
-      // }
+      
     } catch (e) {
       window.console.log(e);
       this.toastService.error(`Failed to create resource`);

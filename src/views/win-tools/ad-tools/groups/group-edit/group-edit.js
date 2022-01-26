@@ -1,5 +1,5 @@
 import { BaseValidateMixin } from "./../../../../../components/mixins/index";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({
   name: "group-edit",
@@ -8,7 +8,7 @@ import { Component, Watch } from "vue-property-decorator";
     "moment",
     "toastService",
     "spinnerService",
-    "ExchangeToolsService",
+    "AdGroupService",
     "ValidationService"
   ],
   filters: {
@@ -27,7 +27,7 @@ export default class GroupEdit extends BaseValidateMixin {
   recursive = false;
   pagedResponse = [];
   criteria = {
-    distinguishedName: "",
+    samAccountName: "",
     recursiveSearch: true,
     filterText: "",
     pageSize: 50,
@@ -39,9 +39,9 @@ export default class GroupEdit extends BaseValidateMixin {
 
     this.groupName = this.$route.query.name;
     this.ouName = this.$route.query.ouName;
-    this.criteria.distinguishedName = this.$route.query.distinguishedName;
+    this.criteria.samAccountName = this.$route.query.samAccountName;
 
-    if (this.criteria.distinguishedName) {
+    if (this.criteria.samAccountName) {
       await this.search();
     }
   }
@@ -52,7 +52,7 @@ export default class GroupEdit extends BaseValidateMixin {
       
       recursiveSearch: false,
       filterText: "",
-      distinguishedName : this.$route.query.distinguishedName,
+      samAccountName : this.$route.query.samAccountName,
       pageSize: 50,
       index: 0
 
@@ -76,12 +76,12 @@ export default class GroupEdit extends BaseValidateMixin {
       }
       criteria.filterText = "";
 
-      this.groupDetailResponse = await this.ExchangeToolsService.getAdGroups({distinguishedName: this.criteria.distinguishedName});
+      this.groupDetailResponse = await this.AdGroupService.getAdGroups({samAccountName: this.criteria.samAccountName});
       this.groupName = this.groupDetailResponse.entities[0].samAccountName;
-      this.pagedResponse = await this.ExchangeToolsService.getAdGroupMembers(
+      this.pagedResponse = await this.AdGroupService.getAdGroupMembers(
         criteria
       );
-      //window.console.log(this.pagedResponse.entities[0])
+      
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to load AD members");
@@ -125,7 +125,7 @@ export default class GroupEdit extends BaseValidateMixin {
       //   id: this.$route.params.id
       // },
       query: {
-        distinguishedName: this.$route.query.distinguishedName,
+        samAccountName: this.$route.query.samAccountName,
         criteria: JSON.stringify(this.criteria)
       },
       

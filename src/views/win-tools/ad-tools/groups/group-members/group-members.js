@@ -10,6 +10,7 @@ import { Component, Watch } from "vue-property-decorator";
     "spinnerService",
     "UserService",
     "ExchangeToolsService",
+    "AdGroupService",
     "ValidationService",
   ],
   filters: {
@@ -43,7 +44,8 @@ export default class GroupMembers extends BaseValidateMixin {
   recursive = false;
   pagedResponse = [];
   criteria = {
-    distinguishedName: "",
+    
+    samAccountName: "",
     //recursiveSearch: false,
     filterText: "",
     pageSize: 50,
@@ -146,9 +148,10 @@ export default class GroupMembers extends BaseValidateMixin {
     this.isLoaded = false;
     this.toastService.set(this);
     await this.initializeView();
-    this.fileUploadOptions.fileUpload = this.ExchangeToolsService.uploadAdMemberFiles;
+    this.fileUploadOptions.fileUpload = this.AdGroupService.uploadAdMemberFiles;
     this.fileUploadOptions.fileUploadProgress = this.fileUploadProgress;
     this.fileUploadOptions.distinguishedName = this.groupDetail.distinguishedName;
+    this.fileUploadOptions.samAccountName = this.groupDetail.samAccountName;
     this.fileUploadOptions.downloadTemplate = this.downloadTemplate;
     this.isLoaded = true;
     
@@ -158,12 +161,13 @@ export default class GroupMembers extends BaseValidateMixin {
     this.readQueryParams();
 
     this.groupDetail = await this.getGroupDetails();
+    
     this.groupName = this.groupDetail.samAccountName;
 
     await this.getAuthorizedServiceAccounts();
     await this.retrieveAuthUserDetails();
 
-    if (this.criteria.distinguishedName) {
+    if (this.criteria.samAccountName) {
       await this.search();
     }
   }
@@ -171,19 +175,17 @@ export default class GroupMembers extends BaseValidateMixin {
   readQueryParams() {
     this.groupName = this.$route.query.name;
     this.ouName = this.$route.query.ouName;
+   
 
-    // if (this.$route.query.criteria) {
-    //   //this.criteria = JSON.parse(this.$route.query.criteria);
-    // }
-
-    this.criteria.distinguishedName = this.$route.query.distinguishedName;
+    this.criteria.samAccountName = this.$route.query.samAccountName;
+    
   }
 
   async clear() {
     this.criteria = {
       recursiveSearch: this.criteria.recursiveSearch ? true : null,
       filterText: "",
-      distinguishedName: this.$route.query.distinguishedName,
+      samAccountName: this.$route.query.samAccountName,
       pageSize: 50,
       index: 0,
     };
@@ -191,10 +193,12 @@ export default class GroupMembers extends BaseValidateMixin {
   }
 
   async getGroupDetails() {
-    let groupDetailResponse = await this.ExchangeToolsService.getAdGroups({
-      distinguishedName: this.criteria.distinguishedName,
+    
+    let groupDetailResponse = await this.AdGroupService.getAdGroups({
+      samAccountName: this.criteria.samAccountName,
       includeNestedGroups: this.criteria.includeNestedGroups,
     });
+    
     return groupDetailResponse.entities[0];
   }
 
@@ -225,7 +229,10 @@ export default class GroupMembers extends BaseValidateMixin {
   async search() {
     this.spinnerService.show();
     try {
+      
       let criteria = JSON.parse(JSON.stringify(this.criteria));
+      criteria.grpSamAccountName = criteria.samAccountName;
+      criteria.samAccountName = "";
       if (criteria.filterText && criteria.filterText.match(/^[0-9]+$/)) {
         criteria.employeeId = criteria.filterText;
       } else if (
@@ -238,7 +245,9 @@ export default class GroupMembers extends BaseValidateMixin {
       }
       criteria.filterText = "";
       criteria.recursiveSearch = this.criteria.recursiveSearch ? true : null;
-      this.pagedResponse = await this.ExchangeToolsService.getAdGroupMembers(
+      
+      
+      this.pagedResponse = await this.AdGroupService.getAdGroupMembers(
         criteria
       );
       
@@ -278,7 +287,7 @@ export default class GroupMembers extends BaseValidateMixin {
         name: "ad-groups",
         query: {
           criteria: JSON.stringify({
-            userMemberOf: this.groupDetail.distinguishedName,
+            userMemberOf: this.groupDetail.samAccountName,
             userMemberOfNested: true,
           }),
         },
@@ -288,7 +297,7 @@ export default class GroupMembers extends BaseValidateMixin {
 
     if(this.$route.query.criteria){
       let criteria = JSON.parse(this.$route.query.criteria);
-      delete criteria.distinguishedName;
+      delete criteria.samAccountName;
   
       this.$router.push({
         name: "ad-groups",
@@ -317,7 +326,7 @@ export default class GroupMembers extends BaseValidateMixin {
       name: "ad-group-managers",
 
       query: {
-        distinguishedName: this.$route.query.distinguishedName,
+        samAccountName: this.$route.query.samAccountName,
         criteria: JSON.stringify(criteria),
       },
     });
@@ -372,9 +381,9 @@ export default class GroupMembers extends BaseValidateMixin {
   async removeMember(entity) {
     this.spinnerService.show();
     try {
-      let response = await this.ExchangeToolsService.removeAdGroupMember(
-        this.groupDetail.distinguishedName,
-        entity.distinguishedName
+      let response = await this.AdGroupService.removeAdGroupMember(
+        this.groupDetail.samAccountName,
+        entity.samAccountName
       );
 
       //window.console.log(response);
@@ -407,19 +416,19 @@ export default class GroupMembers extends BaseValidateMixin {
         return;
       }
       let criteria = {
-        userMemberOf: this.adEntity.distinguishedName,
-        distinguishedName: this.groupDetail.distinguishedName,
+        userMemberOf: this.adEntity.samAccountName,
+        samAccountName: this.groupDetail.samAccountName,
       };
       //check to see if user is already a member of group
-      let pagedResponse = await this.ExchangeToolsService.getAdGroups(criteria);
+      let pagedResponse = await this.AdGroupService.getAdGroups(criteria);
       if (pagedResponse.totalRecords !== 0) {
         this.toastService.error("User is already a member of group");
         return;
       }
 
-      let response = await this.ExchangeToolsService.addAdGroupMember(
-        this.groupDetail.distinguishedName,
-        this.adEntity.distinguishedName
+      let response = await this.AdGroupService.addAdGroupMember(
+        this.groupDetail.samAccountName,
+        this.adEntity.samAccountName
       );
       
       if (response.success === false) {
@@ -446,19 +455,14 @@ export default class GroupMembers extends BaseValidateMixin {
   editGroup(entity) {
     //window.console.log(entity);
     let criteria = JSON.parse(JSON.stringify(this.criteria));
-    //criteria.distinguishedName =
-    //this.$route.query
-    //return;
+    
     this.$router.push({
       name: "ad-group-members",
       query: {
-        distinguishedName: entity.distinguishedName,
+        samAccountName: entity.samAccountName,
         criteria: JSON.stringify(criteria),
       },
-      // params: {
-      //   name: result.name,
-      //   ouName: result.ouName
-      // }
+      
     });
   }
 

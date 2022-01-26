@@ -114,7 +114,8 @@ export default class ManagerListManagement extends Vue {
         return;
       }
       
-      let response = await this.service.addManagerToGroup(this.group.distinguishedName, this.lookupEntityModel.distinguishedName);
+      let response = await this.service.addManagerToGroup(this.group.samAccountName, this.lookupEntityModel.samAccountName);
+
       if(response.status === false) {
         this.toastService.error(`Failed to add manager to list ${response.message}`);
         return;
@@ -186,7 +187,7 @@ export default class ManagerListManagement extends Vue {
 
       this.showSpinner();
       
-      await this.service.removeManagerFromGroup(this.group.distinguishedName, entity.distinguishedName);
+      await this.service.removeManagerFromGroup(this.group.samAccountName, entity.samAccountName);
       this.entities = this.entities.filter(c => c.distinguishedName !== entity.distinguishedName);
       this.toastService.success("Successfully removed entity");
       this.$emit('entityRemoved', entity.samAccountName);

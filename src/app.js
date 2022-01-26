@@ -126,7 +126,7 @@ export default class App extends Vue {
       height: "auto"
     });
     
-    //debugger;
+    
     
     //let height = simple.el.scrollHeight;
     //$('#appSpinner').height(height);

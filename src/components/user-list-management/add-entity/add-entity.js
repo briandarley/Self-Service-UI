@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({
   name: "add-entity",
@@ -66,8 +66,8 @@ export default class AddEntity extends Vue {
       
       
       let pagedResponse = await this.service.getMyManagedGroupMembers({
-        groupDn: this.group.distinguishedName, 
-        userDn: entity.distinguishedName});
+        groupSamAccountName: this.group.samAccountName, 
+        samAccountName: entity.samAccountName});
       
       if(pagedResponse.totalRecords !== 0) {
         this.toastService.error("Entity already a member of group");

@@ -221,8 +221,7 @@
                       <a href="#" @click.prevent="removeMember(item)">Remove</a>
                     </div>
                   </div>
-                  <!-- <div v-if="item.objectClass == 'contact'">{{item}}</div> -->
-                  <!-- <div class="group-description">{{item.description}}</div> -->
+                  
                 </div>
               </div>
             </div>

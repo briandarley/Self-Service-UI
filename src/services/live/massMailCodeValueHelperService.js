@@ -35,14 +35,7 @@ function MassMailCodeValueHelperService() {
     getParentCodeValues(codes,orderedCodeList){
         orderedCodeList = JSON.stringify(JSON.stringify(orderedCodeList));
         
-        // let parentSelectedCodes = await this.getCodeValueChildParentRelationsMatched(codes)
-        // .filter((item) => item.parent || item.code === "TEST")
-        // .filter((v, i, a) => a.indexOf(v) === i)
-        // .map(c=> c.parent || c);
-        
-        //let reduced = this.getCodeValueChildParentRelations(parentSelectedCodes);
-        //debugger;
-        //reduce duplicates
+     
 
         let reduced = this.getCodeValueChildParentRelations(orderedCodeList);
         let parentCodes = this.getCodeValueChildParentRelationsMatched(codes,reduced);

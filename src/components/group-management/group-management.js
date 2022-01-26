@@ -91,11 +91,11 @@ export default class GroupManagement extends Vue {
     this.spinnerService.show();
 
     try {
-      
+
       this.groupMemberCriteria.groupSamAccountName = entity.samAccountName;
-      
-      let pagedResponse = await this.service.getMyManagedGroupMembers(this.groupMemberCriteria);
             
+      let pagedResponse = await this.service.getMyManagedGroupMembers(this.groupMemberCriteria);
+      
       entity.detail = pagedResponse;
       
       entity.detail.entities.sort((a, b) => {

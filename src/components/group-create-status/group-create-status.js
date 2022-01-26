@@ -149,9 +149,7 @@ export default class GroupCreateStatus extends Vue {
       this.toastService.success("Successfully created");
 
       this.$refs.groupCreated.show();
-      // if (model.type == "PROGRESS") {
-        
-      // }
+      
     }
   }
   async onConfirmgroupCreatedClick() {

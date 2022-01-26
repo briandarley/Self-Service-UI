@@ -489,6 +489,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         );
 
         return response.data;
+        
       } catch (e) {
         if (e.message.includes("404")) {
           return {
@@ -662,24 +663,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    // async getOffice365Mailbox(userId) {
-    //   try {
-    //     const handler = await httpHandlerService.get();
-
-    //     let response = await handler.get(
-    //       `/WinTools/exchange-tools/ad-tools/office365-mailboxes/${userId}`
-    //     );
-
-    //     return response.data;
-    //   } catch (e) {
-    //     if (e.message.includes("404")) {
-    //       return {
-    //         status: false,
-    //       };
-    //     }
-    //     throw e;
-    //   }
-    // },
+   
 
     async setForwardingAddress(userId, forwardingAddress) {
       try {
@@ -701,7 +685,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
       }
     },
     async getAuthorizedServiceAccounts() {
-      //
+     
       try {
         const handler = await httpHandlerService.get(10000);
 
@@ -754,7 +738,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
     async getAdGroupMembers(criteria) {
       try {
         const handler = await httpHandlerService.get();
-
+        
         let queryParams = commonExtensions.convertToQueryParams(criteria);
         let dnFriendly = encodeURIComponent(criteria.distinguishedName);
 
@@ -781,7 +765,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
     async getAdGroupManagers(groupDn) {
       try {
         const handler = await httpHandlerService.get();
-
+        
         let dnFriendly = encodeURIComponent(groupDn);
 
         let response = await handler.get(
@@ -810,7 +794,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         const handler = await httpHandlerService.get();
 
         let response = await handler.post(
-          `/WinTools/exchange-tools/ad-tools/ad-groups/${groupDn}/members`,
+          `/WinTools/exchange-tools/ad-tools/ad-groups/${encodeURIComponent(groupDn)}/members`,
           '"' + memberDn + '"'
         );
 
@@ -831,7 +815,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         const handler = await httpHandlerService.get();
 
         let response = await handler.delete(
-          `/WinTools/exchange-tools/ad-tools/ad-groups/${groupDn}/members/${memberDn}`
+          `/WinTools/exchange-tools/ad-tools/ad-groups/${encodeURIComponent(groupDn)}/members/${memberDn}`
         );
 
         return response.data;
@@ -851,7 +835,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         const handler = await httpHandlerService.get();
         
         let response = await handler.post(
-          `/WinTools/exchange-tools/ad-tools/ad-groups/${groupDn}/managers`,
+          `/WinTools/exchange-tools/ad-tools/ad-groups/${encodeURIComponent(groupDn)}/managers`,
           `"${managerDn}"`
         );
 
@@ -872,7 +856,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         const handler = await httpHandlerService.get();
 
         let response = await handler.delete(
-          `/WinTools/exchange-tools/ad-tools/ad-groups/${groupDn}/managers/${managerDn}`
+          `/WinTools/exchange-tools/ad-tools/ad-groups/${encodeURIComponent(groupDn)}/managers/${managerDn}`
         );
 
         return response.data;
@@ -944,7 +928,7 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         const handler = await httpHandlerService.get();
         //Note CORS errors like 'No headers found will occur if the max file size is exceeded, setting up the server to except larger files will resolve this
         let response = await handler.post(
-          `/WinTools/exchange-tools/ad-tools/ad-groups/${groupDn}/members/file`,
+          `/WinTools/exchange-tools/ad-tools/ad-groups/${encodeURIComponent(groupDn)}/members/file`,
           data,
           {
              headers: {

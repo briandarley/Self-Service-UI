@@ -141,10 +141,7 @@
               <div>
                 <a href="#" @click.prevent="sort('objectClass')">Type</a>
               </div>
-              <!-- 
-                <div>Members</div>
-                <div>Editable</div> 
-            -->
+              
               <div class="control">Action</div>
             </div>
             <div class="results">

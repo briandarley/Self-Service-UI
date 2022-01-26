@@ -9,6 +9,7 @@ import { Component } from "vue-property-decorator";
     "toastService",
     "spinnerService",
     "ExchangeToolsService",
+    "AdGroupService",
     "UserService",
     "ValidationService",
   ],
@@ -33,7 +34,7 @@ export default class GroupManagers extends BaseValidateMixin {
   groupManagers = [];
   pagedResponse = [];
   criteria = {
-    distinguishedName: "",
+    samAccountName: "",
   };
 
   modelSearch = {
@@ -62,11 +63,11 @@ export default class GroupManagers extends BaseValidateMixin {
     //window.console.log(this.groupDetail);
     // this.groupName = this.$route.query.name;
     // this.ouName = this.$route.query.ouName;
-    // this.criteria.distinguishedName = this.$route.query.distinguishedName;
+    
     // this.groupDetail = await this.getGroupDetail();
     // this.groupName = this.groupDetail.samAccountName;
 
-    if (this.criteria.distinguishedName) {
+    if (this.criteria.samAccountName) {
       await this.search();
     }
 
@@ -85,14 +86,14 @@ export default class GroupManagers extends BaseValidateMixin {
     if (this.$route.query.criteria) {
       this.criteria = JSON.parse(this.$route.query.criteria);
     }
-    this.criteria.distinguishedName = this.$route.query.distinguishedName;
+    this.criteria.samAccountName = this.$route.query.samAccountName;
   }
 
   async clear() {
     this.criteria = {
       recursiveSearch: false,
       filterText: "",
-      distinguishedName: this.$route.query.distinguishedName,
+      samAccountName: this.$route.query.samAccountName,
       pageSize: 50,
       index: 0,
     };
@@ -100,8 +101,8 @@ export default class GroupManagers extends BaseValidateMixin {
   }
 
   async getGroupDetails() {
-    let groupDetailResponse = await this.ExchangeToolsService.getAdGroups({
-      distinguishedName: this.criteria.distinguishedName,
+    let groupDetailResponse = await this.AdGroupService.getAdGroups({
+      samAccountName: this.criteria.samAccountName,
     });
     return groupDetailResponse.entities[0];
   }
@@ -113,8 +114,8 @@ export default class GroupManagers extends BaseValidateMixin {
       criteria.filterText = "";
 
       this.authorizedServiceAccounts = await this.ExchangeToolsService.getAuthorizedServiceAccounts();
-      this.groupManagers = await this.ExchangeToolsService.getAdGroupManagers(
-        this.criteria.distinguishedName
+      this.groupManagers = await this.AdGroupService.getAdGroupManagers(
+        this.criteria.samAccountName
       );
     } catch (e) {
       window.console.log(e);
@@ -168,7 +169,7 @@ export default class GroupManagers extends BaseValidateMixin {
       return false;
     }
 
-    if (!this.currentUser || !this.currentUser.distinguishedName) {
+    if (!this.currentUser || !this.currentUser.samAccountName) {
       return false;
     }
 
@@ -208,7 +209,7 @@ export default class GroupManagers extends BaseValidateMixin {
 
   goToGroupSearch() {
     let criteria = JSON.parse(this.$route.query.criteria);
-    delete criteria.distinguishedName;
+    delete criteria.samAccountName;
 
     this.$router.push({
       name: "ad-groups",
@@ -223,7 +224,7 @@ export default class GroupManagers extends BaseValidateMixin {
       name: "ad-group-members",
 
       query: {
-        distinguishedName: this.$route.query.distinguishedName,
+        samAccountName: this.$route.query.samAccountName,
         criteria: JSON.stringify(this.criteria),
       },
     });
@@ -264,7 +265,7 @@ export default class GroupManagers extends BaseValidateMixin {
   }
 
   async doDeleteGroupWork(criteria) {
-    await this.ExchangeToolsService.deleteAdGroup(criteria);
+    await this.AdGroupService.deleteAdGroup(criteria);
   }
 
   async verifyDeleteGroup() {
@@ -277,7 +278,7 @@ export default class GroupManagers extends BaseValidateMixin {
         this.$refs.confirmRemoveMailbox.show();
       } else {
         await this.doDeleteGroupWork({
-          distinguishedName: this.groupDetail.distinguishedName,
+          samAccountName: this.groupDetail.samAccountName,
         });
         this.toastService.success("Successfully deleted group");
         this.$refs.confirmRemoveMailbox.hide();
@@ -295,7 +296,7 @@ export default class GroupManagers extends BaseValidateMixin {
     this.spinnerService.show();
     try {
       await this.doDeleteGroupWork({
-        distinguishedName: this.groupDetail.distinguishedName,
+        samAccountName: this.groupDetail.samAccountName,
         deleteMailbox: true,
       });
       this.toastService.success(
@@ -313,7 +314,7 @@ export default class GroupManagers extends BaseValidateMixin {
     this.spinnerService.show();
     try {
       await this.doDeleteGroupWork({
-        distinguishedName: this.groupDetail.distinguishedName,
+        samAccountName: this.groupDetail.samAccountName,
       });
       this.toastService.success("Successfully deleted group");
       this.$refs.confirmRemoveMailbox.hide();
@@ -328,9 +329,9 @@ export default class GroupManagers extends BaseValidateMixin {
   async addToManagerList() {
     this.spinnerService.show();
     try {
-      let response = await this.ExchangeToolsService.addAdGroupManager(
-        this.groupDetail.distinguishedName,
-        this.adUser.distinguishedName
+      let response = await this.AdGroupService.addAdGroupManager(
+        this.groupDetail.samAccountName,
+        this.adUser.samAccountName
       );
       if (response.status !== false) {
         this.toastService.success(
@@ -356,9 +357,9 @@ export default class GroupManagers extends BaseValidateMixin {
   async removeMember(entity) {
     this.spinnerService.show();
     try {
-      await this.ExchangeToolsService.removeAdGroupManager(
-        this.groupDetail.distinguishedName,
-        entity.distinguishedName
+      await this.AdGroupService.removeAdGroupManager(
+        this.groupDetail.samAccountName,
+        entity.samAccountName
       );
       await this.loadGroupDetails();
       await this.search();

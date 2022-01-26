@@ -6,13 +6,11 @@ function CommonExtensions() {
             let params = Object.keys(criteria)
                 .filter(c => {
 
-                    if(criteria[c] != null && criteria[c] !== "")
-                    {
-                        if(Array.isArray(criteria[c]) &&  criteria[c].length > 0){
+                    if (criteria[c] != null && criteria[c] !== "") {
+                        if (Array.isArray(criteria[c]) && criteria[c].length > 0) {
                             return true;
                         }
-                        else if(!Array.isArray(criteria[c]))
-                        {
+                        else if (!Array.isArray(criteria[c])) {
                             return true;
                         }
                         return false;
@@ -21,10 +19,9 @@ function CommonExtensions() {
 
                 })
                 .map(c => {
-                    if(Array.isArray(criteria[c]))
-                    {
+                    if (Array.isArray(criteria[c])) {
                         let query = '';
-                        for(let i = 0; i < criteria[c].length; i++){
+                        for (let i = 0; i < criteria[c].length; i++) {
                             query += `${c}=${criteria[c][i]}&`
                         }
                         query = query.replace(/&$/, '');
@@ -124,8 +121,9 @@ function CommonExtensions() {
                     if (value instanceof Date) {
                         return !isNaN(value.getTime());
                     }
-                    default:
-                        return false;
+                    break;
+                default:
+                    return false;
             }
         },
         toDateFromLdapTime(value) {
@@ -136,8 +134,8 @@ function CommonExtensions() {
             result.setDate(result.getDate() + days);
             return result;
         },
-        isValidEmailAddress(value){
-            return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(value)
+        isValidEmailAddress(value) {
+            return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
         }
 
     }

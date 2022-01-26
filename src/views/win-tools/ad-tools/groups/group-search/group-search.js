@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component({
   name: "group-search",
@@ -8,6 +8,7 @@ import { Component, Watch } from "vue-property-decorator";
     "moment",
     "toastService",
     "spinnerService",
+    "AdGroupService",
     "ExchangeToolsService",
     "UserService",
   ],
@@ -185,43 +186,35 @@ export default class GroupSearch extends Vue {
   }
 
   async manageMembers(entity) {
-    //let ouName
+    
 
     this.$router.push({
       name: "ad-group-members",
       query: {
-        distinguishedName: entity.distinguishedName,
+        samAccountName: entity.samAccountName,
         criteria: JSON.stringify(this.criteria),
-      },
-      // params: {
-      //   name: result.name,
-      //   ouName: result.ouName
-      // }
+      }
+      
     });
   }
 
   async manageManagers(entity) {
-    //let ouName
+    
 
     this.$router.push({
       name: "ad-group-managers",
       query: {
-        distinguishedName: entity.distinguishedName,
+        samAccountName: entity.samAccountName,
         criteria: JSON.stringify(this.criteria),
-      },
-      // params: {
-      //   name: result.name,
-      //   ouName: result.ouName
-      // }
+      }
+      
     });
   }
 
   async createNewGroup() {
     this.$router.push({
-      name: "ad-group-create",
-      // params: {
-      //   id: response.id
-      // }
+      name: "ad-group-create"
+      
     });
   }
 
@@ -240,7 +233,7 @@ export default class GroupSearch extends Vue {
         this.criteria.prefixName = this.criteria.ouName + "_";
       }
 
-      let pagedResponse = await this.ExchangeToolsService.getAdGroups(
+      let pagedResponse = await this.AdGroupService.getAdGroups(
         this.criteria
       );
 
@@ -250,7 +243,7 @@ export default class GroupSearch extends Vue {
       }
 
       //pagedResponse = JSON.parse(JSON.stringify(pagedResponse));
-
+      
       this.pagedResponse = pagedResponse;
       
       
@@ -309,8 +302,7 @@ export default class GroupSearch extends Vue {
 
   editManagersEnabled(group) {
     if (!group) return false;
-    // "distinguishedName": "CN=ITS_SharedMailbox3 mailbox full access,OU=Shared Mailboxes,OU=Departmental Users,OU=ITS,OU=UNC,DC=adtest,DC=unc,DC=edu",
-    //"distinguishedName": "CN=ITS_TestResourceMailbox mailbox full access,OU=Resource Mailboxes,OU=Departmental Users,OU=ITS,OU=UNC,DC=adtest,DC=unc,DC=edu",
+    
     if (this.isRestrictedGroup(group)) {
       return false;
     }

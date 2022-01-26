@@ -3,7 +3,7 @@ import {
 } from "../../../../../components/mixins/index";
 
 import {
-  Component,Watch
+  Component
 } from "vue-property-decorator";
 
 @Component({
@@ -55,7 +55,7 @@ export default class MfaReset extends BaseValidateMixin {
   }
   get deviceName() {
     if(!this.msolUser.strongAuthentication.userDetails) return "NA";
-    if(!this.msolUser.strongAuthentication.phoneAppDetails.deviceName) return "NA";
+    if(!this.msolUser.strongAuthentication.phoneAppDetails || !this.msolUser.strongAuthentication.phoneAppDetails.deviceName) return "NA";
     return this.msolUser.strongAuthentication.phoneAppDetails.deviceName;
   }
 
