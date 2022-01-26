@@ -22,10 +22,13 @@
 
         <div class="container">
           <p>
-            It appears you don't have DUO registered. The resource you are
+            It appears you do not have DUO registered. The resource you are
             attempting to access requires DUO authentication.
           </p>
-
+          <p>
+            Information on setting up 2-Step Verification for Duo may be found <a href="https://help.unc.edu/sp?id=kb_article_view&sysparm_article=kb0010248&sys_kb_id=a16fb1fadb13a4106cf4710439961942%5C" target="_blank">here</a>
+          </p>
+          <p>Additional information concerning 2-Step Verification via Office 365 or Duo can be viewed <a href="https://help.unc.edu/sp?id=kb_article_view&sysparm_article=KB0010095&sys_kb_id=30bea562db0ee4106cf4710439961940">here</a> </p>
           <p>
             You may call (919) 962-HELP or Toll-Free from US
             and Puerto Rico: (866) 962-4457, for personal assistance with your

@@ -111,6 +111,7 @@ export default class GroupManagers extends BaseValidateMixin {
     this.spinnerService.show();
     try {
       let criteria = JSON.parse(JSON.stringify(this.criteria));
+      
       criteria.filterText = "";
 
       this.authorizedServiceAccounts = await this.ExchangeToolsService.getAuthorizedServiceAccounts();
