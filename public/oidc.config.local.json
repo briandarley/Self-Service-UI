@@ -3,15 +3,15 @@
   "serviceEndpoint.Test": "https://its-idmtst-web.adtest.unc.edu/Services/business.selfservice.api/v1/",
   "signalREndpoint.Test": "https://its-idmtst-web.adtest.unc.edu/services/business.selfservice.api/",
   
-  "serviceEndpoint.Production": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
-  "signalREndpoint.Production": "https://selfservice.unc.edu/services/business.selfservice.api/",
+  "serviceEndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/v1/",
+  "signalREndpoint": "https://selfservice.unc.edu/services/business.selfservice.api/",
 
   "serviceEndpoint.UAT": "https://its-idmuat-web.ad.unc.edu/services/business.selfservice.api/v1/",
   "signalREndpoint.UAT": "https://its-idmuat-web.ad.unc.edu/services/business.selfservice.api/",
 
   
-  "serviceEndpoint": "http://localhost:13003/v1/",
-  "signalREndpoint": "http://localhost:13003/",
+  "serviceEndpoint.Local": "http://localhost:13003/v1/",
+  "signalREndpoint.Local": "http://localhost:13003/",
 
   
   "ckeditorPlugins": "/ckeditor/plugins",
@@ -40,7 +40,7 @@
     "automaticSilentRenew": false,
     "revokeAccessTokenOnSignout": true
   },
-  "security": {
+  "security.Test": {
     "authority": "https://its-idmtst-web.adtest.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",
@@ -51,7 +51,7 @@
     "automaticSilentRenew": true,
     "revokeAccessTokenOnSignout": true
   },
-  "security.Production": {
+  "security": {
     "authority": "https://selfservice.unc.edu/identityserver",
     "client_id": "self-service-client",
     "redirect_uri": "http://localhost:8080/call-back.html",

@@ -65,6 +65,10 @@ export default class EmailSignup extends BaseValidateMixin {
     }
     this.spinnerService.show();
     try {
+      if(!this.userId || this.userId === "null"){
+        this.toastService.error("Unable to confirm user Id, please contact the Help Desk");
+        return;
+      }
       await this.ProvisionsService.submitNewProvisionRequest(this.userId, this.model);
       this.toastService.success("Successfully submitted email provision request.");
       
