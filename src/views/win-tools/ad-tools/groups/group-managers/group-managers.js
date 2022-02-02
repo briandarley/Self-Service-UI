@@ -51,6 +51,18 @@ export default class GroupManagers extends BaseValidateMixin {
     if (this.groupDetail.managedBy && this.groupDetail.managedBy.length == 0) {
       return true;
     }
+
+    if (this.groupDetail.distinguishedName.indexOf("OU=Shared Mailboxes") > -1) {
+      return true;
+    }
+    if (this.groupDetail.distinguishedName.indexOf("OU=Resource Mailboxes") > -1) {
+      return true;
+    }
+    if (this.groupDetail.distinguishedName.indexOf("OU=Distribution Groups") > -1
+    && this.groupDetail.distinguishedName.indexOf("OU=SOM") > -1) {
+      return true;
+    }
+
     return false;
   }
 
@@ -165,6 +177,18 @@ export default class GroupManagers extends BaseValidateMixin {
     }
 
     if (this.isAdmin) return true;
+
+
+    if (this.groupDetail.distinguishedName.indexOf("OU=Shared Mailboxes") > -1) {
+      return true;
+    }
+    if (this.groupDetail.distinguishedName.indexOf("OU=Resource Mailboxes") > -1) {
+      return true;
+    }
+    if (this.groupDetail.distinguishedName.indexOf("OU=Distribution Groups") > -1
+    && this.groupDetail.distinguishedName.indexOf("OU=SOM") > -1) {
+      return true;
+    }
 
     if (!this.groupDetail.managedBy.length) {
       return false;

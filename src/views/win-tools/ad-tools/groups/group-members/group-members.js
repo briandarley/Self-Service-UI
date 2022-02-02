@@ -116,6 +116,13 @@ export default class GroupMembers extends BaseValidateMixin {
     if (this.groupDetail.distinguishedName.indexOf("OU=Shared Mailboxes") > -1) {
       return true;
     }
+    if (this.groupDetail.distinguishedName.indexOf("OU=Resource Mailboxes") > -1) {
+      return true;
+    }
+    if (this.groupDetail.distinguishedName.indexOf("OU=Distribution Groups") > -1
+    && this.groupDetail.distinguishedName.indexOf("OU=SOM") > -1) {
+      return true;
+    }
     
     //return false;
     let matchedAccounts = this.groupDetail.managedBy.filter(
