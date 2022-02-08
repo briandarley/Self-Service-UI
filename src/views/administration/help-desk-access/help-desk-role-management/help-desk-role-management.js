@@ -20,6 +20,7 @@ export default class HelpDeskRoleManagement extends Vue {
     try {
       this.spinnerService.show();
       let data = await this.AdministrationService.getGroupMembers(this.roleToManage);
+      debugger;
       this.entities = data.entities;
 
     } catch (e) {
