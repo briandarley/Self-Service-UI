@@ -8,7 +8,7 @@ import {
 
 @Component({
   name: 'mfa-reset',
-  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'DashboardService','ScreenReaderAnnouncerService']
+  dependencies: ['$', 'moment', 'toastService', 'spinnerService', 'DashboardService','ScreenReaderAnnouncerService','DuoAuthService']
 
 })
 
@@ -21,9 +21,11 @@ export default class MfaReset extends BaseValidateMixin {
 
     this.resetEnabled = await this.hasAuthMethod();
 
+    if (this.DuoAuthService.getDuoState() === "STATE_AUTH_PASSED") {
+      this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Duo authentication successful, MFA reset for Office 365");
+    }
     
-    //Todo, use msgraph to retrieve the current mfa defice, if not available disable the option to reset mfa
-    this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Dashboard - MFA Reset");
+    
 
   
   }
