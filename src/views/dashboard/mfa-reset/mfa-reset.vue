@@ -32,7 +32,7 @@
                 <button
                   type="button"
                   class="btn btn-danger icon-button"
-                  aria-label="Left Align"
+                  aria-label="Reset MFA for Office 365"
                   v-bind:class="{ disabled: !resetEnabled }"
                       :disabled="!resetEnabled"
                   @click="resetMfa()"

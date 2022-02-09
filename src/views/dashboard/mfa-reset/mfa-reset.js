@@ -24,8 +24,7 @@ export default class MfaReset extends BaseValidateMixin {
     if (this.DuoAuthService.getDuoState() === "STATE_AUTH_PASSED") {
       this.ScreenReaderAnnouncerService.sendPageLoadAnnouncement("Duo authentication successful, MFA reset for Office 365");
     }
-    
-    
+       
 
   
   }
@@ -59,7 +58,7 @@ export default class MfaReset extends BaseValidateMixin {
       await this.DashboardService.toggleMfa();
       this.resetEnabled = false;
 
-      this.toastService.success("Successfully reset MFA for selected account");
+      this.toastService.success("Successfully reset MFA for account");
     } catch (e) {
       this.toastService.error("Failed to reset MFA status for user");
     } finally {
