@@ -45,7 +45,8 @@ $("#myModal").hide();
 
   
     setTimeout(() => {
-      $(`#${this.id} .modal-dialog button`).focus();  
+      //$(`#${this.id} .modal-dialog button`).focus();  
+      $(`#${this.id} .modal-dialog .modal-title`).focus();
     }, 1050);
   
     element.on('hide.bs.modal', ()=> {

@@ -31,7 +31,7 @@
           >
             <div class="form-group">
               <div class="label-info">
-                <label for="searchField">Search</label>
+                <label for="onyen" aria-label="Enter ONYEN to lookup person">Search</label>
                 <span class="required">Required</span>
               </div>
 
@@ -49,10 +49,10 @@
               />
             </div>
             <div class="submit text-right">
-              <button class="btn btn-primary mr-1" @click="search()">
+              <button class="btn btn-primary mr-1" @click="search()" aria-label="Search current MFA status for user">
                 Search
               </button>
-              <button class="btn btn-secondary" @click="clear()">Clear</button>
+              <button class="btn btn-secondary" @click="clear()" aria-label="Clear form">Clear</button>
             </div>
           </form>
 
@@ -69,60 +69,61 @@
                 </div>
               </div>
             </div>
-            <div class="mfa-user-status-results" v-if="resetEnabled && msolUser.displayName">
-              <div class="bg-primary text-white row-header">
-                <div class="col">Display Name</div>
-                <div class="col">E-Mail</div>
-                <div class="col">Status</div>
+            <div class="mfa-user-status-results" v-if="resetEnabled && msolUser.displayName" role="table">
+              <div class="bg-primary text-white row-header" roles="row">
+                <div class="col" role="columnheader">Display Name</div>
+                <div class="col" role="columnheader">E-Mail</div>
+                <div class="col" role="columnheader">Status</div>
               </div>
               <div class="result-grid">
                 <div class="row">
-                  <div class="col"><span class="px-3">{{ msolUser.displayName }}</span></div>
-                  <div class="col">{{ msolUser.userPrincipalName }}</div>
+                  <div class="col" role="cell"><span class="px-3">{{ msolUser.displayName }}</span></div>
+                  <div class="col" role="cell">{{ msolUser.userPrincipalName }}</div>
                   <div
                     class="col text-success"
                     v-if="
                       msolUser.strongAuthentication.strongAuthenticationMethods
                     "
+                    role="cell"
                   >
                     <span class="px-3">Active</span>
                   </div>
-                  <div class="col text-danger" v-else>MFA Inactive</div>
+                  <div class="col text-danger" role="cell" v-else>MFA Inactive</div>
                 </div>
-                <div class="mfa-method" v-if="showContactMethod">
+                <div class="mfa-method" v-if="showContactMethod" role="row">
                   <div>
-                    <label>Phone Number</label>
-                    <span>{{ phoneNumber }}</span>
+                    <label role="columnheader">Phone Number</label>
+                    <span role="cell">{{ phoneNumber }}</span>
                   </div>
                   <div>
-                    <label>Alt Number</label>
-                    <span>{{ altPhoneNumber }}</span>
+                    <label role="columnheader">Alt Number</label>
+                    <span role="cell">{{ altPhoneNumber }}</span>
                   </div>
                   <div>
-                    <label>Device Name</label>
-                    <span>{{ deviceName }}</span>
+                    <label role="columnheader">Device Name</label>
+                    <span role="cell">{{ deviceName }}</span>
                   </div>
                   <div>
-                    <label>MFA Method</label>
-                    <span>{{ primaryMfaMethod }}</span>
+                    <label role="columnheader">MFA Method</label>
+                    <span role="cell">{{ primaryMfaMethod }}</span>
                   </div>
                 </div>
                 <div class="mfa-method" v-else>
                   <div>
-                    <label>Phone Number</label>
-                    <span>Not Available</span>
+                    <label role="columnheader">Phone Number</label>
+                    <span role="cell">Not Available</span>
                   </div>
                   <div>
-                    <label>Alt Number</label>
-                    <span>Not Available</span>
+                    <label role="columnheader">Alt Number</label>
+                    <span role="cell">Not Available</span>
                   </div>
                   <div>
-                    <label>Device Name</label>
-                    <span>Not Available</span>
+                    <label role="columnheader">Device Name</label>
+                    <span role="cell">Not Available</span>
                   </div>
                   <div>
-                    <label>MFA Method</label>
-                    <span>Not Available</span>
+                    <label role="columnheader">MFA Method</label>
+                    <span role="cell">Not Available</span>
                   </div>
                 </div>
               </div>
@@ -131,7 +132,7 @@
                 <button
                   type="button"
                   class="btn btn-danger icon-button"
-                  aria-label="Left Align"
+                  aria-label="Reset MFA for Office 365"
                   @click="onVerifyUser()"
                 >
                   <span>
@@ -149,7 +150,7 @@
     </div>
 
     <confirm-dialog id="dlgDuoAuth" ref="dlgDuoAuth" width="800">
-      <div slot="modal-title" class="text-white">MFA Reset</div>
+      <div slot="modal-title" class="modal-title text-white" v-tabindex>MFA Reset</div>
       <div slot="modal-body">
         <div class="lookup-result">
           <div class="container" v-if="!duoPreAuth.response.devices">
@@ -244,6 +245,7 @@
                       class="btn btn-secondary"
                       @click="clearDuoRequest()"
                       v-if="!duoRequest.callingApi"
+                      aria-label="Clear request"
                     >
                       Reset
                     </button>
@@ -310,6 +312,7 @@
                       shadow-sm
                     "
                     @click="duoPush()"
+                    aria-label="Send DUO push notification to user"
                   >
                     <div class="material-icons">system_update</div>
                     <div>Duo Push</div>
@@ -328,6 +331,7 @@
                       shadow-sm
                     "
                     @click="phoneCall()"
+                    aria-label="Send DUO call notification to user"
                   >
                     <div class="material-icons">phone</div>
                     <div>Call Me</div>
@@ -371,6 +375,7 @@
                       placeholder="Passcode"
                       v-select-all
                       v-model="passcode"
+                      aria-label="Enter a passcodde from Duo Mobile"
                     />
                     <button
                       type="button"
@@ -378,6 +383,7 @@
                       v-bind:class="{ disabled: !passcode }"
                       :disabled="!passcode"
                       @click="onEnterPassCode()"
+                      aria-label="Verify passcode for user"
                     >
                       Submit
                     </button>
@@ -385,6 +391,7 @@
                       type="button"
                       class="btn btn-secondary"
                       @click="onSendSmsRequest()"
+                      aria-label="Send DUO SMS Pass Code request"
                     >
                       Text User
                     </button>
@@ -396,6 +403,7 @@
                         type="button"
                         class="btn btn-warning icon-button"
                         @click="bypassIdentification()"
+                        aria-label="Bypass DUO notification, not recommended"
                       >
                         <span>
                           <i class="fas fa-skull-crossbones px-1"></i>
@@ -416,7 +424,7 @@
           class="btn btn-danger icon-button"
           v-bind:class="{ disabled: !success }"
           :disabled="!success"
-          aria-label="Left Align"
+          aria-label="Process request to reset MFA for Office 365"
           @click="onResetMfa()"
         >
           <span>

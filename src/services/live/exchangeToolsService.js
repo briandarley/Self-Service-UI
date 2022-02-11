@@ -495,12 +495,12 @@ function ExchangeToolsService(httpHandlerService, commonExtensions) {
         throw e;
       }
     },
-    async updateContact(distinguishedName, model) {
+    async updateContact(samAccountName, model) {
       try {
         const handler = await httpHandlerService.get();
 
         let response = await handler.put(
-          `/WinTools/exchange-tools/ad-tools/contacts/${distinguishedName}`,
+          `/WinTools/exchange-tools/ad-tools/contacts/${samAccountName}`,
           model
         );
 

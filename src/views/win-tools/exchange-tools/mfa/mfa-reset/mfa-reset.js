@@ -87,7 +87,7 @@ export default class MfaReset extends BaseValidateMixin {
       }
       else {
         this.width++;
-
+        this.ScreenReaderAnnouncerService.sendAnnouncement(`Waiting for DUO acknowledgement`);
       }
       this.onAnimateProgressBar();
 
@@ -125,6 +125,8 @@ export default class MfaReset extends BaseValidateMixin {
         this.selectedDevice = this.duoPreAuth.response.devices[0].display_name;
       }
 
+      this.ScreenReaderAnnouncerService.sendAnnouncement(`MFA data for ${this.msolUser.displayName} has loaded`);
+
 
     } catch (e) {
       window.console.log(e);
@@ -153,7 +155,7 @@ export default class MfaReset extends BaseValidateMixin {
   async onSendSmsRequest() {
     try {
       this.clearDuoRequest();
-
+      
       let request = await this.DuoAuthService.authUser(this.filter, {
         uid: this.filter,
         factor: 1,
@@ -213,6 +215,9 @@ export default class MfaReset extends BaseValidateMixin {
   }
   async duoPush() {
     try {
+
+      this.ScreenReaderAnnouncerService.sendAnnouncement(`Initiating DUO push request for verification`);
+
       this.callingDuoSerice("push");
 
       let request = await this.DuoAuthService.authUser(this.filter, {
@@ -346,6 +351,8 @@ export default class MfaReset extends BaseValidateMixin {
   onVerifyUser() {
     this.success = false;
     this.$refs.dlgDuoAuth.show();
+
+    
 
   }
 

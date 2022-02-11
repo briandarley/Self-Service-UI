@@ -1,6 +1,6 @@
 <template>
   <div class="modal-container" >
-    <div :id="id" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalTitle modalContent">
+    <div :id="id" class="modal fade" role="dialog" aria-hidden="true" aria-labelledby="modalTitle modalContent" tabindex="-1">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header bg-primary">

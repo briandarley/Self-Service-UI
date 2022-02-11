@@ -2,10 +2,12 @@
   
   <transition name="fade">
     <div class="side-menu" :class="{'hide-side-menu': !showSideMenu}" role="menu">
-      <div class="side-menu-pager">
+      <div class="side-menu-pager" role="navigation">
         <ul :class="{'reduce-text': tree.length > 2}">
           <li v-for="item in tree" v-bind:key="item.id"  >
-            <router-link :to="{path: '/'+ item.route}" role="navigation" tabindex="2">{{item.title}}</router-link>
+            <router-link :to="{path: '/'+ item.route}" role="navigation" 
+            v-tabindex
+            >{{item.title}}</router-link>
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
           </li>
         </ul>
@@ -20,7 +22,7 @@
           :class="{'active': isMenuActive(item), 'has-children': hasChildren(item)}"
           :title="item.title"
           role="menuitem"
-          tabindex="0"
+          v-tabindex
           @keyup.enter="navigateTo($event.target)"
         >
           <router-link

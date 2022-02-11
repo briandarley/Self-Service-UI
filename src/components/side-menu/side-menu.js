@@ -23,6 +23,8 @@ export default class SideMenu extends Vue {
       .click();
     //$element.find("nav").click()
   }
+  
+
 
   async _getRouteInfo() {
     if (!this.currentRoute.meta.routeDefinition) return null;

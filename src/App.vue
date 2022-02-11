@@ -17,7 +17,7 @@
         >
           <i class="fa fa-bars"></i>
           <span class="ml-2">
-            Toggle Menu
+            Minimize Menu
           </span>
         </button>
         </div>

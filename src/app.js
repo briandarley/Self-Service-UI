@@ -12,7 +12,7 @@ import "simplebar/dist/simplebar.css";
 
 @Component({
   name: "App",
-  dependencies: ['$', 'toastService', 'spinnerService', 'EventBus'],
+  dependencies: ['$', 'toastService', 'spinnerService', 'EventBus','ScreenReaderAnnouncerService'],
   components: {
     SideMenu,
     TopHeader,
@@ -155,6 +155,15 @@ export default class App extends Vue {
   sideBarCollapsed = false;
   toggleMenu() {
     this.sideBarCollapsed = !this.sideBarCollapsed;
+    let message = "Main menu is now ";
+    if(this.sideBarCollapsed) {
+      message += "  minimized";
+    }
+    else {
+      message += " expanded";
+    }
+    this.ScreenReaderAnnouncerService.sendAnnouncement(message);
+    
   }
 
 

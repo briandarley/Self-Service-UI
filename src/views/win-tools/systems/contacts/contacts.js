@@ -45,7 +45,7 @@ export default class Contacts extends Vue {
 
       this.entity.proxyAddresses.push(this.newProxyAddress);
       
-      let response = await this.ExchangeToolsService.updateContact(this.entity.distinguishedName, { proxyAddresses: this.entity.proxyAddresses});
+      let response = await this.ExchangeToolsService.updateContact(this.entity.samAccountName, { proxyAddresses: this.entity.proxyAddresses});
       
       if(response.status !== false) {
         this.toastService.success("Successfully added smtpAddress")
@@ -69,7 +69,7 @@ export default class Contacts extends Vue {
       proxyAddresses.splice(index, 1);
      
 
-      let response = await this.ExchangeToolsService.updateContact(this.entity.distinguishedName, { proxyAddresses: proxyAddresses});
+      let response = await this.ExchangeToolsService.updateContact(this.entity.samAccountName, { proxyAddresses: proxyAddresses});
 
       if(response.status !== false) {
         this.toastService.success("Successfully removed smtpAddress")
