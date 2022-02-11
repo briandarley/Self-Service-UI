@@ -16,7 +16,10 @@
           @click="toggleMenu()"
         >
           <i class="fa fa-bars"></i>
-          <span class="ml-2">
+          <span class="ml-2" v-if="sideBarCollapsed">
+            Maximize Menu
+          </span>
+          <span class="ml-2" v-else>
             Minimize Menu
           </span>
         </button>
