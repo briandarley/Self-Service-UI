@@ -51,7 +51,7 @@ export default class MfaReset extends BaseValidateMixin {
   }
 
   async resetMfa() {
-    
+    if(!this.resetEnabled) return;
     this.spinnerService.show();
     try {
       

@@ -124,8 +124,17 @@ export default class MfaReset extends BaseValidateMixin {
         this.currentDevice = this.duoPreAuth.response.devices[0];
         this.selectedDevice = this.duoPreAuth.response.devices[0].display_name;
       }
-
-      this.ScreenReaderAnnouncerService.sendAnnouncement(`MFA data for ${this.msolUser.displayName} has loaded`);
+      
+      if (!this.duoPreAuth.response.devices){
+        this.ScreenReaderAnnouncerService.sendAnnouncement(`There is no registered MFA device listed for this account`);
+      }
+      else if (!this.resetEnabled){
+        this.ScreenReaderAnnouncerService.sendAnnouncement(`MFA has not been enabled for any of the users registered devices`);
+      }
+      else {
+        this.ScreenReaderAnnouncerService.sendAnnouncement(`MFA data for ${this.msolUser.displayName} has loaded`);
+      }
+      
 
 
     } catch (e) {
