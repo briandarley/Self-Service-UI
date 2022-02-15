@@ -1,3 +1,17 @@
+caption {
+    display:none;
+}
+.secondary-info thead th, .secondary-info tbody td {
+    text-align: center;
+}
+
+.thead-primary {
+    background-color: $carolina-blue;
+    color: $white;
+}
+.bold {
+    font-weight: bolder;
+}
 .icon-button {
     display: flex;
     margin: auto;

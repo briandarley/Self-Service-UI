@@ -14,7 +14,7 @@
       </div>
 
       <!-- <ul class="nav"> -->
-      <transition-group class="nav" name="fly_in" tag="ul">
+      <transition-group class="nav" name="fly_in" tag="ul" role="navigation">
         <li
           class="nav-item"
           v-for="item  in routes"
@@ -30,7 +30,7 @@
             :to="{path: '/'+ item.route}"
             v-if="!item.redirect"
             class="nav-link"
-            role="navigation"
+            
             
             
           >

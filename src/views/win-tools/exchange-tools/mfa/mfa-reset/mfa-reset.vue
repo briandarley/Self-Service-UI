@@ -31,7 +31,9 @@
           >
             <div class="form-group">
               <div class="label-info">
-                <label for="onyen" aria-label="Enter ONYEN to lookup person">Search</label>
+                <label for="onyen" aria-label="Enter ONYEN to lookup person"
+                  >Search</label
+                >
                 <span class="required">Required</span>
               </div>
 
@@ -49,99 +51,90 @@
               />
             </div>
             <div class="submit text-right">
-              <button class="btn btn-primary mr-1" @click="search()" aria-label="Search current MFA status for user">
+              <button
+                class="btn btn-primary mr-1"
+                @click="search()"
+                aria-label="Search current MFA status for user"
+              >
                 Search
               </button>
-              <button class="btn btn-secondary" @click="clear()" aria-label="Clear form">Clear</button>
+              <button
+                class="btn btn-secondary"
+                @click="clear()"
+                aria-label="Clear form"
+              >
+                Clear
+              </button>
             </div>
           </form>
 
           <transition name="fade">
-            <div class="container mt-4" v-if="resetEnabled===false">
-              <div class="alert alert-warning">
-                <div class="info">
-                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                </div>
-                <div>
-                  <p>
-                   The account appears to have no MFA registered devices, MFA reset has been disabled.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="mfa-user-status-results" v-if="resetEnabled && msolUser.displayName" role="table">
-              <div class="bg-primary text-white row-header" roles="row">
-                <div class="col" role="columnheader">Display Name</div>
-                <div class="col" role="columnheader">E-Mail</div>
-                <div class="col" role="columnheader">Status</div>
-              </div>
-              <div class="result-grid">
-                <div class="row">
-                  <div class="col" role="cell"><span class="px-3">{{ msolUser.displayName }}</span></div>
-                  <div class="col" role="cell">{{ msolUser.userPrincipalName }}</div>
-                  <div
-                    class="col text-success"
-                    v-if="
-                      msolUser.strongAuthentication.strongAuthenticationMethods
-                    "
-                    role="cell"
-                  >
-                    <span class="px-3">Active</span>
-                  </div>
-                  <div class="col text-danger" role="cell" v-else>MFA Inactive</div>
-                </div>
-                <div class="mfa-method" v-if="showContactMethod" role="row">
-                  <div>
-                    <label role="columnheader">Phone Number</label>
-                    <span role="cell">{{ phoneNumber }}</span>
+            <div class="mt-4">
+              <div class="container mt-4" v-if="resetEnabled === false">
+                <div class="alert alert-warning">
+                  <div class="info">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                   </div>
                   <div>
-                    <label role="columnheader">Alt Number</label>
-                    <span role="cell">{{ altPhoneNumber }}</span>
-                  </div>
-                  <div>
-                    <label role="columnheader">Device Name</label>
-                    <span role="cell">{{ deviceName }}</span>
-                  </div>
-                  <div>
-                    <label role="columnheader">MFA Method</label>
-                    <span role="cell">{{ primaryMfaMethod }}</span>
-                  </div>
-                </div>
-                <div class="mfa-method" v-else>
-                  <div>
-                    <label role="columnheader">Phone Number</label>
-                    <span role="cell">Not Available</span>
-                  </div>
-                  <div>
-                    <label role="columnheader">Alt Number</label>
-                    <span role="cell">Not Available</span>
-                  </div>
-                  <div>
-                    <label role="columnheader">Device Name</label>
-                    <span role="cell">Not Available</span>
-                  </div>
-                  <div>
-                    <label role="columnheader">MFA Method</label>
-                    <span role="cell">Not Available</span>
+                    <p>
+                      The account appears to have no MFA registered devices, MFA
+                      reset has been disabled.
+                    </p>
                   </div>
                 </div>
               </div>
-              <div class="result-grid"></div>
-              <div class="submit text-center mt-4">
-                <button
-                  type="button"
-                  class="btn btn-danger icon-button"
-                  aria-label="Reset MFA for Office 365"
-                  @click="onVerifyUser()"
+              <div v-if="resetEnabled && msolUser.displayName">
+                <table class="table table-condensed">
+                  <caption>Account information</caption>
+                  <thead class="thead-primary">
+                    <tr class="">
+                      <th scope="col">Display Name</th>
+                      <th scope="col">E-Mail</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ msolUser.displayName }}</td>
+                      <td>{{ msolUser.userPrincipalName }}</td>
+                      <td class="text-danger bold">
+                        <span
+                          class="text-success"
+                          v-if="
+                            msolUser.strongAuthentication
+                              .strongAuthenticationMethods
+                          "
+                          >Active</span
+                        >
+                        <span v-else>MFA Inactive</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                  class="table table-condensed secondary-info table-bordered"
                 >
-                  <span>
-                    <i data-v-1da7b41f class="material-icons" aria-hidden="true"
-                      >undo</i
-                    >
-                  </span>
-                  <span>Reset</span>
-                </button>
+                  <caption>Device information</caption>
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Phone Number</th>
+                      <th scope="col">Alt Number</th>
+                      <th scope="col">Device Name</th>
+                      <th scope="col">MFA Method</th>
+                    </tr>
+                  </thead>
+                  <tbody class="">
+                    <tr v-if="showContactMethod">
+                      <td>{{ phoneNumber }}</td>
+                      <td>{{ altPhoneNumber }}</td>
+                      <td>{{ deviceName }}</td>
+                      <td>{{ primaryMfaMethod }}</td>
+                    </tr>
+                    <tr v-else>
+                      <td v-for="index in 4" :key="index">Not Available</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </transition>
@@ -150,7 +143,9 @@
     </div>
 
     <confirm-dialog id="dlgDuoAuth" ref="dlgDuoAuth" width="800">
-      <div slot="modal-title" class="modal-title text-white" v-tabindex>MFA Reset</div>
+      <div slot="modal-title" class="modal-title text-white" v-tabindex>
+        MFA Reset
+      </div>
       <div slot="modal-body">
         <div class="lookup-result">
           <div class="container" v-if="!duoPreAuth.response.devices">
@@ -375,7 +370,7 @@
                       placeholder="Passcode"
                       v-select-all
                       v-model="passcode"
-                      aria-label="Enter a passcodde from Duo Mobile"
+                      aria-label="Enter a passcode from Duo Mobile"
                     />
                     <button
                       type="button"
