@@ -89,9 +89,12 @@ function UserService(
         console.log(e);
       }
     },
-    async login() {
+    async login(duo) {
+      
       this._initializeManager();
+      
       let uid = "";
+      
       if (location.hostname !== "localhost") {
         const handler = axios.create();
 
@@ -115,9 +118,10 @@ function UserService(
           console.log(e);
         }
       }
-
+      
       this._mgr.clearStaleState(null).then(() => {
-        const args = {extraQueryParams:{uid:uid}};
+
+        const args = {state: "duo",extraQueryParams:{uid:uid,duo:duo}};
         this._mgr.signinRedirect(args);
       });
     },
@@ -137,9 +141,15 @@ function UserService(
 
     async get() {
       try {
+        
         await this._initializeManager();
 
         this._user = await this._mgr.getUser();
+        //Refresh tokens are not allowed with implicit flow
+        //https://docs.identityserver.io/en/release/topics/grant_types.html
+
+
+
 
         if (!this._user) {
           localStorageService.set(
@@ -173,7 +183,7 @@ function UserService(
           await this.logout();
           this.login();
         }
-
+      
         return this._user;
       } catch (e) {
         console.log(e);

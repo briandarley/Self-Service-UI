@@ -40,6 +40,7 @@ export default class GroupCreateStatus extends Vue {
     this.toastService.set(this);
 
     let user = await this.UserService.get();
+    if(!user) return;
     this.userId = user.profile.sub;
 
     this.SignalRService.setupConnection();

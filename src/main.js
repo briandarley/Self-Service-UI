@@ -191,6 +191,9 @@ new Vue({
 
     await this.getRoutes();
     this.currentRoute = router.currentRoute.name;
+
+   
+
   },
   mounted() {
 

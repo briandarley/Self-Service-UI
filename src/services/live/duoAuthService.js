@@ -1,7 +1,7 @@
 import injector from 'vue-inject';
 import DuoWebSDK from 'duo_web_sdk';
 //https://github.com/duosecurity/duo_web_sdk/blob/master/examples/react/src/App.js
-function DuoAuthService(httpHandlerService) {
+function DuoAuthService(httpHandlerService,UserService) {
     return {
         _duoState: "STATE_AUTH_PENDING",
         getDuoState() {
@@ -43,9 +43,14 @@ function DuoAuthService(httpHandlerService) {
         },
         async _submitPostAction(callback, form) {
             try {
-
+//TODO 
+//take form.sig_response.value, send to identiy server 
                 let response = await this._verifyResponse(form.sig_response.value);
 
+                // const args = {state: "duo",extraQueryParams:{duo:response}};
+                // await UserService._mgr.signinRedirect(args);
+
+                
                 if (response) {
                     this._setDuoState("STATE_AUTH_PASSED")
                 }
@@ -53,7 +58,7 @@ function DuoAuthService(httpHandlerService) {
                     this._setDuoState("STATE_AUTH_FAILED")
                 }
 
-                callback();
+                callback(form.sig_response.value);
             } catch (error) {
                 throw error;
             }
@@ -110,4 +115,4 @@ function DuoAuthService(httpHandlerService) {
     }
 }
 
-injector.service('DuoAuthService', ["httpHandlerService"], DuoAuthService);
+injector.service('DuoAuthService', ["httpHandlerService","UserService"], DuoAuthService);

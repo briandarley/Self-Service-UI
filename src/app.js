@@ -12,7 +12,7 @@ import "simplebar/dist/simplebar.css";
 
 @Component({
   name: "App",
-  dependencies: ['$', 'toastService', 'spinnerService', 'EventBus','ScreenReaderAnnouncerService'],
+  dependencies: ['$', 'toastService', 'spinnerService', 'EventBus', 'ScreenReaderAnnouncerService', 'localStorageService'],
   components: {
     SideMenu,
     TopHeader,
@@ -27,10 +27,27 @@ export default class App extends Vue {
   @Watch("$route", {
     immediate: false
   })
-  onRouteChanged() {
-   
+  onRouteChanged(to) {
+
     this.spinnerService.hide();
     this.$refs.mainSpinner.hideSpinner();
+
+    
+    var routeRequest = this.localStorageService.get("route-request");
+
+    if (to && to.name === "home" && routeRequest) {
+      
+      
+      this.localStorageService.remove("route-request");
+
+      this.$router.push({
+        name: routeRequest
+      })
+
+
+
+    }
+
     //$("body").focus();
     //$(".skip-main").focus();
 
@@ -40,7 +57,7 @@ export default class App extends Vue {
     // }, 1000);
   }
 
-  printWelcome(){
+  printWelcome() {
     window.console.log(`
     
     
@@ -78,23 +95,32 @@ export default class App extends Vue {
     this.printWelcome();
     let $ = this.$;
     this.$refs.mainSpinner.showSpinner();
-   
+
     new SimpleBar($(".app-section")[0], {
       autoHide: false,
       height: "auto"
     });
 
     setTimeout(() => {
-    
-    this.EventBus.attachEvent("attach-scroll", this.attachScrollBar);  
+
+      this.EventBus.attachEvent("attach-scroll", this.attachScrollBar);
     }, 50);
-    
-    
+
+
 
     this.EventBus.attachEvent('announcement-page-load', this.onAnnouncePageLoad);
     this.EventBus.attachEvent('announcement-send-announcement', this.onAnnounceMessage);
     this.EventBus.attachEvent('announcement-clear', this.onAnnounceClear);
-    
+
+
+
+
+
+
+
+
+
+
   }
 
   onAnnouncePageLoad(page) {
@@ -117,31 +143,31 @@ export default class App extends Vue {
     let announcer = window.document.getElementById("announcer");
     announcer.innerHTML = "";
   }
- 
+
   attachScrollBar() {
     let $ = this.$;
-    
+
     new SimpleBar($(".app-section")[0], {
       autoHide: false,
       height: "auto"
     });
-    
-    
-    
+
+
+
     //let height = simple.el.scrollHeight;
     //$('#appSpinner').height(height);
     //$('#appSpinner').height("100vh");
-    
-    $('#appSpinner').height($('#appSpinner').parent().height() );
-    
+
+    $('#appSpinner').height($('#appSpinner').parent().height());
+
 
     //execute every 100ms, then stop after 1sec
     let handle = setInterval(() => {
       //simple.recalculate();
       //height = simple.el.scrollHeight;
       //$('#appSpinner').height("100vh");
-      $('#appSpinner').height($('#appSpinner').parent().height() );
-      
+      $('#appSpinner').height($('#appSpinner').parent().height());
+
     }, 100)
 
     setTimeout(() => {
@@ -156,14 +182,14 @@ export default class App extends Vue {
   toggleMenu() {
     this.sideBarCollapsed = !this.sideBarCollapsed;
     let message = "Main menu is now ";
-    if(this.sideBarCollapsed) {
+    if (this.sideBarCollapsed) {
       message += "  minimized";
     }
     else {
       message += " expanded";
     }
     this.ScreenReaderAnnouncerService.sendAnnouncement(message);
-    
+
   }
 
 
