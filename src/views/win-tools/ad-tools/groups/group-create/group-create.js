@@ -236,7 +236,7 @@ export default class GroupCreate extends BaseValidateMixin {
 
       if(!this.model.groupTypeCode.length > 3) {
         let length = this.model.groupTypeCode.length - 3;
-        if((this.model.name.length - length) > 12 ) {
+        if((this.model.name.length + length) > 12 ) {
           let maxLengthAllowed = this.model.name.length - length;
           this.toastService.error(`Form invalid, name must not exceed ${maxLengthAllowed} characters`);
           return;
