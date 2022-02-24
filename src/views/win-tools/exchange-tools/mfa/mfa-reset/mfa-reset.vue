@@ -135,7 +135,25 @@
                     </tr>
                   </tbody>
                 </table>
+                <div class="submit text-center mt-4">
+                <button
+                  type="button"
+                  class="btn btn-danger icon-button"
+                  aria-label="Reset MFA for Office 365"
+                  :disabled="!msolUser.strongAuthentication
+                              .strongAuthenticationMethods"
+                  @click="onVerifyUser()"
+                >
+                  <span>
+                    <i data-v-1da7b41f class="material-icons" aria-hidden="true"
+                      >undo</i
+                    >
+                  </span>
+                  <span>Reset</span>
+                </button>
               </div>
+              </div>
+              
             </div>
           </transition>
         </div>
