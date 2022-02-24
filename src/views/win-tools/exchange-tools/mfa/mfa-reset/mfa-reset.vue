@@ -69,7 +69,7 @@
           </form>
 
           <transition name="fade">
-            <div class="mt-4">
+            <div class="mt-4" v-if="resetEnabled === false || resetEnabled === true">
               <div class="container mt-4" v-if="resetEnabled === false">
                 <div class="alert alert-warning">
                   <div class="info">
