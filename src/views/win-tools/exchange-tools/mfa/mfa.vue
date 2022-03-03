@@ -28,14 +28,7 @@
               
             </router-link>
           </div>
-          <div class="action">
-            <router-link :to="{name: 'mfa-manage'}" class="btn btn-outline-primary">
-              
-                <i class="material-icons" aria-hidden="true">supervised_user_circle</i>
-                <span>MFA Management</span>
-              
-            </router-link>
-          </div>
+          
         </div>
         </div>
       </div>
