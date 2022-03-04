@@ -22,9 +22,7 @@
           <tabbed-item slot="tab_3">
             <help-desk-role-management role-to-manage="ITS_WSP-Tools-MFA-Reset"></help-desk-role-management>
           </tabbed-item>
-          <tabbed-item slot="tab_4">
-            <help-desk-role-management role-to-manage="ITS_WSP-Tools-MFA-Manage"></help-desk-role-management>
-          </tabbed-item>
+          
         </tabbed-control>
         
       </div>

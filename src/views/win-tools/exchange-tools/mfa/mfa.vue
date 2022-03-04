@@ -9,27 +9,30 @@
       </div>
       <div class="card-body">
         <div class="border border-primary">
-        <div class="alert alert-info">
-          <div class="info">
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
+          <div class="alert alert-info">
+            <div class="info">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
+            </div>
+            <div class="py-3">
+              <p>Select MFA Reset to cycle MFA for a single account.</p>
+              <p>
+                Select MFA Management to apply an MFA exemption for selected
+                account.
+              </p>
+            </div>
           </div>
-          <div class="py-3">
-            <p>Select MFA Reset to cycle MFA for a single account.</p>
-            <p>Select MFA Management to apply an MFA exemption for selected account.</p>
-          </div>
-        </div>
 
-        <div class="user-actions my-5">
-          <div class="action">
-            <router-link :to="{name: 'mfa-reset'}" class="btn btn-outline-primary">
-              
+          <div class="user-actions my-5">
+            <div class="action">
+              <router-link
+                :to="{ name: 'mfa-reset' }"
+                class="btn btn-outline-primary"
+              >
                 <i class="material-icons" aria-hidden="true">undo</i>
                 <span>MFA Reset</span>
-              
-            </router-link>
+              </router-link>
+            </div>
           </div>
-          
-        </div>
         </div>
       </div>
     </div>
