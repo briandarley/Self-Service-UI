@@ -99,22 +99,23 @@ export default class MfaReset extends BaseValidateMixin {
   }
 
   async search() {
+    
     let errors = this.validate(this.$refs.searchForm);
     if (errors.length) {
       this.toastService.error("Validation Failed");
       return false;
     }
-
-
-
     this.spinnerService.show();
-    try {
 
+
+    
+    try {
+      
       this.resetEnabled = await this.hasAuthMethod();
       
       this.msolUser = await this.ExchangeToolsService.getMsolUser(this.filter);
       this.duoPreAuth = await this.DuoAuthService.preAuthUser(this.filter);
-
+      
       this.currentDevice = null;
       this.selectedDevice = null;
       this.clearDuoRequest();
@@ -135,12 +136,13 @@ export default class MfaReset extends BaseValidateMixin {
         this.ScreenReaderAnnouncerService.sendAnnouncement(`MFA data for ${this.msolUser.displayName} has loaded`);
       }
       
-
+      
 
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to retrieve MFA status for user");
     } finally {
+      
       this.spinnerService.hide();
     }
   }
@@ -292,9 +294,7 @@ export default class MfaReset extends BaseValidateMixin {
     } catch (e) {
       window.console.log(e);
       this.toastService.error("Failed to reset MFA status for user");
-    } finally {
-      this.spinnerService.hide();
-    }
+    } 
   }
 
   callingDuoSerice(mode) {
