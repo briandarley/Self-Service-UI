@@ -35,8 +35,9 @@ export default class SideMenu extends Vue {
     let criteria = {
       excludeWildCards: true,
       excludeUnOrdered: true,
+      enabled: true
     };
-
+    
     let menuResult = await this.RouteSourcesService.getRouteMenu(criteria);
     if (routeDetail.order === -1) {
       routeDetail = menuResult.find((c) => c.id === routeDetail.parentRouteId);

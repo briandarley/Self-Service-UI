@@ -4,12 +4,13 @@ import injector from "vue-inject";
 /* eslint-disable */
 
 //http://its-idmtst-app.adtest.unc.edu/Services/business.selfservice.api/v1/Routes
-function RouteSourcesService(httpHandlerService) {
+function RouteSourcesService(httpHandlerService,commonExtensions) {
   return {
     routeMenu: null,
     _routeData: null,
     async getAllMenuItems(criteria) {
       try {
+        
         if(criteria && (criteria.cached !== undefined || criteria.cached === false))
         {
           this._routeData = null;
@@ -19,8 +20,8 @@ function RouteSourcesService(httpHandlerService) {
           let handler = await httpHandlerService.get(10000);
           
           if(handler == null) return;
-
-          let routeData = await handler.get('routes');
+          let queryParams = commonExtensions.convertToQueryParams(criteria);
+          let routeData = await handler.get(`routes?${queryParams}`);
 
           this._routeData = routeData.data.map(c => {
             c.parentRouteId = c.parentMenuRouteId;
@@ -105,6 +106,12 @@ function RouteSourcesService(httpHandlerService) {
     },
     async getRouteMenu(criteria) {
       //Called from Main
+      
+      if(!criteria){
+        criteria = {
+          enabled: true
+        }
+      }
       let data = await this.getAllMenuItems(criteria);
       return data;
 
@@ -182,4 +189,4 @@ function RouteSourcesService(httpHandlerService) {
   };
 }
 
-injector.service("RouteSourcesService", ['httpHandlerService'], RouteSourcesService);
+injector.service("RouteSourcesService", ['httpHandlerService','CommonExtensions'], RouteSourcesService);
