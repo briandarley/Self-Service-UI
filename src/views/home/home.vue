@@ -36,6 +36,12 @@
               </router-link>
             </div>
             <div class="action" role="menuitem">
+              <router-link :to="{name: 'dashboard-mfa-reset'}" class="btn btn-outline-primary">
+                <i class="material-icons" aria-hidden="true">undo</i>
+                <span>MFA Reset</span>
+              </router-link>
+            </div>
+            <div class="action" role="menuitem">
               <router-link :to="{name: 'listserv-subscriptions'}" class="btn btn-outline-primary">
                   <i class="material-icons" aria-hidden="true">subscriptions</i>
                   <span>Listserv Subscriptions</span>
