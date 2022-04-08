@@ -19,7 +19,7 @@
               </p>
             </div>
           </div>
-
+{{entity}}
           <div class="form-group">
             <div class="label-info">
               <label for="userId">Search (Name, PID, Email)</label>
